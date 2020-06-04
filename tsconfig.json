@@ -19,6 +19,9 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "types": [
+      "jest"
+    ],
     "lib": [
       "es2018",
       "dom"
