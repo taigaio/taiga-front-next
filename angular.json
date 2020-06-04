@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "taiga-front-next"
+    }
+  },
+  "defaultProject": "taiga-front-next",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
