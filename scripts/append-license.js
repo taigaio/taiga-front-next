@@ -76,8 +76,6 @@ for (let filepath of files) {
   fs.readFile(filepath, function (err, data) {
     if (err) throw err;
 
-    console.log(filepath, data.includes(SEARCH_TEXT));
-
     if (!data.includes(SEARCH_TEXT)) {
       const filename = path.basename(filepath);
       let license = getLicense();
