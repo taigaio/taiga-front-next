@@ -6,8 +6,8 @@
  * the root directory of this source tree.
  */
 
-module.exports = {
-  testMatch: [
-    '**/src/**/?(*.)+(spec|test).[jt]s?(x)'
-  ]
+const cypressTypeScriptPreprocessor = require("./cy-ts-preprocessor");
+
+module.exports = on => {
+  on("file:preprocessor", cypressTypeScriptPreprocessor);
 };

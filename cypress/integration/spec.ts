@@ -6,8 +6,8 @@
  * the root directory of this source tree.
  */
 
-module.exports = {
-  testMatch: [
-    '**/src/**/?(*.)+(spec|test).[jt]s?(x)'
-  ]
-};
+it('loads examples', () => {
+  const baseUrl = 'http://localhost:4200';
+  cy.visit(baseUrl);
+  cy.contains('taiga');
+});
