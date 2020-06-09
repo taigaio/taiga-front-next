@@ -8,9 +8,10 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "npm run lint:ts && npm run lint:css",
+    "lint": "npm run lint:ts && npm run lint:css && lint:html",
     "lint:ts": "ng lint",
     "lint:css": "npx stylelint '**/*.css'",
+    "lint:html": "npx htmlhint '**/*.html'",
     "e2e": "ng e2e",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
