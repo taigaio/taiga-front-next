@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "npm run lint:ts && npm run lint:css",
+    "lint:ts": "ng lint",
+    "lint:css": "npx stylelint '**/*.css'",
     "e2e": "ng e2e",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -67,6 +69,9 @@
     "postcss-preset-env": "^6.7.0",
     "protractor": "~7.0.0",
     "rxjs-marbles": "^6.0.0",
+    "stylelint": "^13.6.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.1.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
