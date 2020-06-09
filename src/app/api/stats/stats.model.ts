@@ -1,4 +1,4 @@
-interface Stats {
+export interface Stats {
   projects: {
     total: number;
   };

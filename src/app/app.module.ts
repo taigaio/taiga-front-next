@@ -17,6 +17,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { extModules } from './build-specifics';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './config.service';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ConfigService } from './config.service';
     extModules,
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
+    ReactiveComponentModule,
   ],
   bootstrap: [AppComponent],
   providers: [
