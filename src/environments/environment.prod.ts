@@ -6,6 +6,11 @@
  * the root directory of this source tree.
  */
 
-export const environment = {
-  production: true
+import { Environment } from './enviorement.model';
+
+import config from '../configs/config.json';
+
+export const environment: Environment = {
+  production: true,
+  configLocal: config,
 };
