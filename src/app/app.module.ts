@@ -7,7 +7,7 @@
  */
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,12 +15,15 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { extModules } from './build-specifics';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfigService } from './config.service';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {
@@ -36,7 +39,18 @@ import { extModules } from './build-specifics';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [],
   bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [ConfigService],
+      useFactory: (appConfigService: ConfigService) => {
+        return () => {
+          return appConfigService.fetch();
+        };
+      }
+    }
+  ],
 })
-export class AppModule { }
+export class AppModule {}
