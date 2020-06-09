@@ -1,5 +1,16 @@
 # This is a working in progress of the next Taiga Front.
 
+## Installation
+
+```bash
+npm i
+
+## Copy config file
+cp src/configs/config.example.json src/configs/config.json
+```
+
+# Old docs
+
 # Taiga Front #
 
 [![Managed with Taiga.io](https://img.shields.io/badge/managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/taiga/ "Managed with Taiga.io")
