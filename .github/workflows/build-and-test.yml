@@ -11,7 +11,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-test:
+  build-and-unit-test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -24,7 +24,7 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-  
+
     - name: Cache node modules
       uses: actions/cache@v1
       with:
@@ -32,20 +32,79 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-            
+
     - name: Node ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-          
+
     - name: npm install
       run: npm ci
-        
+
     - name: pass linters
       run: npm run lint
-        
+
     - name: pass unit test
       run: npm run test
-        
+
     - name: build
       run: npm run build
+
+  build-and-e2e-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Set node version
+    strategy:
+      matrix:
+        node-version: [12.17.0]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: npm install
+      run: npm ci
+
+    - name: build
+      run: npm run build
+
+    - name: Cypress run
+      uses: cypress-io/github-action@v1
+      with:
+        start: npm start
+        wait-on: 'http://localhost:4200'
+        wait-on-timeout: 200
+
+    # after the test run completes
+    # store videos and any screenshots
+    # NOTE: screenshots will be generated only if E2E test failed
+    # thus we store screenshots only on failures
+    # Alternative: create and commit an empty cypress/screenshots folder
+    # to always have something to upload
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
+
+    # Test run video was always captured, so this action uses "always()" condition
+    - uses: actions/upload-artifact@v1
+      if: always()
+      with:
+        name: cypress-videos
+        path: cypress/videos
