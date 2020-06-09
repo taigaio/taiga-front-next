@@ -17,21 +17,50 @@ module.exports = {
         ignoreAtRules: ['define-mixin', 'mixin'],
       },
     ],
-    'color-named': 'never',
-    'declaration-no-important': true,
+    // Using quotes
     'font-family-name-quotes': 'always-unless-keyword',
     'function-url-quotes': 'always',
+    'selector-attribute-quotes': 'always',
+    'string-quotes': 'double',
+    // Disallow vendor prefixes
+    'at-rule-no-vendor-prefix': true,
+    'media-feature-name-no-vendor-prefix': true,
+    'property-no-vendor-prefix': true,
+    'selector-no-vendor-prefix': true,
+    'value-no-vendor-prefix': true,
+    // Specificity
     'max-nesting-depth': 3,
+    'selector-max-compound-selectors': 3,
+    'selector-max-specificity': "0,2,1",
+    // Miscellanea
+    'color-named': 'never',
+    'color-no-hex': true,
+    'declaration-no-important': true,
+    'declaration-property-unit-whitelist': {
+      "font-size": ["rem"],
+      "/^animation/": ["s"]
+    },
     'number-leading-zero': 'never',
     'order/properties-alphabetical-order': true,
-    'selector-attribute-quotes': 'always',
-    'selector-max-compound-selectors': 3,
+    'selector-no-qualifying-type': true,
+    'selector-max-type': 0,
+    
     'selector-type-no-unknown': [
       true,
       {
         ignore: ['custom-elements'],
       },
     ],
-    'string-quotes': 'double',
+    // Notation
+    'font-weight-notation': 'numeric',
+    // URLs
+    'function-url-no-scheme-relative': true,
+    // Max line length
+    'max-line-length': [
+      40,
+      {
+        ignore: ['comments'],
+      }
+    ],
   },
 };
