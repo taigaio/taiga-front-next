@@ -8,18 +8,20 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@/environments/environment';
 import { Config } from './models/config.model';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigService {
   public config!: Config;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient, private readonly environmentService: EnvironmentService) {}
 
   public fetch() {
+    const environment = this.environmentService.getEnvironment();
+
     return new Promise((resolve, reject) => {
       if (environment.configLocal) {
         this.config = environment.configLocal;
