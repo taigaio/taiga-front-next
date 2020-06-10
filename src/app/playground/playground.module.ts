@@ -20,7 +20,7 @@ import { ReactiveComponentModule } from '@ngrx/component';
     CommonModule,
     PlaygroundRoutingModule,
     StatsModule,
-    ReactiveComponentModule
+    ReactiveComponentModule,
   ],
 })
 export class PlaygroundModule { }

@@ -14,7 +14,7 @@ import { Stats } from '@/app/api/stats/stats.model';
 @Component({
   selector: 'app-playground',
   templateUrl: './playground.component.html',
-  styleUrls: ['./playground.component.css']
+  styleUrls: ['./playground.component.css'],
 })
 export class PlaygroundComponent implements OnInit {
   stats$!: Observable<Stats>;
