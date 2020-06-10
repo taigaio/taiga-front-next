@@ -6,10 +6,10 @@
  * the root directory of this source tree.
  */
 
+import { Config } from '@/app/models/config.model';
+
 export interface Environment {
   production: boolean;
-  configLocal?: {
-    api: string,
-  };
+  configLocal?: Config;
   configRemote?: string;
 }

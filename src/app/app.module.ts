@@ -51,8 +51,8 @@ import { ReactiveComponentModule } from '@ngrx/component';
         return () => {
           return appConfigService.fetch();
         };
-      }
-    }
+      },
+    },
   ],
 })
 export class AppModule {}

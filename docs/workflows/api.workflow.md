@@ -29,10 +29,6 @@ ng g service api/example/ExampleApi
 
 If we're going to have multiple services in this module we must create a `services` folder.
 
-```bash
-ng g service api/example/ExampleApi
-```
-
 We also have to create the interface models, in this example in `src/app/api/example/example.model.ts`
 
 Api service example
