@@ -5,20 +5,24 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
-
-import { TestBed } from '@angular/core/testing';
-
+import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
 import { StatsApiService } from './stats-api.service';
+import { ConfigService } from '@/app/config.service';
+import { ConfigServiceMock } from '@/app/config.service.mock';
 
 describe('StatsApiService', () => {
-  let service: StatsApiService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(StatsApiService);
+  let spectator: SpectatorHttp<StatsApiService>;
+  const createHttp = createHttpFactory({
+    service: StatsApiService,
+    providers: [
+      { provide: ConfigService, useValue: ConfigServiceMock },
+    ],
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  beforeEach(() => spectator = createHttp());
+
+  it('get discover data', () => {
+    spectator.service.getDiscover().subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/stats/discover`, HttpMethod.GET);
   });
 });

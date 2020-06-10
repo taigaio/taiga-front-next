@@ -50,8 +50,34 @@ export class ExampleApiService {
 
   constructor(private http: HttpClient, private config: ConfigService) { }
 
-  public getDiscover() {
+  public getData() {
     return this.http.get<Example>(`${this.config.apiUrl}/example`);
   }
 }
+```
+
+For testing we're using [spectator](https://github.com/ngneat/spectator). This is the test of the previous service example.
+
+```ts
+import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
+import { ExampleApiService } from './example-api.service';
+import { ConfigService } from '@/app/config.service';
+import { ConfigServiceMock } from '@/app/config.service.mock';
+
+describe('ExampleApiService', () => {
+  let spectator: SpectatorHttp<ExampleApiService>;
+  const createHttp = createHttpFactory({
+    service: ExampleApiService,
+    providers: [
+      { provide: ConfigService, useValue: ConfigServiceMock },
+    ],
+  });
+
+  beforeEach(() => spectator = createHttp());
+
+  it('get data', () => {
+    spectator.service.getData().subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/example`, HttpMethod.GET);
+  });
+});
 ```
