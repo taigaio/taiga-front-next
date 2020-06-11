@@ -12,9 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 import { Auth, LoginInput } from './auth.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthApiService {
 
   constructor(

@@ -10,6 +10,7 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 import { AuthApiService } from './auth-api.service';
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
+import { LoginInput } from './auth.model';
 
 describe('AuthApiService', () => {
   let spectator: SpectatorHttp<AuthApiService>;
@@ -21,13 +22,13 @@ describe('AuthApiService', () => {
   });
 
   beforeEach(() => spectator = createHttp());
-  
+
   it('login', () => {
-    const data = {
+    const data: LoginInput = {
       type: 'normal',
       password: '123123',
-      username: 'admin'
-    }
+      username: 'admin',
+    };
     spectator.service.login(data).subscribe();
     const call = spectator.expectOne(`${ConfigServiceMock.apiUrl}/auth`, HttpMethod.POST);
     expect(call.request.body).toEqual(data);

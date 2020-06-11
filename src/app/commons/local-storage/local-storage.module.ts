@@ -7,10 +7,11 @@
  */
 
 import { NgModule } from '@angular/core';
+import { LocalStorageService } from './local-storage.service';
 
 @NgModule({
+  providers: [LocalStorageService],
   declarations: [],
-  imports: [
-  ]
+  imports: [],
 })
 export class LocalStorageModule { }

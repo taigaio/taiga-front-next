@@ -8,14 +8,12 @@
 
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LocalStorageService {
 
   constructor() { }
 
-  public get<T>(key:string): T | undefined {
+  public get<T>(key: string): T | undefined {
     const item = localStorage.getItem(key);
     if (item) {
       try {
@@ -30,7 +28,7 @@ export class LocalStorageService {
   public set(key: string, newValue?: {}) {
     localStorage.setItem(
       key,
-      JSON.stringify(newValue),
+      JSON.stringify(newValue)
     );
   }
 

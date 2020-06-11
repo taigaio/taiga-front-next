@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 
 import { PlaygroundRoutingModule } from './playground-routing.module';
 import { PlaygroundComponent } from './playground.component';
-import { StatsModule } from '@/app/api/stats/stats.module';
+import { StatsApiModule } from '@/app/api/stats/stats.module';
 import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { ReactiveComponentModule } from '@ngrx/component';
   imports: [
     CommonModule,
     PlaygroundRoutingModule,
-    StatsModule,
+    StatsApiModule,
     ReactiveComponentModule,
   ],
 })

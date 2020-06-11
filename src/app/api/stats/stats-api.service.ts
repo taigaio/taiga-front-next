@@ -11,9 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 import { Stats } from './stats.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class StatsApiService {
 
   constructor(private http: HttpClient, private config: ConfigService) { }

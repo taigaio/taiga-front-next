@@ -8,11 +8,15 @@
 
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { StatsApiService } from './stats-api.service';
 
 @NgModule({
   declarations: [],
   imports: [
     HttpClientModule,
   ],
+  providers: [
+    StatsApiService,
+  ],
 })
-export class StatsModule { }
+export class StatsApiModule { }
