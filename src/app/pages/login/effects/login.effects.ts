@@ -12,8 +12,8 @@ import { catchError, map, exhaustMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import * as LoginActions from '../actions/login.actions';
-import { AuthApiService } from '../../api/auth/auth-api.service';
-import { LocalStorageService } from '../../commons/local-storage/local-storage.service';
+import { AuthApiService } from '@/app/api/auth/auth-api.service';
+import { LocalStorageService } from '@/app/commons/local-storage/local-storage.service';
 
 @Injectable()
 export class LoginEffects {
