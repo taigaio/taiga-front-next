@@ -7,8 +7,8 @@
  */
 
 import { createFeatureSelector } from '@ngrx/store';
-import * as fromLogin from '../reducers/login.reducer';
+import * as fromCurrentUser from '../reducers/current-user.reducer';
 
-export const selectLoginState = createFeatureSelector<fromLogin.LoginState>(
-  fromLogin.loginFeatureKey
+export const selectCurrentUserState = createFeatureSelector<fromCurrentUser.CurrentUserState>(
+  fromCurrentUser.currentUserFeatureKey
 );
