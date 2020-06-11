@@ -7,7 +7,7 @@
  */
 
 import { createAction, props } from '@ngrx/store';
-import { LoginInput } from '@/app/api/auth/auth.model';
+import { LoginInput, Auth } from '@/app/api/auth/auth.model';
 
 export const login = createAction(
   '[Login] Init login',
@@ -16,7 +16,7 @@ export const login = createAction(
 
 export const loginSuccess = createAction(
   '[Login] Login Success',
-  props<{ data: any }>()
+  props<{ data: Auth }>()
 );
 
 export const loginFailure = createAction(

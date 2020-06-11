@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 
 import * as LoginActions from '../actions/login.actions';
 import { AuthApiService } from '../../api/auth/auth-api.service';
+import { LocalStorageService } from '../../commons/local-storage/local-storage.service';
 
 @Injectable()
 export class LoginEffects {
@@ -26,11 +27,23 @@ export class LoginEffects {
           type: 'normal',
         }).pipe(
           map(data => LoginActions.loginSuccess({ data })),
-          catchError(({ error }) => of(LoginActions.loginFailure({ error }))))
+          catchError(({ error }) => of(LoginActions.loginFailure({ error })))
+        )
       )
     );
   });
 
-  constructor(private actions$: Actions, private readonly authApiService: AuthApiService) {}
+  loginSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(LoginActions.loginSuccess),
+      map((action) => {
+        this.localStorageService.set('token', action.data.auth_token);
+      })
+    );
+  }, { dispatch: false });
+
+  constructor(private actions$: Actions,
+              private readonly authApiService: AuthApiService,
+              private readonly localStorageService: LocalStorageService) {}
 
 }
