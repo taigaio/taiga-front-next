@@ -21,15 +21,15 @@ export class LoginEffects {
   login$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(LoginActions.login),
-      exhaustMap((action) =>
-        this.authApiService.login({
+      exhaustMap((action) => {
+        return this.authApiService.login({
           ...action.data,
           type: 'normal',
         }).pipe(
           map(data => LoginActions.loginSuccess({ data })),
           catchError(({ error }) => of(LoginActions.loginFailure({ error })))
-        )
-      )
+        );
+      })
     );
   });
 
