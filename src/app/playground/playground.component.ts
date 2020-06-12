@@ -23,7 +23,6 @@ export class PlaygroundComponent implements OnInit {
     this.stats$ = this.statsApiService.getDiscover();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
