@@ -128,8 +128,8 @@
             "production": {
               "devServerTarget": "taiga-front-next:serve:production",
               "fileReplacements": [{
-                  "replace": "src/configs/config.json",
-                  "with": "src/configs/config.cypress.json"
+                  "replace": "src/configs/config.cypress.json",
+                  "with": "src/configs/config.json"
                 }
               ]
             }
@@ -140,16 +140,16 @@
           "options": {
             "devServerTarget": "taiga-front-next:serve",
             "fileReplacements": [{
-              "replace": "src/configs/config.json",
-              "with": "src/configs/config.cypress.json"
+              "replace": "src/configs/config.cypress.json",
+              "with": "src/configs/config.json"
             }]
           },
           "configurations": {
             "production": {
               "devServerTarget": "taiga-front-next:serve:production",
               "fileReplacements": [{
-                "replace": "src/configs/config.json",
-                "with": "src/configs/config.cypress.json"
+                "replace": "src/configs/config.cypress.json",
+                "with": "src/configs/config.json"
               }]
             }
           }
