@@ -9,10 +9,15 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+import { CurrentUserApiService } from './current-user-api.service';
+
 @NgModule({
   declarations: [],
   imports: [
     HttpClientModule,
-  ]
+  ],
+  providers: [
+    CurrentUserApiService,
+  ],
 })
-export class UsersApiModule { }
+export class CurrentUseriApiModule { }

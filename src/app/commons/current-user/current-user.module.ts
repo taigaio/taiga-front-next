@@ -7,16 +7,17 @@
  */
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import * as fromCurrentUser from './reducers/current-user.reducer';
 import { EffectsModule } from '@ngrx/effects';
+
+import { CurrentUseriApiModule } from '@/app/api/current-user/current-user.module';
 import { CurrentUserEffects } from './effects/current-user.effects';
+import * as fromCurrentUser from './reducers/current-user.reducer';
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
+    CurrentUseriApiModule,
     StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.reducer),
     EffectsModule.forFeature([CurrentUserEffects]),
   ],

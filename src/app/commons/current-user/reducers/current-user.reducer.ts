@@ -47,5 +47,11 @@ export const reducer = createReducer(
       error: action.error,
       loading: false,
     };
+  }),
+  on(CurrentUserActions.loadCurrentUserAfterLoginSuccess, (state, action) => {
+    return {
+      ...state,
+      profile: action.data,
+    };
   })
 );
