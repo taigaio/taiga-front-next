@@ -88,8 +88,8 @@ jobs:
       with:
         command: npm run e2e
         # start: npm start
-        wait-on: 'http://localhost:4200'
-        wait-on-timeout: 200
+        # wait-on: 'http://localhost:4200'
+        # wait-on-timeout: 200
 
     # after the test run completes
     # store videos and any screenshots
