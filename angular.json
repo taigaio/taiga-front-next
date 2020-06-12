@@ -126,18 +126,31 @@
           },
           "configurations": {
             "production": {
-              "devServerTarget": "taiga-front-next:serve:production"
+              "devServerTarget": "taiga-front-next:serve:production",
+              "fileReplacements": [{
+                  "replace": "src/configs/config.json",
+                  "with": "src/configs/config.cypress.json"
+                }
+              ]
             }
           }
         },
         "cypress-run": {
           "builder": "@briebug/cypress-schematic:cypress",
           "options": {
-            "devServerTarget": "taiga-front-next:serve"
+            "devServerTarget": "taiga-front-next:serve",
+            "fileReplacements": [{
+              "replace": "src/configs/config.json",
+              "with": "src/configs/config.cypress.json"
+            }]
           },
           "configurations": {
             "production": {
-              "devServerTarget": "taiga-front-next:serve:production"
+              "devServerTarget": "taiga-front-next:serve:production",
+              "fileReplacements": [{
+                "replace": "src/configs/config.json",
+                "with": "src/configs/config.cypress.json"
+              }]
             }
           }
         },
