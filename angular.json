@@ -36,6 +36,13 @@
             "scripts": []
           },
           "configurations": {
+            "test": {
+              "fileReplacements": [{
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -76,6 +83,9 @@
             "browserTarget": "taiga-front-next:build"
           },
           "configurations": {
+            "test": {
+              "browserTarget": "taiga-front-next:build:test"
+            },
             "production": {
               "browserTarget": "taiga-front-next:build:production"
             }
@@ -120,44 +130,31 @@
         "e2e": {
           "builder": "@briebug/cypress-schematic:cypress",
           "options": {
-            "devServerTarget": "taiga-front-next:serve",
+            "devServerTarget": "taiga-front-next:serve:test",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "taiga-front-next:serve:production",
-              "fileReplacements": [{
-                  "replace": "src/configs/config.cypress.json",
-                  "with": "src/configs/config.json"
-                }
-              ]
+              "devServerTarget": "taiga-front-next:serve:production"
             }
           }
         },
         "cypress-run": {
           "builder": "@briebug/cypress-schematic:cypress",
           "options": {
-            "devServerTarget": "taiga-front-next:serve",
-            "fileReplacements": [{
-              "replace": "src/configs/config.cypress.json",
-              "with": "src/configs/config.json"
-            }]
+            "devServerTarget": "taiga-front-next:serve:test"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "taiga-front-next:serve:production",
-              "fileReplacements": [{
-                "replace": "src/configs/config.cypress.json",
-                "with": "src/configs/config.json"
-              }]
+              "devServerTarget": "taiga-front-next:serve:production"
             }
           }
         },
         "cypress-open": {
           "builder": "@briebug/cypress-schematic:cypress",
           "options": {
-            "devServerTarget": "taiga-front-next:serve",
+            "devServerTarget": "taiga-front-next:serve:test",
             "watch": true,
             "headless": false
           },
