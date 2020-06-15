@@ -13,6 +13,7 @@ import { StatsApiService } from '@/app/api/stats/stats-api.service';
 import { Stats } from '@/app/api/stats/stats.model';
 import { ResolverApiService } from '@/app/api/resolver/resolver-api.service';
 import { ProjectResolver } from '@/app/api/resolver/resolver.model';
+import { SearchApiService } from '../api/search/search-api.service';
 
 @Component({
   selector: 'app-playground',
@@ -25,10 +26,14 @@ export class PlaygroundComponent implements OnInit {
 
   constructor(
     private readonly statsApiService: StatsApiService,
-    private readonly resolverApiService: ResolverApiService
-  ) {
+    private readonly resolverApiService: ResolverApiService,
+    private readonly searchApiService: SearchApiService) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiga5');
+  }
+
+  querySearch() {
+    this.searchApiService.search('1', 'Ability').subscribe(console.log);
   }
 
   ngOnInit(): void {}

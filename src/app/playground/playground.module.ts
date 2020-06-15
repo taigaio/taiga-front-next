@@ -14,6 +14,7 @@ import { PlaygroundComponent } from './playground.component';
 import { StatsApiModule } from '@/app/api/stats/stats-api.module';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { ResolverApiModule } from '@/app/api/resolver/resolver-api.module';
+import { SearchApiModule } from '../api/search/search-api.module';
 
 @NgModule({
   declarations: [PlaygroundComponent],
@@ -23,6 +24,7 @@ import { ResolverApiModule } from '@/app/api/resolver/resolver-api.module';
     StatsApiModule,
     ResolverApiModule,
     ReactiveComponentModule,
+    SearchApiModule,
   ],
 })
 export class PlaygroundModule { }
