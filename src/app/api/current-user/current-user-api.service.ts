@@ -8,15 +8,16 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { ConfigService } from '@/app/config.service';
-import { Stats } from './stats.model';
+import { User } from '../users/users.model';
 
 @Injectable()
-export class StatsApiService {
+export class CurrentUserApiService {
 
   constructor(private http: HttpClient, private config: ConfigService) { }
 
-  public getDiscover() {
-    return this.http.get<Stats>(`${this.config.apiUrl}/stats/discover`);
+  public getCurrentUser() {
+    return this.http.get<User>(`${this.config.apiUrl}/me`);
   }
 }

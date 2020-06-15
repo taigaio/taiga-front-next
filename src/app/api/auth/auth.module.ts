@@ -8,17 +8,15 @@
 
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { StatsApiService } from './stats-api.service';
-import { AuthInterceptorModule } from '@/app/commons/auth-interceptor/auth-interceptor.module';
+import { AuthApiService } from './auth-api.service';
 
 @NgModule({
   declarations: [],
   imports: [
     HttpClientModule,
-    AuthInterceptorModule,
   ],
   providers: [
-    StatsApiService,
+    AuthApiService,
   ],
 })
-export class StatsApiModule { }
+export class AuthApiModule { }

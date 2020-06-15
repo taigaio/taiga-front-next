@@ -8,15 +8,19 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { ConfigService } from '@/app/config.service';
-import { Stats } from './stats.model';
+import { Auth, LoginInput } from './auth.model';
 
 @Injectable()
-export class StatsApiService {
+export class AuthApiService {
 
-  constructor(private http: HttpClient, private config: ConfigService) { }
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService
+  ) { }
 
-  public getDiscover() {
-    return this.http.get<Stats>(`${this.config.apiUrl}/stats/discover`);
+  public login(data: LoginInput) {
+    return this.http.post<Auth>(`${this.config.apiUrl}/auth`, data);
   }
 }
