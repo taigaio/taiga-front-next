@@ -11,7 +11,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-unit-test:
+  linters:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -44,13 +44,7 @@ jobs:
     - name: pass linters
       run: npm run lint
 
-    - name: pass unit test
-      run: npm run test
-
-    - name: build
-      run: npm run build
-
-  build-and-e2e-test:
+  unit-test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -80,13 +74,43 @@ jobs:
     - name: npm install
       run: npm ci
 
-    - name: build
-      run: npm run build
+    - name: pass unit test
+      run: npm run test
+
+  e2e-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Set node version
+    strategy:
+      matrix:
+        node-version: [12.17.0]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: npm install
+      run: npm ci
 
     - name: Cypress run
       uses: cypress-io/github-action@v1
       with:
-        start: npm start
+        start: npm start -- -c test
         wait-on: 'http://localhost:4200'
         wait-on-timeout: 200
 
