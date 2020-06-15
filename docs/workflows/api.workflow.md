@@ -18,7 +18,7 @@ import { AuthInterceptorModule } from '@/app/commons/auth-interceptor/auth-inter
   imports: [
     HttpClientModule,
     AuthInterceptorModule,
-  ]
+  ],
 })
 export class ExampleModule { }
 ```
@@ -28,6 +28,8 @@ Creating a service
 ```bash
 ng g service api/example/ExampleApi
 ```
+
+Add the new service to the module providers and remove `providedIn: 'root'` from the `@Injectable` decorator.
 
 If we're going to have multiple services in this module we must create a `services` folder.
 
@@ -41,9 +43,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 import { Example } from './example.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ExampleApiService {
 
   constructor(private http: HttpClient, private config: ConfigService) { }
