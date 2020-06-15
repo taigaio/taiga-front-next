@@ -18,3 +18,22 @@ export interface LoginInput {
   username?: string;
   code?: string;
 }
+
+export interface PublicRegistryInput {
+  type: 'public';
+  username: string;
+  password: string;
+  email: string;
+  full_name: string;
+  accepted_terms: boolean;
+}
+
+export interface PrivateRegistryInput {
+  type: 'private';
+  existing: boolean;
+  token: string;
+  username: string;
+  password: string;
+  email: string;
+  full_name: string;
+}
