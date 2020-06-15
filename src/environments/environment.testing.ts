@@ -6,11 +6,11 @@
  * the root directory of this source tree.
  */
 
-describe('Playground', () => {
+import { Environment } from './environment.model';
 
-  it('loads examples', () => {
-    const baseUrl = 'http://localhost:4200';
-    cy.visit(baseUrl);
-    cy.contains('Taiga');
-  });
-});
+export const environment: Environment = {
+  production: false,
+  configLocal: {
+    api: 'https://api.taiga.io/api/v1/',
+  },
+};
