@@ -6,28 +6,28 @@
  * the root directory of this source tree.
  */
 
-import { TestBed } from '@angular/core/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs';
+// import { TestBed } from '@angular/core/testing';
+// import { provideMockActions } from '@ngrx/effects/testing';
+// import { Observable } from 'rxjs';
 
-import { CurrentUserEffects } from './current-user.effects';
+// import { CurrentUserEffects } from './current-user.effects';
 
-describe('CurrentUserEffects', () => {
-  let actions$: Observable<any>;
-  let effects: CurrentUserEffects;
+// describe('CurrentUserEffects', () => {
+//   let actions$: Observable<any>;
+//   let effects: CurrentUserEffects;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        CurrentUserEffects,
-        provideMockActions(() => actions$),
-      ],
-    });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       providers: [
+//         CurrentUserEffects,
+//         provideMockActions(() => actions$),
+//       ],
+//     });
 
-    effects = TestBed.inject(CurrentUserEffects);
-  });
+//     effects = TestBed.inject(CurrentUserEffects);
+//   });
 
-  it('should be created', () => {
-    expect(effects).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(effects).toBeTruthy();
+//   });
+// });

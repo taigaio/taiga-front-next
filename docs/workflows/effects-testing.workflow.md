@@ -60,7 +60,7 @@ it('non-dispatching', marbles(m => {
 
   actions$ = m.hot('-a', { a:  loginSuccess({ data: response })});
 
-  // subscribing because there i no m.effect
+  // subscribing because there is no m.expect
   effects.loginSuccess$.subscribe();
 
   // flush to complete all outstanding hot or cold observables
