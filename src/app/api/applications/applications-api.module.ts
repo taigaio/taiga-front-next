@@ -21,4 +21,4 @@ import { ApplicationsApiService } from './applications-api.service';
     ApplicationsApiService,
   ],
 })
-export class ApplicationsModule { }
+export class ApplicationsApiModule { }

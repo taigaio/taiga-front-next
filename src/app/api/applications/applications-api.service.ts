@@ -9,7 +9,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
-import { Application, ApplicationToken } from './application.model';
+import { Application } from './application.model';
+import { ApplicationToken } from '@/app/api/application-tokens/application-tokens.model';
 
 @Injectable()
 export class ApplicationsApiService {
