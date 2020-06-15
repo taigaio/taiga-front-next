@@ -14,10 +14,3 @@ export interface Application {
   web: string;
 }
 
-export interface ApplicationToken {
-  application: Application;
-  auth_code: string;
-  id: number;
-  next_url: string;
-  user: number;
-}
