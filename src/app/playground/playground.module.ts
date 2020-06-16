@@ -17,9 +17,12 @@ import { ResolverApiModule } from '@/app/api/resolver/resolver-api.module';
 import { SearchApiModule } from '../api/search/search-api.module';
 import { UserStorageApiModule } from '@/app/api/user-storage/user-storage-api.module';
 import { MilestonesApiModule } from '../api/milestones/milestones-api.module';
+import { EpicStatusesApiModule } from '../api/epic-statuses/epic-statuses-api.module';
 
 @NgModule({
-  declarations: [PlaygroundComponent],
+  declarations: [
+    PlaygroundComponent,
+  ],
   imports: [
     CommonModule,
     PlaygroundRoutingModule,
@@ -29,6 +32,7 @@ import { MilestonesApiModule } from '../api/milestones/milestones-api.module';
     MilestonesApiModule,
     ReactiveComponentModule,
     SearchApiModule,
+    EpicStatusesApiModule,
   ],
 })
 export class PlaygroundModule { }

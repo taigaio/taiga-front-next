@@ -18,9 +18,16 @@ the root directory of this source tree.
 <h2>Milestones</h2>
 <ng-container *ngIf="(milestones$ | async)?.length">
   <ul *ngFor="let milestone of milestones$ | async">
-      <li>{{ milestone.name }}</li>
-    </ul>
+    <li>{{ milestone.name }}</li>
+  </ul>
 </ng-container>
 <ng-container *ngIf="!(milestones$ | async)?.length">
   <p>There are no milestones yet!</p>
+</ng-container>
+
+<h2>Epic Statuses</h2>
+<ng-container *ngrxLet="epicStatuses$ as epicStatuses">
+  <ul>
+    <li *ngFor="let status of epicStatuses">{{ status.name }}</li>
+  </ul>
 </ng-container>
