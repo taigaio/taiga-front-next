@@ -9,3 +9,6 @@ the root directory of this source tree.
 <div>
   total projects: {{ (stats$ | async)?.projects.total }}
 </div>
+
+<h2>Resolver test</h2>
+<p>Taiga5 Id: {{(projectId$ | async)?.project}}</p>

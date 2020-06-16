@@ -8,8 +8,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { StatsApiService } from '@/app/api/stats/stats-api.service';
 import { Stats } from '@/app/api/stats/stats.model';
+import { ResolverApiService } from '@/app/api/resolver/resolver-api.service';
+import { ProjectResolver } from '@/app/api/resolver/resolver.model';
 
 @Component({
   selector: 'app-playground',
@@ -18,9 +21,14 @@ import { Stats } from '@/app/api/stats/stats.model';
 })
 export class PlaygroundComponent implements OnInit {
   stats$!: Observable<Stats>;
+  projectId$!: Observable<ProjectResolver>;
 
-  constructor(private readonly statsApiService: StatsApiService) {
+  constructor(
+    private readonly statsApiService: StatsApiService,
+    private readonly resolverApiService: ResolverApiService
+  ) {
     this.stats$ = this.statsApiService.getDiscover();
+    this.projectId$ = this.resolverApiService.project('taiga5');
   }
 
   ngOnInit(): void {}
