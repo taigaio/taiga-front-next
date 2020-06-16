@@ -3,7 +3,7 @@
 Creating an `Example` module in the api folder.
 
 ```bash
-ng g m api/example
+ng g m api/exampleApi
 ```
 
 Add `HttpClientModule` and `AuthInterceptorModule` to the imports list.

@@ -16,7 +16,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromLogin from './reducers/login.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './effects/login.effects';
-import { AuthApiModule } from '@/app/api/auth/auth.module';
+import { AuthApiModule } from '@/app/api/auth/auth-api.module';
 import { LocalStorageModule } from '@/app/commons/local-storage/local-storage.module';
 
 @NgModule({
