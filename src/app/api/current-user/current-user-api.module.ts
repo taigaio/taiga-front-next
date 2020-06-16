@@ -20,4 +20,4 @@ import { CurrentUserApiService } from './current-user-api.service';
     CurrentUserApiService,
   ],
 })
-export class CurrentUseriApiModule { }
+export class CurrentUserApiModule { }
