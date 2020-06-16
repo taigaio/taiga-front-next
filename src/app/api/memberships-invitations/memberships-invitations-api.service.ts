@@ -33,4 +33,14 @@ export class MembershipsInvitationsApiService {
       },
     });
   }
+
+  public create(project: number, role: number, username: string) {
+    const data = {
+      project: project.toString(),
+      role: role.toString(),
+      username,
+    };
+
+    return this.http.post<Membership>(this.base, data);
+  }
 }

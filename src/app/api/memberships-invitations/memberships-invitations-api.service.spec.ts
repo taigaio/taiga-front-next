@@ -28,6 +28,7 @@ describe('ResolverApiService', () => {
 
   const project = 1;
   const role = 2;
+  const username = 'taiga@taiga.io';
 
   it('List ALL memberships', () => {
     spectator.service.list().subscribe();
@@ -51,5 +52,18 @@ describe('ResolverApiService', () => {
 
     spectator.service.list(project, role).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+  });
+
+  it('create member', () => {
+    const data = {
+      project: project.toString(),
+      role: role.toString(),
+      username,
+    };
+
+    spectator.service.create(project, role, username).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships`, HttpMethod.POST);
+
+    expect(req.request.body).toEqual(data);
   });
 });
