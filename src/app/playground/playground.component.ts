@@ -35,13 +35,20 @@ export class PlaygroundComponent implements OnInit {
   ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiga5');
-    this.members$ = this.membershipsInvitationsApiService.list();
   }
 
   querySearch() {
     this.searchApiService.search('1', 'Ability').subscribe(console.log);
   }
 
-  ngOnInit(): void {}
+  public listMembers() {
+    this.projectId$.subscribe((projectResolver) => {
+      this.members$ = this.membershipsInvitationsApiService.list(projectResolver.project);
+    });
+  }
+
+  ngOnInit(): void {
+    this.listMembers();
+  }
 
 }

@@ -16,6 +16,6 @@ the root directory of this source tree.
 <button (click)="querySearch()">querySearch</button>
 
 <h2>Members</h2>
-<div>
-  {{ (members$ | async) }}
-</div>
+<ul *ngFor="let member of members$ | async">
+  <li>{{ member.full_name }}</li>
+</ul>
