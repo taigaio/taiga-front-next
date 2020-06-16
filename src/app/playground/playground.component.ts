@@ -14,6 +14,7 @@ import { Stats } from '@/app/api/stats/stats.model';
 import { ResolverApiService } from '@/app/api/resolver/resolver-api.service';
 import { ProjectResolver } from '@/app/api/resolver/resolver.model';
 import { SearchApiService } from '../api/search/search-api.service';
+import { UserStorageApiService } from '@/app/api/user-storage/user-storage-api.service';
 
 @Component({
   selector: 'app-playground',
@@ -27,7 +28,8 @@ export class PlaygroundComponent implements OnInit {
   constructor(
     private readonly statsApiService: StatsApiService,
     private readonly resolverApiService: ResolverApiService,
-    private readonly searchApiService: SearchApiService) {
+    private readonly searchApiService: SearchApiService,
+    private readonly userStorageApiService: UserStorageApiService) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiga5');
   }
@@ -37,5 +39,9 @@ export class PlaygroundComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  public listUserStorage() {
+    this.userStorageApiService.list().subscribe(console.log);
+  }
 
 }
