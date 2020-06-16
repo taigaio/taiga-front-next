@@ -9,17 +9,17 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
-import { CurrentUserApiService } from './current-user-api.service';
+import { AuthInterceptorModule } from '@/app/commons/auth-interceptor/auth-interceptor.module';
+import { ProjectTemplatesApiService } from './project-templates-api.service';
 
 @NgModule({
   declarations: [],
   imports: [
     HttpClientModule,
-    ApiRestInterceptorModule,
+    AuthInterceptorModule,
   ],
   providers: [
-    CurrentUserApiService,
+    ProjectTemplatesApiService,
   ],
 })
-export class CurrentUserApiModule { }
+export class ProjectTemplatesApiModule { }

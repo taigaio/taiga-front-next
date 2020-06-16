@@ -9,6 +9,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
+import { User } from '@/app/api/users/users.model';
+import { ProjectTemplate } from '@/app/api/project-templates/project-templates.model';
 import {
   ProjectListEntry,
   ProjectsListFilter,
@@ -20,11 +23,8 @@ import {
   ProjectIssueStats,
   Tag,
   EditTag,
-  ProjectTemplateDetail,
   DuplicateProject,
 } from './projects.model';
-import { UtilsService } from '@/app/commons/utils/utils-service.service';
-import { User } from '@/app/api/users/users.model';
 
 @Injectable()
 export class ProjectsApiService {
@@ -146,7 +146,7 @@ export class ProjectsApiService {
   }
 
   public createTemplate(projectId: number, templateName: string, templateDescription: string) {
-    return this.http.post<ProjectTemplateDetail>(`${this.base}/${projectId}/create_template`, {
+    return this.http.post<ProjectTemplate>(`${this.base}/${projectId}/create_template`, {
       templateName,
       templateDescription,
     });
