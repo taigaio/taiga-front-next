@@ -15,6 +15,7 @@ import { StatsApiModule } from '@/app/api/stats/stats-api.module';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { ResolverApiModule } from '@/app/api/resolver/resolver-api.module';
 import { SearchApiModule } from '../api/search/search-api.module';
+import { MembershipsInvitationsApiModule } from '../api/memberships-invitations/memberships-invitations-api.module';
 
 @NgModule({
   declarations: [PlaygroundComponent],
@@ -23,6 +24,7 @@ import { SearchApiModule } from '../api/search/search-api.module';
     PlaygroundRoutingModule,
     StatsApiModule,
     ResolverApiModule,
+    MembershipsInvitationsApiModule,
     ReactiveComponentModule,
     SearchApiModule,
   ],

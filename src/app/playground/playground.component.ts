@@ -14,6 +14,8 @@ import { Stats } from '@/app/api/stats/stats.model';
 import { ResolverApiService } from '@/app/api/resolver/resolver-api.service';
 import { ProjectResolver } from '@/app/api/resolver/resolver.model';
 import { SearchApiService } from '../api/search/search-api.service';
+import { MembershipsInvitationsApiService } from '@/app/api/memberships-invitations/memberships-invitations-api.service';
+import { Membership } from '@/app/api/memberships-invitations/memberships-invitations.model';
 
 @Component({
   selector: 'app-playground',
@@ -23,13 +25,17 @@ import { SearchApiService } from '../api/search/search-api.service';
 export class PlaygroundComponent implements OnInit {
   stats$!: Observable<Stats>;
   projectId$!: Observable<ProjectResolver>;
+  members$!: Observable<Membership[]>;
 
   constructor(
     private readonly statsApiService: StatsApiService,
-    private readonly resolverApiService: ResolverApiService,
-    private readonly searchApiService: SearchApiService) {
+    private readonly searchApiService: SearchApiService,
+    private readonly membershipsInvitationsApiService: MembershipsInvitationsApiService,
+    private readonly resolverApiService: ResolverApiService
+  ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiga5');
+    this.members$ = this.membershipsInvitationsApiService.list();
   }
 
   querySearch() {
