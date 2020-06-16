@@ -20,7 +20,7 @@ import { AuthInterceptorModule } from '@/app/commons/auth-interceptor/auth-inter
     AuthInterceptorModule,
   ],
 })
-export class ExampleModule { }
+export class ExampleApiModule { }
 ```
 
 Creating a service
