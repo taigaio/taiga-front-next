@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { ConfigService } from '@/app/config.service';
-import { Membership } from './memberships-invitations.model';
+import { Membership, MembershipPartialInput } from './memberships-invitations.model';
 
 
 @Injectable()
@@ -42,5 +42,43 @@ export class MembershipsInvitationsApiService {
     };
 
     return this.http.post<Membership>(this.base, data);
+  }
+
+  public bulkCreate(project: number, members: Array<{roleId: number, username: string}>, invitationText?: string) {
+
+    const bulkInvites = members.map((member: { roleId: number, username: string }) => {
+      return {
+        role_id: member.roleId,
+        username: member.username,
+      };
+    });
+
+    const data = {
+      project_id: project,
+      bulk_memberships: bulkInvites,
+      ...(invitationText && {invitation_extra_text: invitationText}),
+    };
+
+    return this.http.post<Membership>(this.base, data);
+  }
+
+  public get(id: number) {
+    return this.http.get<Membership>(`${this.base}/${id}`);
+  }
+
+  public edit(id: number, data: MembershipPartialInput) {
+    return this.http.post<Membership>(`${this.base}/${id}`, data);
+  }
+
+  public delete(id: number) {
+    return this.http.delete<Membership>(`${this.base}/${id}`);
+  }
+
+  public resendInvitation(id: number) {
+    return this.http.post<Membership>(`${this.base}/${id}/resend_invitation`, {});
+  }
+
+  public getInvitation(invitationId: number) {
+    return this.http.get<Membership>(`${this.config.apiUrl}/invitations/${invitationId}`);
   }
 }

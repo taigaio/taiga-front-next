@@ -11,6 +11,8 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 
 import { MembershipsInvitationsApiService } from './memberships-invitations-api.service';
+import * as faker from 'faker';
+import { MembershipPartialInput } from './memberships-invitations.model';
 
 describe('ResolverApiService', () => {
   let spectator: SpectatorHttp<MembershipsInvitationsApiService>;
@@ -28,7 +30,7 @@ describe('ResolverApiService', () => {
 
   const project = 1;
   const role = 2;
-  const username = 'taiga@taiga.io';
+  const username = faker.internet.email();
 
   it('List ALL memberships', () => {
     spectator.service.list().subscribe();
@@ -65,5 +67,65 @@ describe('ResolverApiService', () => {
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(data);
+  });
+
+  it('bulk create', () => {
+    const body = {
+      project,
+      members: [
+        {
+          roleId: role,
+          username,
+        },
+      ],
+      invitationText: faker.lorem.sentence(20),
+    };
+
+    const data = {
+      project_id: body.project,
+      bulk_memberships: [
+        {
+          role_id: role,
+          username,
+        },
+      ],
+      invitation_extra_text: body.invitationText,
+    };
+
+    spectator.service.bulkCreate(body.project, body.members, body.invitationText).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships`, HttpMethod.POST);
+
+    expect(req.request.body).toEqual(data);
+  });
+
+  it('get a memberships', () => {
+    spectator.service.get(1).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1`, HttpMethod.GET);
+  });
+
+  it('edit a membership', () => {
+    const data: MembershipPartialInput = {
+      color: '#fabada',
+    };
+
+    spectator.service.edit(1, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1`, HttpMethod.POST);
+
+    expect(req.request.body).toEqual(data);
+  });
+
+  it('delete a memberships', () => {
+    spectator.service.delete(1).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1`, HttpMethod.DELETE);
+  });
+
+  it('resend an invitation', () => {
+    spectator.service.resendInvitation(1).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1/resend_invitation`, HttpMethod.POST);
+  });
+
+  it('get invitation', () => {
+    spectator.service.getInvitation(1).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/invitations/1`, HttpMethod.GET);
   });
 });

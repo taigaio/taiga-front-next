@@ -29,3 +29,5 @@ export interface Membership {
   user_order: number;
 }
 
+
+export type MembershipPartialInput = Partial<Membership>;
