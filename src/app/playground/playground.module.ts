@@ -18,6 +18,7 @@ import { SearchApiModule } from '../api/search/search-api.module';
 import { UserStorageApiModule } from '@/app/api/user-storage/user-storage-api.module';
 import { MilestonesApiModule } from '../api/milestones/milestones-api.module';
 import { EpicStatusesApiModule } from '../api/epic-statuses/epic-statuses-api.module';
+import { UserstoryStatusesApiModule } from '../api/userstory-statuses/userstory-statuses-api.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { EpicStatusesApiModule } from '../api/epic-statuses/epic-statuses-api.mo
     ReactiveComponentModule,
     SearchApiModule,
     EpicStatusesApiModule,
+    UserstoryStatusesApiModule,
   ],
 })
 export class PlaygroundModule { }

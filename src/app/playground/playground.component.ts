@@ -19,6 +19,8 @@ import { MilestoneApiService } from '../api/milestones/milestones-api.service';
 import { Milestone } from '../api/milestones/milestones.model';
 import { EpicStatusesApiService } from '../api/epic-statuses/epic-statuses-api.service';
 import { EpicStatus } from '../api/epic-statuses/epic-statuses.model';
+import { UserstoryStatusesApiService } from '../api/userstory-statuses/userstory-statuses-api.service';
+import { UserstoryStatus } from '../api/userstory-statuses/userstory-statuses.model';
 
 @Component({
   selector: 'app-playground',
@@ -30,6 +32,7 @@ export class PlaygroundComponent implements OnInit {
   projectId$!: Observable<ProjectResolver>;
   milestones$!: Observable<Milestone[]>;
   epicStatuses$!: Observable<EpicStatus[]>;
+  userstoryStatuses$!: Observable<UserstoryStatus[]>;
 
   constructor(
     private readonly statsApiService: StatsApiService,
@@ -37,7 +40,8 @@ export class PlaygroundComponent implements OnInit {
     private readonly searchApiService: SearchApiService,
     private readonly userStorageApiService: UserStorageApiService,
     private readonly milestoneApiService: MilestoneApiService,
-    private readonly epicStatusesApiService: EpicStatusesApiService
+    private readonly epicStatusesApiService: EpicStatusesApiService,
+    private readonly userstoryStatusesApiService: UserstoryStatusesApiService
   ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiga5');
@@ -51,6 +55,7 @@ export class PlaygroundComponent implements OnInit {
     this.projectId$.subscribe((projectResolver) => {
       this.milestones$ = this.milestoneApiService.list(projectResolver.project);
       this.epicStatuses$ = this.epicStatusesApiService.list(projectResolver.project);
+      this.userstoryStatuses$ = this.userstoryStatusesApiService.list(projectResolver.project);
     });
   }
 
