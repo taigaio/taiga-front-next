@@ -22,6 +22,7 @@ import { UserstoryStatusesApiModule } from '../api/userstory-statuses/userstory-
 import { PointsApiModule } from '../api/points/points-api.module';
 import { TaskStatusesApiModule } from '../api/task-statuses/task-statuses-api.module';
 import { IssueStatusesApiModule } from '../api/issue-statuses/issue-statuses-api.module';
+import { IssueTypesApiModule } from '../api/issue-types/issue-types-api.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { IssueStatusesApiModule } from '../api/issue-statuses/issue-statuses-api
     PointsApiModule,
     TaskStatusesApiModule,
     IssueStatusesApiModule,
+    IssueTypesApiModule,
   ],
 })
 export class PlaygroundModule { }

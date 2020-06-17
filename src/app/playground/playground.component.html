@@ -59,3 +59,10 @@ the root directory of this source tree.
     <li *ngFor="let status of issueStatuses">{{ status.name }}</li>
   </ul>
 </ng-container>
+
+<h2>Issue Types</h2>
+<ng-container *ngrxLet="issueTypes$ as issueTypes">
+  <ul>
+    <li *ngFor="let type of issueTypes">{{ type.name }}</li>
+  </ul>
+</ng-container>
