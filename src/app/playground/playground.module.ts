@@ -21,6 +21,7 @@ import { EpicStatusesApiModule } from '../api/epic-statuses/epic-statuses-api.mo
 import { UserstoryStatusesApiModule } from '../api/userstory-statuses/userstory-statuses-api.module';
 import { PointsApiModule } from '../api/points/points-api.module';
 import { TaskStatusesApiModule } from '../api/task-statuses/task-statuses-api.module';
+import { IssueStatusesApiModule } from '../api/issue-statuses/issue-statuses-api.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { TaskStatusesApiModule } from '../api/task-statuses/task-statuses-api.mo
     UserstoryStatusesApiModule,
     PointsApiModule,
     TaskStatusesApiModule,
+    IssueStatusesApiModule,
   ],
 })
 export class PlaygroundModule { }
