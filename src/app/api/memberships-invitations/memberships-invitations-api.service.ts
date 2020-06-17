@@ -67,7 +67,7 @@ export class MembershipsInvitationsApiService {
   }
 
   public edit(id: number, data: MembershipPartialInput) {
-    return this.http.post<Membership>(`${this.base}/${id}`, data);
+    return this.http.patch<Membership>(`${this.base}/${id}`, data);
   }
 
   public delete(id: number) {

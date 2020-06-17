@@ -109,7 +109,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.edit(1, data).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1`, HttpMethod.POST);
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1`, HttpMethod.PATCH);
 
     expect(req.request.body).toEqual(data);
   });
