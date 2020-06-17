@@ -31,6 +31,8 @@ import { IssueTypesApiService } from '../api/issue-types/issue-types-api.service
 import { IssueType } from '../api/issue-types/issue-types.model';
 import { PrioritiesApiService } from '../api/priorities/priorities-api.service';
 import { Priority } from '../api/priorities/priorities.model';
+import { SeveritiesApiService } from '../api/severities/severities-api.service';
+import { Severity } from '../api/severities/severities.model';
 
 @Component({
   selector: 'app-playground',
@@ -48,6 +50,7 @@ export class PlaygroundComponent implements OnInit {
   issueStatuses$!: Observable<IssueStatus[]>;
   issueTypes$!: Observable<IssueType[]>;
   priorities$!: Observable<Priority[]>;
+  severities$!: Observable<Severity[]>;
 
   constructor(
     private readonly statsApiService: StatsApiService,
@@ -61,7 +64,8 @@ export class PlaygroundComponent implements OnInit {
     private readonly taskStatusesApiService: TaskStatusesApiService,
     private readonly issueStatusesApiService: IssueStatusesApiService,
     private readonly issueTypesApiService: IssueTypesApiService,
-    private readonly prioritiesApiService: PrioritiesApiService
+    private readonly prioritiesApiService: PrioritiesApiService,
+    private readonly severitiesApiService: SeveritiesApiService
   ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiga5');
@@ -81,6 +85,7 @@ export class PlaygroundComponent implements OnInit {
       this.issueStatuses$ = this.issueStatusesApiService.list(projectResolver.project);
       this.issueTypes$ = this.issueTypesApiService.list(projectResolver.project);
       this.priorities$ = this.prioritiesApiService.list(projectResolver.project);
+      this.severities$ = this.severitiesApiService.list(projectResolver.project);
     });
   }
 

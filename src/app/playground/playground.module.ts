@@ -24,6 +24,7 @@ import { TaskStatusesApiModule } from '../api/task-statuses/task-statuses-api.mo
 import { IssueStatusesApiModule } from '../api/issue-statuses/issue-statuses-api.module';
 import { IssueTypesApiModule } from '../api/issue-types/issue-types-api.module';
 import { PrioritiesApiModule } from '../api/priorities/priorities-api.module';
+import { SeveritiesApiModule } from '../api/severities/severities-api.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { PrioritiesApiModule } from '../api/priorities/priorities-api.module';
     IssueStatusesApiModule,
     IssueTypesApiModule,
     PrioritiesApiModule,
+    SeveritiesApiModule,
   ],
 })
 export class PlaygroundModule { }
