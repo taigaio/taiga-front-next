@@ -9,7 +9,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorModule } from '@/app/commons/auth-interceptor/auth-interceptor.module';
-import { MilestonesApiService } from './milestones-api.service';
+import { MilestoneApiService } from './milestones-api.service';
 
 @NgModule({
   declarations: [],
@@ -18,7 +18,7 @@ import { MilestonesApiService } from './milestones-api.service';
     AuthInterceptorModule,
   ],
   providers: [
-    MilestonesApiService,
-  ]
+    MilestoneApiService,
+  ],
 })
 export class MilestonesApiModule { }

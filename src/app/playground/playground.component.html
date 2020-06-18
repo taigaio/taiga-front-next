@@ -14,3 +14,13 @@ the root directory of this source tree.
 <p>Taiga5 Id: {{(projectId$ | async)?.project}}</p>
 <button (click)="querySearch()">querySearch</button>
 <button (click)="listUserStorage()">list user storage</button>
+
+<h2>Milestones</h2>
+<ng-container *ngIf="(milestones$ | async)?.length">
+  <ul *ngFor="let milestone of milestones$ | async">
+      <li>{{ milestone.name }}</li>
+    </ul>
+</ng-container>
+<ng-container *ngIf="!(milestones$ | async)?.length">
+  <p>There are no milestones yet!</p>
+</ng-container>

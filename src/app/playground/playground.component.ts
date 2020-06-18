@@ -15,6 +15,8 @@ import { ResolverApiService } from '@/app/api/resolver/resolver-api.service';
 import { ProjectResolver } from '@/app/api/resolver/resolver.model';
 import { SearchApiService } from '../api/search/search-api.service';
 import { UserStorageApiService } from '@/app/api/user-storage/user-storage-api.service';
+import { MilestoneApiService } from '../api/milestones/milestones-api.service';
+import { Milestone } from '../api/milestones/milestones.model';
 
 @Component({
   selector: 'app-playground',
@@ -24,12 +26,15 @@ import { UserStorageApiService } from '@/app/api/user-storage/user-storage-api.s
 export class PlaygroundComponent implements OnInit {
   stats$!: Observable<Stats>;
   projectId$!: Observable<ProjectResolver>;
+  milestones$!: Observable<Milestone[]>;
 
   constructor(
     private readonly statsApiService: StatsApiService,
     private readonly resolverApiService: ResolverApiService,
     private readonly searchApiService: SearchApiService,
-    private readonly userStorageApiService: UserStorageApiService) {
+    private readonly userStorageApiService: UserStorageApiService,
+    private readonly milestoneApiService: MilestoneApiService
+  ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiga5');
   }
@@ -38,10 +43,18 @@ export class PlaygroundComponent implements OnInit {
     this.searchApiService.search('1', 'Ability').subscribe(console.log);
   }
 
-  ngOnInit(): void {}
+  public initData() {
+    this.projectId$.subscribe((projectResolver) => {
+      this.milestones$ = this.milestoneApiService.list(projectResolver.project);
+    });
+  }
 
   public listUserStorage() {
     this.userStorageApiService.list().subscribe(console.log);
+  }
+
+  ngOnInit(): void {
+    this.initData();
   }
 
 }
