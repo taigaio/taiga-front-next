@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { ConfigService } from '@/app/config.service';
-import { Milestone } from './milestones.model';
+import { Milestone, MilestoneCreationData } from './milestones.model';
 
 @Injectable()
 export class MilestoneApiService {
@@ -31,5 +31,20 @@ export class MilestoneApiService {
         ...(closed && { closed: closed.toString() }),
       },
     });
+  }
+
+  public create(data: MilestoneCreationData) {
+    const query = {
+      project: data.project,
+      name: data.name,
+      estimated_start: data.estimatedStart,
+      estimated_finish: data.estimatedFinish,
+      ...(data.disponibility && { disponibility: data.disponibility }),
+      ...(data.slug && { slug: data.slug }),
+      ...(data.order && { order: data.order }),
+      ...(data.watchers && { watchers: data.watchers }),
+    };
+
+    return this.http.post<Milestone>(this.base, query);
   }
 }

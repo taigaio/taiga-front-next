@@ -24,3 +24,14 @@ export interface Milestone {
   total_points: number;
   user_stories: any[];
 }
+
+export interface MilestoneCreationData {
+  project: number;
+  name: string;
+  estimatedStart: string;
+  estimatedFinish: string;
+  disponibility?: number;
+  slug?: string;
+  order?: number;
+  watchers?: number[];
+}
