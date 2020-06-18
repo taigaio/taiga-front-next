@@ -33,6 +33,8 @@ import { PrioritiesApiService } from '../api/priorities/priorities-api.service';
 import { Priority } from '../api/priorities/priorities.model';
 import { SeveritiesApiService } from '../api/severities/severities-api.service';
 import { Severity } from '../api/severities/severities.model';
+import { ProjectsApiService } from '@/app/api/projects/projects-api.service';
+import { ProjectsListOrderBy } from '@/app/api/projects/projects.model';
 
 @Component({
   selector: 'app-playground',
@@ -65,7 +67,8 @@ export class PlaygroundComponent implements OnInit {
     private readonly issueStatusesApiService: IssueStatusesApiService,
     private readonly issueTypesApiService: IssueTypesApiService,
     private readonly prioritiesApiService: PrioritiesApiService,
-    private readonly severitiesApiService: SeveritiesApiService
+    private readonly severitiesApiService: SeveritiesApiService,
+    private readonly projectsApiService: ProjectsApiService
   ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiga5');
@@ -95,6 +98,12 @@ export class PlaygroundComponent implements OnInit {
 
   ngOnInit(): void {
     this.initData();
+  }
+
+  public listProjects() {
+    this.projectsApiService.list({
+      is_backlog_activated: true,
+    }, ProjectsListOrderBy.totalActivityLastMonth).subscribe(console.log);
   }
 
 }

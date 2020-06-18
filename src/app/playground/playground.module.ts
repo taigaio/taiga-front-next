@@ -25,6 +25,7 @@ import { IssueStatusesApiModule } from '../api/issue-statuses/issue-statuses-api
 import { IssueTypesApiModule } from '../api/issue-types/issue-types-api.module';
 import { PrioritiesApiModule } from '../api/priorities/priorities-api.module';
 import { SeveritiesApiModule } from '../api/severities/severities-api.module';
+import { ProjectsApiModule } from '../api/projects/projects-api.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SeveritiesApiModule } from '../api/severities/severities-api.module';
     IssueTypesApiModule,
     PrioritiesApiModule,
     SeveritiesApiModule,
+    ProjectsApiModule,
   ],
 })
 export class PlaygroundModule { }
