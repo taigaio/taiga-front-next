@@ -79,7 +79,13 @@ jobs:
 
   e2e-test:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    #
+    # NOTE: we don't use ubuntu-latest because this (https://github.com/cypress-io/github-action#important)
+    #           We are getting reports that Cypress has suddenly started crashing when running on ubuntu-latest OS.
+    #           Seems, GH Actions have switched from 16.04 to 18.04 overnight, and are having a xvfb issue. Please
+    #           work around this problem by using runs-on: ubuntu-16.04 image or upgrading to Cypress v3.8.3 where
+    #           we explicitly set XVFB arguments.
+    runs-on: ubuntu-16.04
 
     # Set node version
     strategy:
