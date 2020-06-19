@@ -57,6 +57,22 @@ export class MilestoneApiService {
   }
 
   public delete(milestoneId: number) {
-    return this.http.delete<Milestone>(`${this.base}/${milestoneId}`);
+    return this.http.delete(`${this.base}/${milestoneId}`);
+  }
+
+  public stats(milestoneId: number) {
+    return this.http.get<Milestone>(`${this.base}/${milestoneId}/stats`);
+  }
+
+  public watch(milestoneId: number) {
+    return this.http.post(`${this.base}/${milestoneId}/watch`, {});
+  }
+
+  public unwatch(milestoneId: number) {
+    return this.http.post(`${this.base}/${milestoneId}/unwatch`, {});
+  }
+
+  public watchers(milestoneId: number) {
+    return this.http.get<Milestone>(`${this.base}/${milestoneId}/watchers`, {});
   }
 }

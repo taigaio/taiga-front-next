@@ -29,7 +29,7 @@ describe('ResolverApiService', () => {
   beforeEach(() => spectator = createHttp());
 
   const project = 1;
-  // const role = 2;
+  const milestone = 2;
   // const username = faker.internet.email();
 
   it('List ALL milestones', () => {
@@ -84,8 +84,8 @@ describe('ResolverApiService', () => {
   });
 
   it('get milestone', () => {
-    spectator.service.get(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${project}`, HttpMethod.GET);
+    spectator.service.get(milestone).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.GET);
   });
 
   it('edit a milestone', () => {
@@ -93,14 +93,35 @@ describe('ResolverApiService', () => {
       closed: true,
     };
 
-    spectator.service.edit(project, data).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${project}`, HttpMethod.PATCH);
+    spectator.service.edit(milestone, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.PATCH);
 
     expect(req.request.body).toEqual(data);
   });
 
   it('delete a milestone', () => {
-    spectator.service.delete(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${project}`, HttpMethod.DELETE);
+    spectator.service.delete(milestone).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.DELETE);
   });
+
+  it('get milestone stats', () => {
+    spectator.service.stats(milestone).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}/stats`, HttpMethod.GET);
+  });
+
+  it('watch milestone', () => {
+    spectator.service.watch(milestone).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}/watch`, HttpMethod.POST);
+  });
+
+  it('unwatch milestone', () => {
+    spectator.service.unwatch(milestone).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}/unwatch`, HttpMethod.POST);
+  });
+
+  it('list watchers', () => {
+    spectator.service.watchers(milestone).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}/watchers`, HttpMethod.GET);
+  });
+
 });
