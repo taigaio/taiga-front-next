@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { ConfigService } from '@/app/config.service';
-import { Milestone, MilestoneCreationData } from './milestones.model';
+import { Milestone, MilestoneCreationData, MilestonePartialInput } from './milestones.model';
 
 @Injectable()
 export class MilestoneApiService {
@@ -50,5 +50,9 @@ export class MilestoneApiService {
 
   public get(milestoneId: number) {
     return this.http.get<Milestone>(`${this.base}/${milestoneId}`);
+  }
+
+  public edit(milestoneId: number, data: MilestonePartialInput) {
+    return this.http.patch<Milestone>(`${this.base}/${milestoneId}`, data);
   }
 }

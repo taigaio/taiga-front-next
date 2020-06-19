@@ -12,6 +12,7 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import * as faker from 'faker';
 import { MilestoneApiService } from './milestones-api.service';
+import { MilestonePartialInput } from './milestones.model';
 
 describe('ResolverApiService', () => {
   let spectator: SpectatorHttp<MilestoneApiService>;
@@ -85,5 +86,16 @@ describe('ResolverApiService', () => {
   it('get milestone', () => {
     spectator.service.get(project).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${project}`, HttpMethod.GET);
+  });
+
+  it('edit a milestone', () => {
+    const data: MilestonePartialInput = {
+      closed: true,
+    };
+
+    spectator.service.edit(project, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${project}`, HttpMethod.PATCH);
+
+    expect(req.request.body).toEqual(data);
   });
 });

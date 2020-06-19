@@ -25,6 +25,8 @@ export interface Milestone {
   user_stories: any[];
 }
 
+export type MilestonePartialInput = Partial<Milestone>;
+
 export interface MilestoneCreationData {
   project: number;
   name: string;
