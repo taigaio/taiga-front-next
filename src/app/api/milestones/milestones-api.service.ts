@@ -55,4 +55,8 @@ export class MilestoneApiService {
   public edit(milestoneId: number, data: MilestonePartialInput) {
     return this.http.patch<Milestone>(`${this.base}/${milestoneId}`, data);
   }
+
+  public delete(milestoneId: number) {
+    return this.http.delete<Milestone>(`${this.base}/${milestoneId}`);
+  }
 }

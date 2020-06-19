@@ -98,4 +98,9 @@ describe('ResolverApiService', () => {
 
     expect(req.request.body).toEqual(data);
   });
+
+  it('delete a milestone', () => {
+    spectator.service.delete(project).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${project}`, HttpMethod.DELETE);
+  });
 });
