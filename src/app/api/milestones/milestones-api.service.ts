@@ -47,4 +47,8 @@ export class MilestoneApiService {
 
     return this.http.post<Milestone>(this.base, query);
   }
+
+  public get(milestoneId: number) {
+    return this.http.get<Milestone>(`${this.base}/${milestoneId}`);
+  }
 }

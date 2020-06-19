@@ -55,7 +55,7 @@ describe('ResolverApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
   });
 
-  it('create mileston', () => {
+  it('create milestone', () => {
     const data = {
       project,
       name: faker.company.catchPhrase(),
@@ -80,5 +80,10 @@ describe('ResolverApiService', () => {
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(body);
+  });
+
+  it('get milestone', () => {
+    spectator.service.get(project).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${project}`, HttpMethod.GET);
   });
 });
