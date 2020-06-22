@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { ConfigService } from '@/app/config.service';
-import { Membership, MembershipPartialInput } from './memberships-invitations.model';
+import { Membership, MembershipPartialInput, MembershipCreation, MembershipCreationInBulk } from './memberships-invitations.model';
 
 
 @Injectable()
@@ -34,32 +34,32 @@ export class MembershipsInvitationsApiService {
     });
   }
 
-  public create(project: number, role: number, username: string) {
-    const data = {
-      project: project.toString(),
-      role: role.toString(),
-      username,
+  public create(data: MembershipCreation) {
+    const input = {
+      project: data.project.toString(),
+      role: data.role.toString(),
+      username: data.username,
     };
 
-    return this.http.post<Membership>(this.base, data);
+    return this.http.post<Membership>(this.base, input);
   }
 
-  public bulkCreate(project: number, members: Array<{roleId: number, username: string}>, invitationText?: string) {
+  public bulkCreate(data: MembershipCreationInBulk) {
 
-    const bulkInvites = members.map((member: { roleId: number, username: string }) => {
+    const bulkInvites = data.members.map((member: { roleId: number, username: string }) => {
       return {
         role_id: member.roleId,
         username: member.username,
       };
     });
 
-    const data = {
-      project_id: project,
+    const input = {
+      project_id: data.project,
       bulk_memberships: bulkInvites,
-      ...(invitationText && {invitation_extra_text: invitationText}),
+      ...(data.invitationText && {invitation_extra_text: data.invitationText}),
     };
 
-    return this.http.post<Membership>(this.base, data);
+    return this.http.post<Membership>(this.base, input);
   }
 
   public get(id: number) {

@@ -29,5 +29,21 @@ export interface Membership {
   user_order: number;
 }
 
+export interface MembershipCreation {
+  project: number;
+  role: number;
+  username: string;
+}
+
+export interface MemberInBulk {
+  roleId: number;
+  username: string;
+}
+
+export interface MembershipCreationInBulk {
+  project: number;
+  members: MemberInBulk[];
+  invitationText?: string;
+}
 
 export type MembershipPartialInput = Partial<Membership>;

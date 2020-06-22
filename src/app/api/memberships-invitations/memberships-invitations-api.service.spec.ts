@@ -58,15 +58,21 @@ describe('ResolverApiService', () => {
 
   it('create member', () => {
     const data = {
+      project,
+      role,
+      username,
+    };
+
+    const body = {
       project: project.toString(),
       role: role.toString(),
       username,
     };
 
-    spectator.service.create(project, role, username).subscribe();
+    spectator.service.create(data).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships`, HttpMethod.POST);
 
-    expect(req.request.body).toEqual(data);
+    expect(req.request.body).toEqual(body);
   });
 
   it('bulk create', () => {
@@ -92,7 +98,7 @@ describe('ResolverApiService', () => {
       invitation_extra_text: body.invitationText,
     };
 
-    spectator.service.bulkCreate(body.project, body.members, body.invitationText).subscribe();
+    spectator.service.bulkCreate(body).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(data);
