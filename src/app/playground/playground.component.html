@@ -18,9 +18,65 @@ the root directory of this source tree.
 <h2>Milestones</h2>
 <ng-container *ngIf="(milestones$ | async)?.length">
   <ul *ngFor="let milestone of milestones$ | async">
-      <li>{{ milestone.name }}</li>
-    </ul>
+    <li>{{ milestone.name }}</li>
+  </ul>
 </ng-container>
 <ng-container *ngIf="!(milestones$ | async)?.length">
   <p>There are no milestones yet!</p>
+</ng-container>
+
+<h2>Epic Statuses</h2>
+<ng-container *ngrxLet="epicStatuses$ as epicStatuses">
+  <ul>
+    <li *ngFor="let status of epicStatuses">{{ status.name }}</li>
+  </ul>
+</ng-container>
+
+<h2>User Story Statuses</h2>
+<ng-container *ngrxLet="userstoryStatuses$ as userstoryStatuses">
+  <ul>
+    <li *ngFor="let status of userstoryStatuses">{{ status.name }}</li>
+  </ul>
+</ng-container>
+
+<h2>Points</h2>
+<ng-container *ngrxLet="points$ as points">
+  <ul>
+    <li *ngFor="let point of points">{{ point.name }}</li>
+  </ul>
+</ng-container>
+
+<h2>Task Statuses</h2>
+<ng-container *ngrxLet="taskStatuses$ as taskStatuses">
+  <ul>
+    <li *ngFor="let status of taskStatuses">{{ status.name }}</li>
+  </ul>
+</ng-container>
+
+<h2>Issue Statuses</h2>
+<ng-container *ngrxLet="issueStatuses$ as issueStatuses">
+  <ul>
+    <li *ngFor="let status of issueStatuses">{{ status.name }}</li>
+  </ul>
+</ng-container>
+
+<h2>Issue Types</h2>
+<ng-container *ngrxLet="issueTypes$ as issueTypes">
+  <ul>
+    <li *ngFor="let type of issueTypes">{{ type.name }}</li>
+  </ul>
+</ng-container>
+
+<h2>Priorities</h2>
+<ng-container *ngrxLet="priorities$ as priorities">
+  <ul>
+    <li *ngFor="let priority of priorities">{{ priority.name }}</li>
+  </ul>
+</ng-container>
+
+<h2>Severities</h2>
+<ng-container *ngrxLet="severities$ as severities">
+  <ul>
+    <li *ngFor="let severity of severities">{{ severity.name }}</li>
+  </ul>
 </ng-container>
