@@ -14,7 +14,7 @@ import * as faker from 'faker';
 import { MilestoneApiService } from './milestones-api.service';
 import { MilestonePartialInput } from './milestones.model';
 
-describe('ResolverApiService', () => {
+describe('MilestonesApiService', () => {
   let spectator: SpectatorHttp<MilestoneApiService>;
   const createHttp = createHttpFactory({
     service: MilestoneApiService,
