@@ -33,7 +33,7 @@
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
     "@briebug/cypress-schematic": "^3.3.0",
-    "@ngrx/component": "github:ngrx/component-builds",
+    "@ngrx/component": "github:ngrx/component-builds#9459b3a37bc65bb8366586f9f8a26916d19855ed",
     "@ngrx/effects": "^9.2.0",
     "@ngrx/router-store": "^9.2.0",
     "@ngrx/schematics": "^9.2.0",
