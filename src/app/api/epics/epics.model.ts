@@ -7,57 +7,57 @@
  */
 
 export interface Epic {
-  assigned_to: number;
-  assigned_to_extra_info: UserExtraInfo;
+  assignedTo: number;
+  assignedToExtraInfo: UserExtraInfo;
   attachments: any[];
-  blocked_note: string;
-  client_requirement: boolean;
+  blockedNote: string;
+  clientRequirement: boolean;
   color: string;
   created_date: string;
-  epics_order: number;
+  epicsOrder: number;
   id: number;
-  is_blocked: boolean;
-  is_closed: boolean;
-  is_voter: boolean;
-  is_watcher: boolean;
-  modified_date: string;
+  isBlocked: boolean;
+  isClosed: boolean;
+  isVoter: boolean;
+  isWatcher: boolean;
+  modifiedDate: string;
   owner: number;
-  owner_extra_info: UserExtraInfo;
+  ownerExtraInfo: UserExtraInfo;
   project: number;
-  project_extra_info: ProjectExtraInfo;
+  projectExtraInfo: ProjectExtraInfo;
   ref: number;
   status: number;
-  status_extra_info: StatusExtraInfo;
+  statusExtraInfo: StatusExtraInfo;
   subject: string;
-  tags: string | null[];
-  team_requirement: boolean;
-  total_voters: number;
-  total_watchers: 3;
-  user_stories_counts: UserStoryCounts;
+  tags: string[] | null;
+  teamRequirement: boolean;
+  totalVoters: number;
+  totalWatchers: 3;
+  userStoriesCounts: UserStoryCounts;
   version: number;
   watchers: number[];
 }
 
 export interface UserExtraInfo {
-  big_photo: null | string;
-  full_name_display: string;
-  gravatar_id: string;
+  bigPhoto: null | string;
+  fullNameDisplay: string;
+  gravatarId: string;
   id: number;
-  is_active: boolean;
+  isActive: boolean;
   photo: null | string;
   username: string;
 }
 
 export interface ProjectExtraInfo {
   id: number;
-  logo_small_url: null | string;
+  logoSmallUrl: null | string;
   name: string;
   slug: string;
 }
 
 export interface StatusExtraInfo {
   color: string;
-  is_closed: boolean;
+  isClosed: boolean;
   name: string;
 }
 
@@ -71,4 +71,17 @@ export interface EpicFilter {
   slug?: string;
   assignedTo?: number;
   closed?: boolean;
+}
+
+export interface EpicCreationData {
+  assignedTo?: number;
+  blockedNote?: string;
+  description?: string;
+  isBlocked?: boolean;
+  isClosed?: boolean;
+  color?: string;
+  project: number;
+  subject: string;
+  tags?: string[];
+  watchers?: number[];
 }

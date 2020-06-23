@@ -9,7 +9,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
-import { Epic, EpicFilter } from './epics.model';
+import { Epic, EpicFilter, EpicCreationData } from './epics.model';
 
 @Injectable()
 export class EpicsApiService {
@@ -31,5 +31,21 @@ export class EpicsApiService {
           ...(filter.closed && { status__is_closed: filter.closed.toString() }),
         },
       });
+    }
+
+    public create(data: EpicCreationData) {
+      const query = {
+        ...(data.assignedTo && { assigned_to: data.assignedTo }),
+        ...(data.blockedNote && { blocked_note: data.blockedNote }),
+        ...(data.description && { description: data.description }),
+        ...(data.isBlocked && { is_blocked: data.isBlocked }),
+        ...(data.isClosed && { is_closed: data.isClosed }),
+        ...(data.color && { color: data.color }),
+        ...(data.tags && { tags: data.tags }),
+        ...(data.watchers && { watchers: data.watchers }),
+        project: data.project,
+        subject: data.subject,
+      };
+      return this.http.post<Epic>(this.base, query);
     }
 }

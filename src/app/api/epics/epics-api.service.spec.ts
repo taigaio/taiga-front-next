@@ -10,7 +10,7 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
-// import * as faker from 'faker';
+import * as faker from 'faker';
 import { EpicsApiService } from './epics-api.service';
 
 describe('EpicsApiService', () => {
@@ -41,5 +41,38 @@ describe('EpicsApiService', () => {
     };
     spectator.service.list(filter).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics?${new URLSearchParams(query)}`, HttpMethod.GET);
+  });
+
+  it('create epic', () => {
+    const data = {
+      assignedTo: 1,
+      blockedNote: 'string',
+      description: 'string',
+      isBlocked: true,
+      isClosed: false,
+      color: 'string',
+      project: 1,
+      subject: 'string',
+      tags: ['string'],
+      watchers: [1],
+    };
+
+    const body = {
+      assigned_to: data.assignedTo,
+      blocked_note: data.blockedNote,
+      description: data.description,
+      is_blocked: data.isBlocked,
+      is_closed: data.isClosed,
+      color: data.color,
+      project: data.project,
+      subject: data.subject,
+      tags: data.tags,
+      watchers: data.watchers,
+    };
+
+    spectator.service.create(data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics`, HttpMethod.POST);
+
+    expect(req.request.body).toEqual(body);
   });
 });
