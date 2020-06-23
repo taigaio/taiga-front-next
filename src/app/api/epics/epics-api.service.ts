@@ -48,4 +48,8 @@ export class EpicsApiService {
       };
       return this.http.post<Epic>(this.base, query);
     }
+
+    public get(id: number) {
+      return this.http.get<Epic>(`${this.base}/${id}`);
+    }
 }

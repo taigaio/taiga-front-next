@@ -28,7 +28,7 @@ describe('EpicsApiService', () => {
   beforeEach(() => spectator = createHttp());
 
   const project = 1;
-  // const milestone = 2;
+  const epic = 2;
   // const username = faker.internet.email();
 
   it('List ALL Epics by project', () => {
@@ -63,5 +63,10 @@ describe('EpicsApiService', () => {
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(body);
+  });
+
+  it('get epic', () => {
+    spectator.service.get(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.GET);
   });
 });
