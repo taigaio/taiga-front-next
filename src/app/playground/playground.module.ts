@@ -28,6 +28,7 @@ import { SeveritiesApiModule } from '../api/severities/severities-api.module';
 import { ProjectsApiModule } from '../api/projects/projects-api.module';
 import { MembershipsInvitationsApiModule } from '../api/memberships-invitations/memberships-invitations-api.module';
 import { EpicsApiModule } from '../api/epics/epics-api.module';
+import { UserstoriesApiModule } from '../api/userstories/userstories-api.module';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { EpicsApiModule } from '../api/epics/epics-api.module';
     PrioritiesApiModule,
     SeveritiesApiModule,
     ProjectsApiModule,
+    UserstoriesApiModule,
   ],
 })
 export class PlaygroundModule { }

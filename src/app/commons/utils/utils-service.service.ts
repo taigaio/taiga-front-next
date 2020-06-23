@@ -9,24 +9,50 @@
 
 import { HttpParams } from '@angular/common/http';
 
-type dataTypes = string | number | boolean | Date;
+type dataTypes = string | number | boolean | Date | File;
 
 export class UtilsService {
   constructor() {}
 
-  static buildQueryParams(source: Record<string, any>): HttpParams {
+  static buildQueryParams(
+    source: Record<string, any>,
+    keyTransformer = (key: string) => key): HttpParams {
     let target: HttpParams = new HttpParams();
 
-    Object.keys(source).forEach((key: string) => {
+    Object.keys(source)
+    .forEach((key: string) => {
         const value: dataTypes | dataTypes[] = source[key];
+        const newKey = keyTransformer(key);
 
         if (Array.isArray(value)) {
-          target = target.append(key, value.join(','));
+          target = target.append(newKey, value.join(','));
         } else if (value.toString) {
-          target = target.append(key, value.toString());
+          target = target.append(newKey, value.toString());
         }
     });
 
     return target;
+  }
+
+  static buildFormData(
+    source: Record<string, any>,
+    keyTransformer = (key: string) => key) {
+    const formData: FormData = new FormData();
+
+    Object.keys(source)
+    .forEach((key: string) => {
+        const value: dataTypes | dataTypes[] = source[key];
+        const newKey = keyTransformer(key);
+
+        if (value instanceof File) {
+          formData.append(newKey, value, value.name);
+        } else if (Array.isArray(value)) {
+          formData.append(newKey, value.join(','));
+        } else if (value.toString) {
+          formData.append(newKey, value.toString());
+        }
+    });
+
+    return formData;
   }
 }
