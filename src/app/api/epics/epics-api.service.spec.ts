@@ -11,7 +11,8 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { EpicsApiService } from './epics-api.service';
-import { EpicCreationMockFactory } from './epics.model.mock';
+import { EpicCreationMockFactory, EpicCreationInBulkMockFactory } from './epics.model.mock';
+import { EpicPartialInput } from './epics.model';
 
 describe('EpicsApiService', () => {
   let spectator: SpectatorHttp<EpicsApiService>;
@@ -68,5 +69,37 @@ describe('EpicsApiService', () => {
   it('get epic', () => {
     spectator.service.get(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.GET);
+  });
+
+  it('edit epic', () => {
+    const data: EpicPartialInput = {
+      color: '#fabada',
+    };
+
+    spectator.service.edit(epic, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.PATCH);
+
+    expect(req.request.body).toEqual(data);
+  });
+
+
+  it('delete epic', () => {
+    spectator.service.delete(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.DELETE);
+  });
+
+  it('bulk create', () => {
+    const data = EpicCreationInBulkMockFactory.build();
+
+    const body = {
+      project_id: data.project,
+      status_id: data.statusId,
+      bulk_epics: data.bulkEpics.reduce( (accumulator: string, subject: string) => `${accumulator} /n ${subject}` ),
+    };
+
+    spectator.service.bulkCreate(data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/bulk_create`, HttpMethod.POST);
+
+    expect(req.request.body).toEqual(body);
   });
 });

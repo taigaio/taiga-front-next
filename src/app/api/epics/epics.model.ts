@@ -85,3 +85,38 @@ export interface EpicCreationData {
   tags?: string[];
   watchers?: number[];
 }
+
+export type EpicPartialInput = Partial<Epic>;
+
+export interface EpicCreationInBulk {
+  project: number;
+  statusId?: number;
+  bulkEpics: string[];
+}
+
+export interface MemberFilter {
+  count: number;
+  fullName: string;
+  id?: number;
+}
+
+export interface StatusFilter {
+  color: string;
+  count: number;
+  id: number;
+  name: string;
+  order: number;
+}
+
+export interface TagsFilter {
+  color: string;
+  count: number;
+  name: string;
+}
+
+export interface EpicFilters {
+  assignedTo: MemberFilter[];
+  owners: MemberFilter[];
+  statuses: StatusFilter[];
+  tags: TagsFilter[];
+}
