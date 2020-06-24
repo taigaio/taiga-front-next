@@ -32,7 +32,7 @@ describe('ResolverApiService', () => {
   const issue = faker.random.number();
   const task = faker.random.number();
   const milestone = faker.hacker.adjective();
-  const wikiPage = faker.hacker.verb();
+  const wikiPage = faker.random.word();
 
   it('Resolver by project', () => {
 

@@ -26,6 +26,7 @@ import { IssueTypesApiModule } from '../api/issue-types/issue-types-api.module';
 import { PrioritiesApiModule } from '../api/priorities/priorities-api.module';
 import { SeveritiesApiModule } from '../api/severities/severities-api.module';
 import { ProjectsApiModule } from '../api/projects/projects-api.module';
+import { MembershipsInvitationsApiModule } from '../api/memberships-invitations/memberships-invitations-api.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ProjectsApiModule } from '../api/projects/projects-api.module';
     ResolverApiModule,
     UserStorageApiModule,
     MilestonesApiModule,
+    MembershipsInvitationsApiModule,
     ReactiveComponentModule,
     SearchApiModule,
     EpicStatusesApiModule,

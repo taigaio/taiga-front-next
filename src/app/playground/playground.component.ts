@@ -35,6 +35,8 @@ import { SeveritiesApiService } from '../api/severities/severities-api.service';
 import { Severity } from '../api/severities/severities.model';
 import { ProjectsApiService } from '@/app/api/projects/projects-api.service';
 import { ProjectsListOrderBy } from '@/app/api/projects/projects.model';
+import { MembershipsInvitationsApiService } from '@/app/api/memberships-invitations/memberships-invitations-api.service';
+import { Membership } from '@/app/api/memberships-invitations/memberships-invitations.model';
 
 @Component({
   selector: 'app-playground',
@@ -53,12 +55,13 @@ export class PlaygroundComponent implements OnInit {
   issueTypes$!: Observable<IssueType[]>;
   priorities$!: Observable<Priority[]>;
   severities$!: Observable<Severity[]>;
+  members$!: Observable<Membership[]>;
 
   constructor(
     private readonly statsApiService: StatsApiService,
     private readonly resolverApiService: ResolverApiService,
-    private readonly searchApiService: SearchApiService,
     private readonly userStorageApiService: UserStorageApiService,
+    private readonly searchApiService: SearchApiService,
     private readonly milestoneApiService: MilestoneApiService,
     private readonly epicStatusesApiService: EpicStatusesApiService,
     private readonly userstoryStatusesApiService: UserstoryStatusesApiService,
@@ -68,10 +71,11 @@ export class PlaygroundComponent implements OnInit {
     private readonly issueTypesApiService: IssueTypesApiService,
     private readonly prioritiesApiService: PrioritiesApiService,
     private readonly severitiesApiService: SeveritiesApiService,
-    private readonly projectsApiService: ProjectsApiService
+    private readonly projectsApiService: ProjectsApiService,
+    private readonly membershipsInvitationsApiService: MembershipsInvitationsApiService
   ) {
     this.stats$ = this.statsApiService.getDiscover();
-    this.projectId$ = this.resolverApiService.project('taiga5');
+    this.projectId$ = this.resolverApiService.project('taiganext');
   }
 
   querySearch() {
@@ -89,6 +93,7 @@ export class PlaygroundComponent implements OnInit {
       this.issueTypes$ = this.issueTypesApiService.list(projectResolver.project);
       this.priorities$ = this.prioritiesApiService.list(projectResolver.project);
       this.severities$ = this.severitiesApiService.list(projectResolver.project);
+      this.members$ = this.membershipsInvitationsApiService.list(projectResolver.project);
     });
   }
 
