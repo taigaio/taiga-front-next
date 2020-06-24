@@ -9,7 +9,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
-import { Epic, EpicFilter, EpicCreationData, EpicPartialInput, EpicCreationInBulk, EpicFilters } from './epics.model';
+import {
+  Epic,
+  EpicFilter,
+  EpicCreationData,
+  EpicPartialInput,
+  EpicCreationInBulk,
+  EpicFilters,
+  EpicUserStory,
+  EpicUserStoryPartialInput
+} from './epics.model';
 
 @Injectable()
 export class EpicsApiService {
@@ -80,5 +89,26 @@ export class EpicsApiService {
         project: id.toString(),
       },
     });
+  }
+
+  public listRelatedUserStories(id: number) {
+    return this.http.get<EpicUserStory[]>(`${this.base}/${id}/related_userstories`);
+  }
+
+  public createRelatedUserStory(id: number, userStoryId: number) {
+    const query = {
+      epic: id,
+      user_story: userStoryId,
+    };
+
+    return this.http.post<EpicUserStory>(`${this.base}/${id}/related_userstories`, query);
+  }
+
+  public getRelatedUserStory(epic: number, userStory: number) {
+    return this.http.get<EpicUserStory>(`${this.base}/${epic}/related_userstories/${userStory}`);
+  }
+
+  public editRelatedUserStory(epic: number, userStory: number, data: EpicUserStoryPartialInput) {
+    return this.http.patch<EpicUserStory>(`${this.base}/${epic}/related_userstories/${userStory}`, data);
   }
 }

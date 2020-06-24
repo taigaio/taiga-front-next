@@ -120,3 +120,11 @@ export interface EpicFilters {
   statuses: StatusFilter[];
   tags: TagsFilter[];
 }
+
+export interface EpicUserStory {
+  epic: number;
+  order: number;
+  userStory: number;
+}
+
+export type EpicUserStoryPartialInput = Partial<EpicUserStory>;

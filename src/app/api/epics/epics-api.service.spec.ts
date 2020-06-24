@@ -12,7 +12,7 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { EpicsApiService } from './epics-api.service';
 import { EpicCreationMockFactory, EpicCreationInBulkMockFactory } from './epics.model.mock';
-import { EpicPartialInput } from './epics.model';
+import { EpicPartialInput, EpicUserStoryPartialInput } from './epics.model';
 
 describe('EpicsApiService', () => {
   let spectator: SpectatorHttp<EpicsApiService>;
@@ -30,7 +30,7 @@ describe('EpicsApiService', () => {
 
   const project = 1;
   const epic = 2;
-  // const username = faker.internet.email();
+  const userStory = 3;
 
   it('List ALL Epics by project', () => {
     const filter = {
@@ -109,5 +109,38 @@ describe('EpicsApiService', () => {
     };
     spectator.service.getFilters(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/filters_data?${new URLSearchParams(query)}`, HttpMethod.GET);
+  });
+
+  it('list related User Stories', () => {
+    spectator.service.listRelatedUserStories(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories`, HttpMethod.GET);
+  });
+
+  it('create related user story', () => {
+    const body = {
+      epic,
+      user_story: userStory,
+    };
+
+    spectator.service.createRelatedUserStory(epic, userStory).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories`, HttpMethod.POST);
+
+    expect(req.request.body).toEqual(body);
+  });
+
+  it('get related User Story', () => {
+    spectator.service.getRelatedUserStory(epic, userStory).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories/${userStory}`, HttpMethod.GET);
+  });
+
+  it('edit related user story', () => {
+    const data: EpicUserStoryPartialInput = {
+      order: 100,
+    };
+
+    spectator.service.editRelatedUserStory(epic, userStory, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/${epic}/related_userstories/${userStory}`, HttpMethod.PATCH);
+
+    expect(req.request.body).toEqual(data);
   });
 });
