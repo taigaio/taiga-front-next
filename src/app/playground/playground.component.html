@@ -85,7 +85,7 @@ the root directory of this source tree.
 
 <h2>Members</h2>
 <ng-container *ngrxLet="members$ as members">
-  <ul *ngFor="let member of members | async">
-    <li>{{ member.full_name }}</li>
+  <ul>
+    <li *ngFor="let member of members">{{ member.full_name }}</li>
   </ul>
 </ng-container>

@@ -75,7 +75,7 @@ export class PlaygroundComponent implements OnInit {
     private readonly membershipsInvitationsApiService: MembershipsInvitationsApiService
   ) {
     this.stats$ = this.statsApiService.getDiscover();
-    this.projectId$ = this.resolverApiService.project('taiga5');
+    this.projectId$ = this.resolverApiService.project('taiganext');
   }
 
   querySearch() {
