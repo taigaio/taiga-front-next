@@ -48,11 +48,11 @@ describe('EpicsApiService', () => {
     const data = EpicCreationMockFactory.build();
 
     const body = {
-      ...(data.assignedTo && { assigned_to: data.assignedTo }),
-      ...(data.blockedNote && { blocked_note: data.blockedNote }),
+      ...(data.assignedTo && { assignedTo: data.assignedTo }),
+      ...(data.blockedNote && { blockedNote: data.blockedNote }),
       ...(data.description && { description: data.description }),
-      ...(data.isBlocked && { is_blocked: data.isBlocked }),
-      ...(data.isClosed && { is_closed: data.isClosed }),
+      ...(data.isBlocked && { isBlocked: data.isBlocked }),
+      ...(data.isClosed && { isClosed: data.isClosed }),
       ...(data.color && { color: data.color }),
       ...(data.tags && { tags: data.tags }),
       ...(data.watchers && { watchers: data.watchers }),
@@ -101,5 +101,13 @@ describe('EpicsApiService', () => {
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/bulk_create`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(body);
+  });
+
+  it('Get Epic filters', () => {
+    const query = {
+      project: project.toString(),
+    };
+    spectator.service.getFilters(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/filters_data?${new URLSearchParams(query)}`, HttpMethod.GET);
   });
 });

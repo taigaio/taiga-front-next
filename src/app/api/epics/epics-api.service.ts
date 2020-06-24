@@ -9,7 +9,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
-import { Epic, EpicFilter, EpicCreationData, EpicPartialInput, EpicCreationInBulk } from './epics.model';
+import { Epic, EpicFilter, EpicCreationData, EpicPartialInput, EpicCreationInBulk, EpicFilters } from './epics.model';
 
 @Injectable()
 export class EpicsApiService {
@@ -35,11 +35,11 @@ export class EpicsApiService {
 
   public create(data: EpicCreationData) {
     const query = {
-      ...(data.assignedTo && { assigned_to: data.assignedTo }),
-      ...(data.blockedNote && { blocked_note: data.blockedNote }),
+      ...(data.assignedTo && { assignedTo: data.assignedTo }),
+      ...(data.blockedNote && { blockedNote: data.blockedNote }),
       ...(data.description && { description: data.description }),
-      ...(data.isBlocked && { is_blocked: data.isBlocked }),
-      ...(data.isClosed && { is_closed: data.isClosed }),
+      ...(data.isBlocked && { isBlocked: data.isBlocked }),
+      ...(data.isClosed && { isClosed: data.isClosed }),
       ...(data.color && { color: data.color }),
       ...(data.tags && { tags: data.tags }),
       ...(data.watchers && { watchers: data.watchers }),
@@ -66,11 +66,19 @@ export class EpicsApiService {
     const bulkEpics = data.bulkEpics.reduce( (accumulator, subject) => `${accumulator} /n ${subject}` );
 
     const input = {
-      project_id: data.project,
-      bulk_epics: bulkEpics,
-      ...(data.statusId && {status_id: data.statusId}),
+      projectId: data.project,
+      bulkEpics,
+      ...(data.statusId && {statusId: data.statusId}),
     };
 
     return this.http.post<Epic[]>(`${this.base}/bulk_create`, input);
+  }
+
+  public getFilters(id: number) {
+    return this.http.get<EpicFilters>(`${this.base}/${id}/filters_data`, {
+      params: {
+        project: id.toString(),
+      },
+    });
   }
 }
