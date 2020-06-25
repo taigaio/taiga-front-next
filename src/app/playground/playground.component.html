@@ -6,9 +6,9 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 -->
 <h1>Taiga</h1>
-<div>
-  total projects: {{ (stats$ | async)?.projects.total }}
-</div>
+<ng-container *ngrxLet="stats$ as stats">
+  <p>total projects: stats?.projects.total }}</p>
+</ng-container>
 
 <h2>Resolver test</h2>
 <p>Taiga5 Id: {{(projectId$ | async)?.project}}</p>
