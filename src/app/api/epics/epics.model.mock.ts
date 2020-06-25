@@ -9,7 +9,7 @@
 import * as Factory from 'factory.ts';
 import * as faker from 'faker';
 
-import { EpicCreationData, EpicCreationInBulk } from './epics.model';
+import { EpicCreationData, EpicCreationInBulk, RelatedUserStoryCreationInBulk } from './epics.model';
 
 export const EpicCreationMockFactory = Factory.Sync.makeFactory<EpicCreationData>({
   assignedTo: faker.random.number(),
@@ -31,9 +31,18 @@ export const EpicCreationMockFactory = Factory.Sync.makeFactory<EpicCreationData
 });
 
 export const EpicCreationInBulkMockFactory = Factory.Sync.makeFactory<EpicCreationInBulk>({
-  project: faker.random.number(),
+  projectId: faker.random.number(),
   statusId: faker.random.number(),
   bulkEpics: [
+    faker.lorem.sentence(),
+    faker.lorem.sentence(),
+    faker.lorem.sentence(),
+  ],
+});
+
+export const RelatedUserStoryCreationInBulkMockFactory = Factory.Sync.makeFactory<RelatedUserStoryCreationInBulk>({
+  projectId: faker.random.number(),
+  bulkUserStories: [
     faker.lorem.sentence(),
     faker.lorem.sentence(),
     faker.lorem.sentence(),

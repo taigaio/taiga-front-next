@@ -17,7 +17,8 @@ import {
   EpicCreationInBulk,
   EpicFilters,
   EpicUserStory,
-  EpicUserStoryPartialInput
+  EpicUserStoryPartialInput,
+  RelatedUserStoryCreationInBulk
 } from './epics.model';
 
 @Injectable()
@@ -75,7 +76,7 @@ export class EpicsApiService {
     const bulkEpics = data.bulkEpics.reduce( (accumulator, subject) => `${accumulator} /n ${subject}` );
 
     const input = {
-      projectId: data.project,
+      projectId: data.projectId,
       bulkEpics,
       ...(data.statusId && {statusId: data.statusId}),
     };
@@ -84,7 +85,7 @@ export class EpicsApiService {
   }
 
   public getFilters(id: number) {
-    return this.http.get<EpicFilters>(`${this.base}/${id}/filters_data`, {
+    return this.http.get<EpicFilters>(`${this.base}/filters_data`, {
       params: {
         project: id.toString(),
       },
@@ -98,10 +99,21 @@ export class EpicsApiService {
   public createRelatedUserStory(id: number, userStoryId: number) {
     const query = {
       epic: id,
-      user_story: userStoryId,
+      userStory: userStoryId,
     };
 
     return this.http.post<EpicUserStory>(`${this.base}/${id}/related_userstories`, query);
+  }
+
+  public bulkCreateRelatedUserStory(id: number, data: RelatedUserStoryCreationInBulk) {
+    const stories = data.bulkUserStories.reduce( (accumulator, subject) => `${accumulator} /n ${subject}` );
+
+    const body = {
+      projectId: data.projectId,
+      bulkUserStories: stories,
+    };
+
+    return this.http.post<EpicUserStory>(`${this.base}/${id}/related_userstories/bulk_create`, body);
   }
 
   public getRelatedUserStory(epic: number, userStory: number) {
@@ -110,5 +122,9 @@ export class EpicsApiService {
 
   public editRelatedUserStory(epic: number, userStory: number, data: EpicUserStoryPartialInput) {
     return this.http.patch<EpicUserStory>(`${this.base}/${epic}/related_userstories/${userStory}`, data);
+  }
+
+  public deleteRelatedUserStory(epic: number, userStory: number) {
+    return this.http.delete(`${this.base}/${epic}/related_userstories/${userStory}`);
   }
 }

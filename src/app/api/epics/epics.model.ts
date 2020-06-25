@@ -89,7 +89,7 @@ export interface EpicCreationData {
 export type EpicPartialInput = Partial<Epic>;
 
 export interface EpicCreationInBulk {
-  project: number;
+  projectId: number;
   statusId?: number;
   bulkEpics: string[];
 }
@@ -128,3 +128,8 @@ export interface EpicUserStory {
 }
 
 export type EpicUserStoryPartialInput = Partial<EpicUserStory>;
+
+export interface RelatedUserStoryCreationInBulk {
+  projectId: number;
+  bulkUserStories: string[];
+}

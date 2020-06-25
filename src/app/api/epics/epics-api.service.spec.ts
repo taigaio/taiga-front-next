@@ -11,7 +11,7 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { EpicsApiService } from './epics-api.service';
-import { EpicCreationMockFactory, EpicCreationInBulkMockFactory } from './epics.model.mock';
+import { EpicCreationMockFactory, EpicCreationInBulkMockFactory, RelatedUserStoryCreationInBulkMockFactory } from './epics.model.mock';
 import { EpicPartialInput, EpicUserStoryPartialInput } from './epics.model';
 
 describe('EpicsApiService', () => {
@@ -88,13 +88,12 @@ describe('EpicsApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.DELETE);
   });
 
-  it('bulk create', () => {
+  it('bulk create epic', () => {
     const data = EpicCreationInBulkMockFactory.build();
 
     const body = {
-      project_id: data.project,
-      status_id: data.statusId,
-      bulk_epics: data.bulkEpics.reduce( (accumulator: string, subject: string) => `${accumulator} /n ${subject}` ),
+      ...data,
+      bulkEpics: data.bulkEpics.reduce( (accumulator: string, subject: string) => `${accumulator} /n ${subject}` ),
     };
 
     spectator.service.bulkCreate(data).subscribe();
@@ -107,8 +106,8 @@ describe('EpicsApiService', () => {
     const query = {
       project: project.toString(),
     };
-    spectator.service.getFilters(epic).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/filters_data?${new URLSearchParams(query)}`, HttpMethod.GET);
+    spectator.service.getFilters(project).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/filters_data?${new URLSearchParams(query)}`, HttpMethod.GET);
   });
 
   it('list related User Stories', () => {
@@ -119,11 +118,25 @@ describe('EpicsApiService', () => {
   it('create related user story', () => {
     const body = {
       epic,
-      user_story: userStory,
+      userStory,
     };
 
     spectator.service.createRelatedUserStory(epic, userStory).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories`, HttpMethod.POST);
+
+    expect(req.request.body).toEqual(body);
+  });
+
+  it('bulk create related user stories', () => {
+    const data = RelatedUserStoryCreationInBulkMockFactory.build();
+
+    const body = {
+      ...data,
+      bulkUserStories: data.bulkUserStories.reduce( (accumulator: string, subject: string) => `${accumulator} /n ${subject}` ),
+    };
+
+    spectator.service.bulkCreateRelatedUserStory(epic, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories/bulk_create`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(body);
   });
@@ -139,8 +152,13 @@ describe('EpicsApiService', () => {
     };
 
     spectator.service.editRelatedUserStory(epic, userStory, data).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/${epic}/related_userstories/${userStory}`, HttpMethod.PATCH);
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories/${userStory}`, HttpMethod.PATCH);
 
     expect(req.request.body).toEqual(data);
+  });
+
+  it('edit related user story', () => {
+    spectator.service.deleteRelatedUserStory(epic, userStory).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories/${userStory}`, HttpMethod.DELETE);
   });
 });
