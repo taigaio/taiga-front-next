@@ -161,4 +161,19 @@ describe('EpicsApiService', () => {
     spectator.service.deleteRelatedUserStory(epic, userStory).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories/${userStory}`, HttpMethod.DELETE);
   });
+
+  it('vote epic', () => {
+    spectator.service.vote(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/upvote`, HttpMethod.POST);
+  });
+
+  it('downvote epic', () => {
+    spectator.service.downVote(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/downvote`, HttpMethod.POST);
+  });
+
+  it('get epic voters', () => {
+    spectator.service.getVoters(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/voters`, HttpMethod.GET);
+  });
 });

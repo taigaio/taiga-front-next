@@ -18,7 +18,8 @@ import {
   EpicFilters,
   EpicUserStory,
   EpicUserStoryPartialInput,
-  RelatedUserStoryCreationInBulk
+  RelatedUserStoryCreationInBulk,
+  EpicVoter
 } from './epics.model';
 
 @Injectable()
@@ -126,5 +127,17 @@ export class EpicsApiService {
 
   public deleteRelatedUserStory(epic: number, userStory: number) {
     return this.http.delete(`${this.base}/${epic}/related_userstories/${userStory}`);
+  }
+
+  public vote(epic: number) {
+    return this.http.post(`${this.base}/${epic}/upvote`, null);
+  }
+
+  public downVote(epic: number) {
+    return this.http.post(`${this.base}/${epic}/downvote`, null);
+  }
+
+  public getVoters(epic: number) {
+    return this.http.get<EpicVoter>(`${this.base}/${epic}/voters`);
   }
 }

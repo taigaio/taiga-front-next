@@ -133,3 +133,9 @@ export interface RelatedUserStoryCreationInBulk {
   projectId: number;
   bulkUserStories: string[];
 }
+
+export interface EpicVoter {
+  fullName: string;
+  id: number;
+  username: string;
+}

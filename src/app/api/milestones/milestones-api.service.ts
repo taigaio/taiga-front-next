@@ -65,14 +65,14 @@ export class MilestoneApiService {
   }
 
   public watch(milestoneId: number) {
-    return this.http.post(`${this.base}/${milestoneId}/watch`, {});
+    return this.http.post(`${this.base}/${milestoneId}/watch`, null);
   }
 
   public unwatch(milestoneId: number) {
-    return this.http.post(`${this.base}/${milestoneId}/unwatch`, {});
+    return this.http.post(`${this.base}/${milestoneId}/unwatch`, null);
   }
 
   public watchers(milestoneId: number) {
-    return this.http.get<Milestone>(`${this.base}/${milestoneId}/watchers`, {});
+    return this.http.get<Milestone>(`${this.base}/${milestoneId}/watchers`);
   }
 }
