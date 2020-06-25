@@ -168,12 +168,27 @@ describe('EpicsApiService', () => {
   });
 
   it('downvote epic', () => {
-    spectator.service.downVote(epic).subscribe();
+    spectator.service.downvote(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/downvote`, HttpMethod.POST);
   });
 
   it('get epic voters', () => {
     spectator.service.getVoters(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/voters`, HttpMethod.GET);
+  });
+
+  it('watch epic', () => {
+    spectator.service.watch(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/watch`, HttpMethod.POST);
+  });
+
+  it('unwatch epic', () => {
+    spectator.service.unwatch(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/unwatch`, HttpMethod.POST);
+  });
+
+  it('get epic watchers', () => {
+    spectator.service.getWatchers(epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/watchers`, HttpMethod.GET);
   });
 });

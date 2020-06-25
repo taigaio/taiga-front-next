@@ -19,7 +19,7 @@ import {
   EpicUserStory,
   EpicUserStoryPartialInput,
   RelatedUserStoryCreationInBulk,
-  EpicVoter
+  EpicVoterWatcher,
 } from './epics.model';
 
 @Injectable()
@@ -133,11 +133,23 @@ export class EpicsApiService {
     return this.http.post(`${this.base}/${epic}/upvote`, null);
   }
 
-  public downVote(epic: number) {
+  public downvote(epic: number) {
     return this.http.post(`${this.base}/${epic}/downvote`, null);
   }
 
   public getVoters(epic: number) {
-    return this.http.get<EpicVoter>(`${this.base}/${epic}/voters`);
+    return this.http.get<EpicVoterWatcher>(`${this.base}/${epic}/voters`);
+  }
+
+  public watch(epic: number) {
+    return this.http.post(`${this.base}/${epic}/watch`, null);
+  }
+
+  public unwatch(epic: number) {
+    return this.http.post(`${this.base}/${epic}/unwatch`, null);
+  }
+
+  public getWatchers(epic: number) {
+    return this.http.get<EpicVoterWatcher>(`${this.base}/${epic}/watchers`);
   }
 }
