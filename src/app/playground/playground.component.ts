@@ -112,7 +112,7 @@ export class PlaygroundComponent implements OnInit {
 
   public listProjects() {
     this.projectsApiService.list({
-      is_backlog_activated: true,
+      isBacklogActivated: true,
     }, ProjectsListOrderBy.totalActivityLastMonth).subscribe(console.log);
   }
 

@@ -98,6 +98,6 @@ describe('LoginEffects', () => {
     effects.loginSuccess$.subscribe();
     m.flush();
 
-    expect(localStorageService.set).toHaveBeenCalledWith('token', response.auth_token);
+    expect(localStorageService.set).toHaveBeenCalledWith('token', response.authToken);
   }));
 });

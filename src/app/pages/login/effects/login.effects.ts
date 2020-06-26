@@ -37,7 +37,7 @@ export class LoginEffects {
     return this.actions$.pipe(
       ofType(LoginActions.loginSuccess),
       map((action) => {
-        this.localStorageService.set('token', action.data.auth_token);
+        this.localStorageService.set('token', action.data.authToken);
       })
     );
   }, { dispatch: false });

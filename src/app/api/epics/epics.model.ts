@@ -13,7 +13,7 @@ export interface Epic {
   blockedNote: string;
   clientRequirement: boolean;
   color: string;
-  created_date: string;
+  createdDate: string;
   epicsOrder: number;
   id: number;
   isBlocked: boolean;
@@ -141,22 +141,22 @@ export interface EpicVoterWatcher {
 }
 
 export interface EpicAttachment {
-    attached_file: string;
-    created_date: string;
+    attachedFile: string;
+    createdDate: string;
     description: string;
-    from_comment: boolean;
+    fromComment: boolean;
     id: number;
-    is_deprecated: boolean;
-    modified_date: string;
+    isDeprecated: boolean;
+    modifiedDate: string;
     name: string;
-    object_id: number;
+    objectId: number;
     order: number;
     owner: number;
-    preview_url: string;
+    previewUrl: string;
     project: number;
     sha1: string;
     size: number;
-    thumbnail_card_url: string;
+    thumbnailCardUrl: string;
     url: string;
 }
 

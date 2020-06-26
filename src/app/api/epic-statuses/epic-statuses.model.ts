@@ -12,7 +12,7 @@ export interface EpicStatus {
   name: string;
   slug: string;
   color: string;
-  is_closed: boolean;
+  isClosed: boolean;
   order: number;
   project: number;
 }
@@ -20,7 +20,7 @@ export interface EpicStatus {
 export interface EpicStatusInput {
   name: string;
   color: string;
-  is_closed: boolean;
+  isClosed: boolean;
   order: number;
   project: number;
 }

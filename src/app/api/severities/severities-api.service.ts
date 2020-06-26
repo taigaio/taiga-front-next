@@ -56,7 +56,7 @@ export class SeveritiesApiService {
 
   public updateOrderInBulk(project: number, newOrder: SeveritiesOrderList) {
     const data = {
-      bulk_severities: newOrder,
+      bulkSeverities: newOrder,
       project,
     };
     return this.http.post(`${this.base}/bulk_update_order`, data);

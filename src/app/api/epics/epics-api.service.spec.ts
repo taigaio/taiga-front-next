@@ -212,16 +212,16 @@ describe('EpicsApiService', () => {
 
     const formData = new FormData();
 
-    formData.append('object_id', mockAttachment.objectId.toString());
+    formData.append('objectId', mockAttachment.objectId.toString());
     formData.append('project', mockAttachment.project.toString());
-    formData.append('attached_file', mockAttachment.attachedFile, mockAttachment.attachedFile.name);
+    formData.append('attachedFile', mockAttachment.attachedFile, mockAttachment.attachedFile.name);
 
     if (mockAttachment.description) {
       formData.append('description', mockAttachment.description);
     }
 
     if (mockAttachment.isDeprecated) {
-      formData.append('is_deprecated', mockAttachment.isDeprecated.toString());
+      formData.append('isDeprecated', mockAttachment.isDeprecated.toString());
     }
 
     spectator.service.createAttachment(mockAttachment).subscribe();
@@ -241,7 +241,7 @@ describe('EpicsApiService', () => {
     const formData = new FormData();
 
     if (mockAttachment.objectId) {
-      formData.append('object_id', mockAttachment.objectId.toString());
+      formData.append('objectId', mockAttachment.objectId.toString());
     }
 
     if (mockAttachment.project) {
@@ -249,7 +249,7 @@ describe('EpicsApiService', () => {
     }
 
     if (mockAttachment.attachedFile) {
-      formData.append('attached_file', mockAttachment.attachedFile, mockAttachment.attachedFile.name);
+      formData.append('attachedFile', mockAttachment.attachedFile, mockAttachment.attachedFile.name);
     }
 
     if (mockAttachment.description) {
@@ -257,7 +257,7 @@ describe('EpicsApiService', () => {
     }
 
     if (mockAttachment.isDeprecated) {
-      formData.append('is_deprecated', mockAttachment.isDeprecated.toString());
+      formData.append('isDeprecated', mockAttachment.isDeprecated.toString());
     }
 
     spectator.service.patchAttachment(attachment, mockAttachment).subscribe();

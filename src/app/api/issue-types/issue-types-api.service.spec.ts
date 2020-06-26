@@ -99,6 +99,6 @@ describe('IssueTypesApiService', () => {
     const req = spectator.expectOne(
       `${ConfigServiceMock.apiUrl}/issue-types/bulk_update_order`,
        HttpMethod.POST);
-    expect(req.request.body).toEqual({bulk_issue_types: newOrder, project});
+    expect(req.request.body).toEqual({bulkIssueTypes: newOrder, project});
   });
 });

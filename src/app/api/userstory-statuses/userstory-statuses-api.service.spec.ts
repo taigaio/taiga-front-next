@@ -52,9 +52,9 @@ describe('UserstoryStatusesApiService', () => {
       name: 'test',
       color: '#fabada',
       order: 1,
-      is_closed: false,
-      is_archived: false,
-      wip_limit: null,
+      isClosed: false,
+      isArchived: false,
+      wipLimit: null,
       project: 1,
     };
 
@@ -102,6 +102,6 @@ describe('UserstoryStatusesApiService', () => {
     const req = spectator.expectOne(
       `${ConfigServiceMock.apiUrl}/userstory-statuses/bulk_update_order`,
        HttpMethod.POST);
-    expect(req.request.body).toEqual({bulk_userstory_statuses: newOrder, project});
+    expect(req.request.body).toEqual({bulkUserstoryStatuses: newOrder, project});
   });
 });

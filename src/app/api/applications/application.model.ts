@@ -8,7 +8,7 @@
 
 export interface Application {
   description: string;
-  icon_url: null | string;
+  iconUrl: null | string;
   id: string;
   name: string;
   web: string;

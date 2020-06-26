@@ -10,9 +10,9 @@ import { Application } from '../applications/application.model';
 
 export interface ApplicationToken {
   application: Application;
-  auth_code: string;
+  authCode: string;
   id: number;
-  next_url: string;
+  nextUrl: string;
   user: number;
 }
 
@@ -23,6 +23,6 @@ export interface AuthorizeInput {
 
 export interface ValidateInput {
   application: string;
-  auth_code: string;
+  authCode: string;
   state: string;
 }

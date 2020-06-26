@@ -9,7 +9,7 @@
 import { User } from '@/app/api/users/users.model';
 
 export interface Auth extends User {
-  auth_token: string;
+  authToken: string;
 }
 
 export interface LoginInput {
@@ -24,8 +24,8 @@ export interface PublicRegistryInput {
   username: string;
   password: string;
   email: string;
-  full_name: string;
-  accepted_terms: boolean;
+  fullName: string;
+  acceptedTerms: boolean;
 }
 
 export interface PrivateRegistryInput {
@@ -35,5 +35,5 @@ export interface PrivateRegistryInput {
   username: string;
   password: string;
   email: string;
-  full_name: string;
+  fullName: string;
 }

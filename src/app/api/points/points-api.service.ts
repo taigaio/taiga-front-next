@@ -56,7 +56,7 @@ export class PointsApiService {
 
   public updateOrderInBulk(project: number, newOrder: PointsOrderList) {
     const data = {
-      bulk_points: newOrder,
+      bulkPoints: newOrder,
       project,
     };
     return this.http.post(`${this.base}/bulk_update_order`, data);

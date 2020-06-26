@@ -57,7 +57,7 @@ describe('ApplicationTokenApiService', () => {
   it('getToken', () => {
     const validateInput = {
       application: '123',
-      auth_code: 'xx-yy',
+      authCode: 'xx-yy',
       state: 'random-state',
     };
 

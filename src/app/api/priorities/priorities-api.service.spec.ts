@@ -99,6 +99,6 @@ describe('PrioritiesApiService', () => {
     const req = spectator.expectOne(
       `${ConfigServiceMock.apiUrl}/priorities/bulk_update_order`,
        HttpMethod.POST);
-    expect(req.request.body).toEqual({bulk_priorities: newOrder, project});
+    expect(req.request.body).toEqual({bulkPriorities: newOrder, project});
   });
 });

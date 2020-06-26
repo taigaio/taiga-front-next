@@ -5,14 +5,17 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
+import * as webpack from 'webpack';
 
-module.exports = (config) => {
-  config.module.rules.push(
-    {
-      test   : /\.css$/,
-      loader : 'postcss-loader'
-    }
-  );
+export default function(config: webpack.Configuration) {
+  if (config.module) {
+    config.module.rules.push(
+      {
+        test   : /\.css$/,
+        loader : 'postcss-loader',
+      }
+    );
+  }
 
   return config;
-};
+}

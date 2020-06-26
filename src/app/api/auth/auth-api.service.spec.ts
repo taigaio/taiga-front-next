@@ -41,8 +41,8 @@ describe('AuthApiService', () => {
       username: faker.internet.userName(),
       password: faker.internet.password(),
       email: faker.internet.email(),
-      full_name: faker.name.findName(),
-      accepted_terms: faker.random.boolean(),
+      fullName: faker.name.findName(),
+      acceptedTerms: faker.random.boolean(),
     };
     spectator.service.register(data).subscribe();
     const call = spectator.expectOne(`${ConfigServiceMock.apiUrl}/auth/register`, HttpMethod.POST);

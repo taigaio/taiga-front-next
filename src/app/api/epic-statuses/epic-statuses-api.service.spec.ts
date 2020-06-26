@@ -51,7 +51,7 @@ describe('EpicStatusesApiService', () => {
       name: 'test',
       color: '#fabada',
       order: 1,
-      is_closed: false,
+      isClosed: false,
       project: 1,
     };
 
@@ -99,6 +99,6 @@ describe('EpicStatusesApiService', () => {
     const req = spectator.expectOne(
       `${ConfigServiceMock.apiUrl}/epic-statuses/bulk_update_order`,
        HttpMethod.POST);
-    expect(req.request.body).toEqual({bulk_epic_statuses: newOrder, project});
+    expect(req.request.body).toEqual({bulkEpicStatuses: newOrder, project});
   });
 });

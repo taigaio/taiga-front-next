@@ -12,9 +12,9 @@ export interface UserstoryStatus {
   name: string;
   slug: string;
   color: string;
-  is_closed: boolean;
-  is_archived: boolean;
-  wip_limit: number | null;
+  isClosed: boolean;
+  isArchived: boolean;
+  wipLimit: number | null;
   order: number;
   project: number;
 }
@@ -22,9 +22,9 @@ export interface UserstoryStatus {
 export interface UserstoryStatusInput {
   name: string;
   color: string;
-  is_closed: boolean;
-  is_archived: boolean;
-  wip_limit: number | null;
+  isClosed: boolean;
+  isArchived: boolean;
+  wipLimit: number | null;
   order: number;
   project: number;
 }

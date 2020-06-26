@@ -9,21 +9,21 @@
 export interface SearchResults {
   count: number;
   epics: Array<{
-    assigned_to: number;
+    assignedTo: number;
     id: number;
     ref: number;
     status: number;
     subject: string;
   }>;
   issues: Array<{
-    assigned_to: number;
+    assignedTo: number;
     id: number;
     ref: number;
     status: number;
     subject: string;
   }>;
   tasks: Array<{
-    assigned_to: number;
+    assignedTo: number;
     id: number;
     ref: number;
     status: number;
@@ -31,12 +31,12 @@ export interface SearchResults {
   }>;
   userstories: Array<{
     id: number;
-    milestone_name: string;
-    milestone_slug: string;
+    milestoneName: string;
+    milestoneSlug: string;
     ref: number;
     status: number;
     subject: string;
-    total_points: number;
+    totalPoints: number;
   }>;
   wikipages: Array<{
     id: number;

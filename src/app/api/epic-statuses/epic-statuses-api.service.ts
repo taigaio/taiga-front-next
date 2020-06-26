@@ -56,7 +56,7 @@ export class EpicStatusesApiService {
 
   public updateOrderInBulk(project: number, newOrder: EpicStatusesOrderList) {
     const data = {
-      bulk_epic_statuses: newOrder,
+      bulkEpicStatuses: newOrder,
       project,
     };
     return this.http.post(`${this.base}/bulk_update_order`, data);
