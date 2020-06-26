@@ -10,7 +10,7 @@ export interface Membership {
   color: string;
   created_at: string;
   email: string;
-  full_name: string;
+  fullName: string;
   gravatar_id: string;
   id: number;
   invitation_extra_text: string | null;

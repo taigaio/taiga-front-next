@@ -9,14 +9,14 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AuthInterceptorModule } from '@/app/commons/auth-interceptor/auth-interceptor.module';
+import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
 import { TaskStatusesApiService } from './task-statuses-api.service';
 
 @NgModule({
   declarations: [],
   imports: [
     HttpClientModule,
-    AuthInterceptorModule,
+    ApiRestInterceptorModule,
   ],
   providers: [
     TaskStatusesApiService,

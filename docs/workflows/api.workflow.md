@@ -11,7 +11,7 @@ Add `HttpClientModule` and `AuthInterceptorModule` to the imports list.
 ```ts
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthInterceptorModule } from '@/app/commons/auth-interceptor/auth-interceptor.module';
+import { AuthInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
 
 @NgModule({
   declarations: [],
