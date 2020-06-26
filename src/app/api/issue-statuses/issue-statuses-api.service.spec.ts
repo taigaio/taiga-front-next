@@ -52,7 +52,7 @@ describe('IssueStatusesApiService', () => {
       name: 'test',
       color: '#fabada',
       order: 1,
-      is_closed: false,
+      isClosed: false,
       project: 1,
     };
 
@@ -100,6 +100,6 @@ describe('IssueStatusesApiService', () => {
     const req = spectator.expectOne(
       `${ConfigServiceMock.apiUrl}/issue-statuses/bulk_update_order`,
        HttpMethod.POST);
-    expect(req.request.body).toEqual({bulk_issue_statuses: newOrder, project});
+    expect(req.request.body).toEqual({bulkIssueStatuses: newOrder, project});
   });
 });

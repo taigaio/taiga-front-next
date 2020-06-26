@@ -16,7 +16,7 @@ export const EpicStatusMockFactory = Factory.Sync.makeFactory<EpicStatus>({
   name: faker.lorem.words(),
   slug: faker.lorem.slug(),
   color: faker.internet.color(),
-  is_closed: faker.random.boolean(),
+  isClosed: faker.random.boolean(),
   order: faker.random.number(),
   project: faker.random.number(),
 });

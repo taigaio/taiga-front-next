@@ -29,16 +29,16 @@ describe('ProjectsApiService', () => {
     return {
       name: faker.commerce.productName(),
       description: faker.lorem.paragraphs(),
-      creation_template: faker.random.number(),
-      is_backlog_activated: faker.random.boolean(),
-      is_issues_activated: faker.random.boolean(),
-      is_kanban_activated: faker.random.boolean(),
-      is_private: faker.random.boolean(),
-      is_wiki_activated: faker.random.boolean(),
+      creationTemplate: faker.random.number(),
+      isBacklogActivated: faker.random.boolean(),
+      isIssuesActivated: faker.random.boolean(),
+      isKanbanActivated: faker.random.boolean(),
+      isPrivate: faker.random.boolean(),
+      isWikiActivated: faker.random.boolean(),
       videoconferences: faker.lorem.word(),
-      videoconferences_extra_data: faker.lorem.word(),
-      total_milestones: faker.random.number(),
-      total_story_points: faker.random.number(),
+      videoconferencesExtraData: faker.lorem.word(),
+      totalMilestones: faker.random.number(),
+      totalStoryPoints: faker.random.number(),
     };
   }
 
@@ -51,17 +51,17 @@ describe('ProjectsApiService', () => {
     const filters = {
       member: faker.random.number(),
       members: [faker.random.number(), faker.random.number()],
-      is_looking_for_people: faker.random.boolean(),
-      is_featured: faker.random.boolean(),
-      is_backlog_activated: faker.random.boolean(),
-      is_kanban_activated: faker.random.boolean(),
+      isLookingForPeople: faker.random.boolean(),
+      isFeatured: faker.random.boolean(),
+      isBacklogActivated: faker.random.boolean(),
+      isKanbanActivated: faker.random.boolean(),
     };
 
     const orderBy = ProjectsListOrderBy.totalActivity;
 
     const queryParams = UtilsService.buildQueryParams({
       ...filters,
-      order_by: orderBy,
+      orderBy,
     }).toString();
 
     spectator.service.list(filters, orderBy).subscribe();
@@ -117,7 +117,7 @@ describe('ProjectsApiService', () => {
     const newOrder = [
       {
         order: faker.random.number(),
-        project_id:  faker.random.number(),
+        projectId:  faker.random.number(),
       },
     ];
 
@@ -137,11 +137,11 @@ describe('ProjectsApiService', () => {
     const modules = {
       github: {
           secret: faker.random.uuid(),
-          webhooks_url: faker.internet.url(),
+          webhooksUrl: faker.internet.url(),
       },
       gogs: {
         secret: faker.random.uuid(),
-        webhooks_url: faker.internet.url(),
+        webhooksUrl: faker.internet.url(),
       },
     };
 
@@ -184,8 +184,8 @@ describe('ProjectsApiService', () => {
   it('editTag', () => {
     const tag = {
       color: faker.internet.color(),
-      from_tag: faker.lorem.word(),
-      to_tag: faker.lorem.word(),
+      fromTag: faker.lorem.word(),
+      toTag: faker.lorem.word(),
     };
 
     spectator.service.editTag(projectId, tag).subscribe();
@@ -256,8 +256,8 @@ describe('ProjectsApiService', () => {
 
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/projects/${projectId}/create_template`, HttpMethod.POST);
     expect(req.request.body).toEqual({
-      template_name: template.name,
-      template_description: template.description,
+      templateName: template.name,
+      templateDescription: template.description,
     });
   });
 
@@ -342,7 +342,7 @@ describe('ProjectsApiService', () => {
 
     const project = {
       description: newProject.description,
-      is_private: newProject.is_private,
+      isPrivate: newProject.isPrivate,
       name: newProject.name,
       users: [user.id],
     };

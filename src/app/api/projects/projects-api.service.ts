@@ -38,7 +38,7 @@ export class ProjectsApiService {
   public list(filters: ProjectsListFilter = {}, orderBy?: ProjectsListOrderBy) {
     const params = UtilsService.buildQueryParams({
       ...filters,
-      order_by: orderBy,
+      orderBy,
     });
 
     return this.http.get<ProjectListEntry>(this.base, {
@@ -74,7 +74,7 @@ export class ProjectsApiService {
     return this.http.delete(`${this.base}/${projectId}`);
   }
 
-  public bulkUpdateOrder(newOrder: {order: number; project_id: number}[]) {
+  public bulkUpdateOrder(newOrder: {order: number; projectId: number}[]) {
     return this.http.post(`${this.base}/bulk_update_order`, newOrder);
   }
 
@@ -128,7 +128,7 @@ export class ProjectsApiService {
   }
 
   public projectFans(projectId: number) {
-    return this.http.get<Pick<User, 'full_name' | 'username' | 'id'>[]>(`${this.base}/${projectId}/fans`);
+    return this.http.get<Pick<User, 'fullName' | 'username' | 'id'>[]>(`${this.base}/${projectId}/fans`);
   }
 
   public watchProject(projectId: number, notifyLevel: number) {
@@ -142,13 +142,13 @@ export class ProjectsApiService {
   }
 
   public projectWatchers(projectId: number) {
-    return this.http.get<Pick<User, 'full_name' | 'username' | 'id'>[]>(`${this.base}/${projectId}/watchers`);
+    return this.http.get<Pick<User, 'fullName' | 'username' | 'id'>[]>(`${this.base}/${projectId}/watchers`);
   }
 
   public createTemplate(projectId: number, templateName: string, templateDescription: string) {
     return this.http.post<ProjectTemplateDetail>(`${this.base}/${projectId}/create_template`, {
-      template_name: templateName,
-      template_description: templateDescription,
+      templateName,
+      templateDescription,
     });
   }
 

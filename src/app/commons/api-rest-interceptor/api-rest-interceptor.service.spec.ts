@@ -92,7 +92,7 @@ describe('ApiRestInterceptor', () => {
     const apiResponse = new HttpResponse({
       url: ConfigServiceMock.apiUrl,
       body: {
-        the_user: {
+        theUser: {
           user_id: userId,
         },
       },

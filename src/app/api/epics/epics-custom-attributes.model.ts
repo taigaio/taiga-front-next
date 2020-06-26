@@ -7,11 +7,11 @@
  */
 
 export interface EpicCustomAttributeDetail {
-  created_date: string;
+  createdDate: string;
   description: string;
   extra: string;
   id: number;
-  modified_date: string;
+  modifiedDate: string;
   name: string;
   order: number;
   project: number;

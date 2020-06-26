@@ -56,7 +56,7 @@ export class TaskStatusesApiService {
 
   public updateOrderInBulk(project: number, newOrder: TaskStatusesOrderList) {
     const data = {
-      bulk_task_statuses: newOrder,
+      bulkTaskStatuses: newOrder,
       project,
     };
     return this.http.post(`${this.base}/bulk_update_order`, data);

@@ -8,21 +8,21 @@
 
 export interface Milestone {
   closed: boolean;
-  closed_points: null | number;
-  created_date: string;
+  closedPoints: null | number;
+  createdDate: string;
   disponibility: number;
-  estimated_finish: string;
-  estimated_start: string;
+  estimatedFinish: string;
+  estimatedStart: string;
   id: number;
-  modified_date: string;
+  modifiedDate: string;
   name: string;
   order: number;
   owner: number;
   project: number;
-  project_extra_info: any;
+  projectExtraInfo: any;
   slug: string;
-  total_points: number;
-  user_stories: any[];
+  totalPoints: number;
+  userStories: any[];
 }
 
 export type MilestonePartialInput = Partial<Milestone>;

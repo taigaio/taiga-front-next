@@ -8,25 +8,25 @@
 
 export interface Membership {
   color: string;
-  created_at: string;
+  createdAt: string;
   email: string;
   fullName: string;
-  gravatar_id: string;
+  gravatarId: string;
   id: number;
-  invitation_extra_text: string | null;
-  invited_by: number | null;
-  is_admin: boolean;
-  is_owner: boolean;
-  is_user_active: boolean;
+  invitationExtraText: string | null;
+  invitedBy: number | null;
+  isAdmin: boolean;
+  isOwner: boolean;
+  isUserActive: boolean;
   photo: string | null;
   project: number;
-  project_name: string;
-  project_slug: string;
+  projectName: string;
+  projectSlug: string;
   role: number;
-  role_name: string;
+  roleName: string;
   user: number;
-  user_email: string;
-  user_order: number;
+  userEmail: string;
+  userOrder: number;
 }
 
 export interface MembershipCreation {

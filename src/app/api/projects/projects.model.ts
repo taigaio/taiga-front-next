@@ -11,25 +11,25 @@ import { User } from '@/app/api/users/users.model';
 export interface ProjectsListFilter {
   member?: number;
   members?: number[];
-  is_looking_for_people?: boolean;
-  is_featured?: boolean;
-  is_backlog_activated?: boolean;
-  is_kanban_activated?: boolean;
+  isLookingForPeople?: boolean;
+  isFeatured?: boolean;
+  isBacklogActivated?: boolean;
+  isKanbanActivated?: boolean;
 }
 
 type NewProjectFields =
   'name' |
   'description' |
-  'creation_template' |
-  'is_backlog_activated' |
-  'is_issues_activated' |
-  'is_kanban_activated' |
-  'is_private' |
-  'is_wiki_activated' |
+  'creationTemplate' |
+  'isBacklogActivated' |
+  'isIssuesActivated' |
+  'isKanbanActivated' |
+  'isPrivate' |
+  'isWikiActivated' |
   'videoconferences' |
-  'videoconferences_extra_data' |
-  'total_milestones' |
-  'total_story_points';
+  'videoconferencesExtraData' |
+  'totalMilestones' |
+  'totalStoryPoints';
 
 type NewProjectRequiredFields = 'name' | 'description';
 
@@ -39,7 +39,7 @@ export type NewProject = Optional<Pick<Project, NewProjectFields>, NewProjectOpt
 
 export interface DuplicateProject extends Pick<Project,
 'description' |
-'is_private' |
+'isPrivate' |
 'name'> {
   users: User['id'][];
 }
@@ -102,21 +102,21 @@ export enum Permissions {
 export interface Status {
   color: string;
   id: number;
-  is_closed: boolean;
+  isClosed: boolean;
   name: string;
   order: number;
-  project_id: number;
+  projectId: number;
   slug: string;
 }
 
 export interface Duedates {
-  by_default: boolean;
+  byDefault: boolean;
   color: string;
-  days_to_due: null | string;
+  daysToDue: null | string;
   id: number;
   name: string;
   order: number;
-  project_id: number;
+  projectId: number;
 }
 
 export interface Attribute {
@@ -124,136 +124,136 @@ export interface Attribute {
   id: number;
   name: string;
   order: number;
-  project_id: number;
+  projectId: number;
 }
 
 export type ProjectListEntry = Pick<Project,
-  'anon_permissions' |
-  'blocked_code' |
-  'created_date' |
-  'creation_template' |
-  'default_epic_status' |
-  'default_issue_status' |
-  'default_issue_type' |
-  'default_points' |
-  'default_priority' |
-  'default_severity' |
-  'default_task_status' |
-  'default_us_status' |
+  'anonPermissions' |
+  'blockedCode' |
+  'createdDate' |
+  'creationTemplate' |
+  'defaultEpicStatus' |
+  'defaultIssueStatus' |
+  'defaultIssueType' |
+  'defaultPoints' |
+  'defaultPriority' |
+  'defaultSeverity' |
+  'defaultTaskStatus' |
+  'defaultUsStatus' |
   'description' |
-  'i_am_admin' |
-  'i_am_member' |
-  'i_am_owner' |
+  'iAmAdmin' |
+  'iAmMember' |
+  'iAmOwner' |
   'id' |
-  'is_backlog_activated' |
-  'is_contact_activated' |
-  'is_epics_activated' |
-  'is_fan' |
-  'is_featured' |
-  'is_issues_activated' |
-  'is_kanban_activated' |
-  'is_looking_for_people' |
-  'is_private' |
-  'is_watcher' |
-  'is_wiki_activated' |
-  'logo_big_url' |
-  'logo_small_url' |
-  'looking_for_people_note' |
+  'isBacklogActivated' |
+  'isContactActivated' |
+  'isEpicsActivated' |
+  'isFan' |
+  'isFeatured' |
+  'isIssuesActivated' |
+  'isKanbanActivated' |
+  'isLookingForPeople' |
+  'isPrivate' |
+  'isWatcher' |
+  'isWikiActivated' |
+  'logoBigUrl' |
+  'logoSmallUrl' |
+  'lookingForPeopleNote' |
   'members' |
-  'modified_date' |
-  'my_homepage' |
-  'my_permissions' |
+  'modifiedDate' |
+  'myHomepage' |
+  'myPermissions' |
   'name' |
-  'notify_level' |
+  'notifyLevel' |
   'owner' |
-  'public_permissions' |
+  'publicPermissions' |
   'slug' |
   'tags' |
-  'tags_colors' |
-  'total_activity' |
-  'total_activity_last_month' |
-  'total_activity_last_week' |
-  'total_activity_last_year' |
-  'total_closed_milestones' |
-  'total_fans' |
-  'total_fans_last_month' |
-  'total_fans_last_week' |
-  'total_fans_last_year' |
-  'total_milestones' |
-  'total_story_points' |
-  'total_watchers' |
-  'totals_updated_datetime' |
+  'tagsColors' |
+  'totalActivity' |
+  'totalActivityLastMonth' |
+  'totalActivityLastWeek' |
+  'totalActivityLastYear' |
+  'totalClosedMilestones' |
+  'totalFans' |
+  'totalFansLastMonth' |
+  'totalFansLastWeek' |
+  'totalFansLastYear' |
+  'totalMilestones' |
+  'totalStoryPoints' |
+  'totalWatchers' |
+  'totalsUpdatedDatetime' |
   'videoconferences' |
-  'videoconferences_extra_data'>;
+  'videoconferencesExtraData'>;
 
 export interface CustomAttribute {
-  created_date: string;
+  createdDate: string;
   description: string;
   extra: null | string;
   id: number;
-  modified_date: string;
+  modifiedDate: string;
   name: string;
   order: number;
-  project_id: number;
+  projectId: number;
   type: 'text' | 'multiline' | 'richtext' | 'date' | 'url' | 'dropdown' | 'checkbox' | 'number';
 }
 
 export interface Project {
-  anon_permissions: string[];
-  blocked_code: null | string;
-  created_date: string;
-  creation_template: number;
-  default_epic_status: number;
-  default_issue_status: number;
-  default_issue_type: number;
-  default_points: number;
-  default_priority: number;
-  default_severity: number;
-  default_task_status: number;
-  default_us_status: number;
+  anonPermissions: string[];
+  blockedCode: null | string;
+  createdDate: string;
+  creationTemplate: number;
+  defaultEpicStatus: number;
+  defaultIssueStatus: number;
+  defaultIssueType: number;
+  defaultPoints: number;
+  defaultPriority: number;
+  defaultSeverity: number;
+  defaultTaskStatus: number;
+  defaultUsStatus: number;
   description: string;
-  epic_custom_attributes: CustomAttribute[];
-  epic_statuses: Status;
-  epics_csv_uuid: null | string;
-  i_am_admin: boolean;
-  i_am_member: boolean;
-  i_am_owner: boolean;
+  epicCustomAttributes: CustomAttribute[];
+  epicStatuses: Status;
+  epicsCsvUuid: null | string;
+  iAmAdmin: boolean;
+  iAmMember: boolean;
+  iAmOwner: boolean;
   id: number;
-  is_backlog_activated: boolean;
-  is_contact_activated: boolean;
-  is_epics_activated: boolean;
-  is_fan: boolean;
-  is_featured: boolean;
-  is_issues_activated: boolean;
-  is_kanban_activated: boolean;
-  is_looking_for_people: boolean;
-  is_out_of_owner_limits: boolean;
-  is_private: boolean;
-  is_private_extra_info: {
-      can_be_updated: boolean;
+  isBacklogActivated: boolean;
+  isContactActivated: boolean;
+  isEpicsActivated: boolean;
+  isFan: boolean;
+  isFeatured: boolean;
+  isIssuesActivated: boolean;
+  isKanbanActivated: boolean;
+  isLookingForPeople: boolean;
+  isOutOfOwnerLimits: boolean;
+  isPrivate: boolean;
+  isPrivateExtraInfo: {
+      canBeUpdated: boolean;
       reason: null | string;
   };
-  is_watcher: boolean;
-  is_wiki_activated: boolean;
-  issue_custom_attributes: CustomAttribute[];
-  issue_duedates: Duedates[];
-  issue_statuses: Status[];
-  issue_types: Attribute[];
-  issues_csv_uuid: null | string;
-  logo_big_url: string;
-  logo_small_url: string;
-  looking_for_people_note: string;
-  max_memberships: null | number;
+  isWatcher: boolean;
+  isWikiActivated: boolean;
+  issueCustomAttributes: CustomAttribute[];
+  issueDuedates: Duedates[];
+  issueStatuses: Status[];
+  issueTypes: Attribute[];
+  issuesCsvUuid: null | string;
+  logoBigUrl: string;
+  logoSmallUrl: string;
+  lookingForPeopleNote: string;
+  maxMemberships: null | number;
   members: {
     role: number;
-    role_name: string;
+    roleName: string;
   } & Pick<User,
       'color' |
-      'full_name' |
-      'full_name_display' |
-      'gravatar_id' |
+      'fullName' |
+      'fullNameDisplay' |
+      'gravatarId' |
       'id' |
-      'is_active' |
+      'isActive' |
       'photo' |
       'username'>;
   milestones: {
@@ -262,96 +262,96 @@ export interface Project {
     name: string;
     slug: string;
   }[];
-  modified_date: string;
-  my_homepage: number;
-  my_permissions: Permissions[];
+  modifiedDate: string;
+  myHomepage: number;
+  myPermissions: Permissions[];
   name: string;
-  notify_level: number;
+  notifyLevel: number;
   owner: Pick<User,
-    'big_photo' |
-    'full_name_display' |
-    'gravatar_id' |
+    'bigPhoto' |
+    'fullNameDisplay' |
+    'gravatarId' |
     'id' |
-    'is_active' |
+    'isActive' |
     'photo' |
     'username'>;
   points: {
     id: number;
     name: string;
     order: number;
-    project_id: number;
+    projectId: number;
     value: null | number;
   }[];
   priorities: Attribute[];
-  public_permissions: Permissions[];
+  publicPermissions: Permissions[];
   roles: {
     computable: boolean,
     id: number;
     name: string;
     order: number;
     permissions: Permissions[],
-    project_id: number;
+    projectId: number;
     slug: string;
   }[];
   severities: Attribute[];
   slug: string;
   tags: string[];
-  tags_colors: Record<string, string>;
-  task_custom_attributes: CustomAttribute[];
-  task_duedates: Duedates[];
-  task_statuses: Status[];
-  tasks_csv_uuid: null | string;
-  total_activity: number;
-  total_activity_last_month: number;
-  total_activity_last_week: number;
-  total_activity_last_year: number;
-  total_closed_milestones: number;
-  total_fans: number;
-  total_fans_last_month: number;
-  total_fans_last_week: number;
-  total_fans_last_year: number;
-  total_memberships: number;
-  total_milestones: number;
-  total_story_points: number;
-  total_watchers: number;
-  totals_updated_datetime: string;
-  transfer_token: string;
-  us_duedates: Duedates[];
-  us_statuses: Status[];
-  userstories_csv_uuid: null | string;
-  userstory_custom_attributes: CustomAttribute[];
+  tagsColors: Record<string, string>;
+  taskCustomAttributes: CustomAttribute[];
+  taskDuedates: Duedates[];
+  taskStatuses: Status[];
+  tasksCsvUuid: null | string;
+  totalActivity: number;
+  totalActivityLastMonth: number;
+  totalActivityLastWeek: number;
+  totalActivityLastYear: number;
+  totalClosedMilestones: number;
+  totalFans: number;
+  totalFansLastMonth: number;
+  totalFansLastWeek: number;
+  totalFansLastYear: number;
+  totalMemberships: number;
+  totalMilestones: number;
+  totalStoryPoints: number;
+  totalWatchers: number;
+  totalsUpdatedDatetime: string;
+  transferToken: string;
+  usDuedates: Duedates[];
+  usStatuses: Status[];
+  userstoriesCsvUuid: null | string;
+  userstoryCustomAttributes: CustomAttribute[];
   videoconferences: null | string;
-  videoconferences_extra_data: null | string;
+  videoconferencesExtraData: null | string;
 }
 
 export interface ProjectModules {
   bitbucket: {
       secret: string;
-      valid_origin_ips: string[];
-      webhooks_url: string;
+      validOriginIps: string[];
+      webhooksUrl: string;
   };
   github: {
       secret: string;
-      webhooks_url: string;
+      webhooksUrl: string;
   };
   gitlab: {
       secret: string;
-      valid_origin_ips: string[];
-      webhooks_url: string;
+      validOriginIps: string[];
+      webhooksUrl: string;
   };
   gogs: {
       secret: string;
-      webhooks_url: string;
+      webhooksUrl: string;
   };
 }
 
 export interface ProjectStats {
-  assigned_points: number;
-  assigned_points_per_role: Record<string, number>;
-  closed_points: number;
-  closed_points_per_role: Record<string, number>;
-  defined_points: number;
-  defined_points_per_role: Record<string, number>;
+  assignedPoints: number;
+  assignedPointsPerRole: Record<string, number>;
+  closedPoints: number;
+  closedPointsPerRole: Record<string, number>;
+  definedPoints: number;
+  definedPointsPerRole: Record<string, number>;
   milestones: {
     'client-increment': number;
     evolution: number;
@@ -361,8 +361,8 @@ export interface ProjectStats {
   }[];
   name: string;
   speed: number;
-  total_milestones: number;
-  total_points: number;
+  totalMilestones: number;
+  totalPoints: number;
 }
 
 export interface AssignedStat {
@@ -381,24 +381,24 @@ export interface StatsByOpenClosed {
 }
 
 export interface ProjectIssueStats {
-  closed_issues: number;
-  issues_per_assigned_to: Record<string, AssignedStat>;
-  issues_per_owner: Record<string, Omit<AssignedStat, 'username'>>;
-  issues_per_priority: Record<string, Omit<AssignedStat, 'username'>>;
-  issues_per_severity: Record<string, Omit<AssignedStat, 'username'>>;
-  issues_per_status: Record<string, Omit<AssignedStat, 'username'>>;
-  issues_per_type: Record<string, Omit<AssignedStat, 'username'>>;
-  last_four_weeks_days: {
-    by_open_closed: {
+  closedIssues: number;
+  issuesPerAssignedTo: Record<string, AssignedStat>;
+  issuesPerOwner: Record<string, Omit<AssignedStat, 'username'>>;
+  issuesPerPriority: Record<string, Omit<AssignedStat, 'username'>>;
+  issuesPerSeverity: Record<string, Omit<AssignedStat, 'username'>>;
+  issuesPerStatus: Record<string, Omit<AssignedStat, 'username'>>;
+  issuesPerType: Record<string, Omit<AssignedStat, 'username'>>;
+  lastFourWeeksDays: {
+    byOpenClosed: {
       closed: number[];
       open: number[];
-      by_priority: Record<string, StatsByOpenClosed>
-      by_severity: Record<string, StatsByOpenClosed>
-      by_status: Record<string, StatsByOpenClosed>
+      byPriority: Record<string, StatsByOpenClosed>
+      bySeverity: Record<string, StatsByOpenClosed>
+      byStatus: Record<string, StatsByOpenClosed>
     };
   };
-  opened_issues: number;
-  total_issues: number;
+  openedIssues: number;
+  totalIssues: number;
 }
 
 export interface Tag {
@@ -408,39 +408,39 @@ export interface Tag {
 
 export interface EditTag {
   color: string;
-  from_tag: string;
-  to_tag: string;
+  fromTag: string;
+  toTag: string;
 }
 
 export interface ProjectTemplateDetail {
-  created_date: string;
-  default_options: {
-      epic_status: string;
-      issue_status: string;
-      issue_type: string;
+  createdDate: string;
+  defaultOptions: {
+      epicStatus: string;
+      issueStatus: string;
+      issueType: string;
       points: string;
       priority: string;
       severity: string;
-      task_status: string;
-      us_status: string;
+      taskStatus: string;
+      usStatus: string;
   };
-  default_owner_role: string;
+  defaultOwnerRole: string;
   description: string;
-  epic_statuses: Pick<Status, 'color' | 'is_closed' | 'name' | 'order' | 'slug'>[];
+  epicStatuses: Pick<Status, 'color' | 'isClosed' | 'name' | 'order' | 'slug'>[];
   id: number;
-  is_backlog_activated: boolean;
-  is_contact_activated: boolean;
-  is_epics_activated: boolean;
-  is_issues_activated: boolean;
-  is_kanban_activated: boolean;
-  is_wiki_activated: boolean;
-  issue_statuses: Pick<Status, 'color' | 'is_closed' | 'name' | 'order' | 'slug'>[];
-  issue_types: {
+  isBacklogActivated: boolean;
+  isContactActivated: boolean;
+  isEpicsActivated: boolean;
+  isIssuesActivated: boolean;
+  isKanbanActivated: boolean;
+  isWikiActivated: boolean;
+  issueStatuses: Pick<Status, 'color' | 'isClosed' | 'name' | 'order' | 'slug'>[];
+  issueTypes: {
     color: string;
     name: string;
     order: number;
   }[];
-  modified_date: string;
+  modifiedDate: string;
   name: string;
   order: number;
   points: {
@@ -466,16 +466,16 @@ export interface ProjectTemplateDetail {
     order: number;
   }[];
   slug: string;
-  task_statuses: Pick<Status, 'color' | 'is_closed' | 'name' | 'order' | 'slug'>[];
-  us_statuses: {
-    is_archived: boolean;
-    wip_limit: null | string;
+  taskStatuses: Pick<Status, 'color' | 'isClosed' | 'name' | 'order' | 'slug'>[];
+  usStatuses: {
+    isArchived: boolean;
+    wipLimit: null | string;
   } & Pick<Status,
     'color' |
-    'is_closed' |
+    'isClosed' |
     'name' |
     'order' |
     'slug'>[];
   videoconferences: null | string;
-  videoconferences_extra_data: string;
+  videoconferencesExtraData: string;
 }

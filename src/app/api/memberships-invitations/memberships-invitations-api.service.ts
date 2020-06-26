@@ -48,15 +48,15 @@ export class MembershipsInvitationsApiService {
 
     const bulkInvites = data.members.map((member: { roleId: number, username: string }) => {
       return {
-        role_id: member.roleId,
+        roleId: member.roleId,
         username: member.username,
       };
     });
 
     const input = {
-      project_id: data.project,
-      bulk_memberships: bulkInvites,
-      ...(data.invitationText && {invitation_extra_text: data.invitationText}),
+      projectId: data.project,
+      bulkMemberships: bulkInvites,
+      ...(data.invitationText && {invitationExtraText: data.invitationText}),
     };
 
     return this.http.post<Membership>(this.base, input);

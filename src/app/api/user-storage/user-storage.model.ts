@@ -7,8 +7,8 @@
  */
 
 export interface UserStorage<T> {
-  created_date: string;
+  createdDate: string;
   key: string;
-  modified_date: string;
+  modifiedDate: string;
   value: T;
 }

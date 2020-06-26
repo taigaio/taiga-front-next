@@ -16,9 +16,9 @@ export const UserstoryStatusMockFactory = Factory.Sync.makeFactory<UserstoryStat
   name: faker.lorem.words(),
   slug: faker.lorem.slug(),
   color: faker.internet.color(),
-  is_closed: faker.random.boolean(),
-  is_archived: faker.random.boolean(),
-  wip_limit: faker.random.arrayElement([null, faker.random.number(5)]),
+  isClosed: faker.random.boolean(),
+  isArchived: faker.random.boolean(),
+  wipLimit: faker.random.arrayElement([null, faker.random.number(5)]),
   order: faker.random.number(),
   project: faker.random.number(),
 });

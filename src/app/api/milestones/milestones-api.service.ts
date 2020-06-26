@@ -37,8 +37,8 @@ export class MilestoneApiService {
     const query = {
       project: data.project,
       name: data.name,
-      estimated_start: data.estimatedStart,
-      estimated_finish: data.estimatedFinish,
+      estimatedStart: data.estimatedStart,
+      estimatedFinish: data.estimatedFinish,
       ...(data.disponibility && { disponibility: data.disponibility }),
       ...(data.slug && { slug: data.slug }),
       ...(data.order && { order: data.order }),

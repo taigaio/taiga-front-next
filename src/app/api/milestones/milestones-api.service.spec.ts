@@ -70,8 +70,8 @@ describe('MilestonesApiService', () => {
     const body = {
       project: data.project,
       name: data.name,
-      estimated_start: data.estimatedStart,
-      estimated_finish: data.estimatedFinish,
+      estimatedStart: data.estimatedStart,
+      estimatedFinish: data.estimatedFinish,
       disponibility: data.disponibility,
       slug: data.slug,
       order: data.order,

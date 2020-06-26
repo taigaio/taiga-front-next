@@ -88,14 +88,14 @@ describe('ResolverApiService', () => {
     };
 
     const data = {
-      project_id: body.project,
-      bulk_memberships: [
+      projectId: body.project,
+      bulkMemberships: [
         {
-          role_id: role,
+          roleId: role,
           username,
         },
       ],
-      invitation_extra_text: body.invitationText,
+      invitationExtraText: body.invitationText,
     };
 
     spectator.service.bulkCreate(body).subscribe();

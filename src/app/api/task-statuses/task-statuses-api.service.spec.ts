@@ -52,7 +52,7 @@ describe('TaskStatusesApiService', () => {
       name: 'test',
       color: '#fabada',
       order: 1,
-      is_closed: false,
+      isClosed: false,
       project: 1,
     };
 
@@ -100,6 +100,6 @@ describe('TaskStatusesApiService', () => {
     const req = spectator.expectOne(
       `${ConfigServiceMock.apiUrl}/task-statuses/bulk_update_order`,
        HttpMethod.POST);
-    expect(req.request.body).toEqual({bulk_task_statuses: newOrder, project});
+    expect(req.request.body).toEqual({bulkTaskStatuses: newOrder, project});
   });
 });

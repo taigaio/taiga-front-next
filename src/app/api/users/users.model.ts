@@ -7,29 +7,29 @@
  */
 
 export interface User {
-  accepted_terms: boolean;
-  big_photo: string;
+  acceptedTerms: boolean;
+  bigPhoto: string;
   bio: string;
   color: string;
-  date_joined: string;
+  dateJoined: string;
   email: string;
-  full_name: string;
-  full_name_display: string;
-  gravatar_id: string;
+  fullName: string;
+  fullNameDisplay: string;
+  gravatarId: string;
   id: number;
-  is_active: boolean;
+  isActive: boolean;
   lang: string;
-  max_memberships_private_projects: number | null;
-  max_memberships_public_projects: number | null;
-  max_private_projects: number | null;
-  max_public_projects: number | null;
+  maxMembershipsPrivateProjects: number | null;
+  maxMembershipsPublicProjects: number | null;
+  maxPrivateProjects: number | null;
+  maxPublicProjects: number | null;
   photo: string | null;
-  read_new_terms: boolean;
+  readNewTerms: boolean;
   roles: string[];
   theme: string;
   timezone: string;
-  total_private_projects: number;
-  total_public_projects: number;
+  totalPrivateProjects: number;
+  totalPublicProjects: number;
   username: string;
   uuid: string;
 }

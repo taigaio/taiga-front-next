@@ -167,16 +167,16 @@ export class EpicsApiService {
   public createAttachment(attachment: EpicAttachmentCreationData) {
     const formData = new FormData();
 
-    formData.append('object_id', attachment.objectId.toString());
+    formData.append('objectId', attachment.objectId.toString());
     formData.append('project', attachment.project.toString());
-    formData.append('attached_file', attachment.attachedFile, attachment.attachedFile.name);
+    formData.append('attachedFile', attachment.attachedFile, attachment.attachedFile.name);
 
     if (attachment.description) {
       formData.append('description', attachment.description);
     }
 
     if (attachment.isDeprecated) {
-      formData.append('is_deprecated', attachment.isDeprecated.toString());
+      formData.append('isDeprecated', attachment.isDeprecated.toString());
     }
 
     return this.http.post<EpicAttachment>(`${this.base}/attachments`, formData);
@@ -190,7 +190,7 @@ export class EpicsApiService {
     const formData = new FormData();
 
     if (attachment.objectId) {
-      formData.append('object_id', attachment.objectId.toString());
+      formData.append('objectId', attachment.objectId.toString());
     }
 
     if (attachment.project) {
@@ -198,7 +198,7 @@ export class EpicsApiService {
     }
 
     if (attachment.attachedFile) {
-      formData.append('attached_file', attachment.attachedFile, attachment.attachedFile.name);
+      formData.append('attachedFile', attachment.attachedFile, attachment.attachedFile.name);
     }
 
     if (attachment.description) {
@@ -206,7 +206,7 @@ export class EpicsApiService {
     }
 
     if (attachment.isDeprecated) {
-      formData.append('is_deprecated', attachment.isDeprecated.toString());
+      formData.append('isDeprecated', attachment.isDeprecated.toString());
     }
 
     return this.http.patch<EpicAttachment>(`${this.base}/attachments/${id}`, formData);

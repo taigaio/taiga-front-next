@@ -96,6 +96,6 @@ describe('PointsApiService', () => {
     const req = spectator.expectOne(
       `${ConfigServiceMock.apiUrl}/points/bulk_update_order`,
        HttpMethod.POST);
-    expect(req.request.body).toEqual({bulk_points: newOrder, project});
+    expect(req.request.body).toEqual({bulkPoints: newOrder, project});
   });
 });
