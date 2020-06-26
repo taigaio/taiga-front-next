@@ -92,8 +92,10 @@ the root directory of this source tree.
 
 <h2>Epics</h2>
 <ng-container *ngrxLet="epics$ as epics">
-  <ul>
+  <ul *ngIf="epics?.length">
     <li *ngFor="let epic of epics">{{ epic.subject }}</li>
   </ul>
+  <p *ngIf="!epics?.length">There are no epics yet!</p>
 </ng-container>
+
 
