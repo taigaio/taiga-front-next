@@ -20,6 +20,8 @@ import {
   EpicUserStoryPartialInput,
   RelatedUserStoryCreationInBulk,
   EpicVoterWatcher,
+  EpicAttachment,
+  EpicAttachmentCreationData,
 } from './epics.model';
 
 @Injectable()
@@ -64,7 +66,7 @@ export class EpicsApiService {
     return this.http.get<Epic>(`${this.base}/${id}`);
   }
 
-  public edit(id: number, data: EpicPartialInput) {
+  public patch(id: number, data: EpicPartialInput) {
     return this.http.patch<Epic>(`${this.base}/${id}`, data);
   }
 
@@ -121,7 +123,7 @@ export class EpicsApiService {
     return this.http.get<EpicUserStory>(`${this.base}/${epic}/related_userstories/${userStory}`);
   }
 
-  public editRelatedUserStory(epic: number, userStory: number, data: EpicUserStoryPartialInput) {
+  public patchRelatedUserStory(epic: number, userStory: number, data: EpicUserStoryPartialInput) {
     return this.http.patch<EpicUserStory>(`${this.base}/${epic}/related_userstories/${userStory}`, data);
   }
 
@@ -152,4 +154,66 @@ export class EpicsApiService {
   public getWatchers(epic: number) {
     return this.http.get<EpicVoterWatcher>(`${this.base}/${epic}/watchers`);
   }
+
+  public getAttachments(project: number, epic: number) {
+    return this.http.get<EpicAttachment[]>(`${this.base}/attachments`, {
+      params: {
+        project: project.toString(),
+        object_id: epic.toString(),
+      },
+    });
+  }
+
+  public createAttachment(attachment: EpicAttachmentCreationData) {
+    const formData = new FormData();
+
+    formData.append('object_id', attachment.objectId.toString());
+    formData.append('project', attachment.project.toString());
+    formData.append('attached_file', attachment.attachedFile, attachment.attachedFile.name);
+
+    if (attachment.description) {
+      formData.append('description', attachment.description);
+    }
+
+    if (attachment.isDeprecated) {
+      formData.append('is_deprecated', attachment.isDeprecated.toString());
+    }
+
+    return this.http.post<EpicAttachment>(`${this.base}/attachments`, formData);
+  }
+
+  public getAttachment(attachmentId: number) {
+    return this.http.get<EpicAttachment>(`${this.base}/attachments/${attachmentId}`);
+  }
+
+  public patchAttachment(id: number, attachment: Partial<EpicAttachmentCreationData>) {
+    const formData = new FormData();
+
+    if (attachment.objectId) {
+      formData.append('object_id', attachment.objectId.toString());
+    }
+
+    if (attachment.project) {
+      formData.append('project', attachment.project.toString());
+    }
+
+    if (attachment.attachedFile) {
+      formData.append('attached_file', attachment.attachedFile, attachment.attachedFile.name);
+    }
+
+    if (attachment.description) {
+      formData.append('description', attachment.description);
+    }
+
+    if (attachment.isDeprecated) {
+      formData.append('is_deprecated', attachment.isDeprecated.toString());
+    }
+
+    return this.http.patch<EpicAttachment>(`${this.base}/attachments/${id}`, formData);
+  }
+
+  public deleteAttachment(attachmentId: number) {
+    return this.http.delete(`${this.base}/attachments/${attachmentId}`);
+  }
+
 }

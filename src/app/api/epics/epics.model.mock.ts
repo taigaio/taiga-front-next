@@ -9,7 +9,7 @@
 import * as Factory from 'factory.ts';
 import * as faker from 'faker';
 
-import { EpicCreationData, EpicCreationInBulk, RelatedUserStoryCreationInBulk } from './epics.model';
+import { EpicCreationData, EpicCreationInBulk, RelatedUserStoryCreationInBulk, EpicAttachmentCreationData } from './epics.model';
 
 export const EpicCreationMockFactory = Factory.Sync.makeFactory<EpicCreationData>({
   assignedTo: faker.random.number(),
@@ -47,4 +47,12 @@ export const RelatedUserStoryCreationInBulkMockFactory = Factory.Sync.makeFactor
     faker.lorem.sentence(),
     faker.lorem.sentence(),
   ],
+});
+
+export const AttachmentCreationMockFactory = Factory.Sync.makeFactory<EpicAttachmentCreationData>({
+  objectId: faker.random.number(),
+  project: faker.random.number(),
+  attachedFile: new Blob(['<a id="a"><b id="b">hey!</b></a>'], { type: 'text/xml'}),
+  description: faker.lorem.sentence(),
+  isDeprecated: faker.random.boolean(),
 });

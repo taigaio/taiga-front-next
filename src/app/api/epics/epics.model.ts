@@ -139,3 +139,31 @@ export interface EpicVoterWatcher {
   id: number;
   username: string;
 }
+
+export interface EpicAttachment {
+    attached_file: string;
+    created_date: string;
+    description: string;
+    from_comment: boolean;
+    id: number;
+    is_deprecated: boolean;
+    modified_date: string;
+    name: string;
+    object_id: number;
+    order: number;
+    owner: number;
+    preview_url: string;
+    project: number;
+    sha1: string;
+    size: number;
+    thumbnail_card_url: string;
+    url: string;
+}
+
+export interface EpicAttachmentCreationData {
+  objectId: number;
+  project: number;
+  attachedFile: any;
+  description?: string;
+  isDeprecated?: boolean;
+}

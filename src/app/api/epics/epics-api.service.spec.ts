@@ -11,7 +11,12 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { EpicsApiService } from './epics-api.service';
-import { EpicCreationMockFactory, EpicCreationInBulkMockFactory, RelatedUserStoryCreationInBulkMockFactory } from './epics.model.mock';
+import {
+  EpicCreationMockFactory,
+  EpicCreationInBulkMockFactory,
+  RelatedUserStoryCreationInBulkMockFactory,
+  AttachmentCreationMockFactory
+} from './epics.model.mock';
 import { EpicPartialInput, EpicUserStoryPartialInput } from './epics.model';
 
 describe('EpicsApiService', () => {
@@ -31,6 +36,7 @@ describe('EpicsApiService', () => {
   const project = 1;
   const epic = 2;
   const userStory = 3;
+  const attachment = 4;
 
   it('List ALL Epics by project', () => {
     const filter = {
@@ -76,7 +82,7 @@ describe('EpicsApiService', () => {
       color: '#fabada',
     };
 
-    spectator.service.edit(epic, data).subscribe();
+    spectator.service.patch(epic, data).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.PATCH);
 
     expect(req.request.body).toEqual(data);
@@ -151,7 +157,7 @@ describe('EpicsApiService', () => {
       order: 100,
     };
 
-    spectator.service.editRelatedUserStory(epic, userStory, data).subscribe();
+    spectator.service.patchRelatedUserStory(epic, userStory, data).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories/${userStory}`, HttpMethod.PATCH);
 
     expect(req.request.body).toEqual(data);
@@ -190,5 +196,78 @@ describe('EpicsApiService', () => {
   it('get epic watchers', () => {
     spectator.service.getWatchers(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/watchers`, HttpMethod.GET);
+  });
+
+  it('get epic attachments', () => {
+    const query = {
+      project: project.toString(),
+      object_id: epic.toString(),
+    };
+    spectator.service.getAttachments(project, epic).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments?${new URLSearchParams(query)}`, HttpMethod.GET);
+  });
+
+  it('create epic attachment', () => {
+    const mockAttachment = AttachmentCreationMockFactory.build();
+
+    const formData = new FormData();
+
+    formData.append('object_id', mockAttachment.objectId.toString());
+    formData.append('project', mockAttachment.project.toString());
+    formData.append('attached_file', mockAttachment.attachedFile, mockAttachment.attachedFile.name);
+
+    if (mockAttachment.description) {
+      formData.append('description', mockAttachment.description);
+    }
+
+    if (mockAttachment.isDeprecated) {
+      formData.append('is_deprecated', mockAttachment.isDeprecated.toString());
+    }
+
+    spectator.service.createAttachment(mockAttachment).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments`, HttpMethod.POST);
+
+    expect(req.request.body).toEqual(formData);
+  });
+
+  it('get attachment', () => {
+    spectator.service.getAttachment(attachment).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments/${attachment}`, HttpMethod.GET);
+  });
+
+  it('edit epic attachment', () => {
+    const mockAttachment = AttachmentCreationMockFactory.build();
+
+    const formData = new FormData();
+
+    if (mockAttachment.objectId) {
+      formData.append('object_id', mockAttachment.objectId.toString());
+    }
+
+    if (mockAttachment.project) {
+      formData.append('project', mockAttachment.project.toString());
+    }
+
+    if (mockAttachment.attachedFile) {
+      formData.append('attached_file', mockAttachment.attachedFile, mockAttachment.attachedFile.name);
+    }
+
+    if (mockAttachment.description) {
+      formData.append('description', mockAttachment.description);
+    }
+
+    if (mockAttachment.isDeprecated) {
+      formData.append('is_deprecated', mockAttachment.isDeprecated.toString());
+    }
+
+    spectator.service.patchAttachment(attachment, mockAttachment).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments/${attachment}`, HttpMethod.PATCH);
+
+    expect(req.request.body).toEqual(formData);
+  });
+
+  it('delete attachment', () => {
+    spectator.service.deleteAttachment(attachment).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments/${attachment}`, HttpMethod.DELETE);
   });
 });
