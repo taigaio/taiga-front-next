@@ -37,6 +37,8 @@ import { ProjectsApiService } from '@/app/api/projects/projects-api.service';
 import { ProjectsListOrderBy } from '@/app/api/projects/projects.model';
 import { MembershipsInvitationsApiService } from '@/app/api/memberships-invitations/memberships-invitations-api.service';
 import { Membership } from '@/app/api/memberships-invitations/memberships-invitations.model';
+import { EpicsApiService } from '@/app/api/epics/epics-api.service';
+import { Epic } from '@/app/api/epics/epics.model';
 
 @Component({
   selector: 'app-playground',
@@ -56,6 +58,7 @@ export class PlaygroundComponent implements OnInit {
   priorities$!: Observable<Priority[]>;
   severities$!: Observable<Severity[]>;
   members$!: Observable<Membership[]>;
+  epics$!: Observable<Epic[]>;
 
   constructor(
     private readonly statsApiService: StatsApiService,
@@ -72,7 +75,8 @@ export class PlaygroundComponent implements OnInit {
     private readonly prioritiesApiService: PrioritiesApiService,
     private readonly severitiesApiService: SeveritiesApiService,
     private readonly projectsApiService: ProjectsApiService,
-    private readonly membershipsInvitationsApiService: MembershipsInvitationsApiService
+    private readonly membershipsInvitationsApiService: MembershipsInvitationsApiService,
+    private readonly epicApiService: EpicsApiService
   ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiganext');
@@ -94,6 +98,7 @@ export class PlaygroundComponent implements OnInit {
       this.priorities$ = this.prioritiesApiService.list(projectResolver.project);
       this.severities$ = this.severitiesApiService.list(projectResolver.project);
       this.members$ = this.membershipsInvitationsApiService.list(projectResolver.project);
+      this.epics$ = this.epicApiService.list({project: projectResolver.project});
     });
   }
 
