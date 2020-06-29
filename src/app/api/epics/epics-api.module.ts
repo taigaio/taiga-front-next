@@ -7,6 +7,9 @@
  */
 
 import { NgModule } from '@angular/core';
+
+import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
+
 import { EpicsApiService } from './epics-api.service';
 import { EpicsCustomAttributeApiService } from './epics-custom-attributes-api.service';
 import { EpicsCustomAttributesValuesApiService } from './epics-custom-attributes-values-api.service';
@@ -14,6 +17,7 @@ import { EpicsCustomAttributesValuesApiService } from './epics-custom-attributes
 @NgModule({
   declarations: [],
   imports: [
+    ApiRestInterceptorModule,
   ],
   providers: [
     EpicsApiService,
