@@ -10,6 +10,7 @@ import * as Factory from 'factory.ts';
 import * as faker from 'faker';
 
 import { EpicCreationData, EpicCreationInBulk, RelatedUserStoryCreationInBulk, EpicAttachmentCreationData } from './epics.model';
+import { EpicCustomAttributeCreationData, EpicCustomAttributeBulkUpdate } from './epics-custom-attributes.model';
 
 export const EpicCreationMockFactory = Factory.Sync.makeFactory<EpicCreationData>({
   assignedTo: faker.random.number(),
@@ -55,4 +56,25 @@ export const AttachmentCreationMockFactory = Factory.Sync.makeFactory<EpicAttach
   attachedFile: new Blob(['<a id="a"><b id="b">hey!</b></a>'], { type: 'text/xml'}),
   description: faker.lorem.sentence(),
   isDeprecated: faker.random.boolean(),
+});
+
+export const EpicCustomAttributeCreationMockFactory = Factory.Sync.makeFactory<EpicCustomAttributeCreationData>({
+  project: faker.random.number(),
+  name: faker.lorem.sentence(),
+  description: faker.lorem.sentence(),
+  order: faker.random.number(),
+});
+
+export const EpicCustomAttributeBulkOrderMockFactory = Factory.Sync.makeFactory<EpicCustomAttributeBulkUpdate>({
+  project: faker.random.number(),
+  bulkEpicCustomAttributes: [
+    [
+      faker.random.number(),
+      faker.random.number(),
+    ],
+    [
+      faker.random.number(),
+      faker.random.number(),
+    ],
+  ],
 });
