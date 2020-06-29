@@ -8,6 +8,7 @@
 
 import { NgModule } from '@angular/core';
 import { EpicsApiService } from './epics-api.service';
+import { EpicsCustomAttributeApiService } from './epics-custom-attributes-api.service';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { EpicsApiService } from './epics-api.service';
   ],
   providers: [
     EpicsApiService,
+    EpicsCustomAttributeApiService,
   ],
 })
 export class EpicsApiModule { }
