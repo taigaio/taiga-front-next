@@ -23,7 +23,7 @@ export class EpicsCustomAttributeApiService {
     return `${this.config.apiUrl}/epic-custom-attributes`;
   }
 
-  public list(project: number) {
+  public list(project?: number) {
     return this.http.get<EpicCustomAttributeDetail[]>(this.base, {
       params: {
         ...(project && { project: project.toString() }),
