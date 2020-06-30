@@ -7,9 +7,7 @@
  */
 
 export interface EpicCustomAttributeValueDetail {
-  attributesValues: {
-    [key: string]: string;
-  };
+  attributesValues: Record<string, string>;
   epic: number;
   version: number;
 }
