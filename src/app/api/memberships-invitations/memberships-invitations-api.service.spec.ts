@@ -13,8 +13,9 @@ import { ConfigServiceMock } from '@/app/config.service.mock';
 import { MembershipsInvitationsApiService } from './memberships-invitations-api.service';
 import * as faker from 'faker';
 import { MembershipPartialInput } from './memberships-invitations.model';
+import { parseQueryParams } from '@/utils/test.helpers';
 
-describe('ResolverApiService', () => {
+describe('MembershipsInvitationsApiService', () => {
   let spectator: SpectatorHttp<MembershipsInvitationsApiService>;
   const createHttp = createHttpFactory({
     service: MembershipsInvitationsApiService,
@@ -43,7 +44,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.list(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('List filtered memberships by project and role', () => {
@@ -53,7 +54,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.list(project, role).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('create member', () => {

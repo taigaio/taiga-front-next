@@ -12,6 +12,7 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { PointsApiService } from './points-api.service';
 import { PointsMockFactory } from './points.model.mock';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('PointsApiService', () => {
 
@@ -37,7 +38,7 @@ describe('PointsApiService', () => {
     };
 
     spectator.service.list(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/points?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/points?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('get', () => {

@@ -12,6 +12,7 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { IssueTypesApiService } from './issue-types-api.service';
 import { IssueTypeMockFactory } from './issue-types.model.mock';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('IssueTypesApiService', () => {
 
@@ -37,7 +38,7 @@ describe('IssueTypesApiService', () => {
     };
 
     spectator.service.list(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/issue-types?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/issue-types?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('get', () => {

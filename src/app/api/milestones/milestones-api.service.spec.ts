@@ -13,6 +13,7 @@ import { ConfigServiceMock } from '@/app/config.service.mock';
 import * as faker from 'faker';
 import { MilestoneApiService } from './milestones-api.service';
 import { MilestonePartialInput } from './milestones.model';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('MilestonesApiService', () => {
   let spectator: SpectatorHttp<MilestoneApiService>;
@@ -43,7 +44,7 @@ describe('MilestonesApiService', () => {
     };
 
     spectator.service.list(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('List milestones filtered by project and only closed', () => {
@@ -53,7 +54,7 @@ describe('MilestonesApiService', () => {
     };
 
     spectator.service.list(project, true).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('create milestone', () => {

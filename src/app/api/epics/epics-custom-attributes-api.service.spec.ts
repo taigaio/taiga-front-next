@@ -13,6 +13,7 @@ import { EpicCustomAttributeCreationMockFactory, EpicCustomAttributeBulkOrderMoc
 import { EpicsCustomAttributeApiService } from './epics-custom-attributes-api.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { EpicCustomAttributePartialInput, EpicCustomAttributeBulkUpdate } from './epics-custom-attributes.model';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('EpicsCustomAttributeApiService', () => {
   let spectator: SpectatorHttp<EpicsCustomAttributeApiService>;
@@ -35,7 +36,7 @@ describe('EpicsCustomAttributeApiService', () => {
       project: project.toString(),
     };
     spectator.service.list(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-custom-attributes?${new URLSearchParams(query)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-custom-attributes?${parseQueryParams(query)}`, HttpMethod.GET);
   });
 
   it('create epic custom attribute', () => {

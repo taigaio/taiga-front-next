@@ -7,7 +7,7 @@ the root directory of this source tree.
 -->
 <h1>Taiga</h1>
 <ng-container *ngrxLet="stats$ as stats">
-  <p>total projects: stats?.projects.total }}</p>
+  <p>total projects: {{ stats?.projects?.total }}</p>
 </ng-container>
 
 <h2>Resolver test</h2>

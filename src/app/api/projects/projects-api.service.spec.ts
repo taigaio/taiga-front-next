@@ -13,6 +13,7 @@ import * as faker from 'faker';
 import { ProjectsListOrderBy } from './projects.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 import { UserMockFactory } from '@/app/api/users/users.model.mock';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('ProjectsApiService', () => {
   let spectator: SpectatorHttp<ProjectsApiService>;
@@ -88,7 +89,7 @@ describe('ProjectsApiService', () => {
     const slug = faker.lorem.slug();
     spectator.service.getBySlug(slug).subscribe();
 
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/projects/by_slug?${new URLSearchParams({slug})}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/projects/by_slug?${parseQueryParams({slug})}`, HttpMethod.GET);
   });
 
   it('put', () => {
@@ -199,7 +200,7 @@ describe('ProjectsApiService', () => {
 
     spectator.service.deleteTag(projectId, tag).subscribe();
 
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/projects/${projectId}/delete_tag?${new URLSearchParams({tag})}`, HttpMethod.DELETE);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/projects/${projectId}/delete_tag?${parseQueryParams({tag})}`, HttpMethod.DELETE);
   });
 
   it('mixTags', () => {
