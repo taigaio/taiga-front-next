@@ -7,6 +7,7 @@
  */
 import { Optional } from 'utility-types';
 import { User } from '@/app/api/users/users.model';
+import { Role, Permissions } from '../roles/roles.model';
 
 export interface ProjectsListFilter {
   member?: number;
@@ -54,49 +55,6 @@ export enum ProjectsListOrderBy {
   totalActivityLastWeek = 'total_activity_last_week',
   totalActivityLastMonth = 'total_activity_last_month',
   totalActivityLastYear = 'total_activity_last_year',
-}
-
-export enum Permissions {
-  modifyTask = 'modify_task',
-  modifyEpic = 'modify_epic',
-  addTask = 'add_task',
-  adminRoles = 'admin_roles',
-  commentWikiPage = 'comment_wiki_page',
-  viewProject = 'view_project',
-  modifyProject = 'modify_project',
-  modifyWikiPage = 'modify_wiki_page',
-  adminProjectValues = 'admin_project_values',
-  modifyUs = 'modify_us',
-  viewEpics = 'view_epics',
-  deleteProject = 'delete_project',
-  modifyIssue = 'modify_issue',
-  modifyWikiLink = 'modify_wiki_link',
-  addIssue = 'add_issue',
-  deleteMilestone = 'delete_milestone',
-  removeMember = 'remove_member',
-  deleteEpic = 'delete_epic',
-  deleteWikiLink = 'delete_wiki_link',
-  addEpic = 'add_epic',
-  commentEpic = 'comment_epic',
-  deleteTask = 'delete_task',
-  commentTask = 'comment_task',
-  commentIssue = 'comment_issue',
-  viewIssues = 'view_issues',
-  addUs = 'add_us',
-  addMember = 'add_member',
-  addWikiPage = 'add_wiki_page',
-  deleteIssue = 'delete_issue',
-  viewWikiPages = 'view_wiki_pages',
-  viewMilestones = 'view_milestones',
-  addMilestone = 'add_milestone',
-  commentUs = 'comment_us',
-  deleteWikiPage = 'delete_wiki_page',
-  viewUs = 'view_us',
-  modifyMilestone = 'modify_milestone',
-  addWikiLink = 'add_wiki_link',
-  deleteUs = 'delete_us',
-  viewWikiLinks = 'view_wiki_links',
-  viewTasks = 'view_tasks',
 }
 
 export interface Status {
@@ -284,15 +242,13 @@ export interface Project {
   }[];
   priorities: Attribute[];
   publicPermissions: Permissions[];
-  roles: {
-    computable: boolean,
-    id: number;
-    name: string;
-    order: number;
-    permissions: Permissions[],
-    projectId: number;
-    slug: string;
-  }[];
+  roles: Pick<Role,
+    'computable' |
+    'id' |
+    'name' |
+    'order' |
+    'permissions' |
+    'slug'> & {projectId: number}[];
   severities: Attribute[];
   slug: string;
   tags: string[];
