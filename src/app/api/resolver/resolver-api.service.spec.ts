@@ -12,6 +12,7 @@ import { ConfigServiceMock } from '@/app/config.service.mock';
 import { ResolverApiService } from './resolver-api.service';
 
 import * as faker from 'faker';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('ResolverApiService', () => {
   let spectator: SpectatorHttp<ResolverApiService>;
@@ -31,7 +32,7 @@ describe('ResolverApiService', () => {
   const us = faker.random.number();
   const issue = faker.random.number();
   const task = faker.random.number();
-  const milestone = faker.random.word();
+  const milestone = faker.hacker.adjective();
   const wikiPage = faker.random.word();
 
   it('Resolver by project', () => {
@@ -41,7 +42,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.project(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by userStory', () => {
@@ -51,7 +52,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.userStory(project, us).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by issue', () => {
@@ -61,7 +62,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.issue(project, issue).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by task', () => {
@@ -71,7 +72,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.task(project, task).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by milestone', () => {
@@ -81,7 +82,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.milestone(project, milestone).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by wikiPage', () => {
@@ -91,7 +92,7 @@ describe('ResolverApiService', () => {
     };
 
     spectator.service.wikiPage(project, wikiPage).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by multiple, only one parameter', () => {
@@ -100,7 +101,7 @@ describe('ResolverApiService', () => {
       task: task.toString(),
     };
     spectator.service.multiple(project, task).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by multiple, many parameters', () => {
@@ -110,7 +111,7 @@ describe('ResolverApiService', () => {
       us: us.toString(),
     };
     spectator.service.multiple(project, task, us).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by Reference', () => {
@@ -119,6 +120,6 @@ describe('ResolverApiService', () => {
       ref: us.toString(),
     };
     spectator.service.ref(project, us).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 });

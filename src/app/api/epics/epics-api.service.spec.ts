@@ -18,6 +18,7 @@ import {
   AttachmentCreationMockFactory
 } from './epics.model.mock';
 import { EpicPartialInput, EpicUserStoryPartialInput } from './epics.model';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('EpicsApiService', () => {
   let spectator: SpectatorHttp<EpicsApiService>;
@@ -47,7 +48,7 @@ describe('EpicsApiService', () => {
       project: project.toString(),
     };
     spectator.service.list(filter).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics?${new URLSearchParams(query)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics?${parseQueryParams(query)}`, HttpMethod.GET);
   });
 
   it('create epic', () => {
@@ -113,7 +114,7 @@ describe('EpicsApiService', () => {
       project: project.toString(),
     };
     spectator.service.getFilters(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/filters_data?${new URLSearchParams(query)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/filters_data?${parseQueryParams(query)}`, HttpMethod.GET);
   });
 
   it('list related User Stories', () => {
@@ -204,7 +205,7 @@ describe('EpicsApiService', () => {
       object_id: epic.toString(),
     };
     spectator.service.getAttachments(project, epic).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments?${new URLSearchParams(query)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments?${parseQueryParams(query)}`, HttpMethod.GET);
   });
 
   it('create epic attachment', () => {

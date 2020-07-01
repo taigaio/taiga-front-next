@@ -12,6 +12,7 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { PrioritiesApiService } from './priorities-api.service';
 import { PriorityMockFactory } from './priorities.model.mock';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('PrioritiesApiService', () => {
 
@@ -37,7 +38,7 @@ describe('PrioritiesApiService', () => {
     };
 
     spectator.service.list(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/priorities?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/priorities?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('get', () => {

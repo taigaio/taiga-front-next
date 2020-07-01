@@ -12,6 +12,7 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { EpicStatusesApiService } from './epic-statuses-api.service';
 import { EpicStatusMockFactory } from './epic-statuses.model.mock';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('EpicStatusesApiService', () => {
   let spectator: SpectatorHttp<EpicStatusesApiService>;
@@ -36,7 +37,7 @@ describe('EpicStatusesApiService', () => {
     };
 
     spectator.service.list(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-statuses?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-statuses?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('get', () => {

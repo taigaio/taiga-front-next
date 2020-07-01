@@ -12,6 +12,7 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { SeveritiesApiService } from './severities-api.service';
 import { SeverityMockFactory } from './severities.model.mock';
+import { parseQueryParams } from '@/utils/test.helpers';
 
 describe('SeveritiesApiService', () => {
 
@@ -37,7 +38,7 @@ describe('SeveritiesApiService', () => {
     };
 
     spectator.service.list(project).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/severities?${new URLSearchParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/severities?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('get', () => {
