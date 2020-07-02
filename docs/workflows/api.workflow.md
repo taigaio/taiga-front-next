@@ -6,18 +6,18 @@ Creating an `Example` module in the api folder.
 ng g m api/exampleApi
 ```
 
-Add `HttpClientModule` and `AuthInterceptorModule` to the imports list.
+Add `HttpClientModule` and `ApiRestInterceptorModule` to the imports list.
 
 ```ts
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
+import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
 
 @NgModule({
   declarations: [],
   imports: [
     HttpClientModule,
-    AuthInterceptorModule,
+    ApiRestInterceptorModule,
   ],
 })
 export class ExampleApiModule { }
