@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 
-import { Task, TaskFilter } from './task.model';
+import { Task, TaskFilter, TaskCreationData } from './task.model';
 
 @Injectable()
 export class TasksApiService {
@@ -47,5 +47,24 @@ export class TasksApiService {
         ...(filter.statusIsClosed && { status__is_closed: filter.statusIsClosed.toString() }),
       },
     });
+  }
+  public create(data: TaskCreationData) {
+    const query = {
+      ...(data.assignedTo && { assignedTo: data.assignedTo }),
+      ...(data.blockedNote && { blockedNote: data.blockedNote }),
+      ...(data.description && { description: data.description }),
+      ...(data.isBlocked && { isBlocked: data.isBlocked }),
+      ...(data.milestone && { milestone: data.milestone }),
+      ...(data.userStory && { userStory: data.userStory }),
+      ...(data.status && { status: data.status }),
+      ...(data.tags && { tags: data.tags }),
+      ...(data.usOrder && { usOrder: data.usOrder }),
+      ...(data.taskboardOrder && { taskboardOrder: data.taskboardOrder }),
+      ...(data.isIocaine && { isIocaine: data.isIocaine }),
+      ...(data.externalReference && { externalReference: data.externalReference }),
+      project: data.project,
+      subject: data.subject,
+    };
+    return this.http.post<Task>(this.base, query);
   }
 }

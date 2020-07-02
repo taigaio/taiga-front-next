@@ -101,3 +101,22 @@ export interface TaskFilter {
   watchers: number;
   statusIsClosed: boolean;
 }
+
+export interface TaskCreationData {
+  assignedTo?: number;
+  blockedNote?: string;
+  description?: string;
+  isBlocked?: boolean;
+  isClosed?: boolean;
+  milestone?: number;
+  project: number;
+  userStory?: number;
+  status?: number;
+  subject: number;
+  tags?: string[];
+  usOrder?: number;
+  taskboardOrder?: number;
+  isIocaine?: boolean;
+  externalReference?: [string, number];
+  watchers: number[];
+}
