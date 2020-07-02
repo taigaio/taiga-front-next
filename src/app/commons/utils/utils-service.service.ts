@@ -26,7 +26,7 @@ export class UtilsService {
 
         if (Array.isArray(value)) {
           target = target.append(newKey, value.join(','));
-        } else if (value.toString) {
+        } else if (value && value.toString) {
           target = target.append(newKey, value.toString());
         }
     });
@@ -48,7 +48,7 @@ export class UtilsService {
           formData.append(newKey, value, value.name);
         } else if (Array.isArray(value)) {
           formData.append(newKey, value.join(','));
-        } else if (value.toString) {
+        } else if (value && value.toString) {
           formData.append(newKey, value.toString());
         }
     });
