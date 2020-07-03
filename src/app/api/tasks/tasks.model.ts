@@ -53,7 +53,7 @@ export interface Task {
   dueDate: string;
   dueDateReason: string;
   dueDateStatus: string;
-  externalReference: string | null;
+  externalReference: number;
   finishedDate: string;
   id: number;
   isBlocked: boolean;
@@ -72,7 +72,7 @@ export interface Task {
   status: number;
   statusExtraInfo: StatusExtraInfo;
   subject: string;
-  tags: Record<string, string>[];
+  tags: [string, string | null][];
   taskboardOrder: number;
   totalComments: number;
   totalVoters: number;
@@ -91,32 +91,32 @@ export interface TaskFilter {
   excludeRole: number;
   excludeStatus: number;
   excludeTags: string[];
-  milestone?: number;
-  owner?: number;
-  project?: number;
-  role?: number;
-  status?: number;
-  tags?: string[];
-  userStory?: number;
+  milestone: number;
+  owner: number;
+  project: number;
+  role: number;
+  status: number;
+  tags: string[];
+  userStory: number;
   watchers: number;
   statusIsClosed: boolean;
 }
 
 export interface TaskCreationData {
-  assignedTo?: number;
-  blockedNote?: string;
-  description?: string;
-  isBlocked?: boolean;
-  isClosed?: boolean;
-  milestone?: number;
+  assignedTo: number;
+  blockedNote: string;
+  description: string;
+  isBlocked: boolean;
+  isClosed: boolean;
+  milestone: number;
   project: number;
-  userStory?: number;
-  status?: number;
-  subject: number;
-  tags?: string[];
-  usOrder?: number;
-  taskboardOrder?: number;
-  isIocaine?: boolean;
-  externalReference?: [string, number];
+  userStory: number;
+  status: number;
+  subject: string;
+  tags: [string, string | null][];
+  usOrder: number;
+  taskboardOrder: number;
+  isIocaine: boolean;
+  externalReference: number;
   watchers: number[];
 }

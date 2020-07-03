@@ -10,7 +10,12 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
+
 import { TasksApiService } from './tasks-api.service';
+import * as faker from 'faker';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
+import { TaskCreationDataMockFactory } from './tasks.model.mock';
+
 
 describe('TasksApiService', () => {
   let spectator: SpectatorHttp<TasksApiService>;
@@ -26,15 +31,30 @@ describe('TasksApiService', () => {
 
   beforeEach(() => spectator = createHttp());
 
-  it('List ALL tasks filter by project', () => {
+  it('list', () => {
     const filter = {
-      project: 1,
+      project: faker.random.number(),
+      statusIsClosed: faker.random.boolean(),
     };
 
-    const query = {
-      project: '1',
+    const expectedParams = {
+      project: filter.project,
+      status__is_closed: filter.statusIsClosed,
     };
+
     spectator.service.list(filter).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics?${new URLSearchParams(query)}`, HttpMethod.GET);
+    spectator.expectOne(
+      `${ConfigServiceMock.apiUrl}/tasks?${UtilsService.buildQueryParams(expectedParams)}`,
+      HttpMethod.GET
+    );
+  });
+
+  it('create', () => {
+    const data = TaskCreationDataMockFactory.build();
+
+    spectator.service.create(data).subscribe();
+
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/tasks`, HttpMethod.POST);
+    expect(req.request.body).toEqual(data);
   });
 });

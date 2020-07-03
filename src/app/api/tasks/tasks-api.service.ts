@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 
 import { Task, TaskFilter, TaskCreationData } from './tasks.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class TasksApiService {
@@ -20,38 +21,28 @@ export class TasksApiService {
     private config: ConfigService) { }
 
   public get base() {
-    return `${this.config.apiUrl}/epics`;
+    return `${this.config.apiUrl}/tasks`;
   }
 
-  public list(filter: TaskFilter) {
-    const excludedTags = filter.excludeTags.reduce( (accumulator, tag) => `${accumulator}, ${tag}` );
-    const tags = filter.excludeTags.reduce( (accumulator, tag) => `${accumulator}, ${tag}` );
+  public list(filter: Partial<TaskFilter>) {
 
+    const excludedTags = filter.excludeTags?.reduce( (accumulator, tag) => `${accumulator}, ${tag}` );
+    const tags = filter.excludeTags?.reduce( (accumulator, tag) => `${accumulator}, ${tag}` );
+
+    const keyMap = {
+      statusIsClosed: 'status__is_closed',
+    };
+
+    const params = UtilsService.buildQueryParams(filter, keyMap);
 
     return this.http.get<Task[]>(this.base, {
-      params: {
-        ...(filter.assignedTo && { assigned_to: filter.assignedTo.toString() }),
-        ...(filter.excludeAssignedTo && { exclude_assigned_to: filter.excludeAssignedTo.toString() }),
-        ...(filter.excludeOwner && { exclude_owner: filter.excludeOwner.toString() }),
-        ...(filter.excludeRole && { exclude_role: filter.excludeRole.toString() }),
-        ...(filter.excludeStatus && { exclude_status: filter.excludeStatus.toString() }),
-        ...(filter.excludeTags && { exclude_tags: excludedTags }),
-        ...(filter.milestone && { milestone: filter.milestone.toString() }),
-        ...(filter.owner && { owner: filter.owner.toString() }),
-        ...(filter.project && { project: filter.project.toString() }),
-        ...(filter.role && { role: filter.role.toString() }),
-        ...(filter.status && { status: filter.status.toString() }),
-        ...(tags && { tags }),
-        ...(filter.userStory && { user_story: filter.userStory.toString() }),
-        ...(filter.watchers && { watchers: filter.watchers.toString() }),
-        ...(filter.statusIsClosed && { status__is_closed: filter.statusIsClosed.toString() }),
-      },
+      params,
+      ...(tags && { tags }),
+      ...(excludedTags && { exclude_tags: excludedTags }),
     });
   }
+
   public create(data: TaskCreationData) {
-    const query = {
-     ...data,
-    };
-    return this.http.post<Task>(this.base, query);
+    return this.http.post<Task>(this.base, data);
   }
 }
