@@ -79,3 +79,33 @@ describe('ExampleApiService', () => {
   });
 });
 ```
+
+For requests with query params we can use `buildQueryParams`, which will transform the object to an HttpRequest with the proper value transformation to string. We can also set new keys with the param `keyMap`.
+
+```ts
+  public list(filter: Partial<UserstoryFilter>) {
+    const keyMap = {
+      milestoneIsNull: 'milestone__isnull',
+      statusIsArchived: 'status__is_archived',
+      statusIsClosed: 'status__is_closed',
+    };
+
+    const params = UtilsService.buildQueryParams(filter, keyMap);
+
+    return this.http.get<UserstoryList[]>(this.base, {
+      params,
+    });
+  }
+```
+
+
+For attachments we can use `buildFormData`, which will transform de object to `FormData`.
+
+```ts
+  public createAttachment(attachment: AttachmentCreationData) {
+    const formData = UtilsService.buildFormData(attachment);
+
+    return this.http.post<Attachment>(`${this.base}/attachments`, formData);
+  }
+
+```

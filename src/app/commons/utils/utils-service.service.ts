@@ -16,13 +16,13 @@ export class UtilsService {
 
   static buildQueryParams(
     source: Record<string, any>,
-    keyTransformer = (key: string) => key): HttpParams {
+    keyMap: Record<string, string> = {}) {
     let target: HttpParams = new HttpParams();
 
     Object.keys(source)
     .forEach((key: string) => {
         const value: dataTypes | dataTypes[] = source[key];
-        const newKey = keyTransformer(key);
+        const newKey = key in keyMap ? keyMap[key] : key;
 
         if (Array.isArray(value)) {
           target = target.append(newKey, value.join(','));
@@ -36,13 +36,13 @@ export class UtilsService {
 
   static buildFormData(
     source: Record<string, any>,
-    keyTransformer = (key: string) => key) {
+    keyMap: Record<string, string> = {}) {
     const formData: FormData = new FormData();
 
     Object.keys(source)
     .forEach((key: string) => {
         const value: dataTypes | dataTypes[] = source[key];
-        const newKey = keyTransformer(key);
+        const newKey = key in keyMap ? keyMap[key] : key;
 
         if (value instanceof File) {
           formData.append(newKey, value, value.name);
