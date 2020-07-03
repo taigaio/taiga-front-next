@@ -7,7 +7,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpInterceptor, HttpResponse } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpInterceptor, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { LocalStorageService } from '@/app/commons/local-storage/local-storage.service';
 import { catchError, map } from 'rxjs/operators';
@@ -65,12 +65,28 @@ export class ApiRestInterceptorService implements HttpInterceptor {
   }
 
   private snakeCaseRequestInterceptor(request: HttpRequest<any>): HttpRequest<any> {
-    if (request.body) {
-      const body = this.objKeysTransformer(request.body, snakeCase);
-      return request.clone({ body });
+    let newRequest = request;
+
+    if (newRequest.body) {
+      const body = this.objKeysTransformer(newRequest.body, snakeCase);
+      newRequest = newRequest.clone({ body });
     }
 
-    return request;
+    if (newRequest.params) {
+      let params = new HttpParams();
+
+      newRequest.params.keys().forEach((key) => {
+        const param = newRequest.params.get(key);
+
+        if (param) {
+          params = params.append(snakeCase(key), param);
+        }
+      });
+
+      newRequest = newRequest.clone({ params });
+    }
+
+    return newRequest;
   }
 
   private camelCaseResponseInterceptor(event: HttpResponse<any>): HttpResponse<any> {

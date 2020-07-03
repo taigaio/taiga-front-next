@@ -16,8 +16,12 @@ describe('UtilsService', () => {
       param3: [1, 'two'],
     };
 
+    const keyMap = {
+      param3: 'Param3',
+    };
+
     expect(
-      UtilsService.buildQueryParams(params, (key) => key === 'param3' ? 'Param3' : key).toString()
+      UtilsService.buildQueryParams(params, keyMap).toString()
     ).toEqual(`param1=1&param2=test&Param3=1,two`);
   });
 
@@ -29,7 +33,11 @@ describe('UtilsService', () => {
       param4: new File([], 'test.png'),
     };
 
-    const formData = UtilsService.buildFormData(params, (key) => key === 'param3' ? 'Param3' : key);
+    const keyMap = {
+      param3: 'Param3',
+    };
+
+    const formData = UtilsService.buildFormData(params, keyMap);
 
     expect(formData.get('param1')).toEqual(params.param1.toString());
     expect(formData.get('param2')).toEqual(params.param2);

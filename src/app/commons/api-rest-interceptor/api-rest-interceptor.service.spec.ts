@@ -13,7 +13,7 @@ import { LocalStorageService } from '@/app/commons/local-storage/local-storage.s
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import * as faker from 'faker';
-import { HTTP_INTERCEPTORS, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpRequest, HttpResponse, HttpParams } from '@angular/common/http';
 import { of } from 'rxjs';
 
 describe('ApiRestInterceptor', () => {
@@ -64,11 +64,21 @@ describe('ApiRestInterceptor', () => {
     const userId = faker.random.number();
 
     const authInterceptorService = spectator.inject(ApiRestInterceptorService);
-    const apiRequest = new HttpRequest('POST', ConfigServiceMock.apiUrl, {
-      theUser: {
-        userId,
+    const apiRequest = new HttpRequest(
+      'POST',
+      ConfigServiceMock.apiUrl, {
+        theUser: {
+          userId,
+        },
       },
-    });
+      {
+        params: new HttpParams({
+          fromObject: {
+            snakeCaseKey: 'test',
+          },
+        }),
+      }
+    );
 
     const next = {
       handle(request: HttpRequest<any>) {
@@ -77,6 +87,8 @@ describe('ApiRestInterceptor', () => {
             user_id: userId,
           },
         });
+
+        expect(request.params.get('snake_case_key')).toBeTruthy();
 
         return of(new HttpResponse({ status: 200 }));
       },

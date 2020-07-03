@@ -19,7 +19,7 @@ import {
 } from './userstories.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 import { UserstoryWatcher, Attachment, AttachmentCreationData } from './userstories.model';
-import { snakeCase } from 'change-case';
+
 @Injectable()
 export class UserstoriesApiService {
   constructor(private http: HttpClient, private config: ConfigService) { }
@@ -29,15 +29,13 @@ export class UserstoriesApiService {
   }
 
   public list(filter: Partial<UserstoryFilter>) {
-    const keyMap: Record<string, string> = {
+    const keyMap = {
       milestoneIsNull: 'milestone__isnull',
       statusIsArchived: 'status__is_archived',
       statusIsClosed: 'status__is_closed',
     };
 
-    const params = UtilsService.buildQueryParams(filter, (key: string) => {
-      return keyMap[key] ? keyMap[key] : snakeCase(key);
-    });
+    const params = UtilsService.buildQueryParams(filter, keyMap);
 
     return this.http.get<UserstoryList[]>(this.base, {
       params,
