@@ -99,7 +99,7 @@ For requests with query params we can use `buildQueryParams`, which will transfo
 ```
 
 
-For attachments we can use `buildFormData`, which will transform de object to `FormData`.
+For attachments we can use `buildFormData`, which will transform the object to `FormData`.
 
 ```ts
   public createAttachment(attachment: AttachmentCreationData) {
