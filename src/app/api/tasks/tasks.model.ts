@@ -6,6 +6,9 @@
  * the root directory of this source tree.
  */
 
+import { User } from '../users/users.model';
+import { Optional } from 'utility-types';
+
 export interface UserExtraInfo {
   bigPhoto: null | string;
   fullNameDisplay: string;
@@ -84,6 +87,21 @@ export interface Task {
   watchers: number[];
 }
 
+export type TaskVoter = Pick<User, 'fullName' | 'id' | 'username'>;
+export type TaskWatcher = Pick<User, 'fullName' | 'id' | 'username'>;
+
+export interface TaskGet extends Task {
+  blockedNoteHtml: string;
+  comment: string;
+  description: string;
+  descriptionHtml: string;
+  generatedUserStories: number[];
+  neighbors: {
+    next: Pick<Task, 'id' | 'ref' | 'subject'>
+    previous: Pick<Task, 'id' | 'ref' | 'subject'>
+  };
+}
+
 export interface TaskFilter {
   assignedTo: number;
   excludeAssignedTo: number;
@@ -120,3 +138,73 @@ export interface TaskCreationData {
   externalReference: number;
   watchers: number[];
 }
+
+export interface TaskBulkCreationData {
+  projectId: number;
+  statusId?: number;
+  sprintId?: number;
+  UsId?: number;
+  bulkTasks: string[];
+}
+
+export interface TaskFiltersData {
+  assignedTo: {
+    count: number;
+    fullName: string;
+    id: null | number;
+  }[];
+  owners: {
+    count: number;
+    fullName: string;
+    id: number;
+  }[];
+  roles: {
+    color: null | string;
+    count: number;
+    id: number;
+    name: string;
+    order: number;
+  }[];
+  statuses: {
+    color: string;
+    count: number;
+    id: number;
+    name: string;
+    order: number;
+  }[];
+  tags: {
+    color: null | string;
+    count: number;
+    name: string;
+  }[];
+}
+
+export interface Attachment {
+  attachedFile: string;
+  createdDate: string;
+  description: string;
+  fromComment: boolean;
+  id: number;
+  isDeprecated: boolean;
+  modifiedDate: string;
+  name: string;
+  objectId: number;
+  order: number;
+  owner: number;
+  previewUrl: string;
+  project: number;
+  sha1: string;
+  size: number;
+  thumbnailCardUrl: null | string;
+  url: string;
+}
+
+export type AttachmentCreationData = Optional<{
+  attachedFile: File;
+} & Pick<Attachment,
+  'objectId' |
+  'project' |
+  'description' |
+  'isDeprecated'>,
+  'description' |
+  'isDeprecated'>;

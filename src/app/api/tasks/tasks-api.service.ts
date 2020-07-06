@@ -10,8 +10,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 
-import { Task, TaskFilter, TaskCreationData } from './tasks.model';
+import {
+  Task,
+  TaskFilter,
+  TaskCreationData,
+  TaskGet,
+  TaskBulkCreationData,
+  TaskFiltersData,
+  TaskVoter,
+  TaskWatcher,
+  Attachment,
+  AttachmentCreationData
+} from './tasks.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
+
 
 @Injectable()
 export class TasksApiService {
@@ -44,5 +56,104 @@ export class TasksApiService {
 
   public create(data: TaskCreationData) {
     return this.http.post<Task>(this.base, data);
+  }
+
+  public get(id: number) {
+    return this.http.get<TaskGet>(`${this.base}/${id}`);
+  }
+
+  public getByRef(ref: number, project?: number, projectSlug?: string) {
+    return this.http.get<TaskGet>(this.base, {
+      params: UtilsService.buildQueryParams({
+        ...(project && {project}),
+        ...(projectSlug && {projectSlug}),
+        ref,
+      }),
+    });
+  }
+
+  public put(id: number, us: Partial<Task>) {
+    return this.http.put<Task>(`${this.base}/${id}`, us);
+  }
+
+  public patch(id: number, us: Partial<Task>) {
+    return this.http.patch<Task>(`${this.base}/${id}`, us);
+  }
+
+  public delete(id: number) {
+    return this.http.delete(`${this.base}/${id}`);
+  }
+
+  public bulkCreation(data: TaskBulkCreationData) {
+    return this.http.post<Task[]>(`${this.base}/bulk_create`, {
+      ...data,
+    });
+  }
+
+  public filters(project: number) {
+    return this.http.get<TaskFiltersData>(`${this.base}/filters_data`, {
+      params: UtilsService.buildQueryParams({
+        project,
+      }),
+    });
+  }
+
+  public upvote(id: number) {
+    return this.http.post(`${this.base}/${id}/upvote`, null);
+  }
+
+  public downvote(id: number) {
+    return this.http.post(`${this.base}/${id}/downvote`, null);
+  }
+
+  public voters(id: number) {
+    return this.http.get<TaskVoter[]>(`${this.base}/${id}/voters`);
+  }
+
+  public watch(id: number) {
+    return this.http.get(`${this.base}/${id}/watch`);
+  }
+
+  public unwatch(id: number) {
+    return this.http.get(`${this.base}/${id}/unwatch`);
+  }
+
+  public watchers(id: number) {
+    return this.http.get<TaskWatcher>(`${this.base}/${id}/watchers`);
+  }
+
+  public attachments(projectId: number, objectId: number) {
+    return this.http.get<Attachment[]>(`${this.base}/attachments`, {
+      params: UtilsService.buildQueryParams({
+        project: projectId,
+        objectId,
+      }),
+    });
+  }
+
+  public createAttachment(attachment: AttachmentCreationData) {
+    const formData = UtilsService.buildFormData(attachment);
+
+    return this.http.post<Attachment>(`${this.base}/attachments`, formData);
+  }
+
+  public getAttachment(attachmentId: number) {
+    return this.http.get<Attachment>(`${this.base}/attachments/${attachmentId}`);
+  }
+
+  public putAttachment(id: number, attachment: Partial<AttachmentCreationData>) {
+    const formData = UtilsService.buildFormData(attachment);
+
+    return this.http.put<Attachment>(`${this.base}/attachments${id}`, formData);
+  }
+
+  public patchAttachment(id: number, attachment: Partial<AttachmentCreationData>) {
+    const formData = UtilsService.buildFormData(attachment);
+
+    return this.http.put<Attachment>(`${this.base}/attachments/${id}`, formData);
+  }
+
+  public deleteAttachment(attachmentId: number) {
+    return this.http.delete(`${this.base}/attachments/${attachmentId}`);
   }
 }
