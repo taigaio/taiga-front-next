@@ -10,6 +10,7 @@ import * as Factory from 'factory.ts';
 import * as faker from 'faker';
 import { UserMockFactory } from '@/app/api/users/users.model.mock';
 import { Task, TaskCreationData } from './tasks.model';
+import { AttachmentCreationData } from '../userstories/userstories.model';
 
 const user = UserMockFactory.build();
 
@@ -117,10 +118,10 @@ export const TaskCreationDataMockFactory = Factory.Sync.makeFactory<TaskCreation
   watchers: [faker.random.number()],
 });
 
-// export const UserstoryAttachmentCreationMockFactory = Factory.Sync.makeFactory<AttachmentCreationData>({
-//   objectId: faker.random.number(),
-//   project: faker.random.number(),
-//   attachedFile: new File([], faker.random.word()),
-//   description: faker.lorem.sentence(),
-//   isDeprecated: faker.random.boolean(),
-// });
+export const TaskAttachmentCreationMockFactory = Factory.Sync.makeFactory<AttachmentCreationData>({
+  objectId: faker.random.number(),
+  project: faker.random.number(),
+  attachedFile: new File([], faker.random.word()),
+  description: faker.lorem.sentence(),
+  isDeprecated: faker.random.boolean(),
+});

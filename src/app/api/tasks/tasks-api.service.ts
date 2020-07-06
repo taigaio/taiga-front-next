@@ -62,12 +62,12 @@ export class TasksApiService {
     return this.http.get<TaskGet>(`${this.base}/${id}`);
   }
 
-  public getByRef(ref: number, project?: number, projectSlug?: string) {
+  public getByRef(data: {ref: number, project?: number, projectSlug?: string}) {
     return this.http.get<TaskGet>(this.base, {
       params: UtilsService.buildQueryParams({
-        ...(project && {project}),
-        ...(projectSlug && {projectSlug}),
-        ref,
+        ref: data.ref,
+        ...(data.project && {project: data.project}),
+        ...(data.projectSlug && {projectSlug: data.projectSlug}),
       }),
     });
   }
@@ -85,8 +85,11 @@ export class TasksApiService {
   }
 
   public bulkCreation(data: TaskBulkCreationData) {
+    const tasks = data.bulkTasks?.reduce( (accumulator, tag) => `${accumulator}, ${tag}` );
+
     return this.http.post<Task[]>(`${this.base}/bulk_create`, {
       ...data,
+      bulkTasks: tasks,
     });
   }
 
