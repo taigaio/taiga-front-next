@@ -64,27 +64,25 @@ describe('TasksApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/tasks/${id}`, HttpMethod.GET);
   });
 
-  it('get task by ref/project', () => {
-    const data = {
-      ref: faker.random.number(),
-      project: faker.random.number(),
-    };
+  it('get task by ref and project', () => {
+    const ref = faker.random.number();
+    const project = faker.random.number();
 
-    spectator.service.getByRef(data).subscribe();
+    spectator.service.getByRefAndProjectId(ref, project).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/tasks?${UtilsService.buildQueryParams({
-      ...data,
+      ref,
+      project,
     })}`, HttpMethod.GET);
   });
 
-  it('get task by ref/slug', () => {
-    const data = {
-      ref: faker.random.number(),
-      projectSlug: faker.lorem.slug(),
-    };
+  it('get task by ref and slug', () => {
+    const ref = faker.random.number();
+    const projectSlug = faker.lorem.slug();
 
-    spectator.service.getByRef(data).subscribe();
+    spectator.service.getByRefAndProjectSlug(ref, projectSlug).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/tasks?${UtilsService.buildQueryParams({
-      ...data,
+      ref,
+      project_slug: projectSlug,
     })}`, HttpMethod.GET);
   });
 

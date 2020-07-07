@@ -62,12 +62,20 @@ export class TasksApiService {
     return this.http.get<TaskGet>(`${this.base}/${id}`);
   }
 
-  public getByRef(data: {ref: number, project?: number, projectSlug?: string}) {
+  public getByRefAndProjectId(ref: number, project: number) {
     return this.http.get<TaskGet>(this.base, {
       params: UtilsService.buildQueryParams({
-        ref: data.ref,
-        ...(data.project && {project: data.project}),
-        ...(data.projectSlug && {projectSlug: data.projectSlug}),
+        ref,
+        project,
+      }),
+    });
+  }
+
+  public getByRefAndProjectSlug(ref: number, projectSlug: string) {
+    return this.http.get<TaskGet>(this.base, {
+      params: UtilsService.buildQueryParams({
+        ref,
+        projectSlug,
       }),
     });
   }
