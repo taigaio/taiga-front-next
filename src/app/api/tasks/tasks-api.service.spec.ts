@@ -82,7 +82,7 @@ describe('TasksApiService', () => {
     spectator.service.getByRefAndProjectSlug(ref, projectSlug).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/tasks?${UtilsService.buildQueryParams({
       ref,
-      project_slug: projectSlug,
+      project__slug: projectSlug,
     })}`, HttpMethod.GET);
   });
 
