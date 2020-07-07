@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
 import { TasksApiService } from './tasks-api.service';
 import { TaskCustomAttributesApiService } from './tasks-custom-attributes-api.service';
+import { TasksCustomAttributesValueApiService } from './tasks-custom-attributes-value-api.service';
 
 @NgModule({
   declarations: [],
@@ -22,6 +23,7 @@ import { TaskCustomAttributesApiService } from './tasks-custom-attributes-api.se
   providers: [
     TasksApiService,
     TaskCustomAttributesApiService,
+    TasksCustomAttributesValueApiService,
   ]
 })
 export class TasksApiModule { }

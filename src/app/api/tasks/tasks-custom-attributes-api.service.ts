@@ -22,7 +22,7 @@ export class TaskCustomAttributesApiService {
   public list(projectId: number) {
     return this.http.get<TaskCustomAttribute[]>(this.base, {
       params: {
-        projectId: projectId.toString(),
+        project: projectId.toString(),
       },
     });
   }
