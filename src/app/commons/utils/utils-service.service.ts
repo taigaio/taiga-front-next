@@ -9,7 +9,7 @@
 
 import { HttpParams } from '@angular/common/http';
 
-type dataTypes = string | number | boolean | Date | File;
+type dataTypes = string | number | boolean | Date | File | undefined | null;
 
 export class UtilsService {
   constructor() {}
@@ -23,10 +23,13 @@ export class UtilsService {
     .forEach((key: string) => {
         const value: dataTypes | dataTypes[] = source[key];
         const newKey = key in keyMap ? keyMap[key] : key;
-
-        if (Array.isArray(value)) {
+        if (value === undefined) {
+          target = target.append(newKey, 'undefined');
+        } else if (value === null) {
+            target = target.append(newKey, 'null');
+        } else if (Array.isArray(value)) {
           target = target.append(newKey, value.join(','));
-        } else if (value && value.toString) {
+        } else if (value.toString) {
           target = target.append(newKey, value.toString());
         }
     });
@@ -44,11 +47,15 @@ export class UtilsService {
         const value: dataTypes | dataTypes[] = source[key];
         const newKey = key in keyMap ? keyMap[key] : key;
 
-        if (value instanceof File) {
+        if (value === undefined) {
+          formData.append(newKey, 'undefined');
+        } else if (value === null) {
+          formData.append(newKey, 'null');
+        } else if (value instanceof File) {
           formData.append(newKey, value, value.name);
         } else if (Array.isArray(value)) {
           formData.append(newKey, value.join(','));
-        } else if (value && value.toString) {
+        } else if (value.toString) {
           formData.append(newKey, value.toString());
         }
     });

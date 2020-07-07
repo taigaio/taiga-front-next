@@ -36,7 +36,7 @@ export class IssuesApiService {
     return this.http.get<IssueListItem[]>(this.base, {
       params: UtilsService.buildQueryParams({
         ...filter,
-        orderBy,
+        ...(orderBy && { orderBy }),
       }, {
         statusIsClosed: 'status__is_closed',
       }),
