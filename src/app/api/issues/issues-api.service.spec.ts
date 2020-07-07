@@ -63,14 +63,25 @@ describe('IssuesApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/issues/${id}`, HttpMethod.GET);
   });
 
-  it('get issue by ref', () => {
+  it('get issue by ref & slug', () => {
+    const ref = faker.random.number();
+    const slug = 'project-slug';
+
+    spectator.service.getByRefAndProjectSlug(ref, slug).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/issues?${UtilsService.buildQueryParams({
+      ref,
+      project__slug: slug,
+    })}`, HttpMethod.GET);
+  });
+
+  it('get issue by ref & project id', () => {
     const ref = faker.random.number();
     const project = faker.random.number();
 
-    spectator.service.getByRef(project, ref).subscribe();
+    spectator.service.getByRefAndProjectId(ref, project).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/issues?${UtilsService.buildQueryParams({
-      project,
       ref,
+      project,
     })}`, HttpMethod.GET);
   });
 

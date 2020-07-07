@@ -51,19 +51,23 @@ export class IssuesApiService {
     return this.http.get<Issue>(`${this.base}/${id}`);
   }
 
-  public getByRef(project: number | string, ref: number) {
-    const filter: Record<string, string | number> = {};
-
-    if (typeof project === 'string') {
-      filter.project__slug = project;
-    } else {
-      filter.project = project;
-    }
-
-    filter.ref = ref;
-
+  public getByRefAndProjectSlug(ref: number, projectSlug: string) {
     return this.http.get<Issue>(this.base, {
-      params: UtilsService.buildQueryParams(filter),
+      params: UtilsService.buildQueryParams({
+        ref,
+        projectSlug,
+      }, {
+        projectSlug: 'project__slug',
+      }),
+    });
+  }
+
+  public getByRefAndProjectId(ref: number, projectId: number) {
+    return this.http.get<Issue>(this.base, {
+      params: UtilsService.buildQueryParams({
+        ref,
+        project: projectId,
+      }),
     });
   }
 
