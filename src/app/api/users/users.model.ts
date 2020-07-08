@@ -33,3 +33,37 @@ export interface User {
   username: string;
   uuid: string;
 }
+
+export interface UserStats {
+  roles: string[];
+  totalNumClosedUserstories: number;
+  totalNumContacts: number;
+  totalNumProjects: number;
+}
+
+export type UserContact = Pick<User,
+  'bigPhoto' |
+  'bio' |
+  'color' |
+  'fullName' |
+  'fullNameDisplay' |
+  'gravatarId' |
+  'id' |
+  'isActive' |
+  'lang' |
+  'photo' |
+  'roles' |
+  'theme' |
+  'timezone' |
+  'username'
+>;
+
+export interface WatchedContentFilter {
+  q?: string;
+  type?: 'project' | 'userstory' | 'task' | 'issue';
+}
+
+export interface VotedContentFilter {
+  q?: string;
+  type?: 'userstory' | 'task' | 'issue';
+}
