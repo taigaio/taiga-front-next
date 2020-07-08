@@ -11,7 +11,6 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import * as faker from 'faker';
-import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 import { NotifyPoliciesApiService } from './notify-policies-api.service';
 import { NotifyPoliciesMockFactory } from './notify-policies.model.mock';
