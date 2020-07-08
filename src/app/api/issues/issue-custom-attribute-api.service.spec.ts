@@ -34,7 +34,7 @@ describe('IssueCustomAttributeApiService', () => {
     spectator.service.list(projectId).subscribe();
     spectator.expectOne(
       `${ConfigServiceMock.apiUrl}/issue-custom-attributes?${UtilsService.buildQueryParams({
-        projectId: projectId.toString(),
+        project: projectId.toString(),
       })}`,
       HttpMethod.GET
     );
