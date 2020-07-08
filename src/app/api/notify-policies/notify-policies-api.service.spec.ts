@@ -58,7 +58,7 @@ describe('IssuesApiService', () => {
 
     spectator.service.patch(id, data).subscribe();
 
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/notify-policies/${id}`, HttpMethod.PUT);
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/notify-policies/${id}`, HttpMethod.PATCH);
     expect(req.request.body).toEqual(data);
   });
 
