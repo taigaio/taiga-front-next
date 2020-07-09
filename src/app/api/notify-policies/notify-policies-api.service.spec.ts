@@ -16,7 +16,7 @@ import { NotifyPoliciesApiService } from './notify-policies-api.service';
 import { NotifyPoliciesMockFactory } from './notify-policies.model.mock';
 
 
-describe('IssuesApiService', () => {
+describe('NotifyPoliciesApiService', () => {
   let spectator: SpectatorHttp<NotifyPoliciesApiService>;
   const createHttp = createHttpFactory({
     service: NotifyPoliciesApiService,

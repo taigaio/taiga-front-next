@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
+import { NotifyPoliciesApiService } from './notify-policies-api.service';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,7 @@ import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api
     ApiRestInterceptorModule,
   ],
   providers: [
+    NotifyPoliciesApiService,
   ],
 })
 export class NotifyPoliciesApiModule { }
