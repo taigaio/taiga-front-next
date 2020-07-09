@@ -10,7 +10,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 
-import { WebhookDetail } from './webhooks.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
+import { WebhookDetail, WebhookCreationData } from './webhooks.model';
 
 @Injectable()
 export class WebhooksApiService {
@@ -23,19 +24,40 @@ export class WebhooksApiService {
     return `${this.config.apiUrl}/webhooks`;
   }
 
-  public list() {
-    return this.http.get<WebhookDetail[]>(this.base);
+  public get webhooklogsBase() {
+    return `${this.config.apiUrl}/webhooklogs`;
   }
 
-  // public get(id: number) {
-  //   return this.http.get<NotifyPolicyDetail[]>(`${this.base}/${id}`);
-  // }
+  public list(project?: number) {
+    return this.http.get<WebhookDetail[]>(this.base, {
+      params: UtilsService.buildQueryParams({
+        ...(project && { project }),
+      }),
+    });
+  }
 
-  // public put(id: number, notifyPolicyDetail: NotifyPolicyDetail) {
-  //   return this.http.put<NotifyPolicyDetail>(`${this.base}/${id}`, notifyPolicyDetail);
-  // }
+  public create(webhook: WebhookCreationData) {
+    return this.http.post<WebhookDetail>(this.base, webhook);
+  }
 
-  // public patch(id: number, notifyPolicyDetail: Partial<NotifyPolicyDetail>) {
-  //   return this.http.patch<NotifyPolicyDetail>(`${this.base}/${id}`, notifyPolicyDetail);
-  // }
+  public get(id: number) {
+    return this.http.get<WebhookDetail>(`${this.base}/${id}`);
+  }
+
+  public put(id: number, webhook: WebhookDetail) {
+    return this.http.put<WebhookDetail>(`${this.base}/${id}`, webhook);
+  }
+
+  public patch(id: number, webhook: Partial<WebhookDetail>) {
+    return this.http.patch<WebhookDetail>(`${this.base}/${id}`, webhook);
+  }
+
+  public delete(id: number) {
+    return this.http.delete(`${this.base}/${id}`);
+  }
+
+  public test(id: number) {
+    return this.http.delete(`${this.base}/${id}/test`);
+  }
+
 }
