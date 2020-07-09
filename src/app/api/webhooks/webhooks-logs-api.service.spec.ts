@@ -11,14 +11,14 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import * as faker from 'faker';
-import { WebhooksApiService } from './webhooks-api.service';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
+import { WebhooksLogsApiService } from './webhooks-logs-api.service';
 
 
 describe('WebhooksApiService', () => {
-  let spectator: SpectatorHttp<WebhooksApiService>;
+  let spectator: SpectatorHttp<WebhooksLogsApiService>;
   const createHttp = createHttpFactory({
-    service: WebhooksApiService,
+    service: WebhooksLogsApiService,
     providers: [
       {
         provide: ConfigService,
@@ -38,11 +38,11 @@ describe('WebhooksApiService', () => {
   });
 
   it('list logs by project', () => {
-    const project = faker.random.number();
+    const webhook = faker.random.number();
 
-    spectator.service.list(project).subscribe();
+    spectator.service.list(webhook).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/webhooklogs?${UtilsService.buildQueryParams({
-      project,
+      webhook,
     })}`, HttpMethod.GET);
   });
 
@@ -56,7 +56,7 @@ describe('WebhooksApiService', () => {
   it('resend request', () => {
     const id = faker.random.number();
 
-    spectator.service.get(id).subscribe();
+    spectator.service.resend(id).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/webhooklogs/${id}/resend`, HttpMethod.POST);
   });
 

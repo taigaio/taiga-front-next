@@ -57,7 +57,7 @@ export class WebhooksApiService {
   }
 
   public test(id: number) {
-    return this.http.delete(`${this.base}/${id}/test`);
+    return this.http.post(`${this.base}/${id}/test`, null);
   }
 
 }

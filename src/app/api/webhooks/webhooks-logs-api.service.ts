@@ -25,7 +25,7 @@ export class WebhooksLogsApiService {
   }
 
   public list(webhook?: number) {
-    return this.http.delete(this.base, {
+    return this.http.get(this.base, {
       params: UtilsService.buildQueryParams({
         ...(webhook && { webhook }),
       }),

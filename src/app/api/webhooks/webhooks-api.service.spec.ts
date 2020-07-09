@@ -96,7 +96,7 @@ describe('WebhooksApiService', () => {
   it('test', () => {
     const id = faker.random.number();
 
-    spectator.service.delete(id).subscribe();
+    spectator.service.test(id).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/webhooks/${id}/test`, HttpMethod.POST);
   });
 
