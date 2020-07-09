@@ -24,6 +24,9 @@ import {
   Tag,
   EditTag,
   DuplicateProject,
+  SyncExport,
+  AsyncExport,
+  ImportAccepted,
 } from './projects.model';
 
 @Injectable()
@@ -197,5 +200,17 @@ export class ProjectsApiService {
 
   public duplicate(projectId: number, newProject: DuplicateProject) {
     return this.http.post<Project>(`${this.base}/${projectId}/duplicate`, newProject);
+  }
+
+  public export(projectId: number) {
+    return this.http.get<SyncExport | AsyncExport>(`${this.config.apiUrl}/exporter/${projectId}`);
+  }
+
+  public import(dump: File) {
+    const data = UtilsService.buildFormData({
+      dump,
+    });
+
+    return this.http.post<ImportAccepted | Project>(`${this.config.apiUrl}/importer/load_dump`, data);
   }
 }

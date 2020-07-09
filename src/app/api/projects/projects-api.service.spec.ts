@@ -353,4 +353,22 @@ describe('ProjectsApiService', () => {
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/projects/${projectId}/duplicate`, HttpMethod.POST);
     expect(req.request.body).toEqual(project);
   });
+
+  it('export', () => {
+    spectator.service.export(projectId).subscribe();
+
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/exporter/${projectId}`, HttpMethod.GET);
+  });
+
+  it('import', () => {
+    const filename = faker.system.fileName();
+    const file = new File([], filename);
+
+    spectator.service.import(file).subscribe();
+
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/importer/load_dump`, HttpMethod.POST);
+    expect(req.request.body instanceof FormData).toBeTruthy();
+    expect(((req.request.body as FormData).get('dump') as File).name).toEqual(filename);
+  });
+
 });

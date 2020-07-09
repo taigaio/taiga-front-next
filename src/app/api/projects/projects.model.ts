@@ -368,3 +368,14 @@ export interface EditTag {
   toTag: string;
 }
 
+export interface SyncExport {
+  url: string;
+}
+
+export interface AsyncExport {
+  exportId: string;
+}
+
+export interface ImportAccepted {
+  importId: string;
+}
