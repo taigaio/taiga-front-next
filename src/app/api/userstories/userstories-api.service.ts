@@ -14,7 +14,7 @@ import {
   UserstoryList,
   UserstoryFilter,
   UserstoryCreationData,
-  UserStoryFiltersData,
+  UserstoryFiltersData,
   UserstoryVoter
 } from './userstories.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
@@ -109,7 +109,7 @@ export class UserstoriesApiService {
   }
 
   public filtersData(project: number) {
-    return this.http.get<UserStoryFiltersData>(`${this.base}/filters_data`, {
+    return this.http.get<UserstoryFiltersData>(`${this.base}/filters_data`, {
       params: UtilsService.buildQueryParams({
         project,
       }),
