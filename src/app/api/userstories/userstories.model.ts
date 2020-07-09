@@ -149,7 +149,7 @@ export type UserstoryList  = Omit<Userstory,
   'descriptionHtml' |
   'neighbors'>;
 
-export interface UserStoryFiltersData {
+export interface UserstoryFiltersData {
   assignedTo: {
     count: number;
     fullName: string;
