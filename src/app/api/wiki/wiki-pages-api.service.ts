@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { ConfigService } from '@/app/config.service';
 
-import { WikiPage, WikiPageCreationData, Attachment, AttachmentCreationData, WikiPageWatcher } from './wiki-pages.model';
+import { WikiPage, WikiPageCreationData, Attachment, AttachmentCreationData, WikiPageWatcher } from './wiki.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()

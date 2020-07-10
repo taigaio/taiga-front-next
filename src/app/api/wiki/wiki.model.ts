@@ -6,9 +6,9 @@
  * the root directory of this source tree.
  */
 
-import { Project } from '../projects/projects.model';
-import { User } from '../users/users.model';
 import { Optional } from 'utility-types';
+import { Project } from '@/app/api/projects/projects.model';
+import { User } from '@/app/api/users/users.model';
 
 export interface WikiPage {
   content: string;
@@ -67,3 +67,18 @@ export type AttachmentCreationData = Optional<{
   'isDeprecated'>,
   'description' |
   'isDeprecated'>;
+
+
+export interface WikiLink {
+  href: string;
+  id: number;
+  order: number;
+  project: number;
+  title: string;
+}
+
+export type WikiLinkCreationData = Pick<WikiLink,
+  'href' |
+  'project' |
+  'title'>
+  & {orde?: number};
