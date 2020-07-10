@@ -7,9 +7,9 @@
  */
 
 import { User } from '@/app/api/users/users.model';
-import { Optional } from 'utility-types';
 import { Project } from '@/app/api/projects/projects.model';
 import { Epic } from '@/app/api/epics/epics.model';
+export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
 
 export interface UserstoryFilter {
   project: number;
@@ -195,33 +195,3 @@ export interface UserstoryFiltersData {
 
 export type UserstoryVoter = Pick<User, 'fullName' | 'id' | 'username'>;
 export type UserstoryWatcher = Pick<User, 'fullName' | 'id' | 'username'>;
-
-export interface Attachment {
-  attachedFile: string;
-  createdDate: string;
-  description: string;
-  fromComment: boolean;
-  id: number;
-  isDeprecated: boolean;
-  modifiedDate: string;
-  name: string;
-  objectId: number;
-  order: number;
-  owner: number;
-  previewUrl: string;
-  project: number;
-  sha1: string;
-  size: number;
-  thumbnailCardUrl: null | string;
-  url: string;
-}
-
-export type AttachmentCreationData = Optional<{
-  attachedFile: File;
-} & Pick<Attachment,
-  'objectId' |
-  'project' |
-  'description' |
-  'isDeprecated'>,
-  'description' |
-  'isDeprecated'>;

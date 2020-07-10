@@ -12,7 +12,9 @@ import { Priority } from '@/app/api/priorities/priorities.model';
 import { User } from '@/app/api/users/users.model';
 import { Role } from '@/app/api/roles/roles.model';
 import { Milestone } from '@/app/api/milestones/milestones.model';
-import { Optional, Omit } from 'utility-types';
+import { Omit } from 'utility-types';
+export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
+
 export interface Issue {
   assignedTo: number;
   assignedToExtraInfo: Pick<User,
@@ -179,33 +181,3 @@ export interface IssueFiltersData {
 
 export type IssueVoter = Pick<User, 'fullName' | 'id' | 'username'>;
 export type IssueWatcher = Pick<User, 'fullName' | 'id' | 'username'>;
-
-export interface Attachment {
-  attachedFile: string;
-  createdDate: string;
-  description: string;
-  fromComment: boolean;
-  id: number;
-  isDeprecated: boolean;
-  modifiedDate: string;
-  name: string;
-  objectId: number;
-  order: number;
-  owner: number;
-  previewUrl: string;
-  project: number;
-  sha1: string;
-  size: number;
-  thumbnailCardUrl: null | string;
-  url: string;
-}
-
-export type AttachmentCreationData = Optional<{
-  attachedFile: File;
-} & Pick<Attachment,
-  'objectId' |
-  'project' |
-  'description' |
-  'isDeprecated'>,
-  'description' |
-  'isDeprecated'>;
