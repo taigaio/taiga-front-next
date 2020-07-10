@@ -31,6 +31,24 @@ export interface TrelloProject {
   name: string;
 }
 
+export interface ImportedTrelloProject {
+  isBacklogActivated: boolean;
+  isKanbanActivated: boolean;
+  myPermissions: string[];
+  slug: string;
+}
+
 export interface TrelloImportData {
   description: Project['description'];
+  isPrivate: Project['isPrivate'];
+  keepExternalReference: boolean;
+  name: Project['name'];
+  project: string;
+  template: string;
+  token: string;
+  usersBindings: Record<string, string>;
+}
+
+export interface ImportProjectTask {
+  taskId: string;
 }

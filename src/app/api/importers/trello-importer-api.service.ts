@@ -9,8 +9,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
-import { TrelloAuthToken, TrelloImportData, TrelloProject, TrelloUser } from './importer.model';
-// import { NotifyPolicyDetail } from './notify-policies.model';
+import { ImportedTrelloProject, ImportProjectTask, TrelloAuthToken, TrelloImportData, TrelloProject, TrelloUser } from './importer.model';
 
 @Injectable()
 export class TrelloImporterApiService {
@@ -53,6 +52,6 @@ export class TrelloImporterApiService {
   }
 
   public importProject(project: TrelloImportData) {
-
+    return this.http.post<ImportedTrelloProject | ImportProjectTask>(`${this.base}/import`, project);
   }
 }
