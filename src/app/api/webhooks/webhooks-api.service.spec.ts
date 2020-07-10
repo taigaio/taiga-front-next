@@ -64,7 +64,7 @@ describe('WebhooksApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/webhooks/${id}`, HttpMethod.GET);
   });
 
-  it('patch', () => {
+  it('put', () => {
     const id = faker.random.number();
     const data = WebhookMockFactory.build();
 
