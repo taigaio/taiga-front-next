@@ -13,7 +13,7 @@ import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
-import { WikiPageMockFactory, WikiPageAttachmentCreationMockFactory, WikiPageAttachmentMockFactory } from './wiki-pages.model.mock';
+import { WikiPageMockFactory, WikiPageAttachmentCreationMockFactory, WikiPageAttachmentMockFactory } from './wiki.model.mock';
 import { WikiPagesApiService } from './wiki-pages-api.service';
 
 describe('WikiPagesApiService', () => {

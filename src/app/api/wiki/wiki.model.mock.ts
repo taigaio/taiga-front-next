@@ -8,7 +8,7 @@
 
 import * as Factory from 'factory.ts';
 import * as faker from 'faker';
-import { WikiPage, AttachmentCreationData, Attachment } from './wiki-pages.model';
+import { WikiPage, AttachmentCreationData, Attachment, WikiLink } from './wiki.model';
 
 export const WikiPageMockFactory = Factory.Sync.makeFactory<WikiPage>({
   content: faker.lorem.paragraphs(),
@@ -58,4 +58,12 @@ export const WikiPageAttachmentCreationMockFactory = Factory.Sync.makeFactory<At
   attachedFile: new File([], faker.random.word()),
   description: faker.lorem.sentence(),
   isDeprecated: faker.random.boolean(),
+});
+
+export const WikiLinkMockFactory = Factory.Sync.makeFactory<WikiLink>({
+  href: faker.lorem.slug(),
+  id: faker.random.number(),
+  order: faker.random.number(),
+  project: faker.random.number(),
+  title: faker.lorem.sentence(),
 });
