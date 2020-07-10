@@ -12,6 +12,10 @@ export interface TrelloAuthToken {
     url: string;
 }
 
+export interface GithubAuthToken {
+  url: string;
+}
+
 export interface TrelloUser {
   email: string;
   full_name: string;
@@ -24,10 +28,30 @@ export interface TrelloUser {
   };
 }
 
+export interface GithubUser {
+  full_name: string;
+  id: number;
+  user: {
+      full_name: string;
+      gravatar_id: string;
+      id: number;
+      photo: string;
+  };
+  username: string;
+}
+
 export interface TrelloProject {
   description: string;
   id: string;
-  is_private: boolean;
+  isPrivate: boolean;
+  name: string;
+}
+
+
+export interface GithubProject {
+  description: string;
+  id: string;
+  isPrivate: boolean;
   name: string;
 }
 
@@ -38,7 +62,25 @@ export interface ImportedTrelloProject {
   slug: string;
 }
 
+export interface ImportedGithubProject {
+  isBacklogActivated: boolean;
+  isKanbanActivated: boolean;
+  myPermissions: string[];
+  slug: string;
+}
+
 export interface TrelloImportData {
+  description: Project['description'];
+  isPrivate: Project['isPrivate'];
+  keepExternalReference: boolean;
+  name: Project['name'];
+  project: string;
+  template: string;
+  token: string;
+  usersBindings: Record<string, string>;
+}
+
+export interface GithubImportData {
   description: Project['description'];
   isPrivate: Project['isPrivate'];
   keepExternalReference: boolean;

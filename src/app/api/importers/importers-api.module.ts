@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api-rest-interceptor.module';
 import { TrelloImporterApiService } from './trello-importer-api.service';
+import { GithubImporterApiService } from './github-importer-api.service';
 
 @NgModule({
   declarations: [],
@@ -20,6 +21,7 @@ import { TrelloImporterApiService } from './trello-importer-api.service';
   ],
   providers: [
     TrelloImporterApiService,
+    GithubImporterApiService,
   ],
 })
 export class ImportersApiModule { }
