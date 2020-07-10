@@ -13,7 +13,7 @@ import { ConfigServiceMock } from '@/app/config.service.mock';
 import * as faker from 'faker';
 import { GithubImporterApiService } from './github-importer-api.service';
 
-describe('GihuImporterService', () => {
+describe('GithubImporterApiService', () => {
   let spectator: SpectatorHttp<GithubImporterApiService>;
   const createHttp = createHttpFactory({
     service: GithubImporterApiService,

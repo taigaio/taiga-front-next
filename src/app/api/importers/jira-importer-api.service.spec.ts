@@ -11,12 +11,14 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import * as faker from 'faker';
-import { TrelloImporterApiService } from './trello-importer-api.service';
+import { parseQueryParams } from '@/utils/test.helpers';
 
-describe('TrelloImporterApiService', () => {
-  let spectator: SpectatorHttp<TrelloImporterApiService>;
+import { JiraImporterApiService } from './jira-importer-api.service';
+
+describe('JiraImporterApiService', () => {
+  let spectator: SpectatorHttp<JiraImporterApiService>;
   const createHttp = createHttpFactory({
-    service: TrelloImporterApiService,
+    service: JiraImporterApiService,
     providers: [
       {
         provide: ConfigService,
@@ -27,43 +29,45 @@ describe('TrelloImporterApiService', () => {
 
   beforeEach(() => spectator = createHttp());
 
+  const url = faker.internet.url();
+
+  const queryParams = {
+    url,
+  };
+
   it('get auth url', () => {
-    spectator.service.getAuthUrl().subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/trello/auth_url`, HttpMethod.GET);
+    spectator.service.getAuthUrl(url).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/jira/auth_url?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('auth', () => {
-    const code = faker.random.word();
-
-    spectator.service.auth(code).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/trello/authorize`, HttpMethod.POST);
-
-    expect(req.request.body).toEqual({
-      code,
-    });
+    spectator.service.auth().subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/jira/authorize`, HttpMethod.POST);
   });
 
   it('list users', () => {
     const data = {
       project: faker.random.word(),
       token: faker.random.word(),
+      url: faker.internet.url(),
     };
 
-    spectator.service.listUsers(data.project, data.token).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/trello/list_users`, HttpMethod.POST);
+    spectator.service.listUsers(data.project, data.token, data.url).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/jira/list_users`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(data);
   });
 
   it('list projects', () => {
-    const token = faker.random.word();
+    const data = {
+      token: faker.random.word(),
+      url: faker.internet.url(),
+    };
 
-    spectator.service.listProjects(token).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/trello/list_projects`, HttpMethod.POST);
+    spectator.service.listProjects(data.token, data.url).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/jira/list_projects`, HttpMethod.POST);
 
-    expect(req.request.body).toEqual({
-      token,
-    });
+    expect(req.request.body).toEqual(data);
   });
 
   it('import projects', () => {
@@ -73,8 +77,10 @@ describe('TrelloImporterApiService', () => {
       keepExternalReference: faker.random.boolean(),
       name: faker.random.word(),
       project: faker.random.word(),
+      projectType: faker.random.word(),
       template: faker.random.word(),
       token: faker.random.word(),
+      url: faker.internet.url(),
       usersBindings: {
         a: faker.random.word(),
         b: faker.random.word(),
@@ -82,7 +88,7 @@ describe('TrelloImporterApiService', () => {
     };
 
     spectator.service.importProject(project).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/trello/import`, HttpMethod.POST);
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/jira/import`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(project);
   });
