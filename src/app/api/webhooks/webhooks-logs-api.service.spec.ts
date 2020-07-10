@@ -15,7 +15,7 @@ import { UtilsService } from '@/app/commons/utils/utils-service.service';
 import { WebhooksLogsApiService } from './webhooks-logs-api.service';
 
 
-describe('WebhooksApiService', () => {
+describe('WebhooksLogsApiService', () => {
   let spectator: SpectatorHttp<WebhooksLogsApiService>;
   const createHttp = createHttpFactory({
     service: WebhooksLogsApiService,
