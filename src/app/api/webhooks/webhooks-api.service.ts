@@ -24,10 +24,6 @@ export class WebhooksApiService {
     return `${this.config.apiUrl}/webhooks`;
   }
 
-  public get webhooklogsBase() {
-    return `${this.config.apiUrl}/webhooklogs`;
-  }
-
   public list(project?: number) {
     return this.http.get<WebhookDetail[]>(this.base, {
       params: UtilsService.buildQueryParams({

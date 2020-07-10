@@ -18,5 +18,5 @@ export interface WebhookDetail {
 export type WebhookCreationData = Pick<WebhookDetail, 'project' | 'name' | 'url' | 'key'>;
 
 export interface WebhookLog {
-  _error_message: string;
+  errorMessage: string;
 }
