@@ -1,4 +1,3 @@
-import { internet } from 'faker';
 /**
  * Copyright (c) 2014-2020 Taiga Agile LLC
  *
@@ -10,7 +9,7 @@ import { internet } from 'faker';
 import { Project } from '../projects/projects.model';
 
 export interface TrelloAuthToken {
-    url: string;
+  url: string;
 }
 
 export interface GithubAuthToken {
@@ -33,9 +32,9 @@ export interface AsanaAuthToken {
   token: {
     access_token: string;
     data: {
-        email: string;
-        id: number;
-        name: string;
+      email: string;
+      id: number;
+      name: string;
     },
     expires_in: number;
     refresh_token: string;
@@ -48,10 +47,10 @@ export interface TrelloUser {
   full_name: string;
   id: string;
   user: {
-      full_name: string;
-      gravatar_id: string;
-      id: number;
-      photo: string;
+    full_name: string;
+    gravatar_id: string;
+    id: number;
+    photo: string;
   };
 }
 
@@ -59,10 +58,10 @@ export interface GithubUser {
   full_name: string;
   id: number;
   user: {
-      full_name: string;
-      gravatar_id: string;
-      id: number;
-      photo: string;
+    full_name: string;
+    gravatar_id: string;
+    id: number;
+    photo: string;
   };
   username: string;
 }
@@ -72,10 +71,10 @@ export interface JiraUser {
   full_name: string;
   id: number;
   user: {
-      full_name: string;
-      gravatar_id: string;
-      id: number;
-      photo: string;
+    full_name: string;
+    gravatar_id: string;
+    id: number;
+    photo: string;
   };
 }
 
@@ -83,10 +82,10 @@ export interface AsanaUser {
   full_name: string;
   id: number;
   user: {
-      full_name: string;
-      gravatar_id: string;
-      id: number;
-      photo: string;
+    full_name: string;
+    gravatar_id: string;
+    id: number;
+    photo: string;
   };
 }
 
