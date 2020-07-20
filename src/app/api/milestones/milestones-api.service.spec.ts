@@ -31,7 +31,6 @@ describe('MilestonesApiService', () => {
 
   const project = 1;
   const milestone = 2;
-  // const username = faker.internet.email();
 
   it('List ALL milestones', () => {
     spectator.service.list().subscribe();
