@@ -1,3 +1,4 @@
+import { internet } from 'faker';
 /**
  * Copyright (c) 2014-2020 Taiga Agile LLC
  *
@@ -24,6 +25,23 @@ export interface JiraAuthToken extends JiraAuthUrl {
   token: string;
 }
 
+export interface AsanaAuthUrl {
+  url: string;
+}
+
+export interface AsanaAuthToken {
+  token: {
+    access_token: string;
+    data: {
+        email: string;
+        id: number;
+        name: string;
+    },
+    expires_in: number;
+    refresh_token: string;
+    token_type: string;
+  };
+}
 
 export interface TrelloUser {
   email: string;
@@ -61,6 +79,17 @@ export interface JiraUser {
   };
 }
 
+export interface AsanaUser {
+  full_name: string;
+  id: number;
+  user: {
+      full_name: string;
+      gravatar_id: string;
+      id: number;
+      photo: string;
+  };
+}
+
 export interface TrelloProject {
   description: string;
   id: string;
@@ -84,6 +113,14 @@ export interface JiraProject {
   type: string;
 }
 
+export interface AsanaProject {
+  description: string;
+  id: string;
+  isPrivate: boolean;
+  name: string;
+}
+
+
 export interface ImportedTrelloProject {
   isBacklogActivated: boolean;
   isKanbanActivated: boolean;
@@ -99,6 +136,13 @@ export interface ImportedGithubProject {
 }
 
 export interface ImportedJiraProject {
+  isBacklogActivated: boolean;
+  isKanbanActivated: boolean;
+  myPermissions: string[];
+  slug: string;
+}
+
+export interface ImportedAsanaProject {
   isBacklogActivated: boolean;
   isKanbanActivated: boolean;
   myPermissions: string[];
@@ -137,6 +181,17 @@ export interface JiraImportData {
   template: string;
   token: string;
   url: string;
+  usersBindings: Record<string, string>;
+}
+
+export interface AsanaImportData {
+  description: Project['description'];
+  isPrivate: Project['isPrivate'];
+  keepExternalReference: boolean;
+  name: Project['name'];
+  project: string;
+  template: string;
+  token: AsanaAuthToken;
   usersBindings: Record<string, string>;
 }
 

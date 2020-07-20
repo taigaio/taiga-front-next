@@ -13,6 +13,7 @@ import { ApiRestInterceptorModule } from '@/app/commons/api-rest-interceptor/api
 import { TrelloImporterApiService } from './trello-importer-api.service';
 import { GithubImporterApiService } from './github-importer-api.service';
 import { JiraImporterApiService } from './jira-importer-api.service';
+import { AsanaImporterApiService } from './asana-importer-api.service';
 
 @NgModule({
   declarations: [],
@@ -24,6 +25,7 @@ import { JiraImporterApiService } from './jira-importer-api.service';
     TrelloImporterApiService,
     GithubImporterApiService,
     JiraImporterApiService,
+    AsanaImporterApiService,
   ],
 })
 export class ImportersApiModule { }
