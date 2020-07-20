@@ -10,6 +10,11 @@ import { User } from '@/app/api/users/users.model';
 import { Project } from '@/app/api/projects/projects.model';
 import { Epic } from '@/app/api/epics/epics.model';
 export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
+import { Voter as UserstoryVoter } from '@/app/api/commons/voter.model';
+import { Watcher as UserstoryWatcher } from '@/app/api/commons/watcher.model';
+
+export type { UserstoryVoter };
+export type { UserstoryWatcher };
 
 export interface UserstoryFilter {
   project: number;
@@ -18,7 +23,7 @@ export interface UserstoryFilter {
   status: number;
   statusIsArchived: boolean;
   tags: string;
-  watchers: number[];
+  watchers: UserstoryWatcher['id'][];
   assignedTo: number[];
   epic: number;
   role: number;
@@ -121,7 +126,7 @@ export interface Userstory {
   totalWatchers: number;
   tribeGig: null | string;
   version: number;
-  watchers: number[];
+  watchers: UserstoryWatcher['id'][];
 }
 
 export type UserstoryCreationData = Pick<Userstory,
@@ -192,6 +197,3 @@ export interface UserstoryFiltersData {
     name: string;
   }[];
 }
-
-export type UserstoryVoter = Pick<User, 'fullName' | 'id' | 'username'>;
-export type UserstoryWatcher = Pick<User, 'fullName' | 'id' | 'username'>;

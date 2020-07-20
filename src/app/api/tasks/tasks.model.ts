@@ -6,8 +6,12 @@
  * the root directory of this source tree.
  */
 
-import { User } from '@/app/api/users/users.model';
 export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
+import { Voter as TaskVoter } from '@/app/api/commons/voter.model';
+import { Watcher as TaskWatcher } from '@/app/api/commons/watcher.model';
+
+export type { TaskVoter };
+export type { TaskWatcher };
 
 export interface UserExtraInfo {
   bigPhoto: null | string;
@@ -84,11 +88,8 @@ export interface Task {
   userStory: number;
   userStoryExtraInfo: UserStoryExtraInfo;
   version: number;
-  watchers: number[];
+  watchers: TaskWatcher['id'][];
 }
-
-export type TaskVoter = Pick<User, 'fullName' | 'id' | 'username'>;
-export type TaskWatcher = Pick<User, 'fullName' | 'id' | 'username'>;
 
 export interface TaskGet extends Task {
   blockedNoteHtml: string;
@@ -136,7 +137,7 @@ export interface TaskCreationData {
   taskboardOrder: number;
   isIocaine: boolean;
   externalReference: number;
-  watchers: number[];
+  watchers: TaskWatcher['id'][];
 }
 
 export interface TaskBulkCreationData {
