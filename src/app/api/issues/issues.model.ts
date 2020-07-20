@@ -15,6 +15,12 @@ import { Milestone } from '@/app/api/milestones/milestones.model';
 import { Omit } from 'utility-types';
 export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
 
+import { Voter as IssueVoter } from '@/app/api/commons/voter.model';
+import { Watcher as IssueWatcher } from '@/app/api/commons/watcher.model';
+
+export type { IssueVoter };
+export type { IssueWatcher };
+
 export interface Issue {
   assignedTo: number;
   assignedToExtraInfo: Pick<User,
@@ -88,7 +94,7 @@ export interface Issue {
   totalWatchers: number;
   type: number;
   version: number;
-  watchers: number[];
+  watchers: IssueWatcher['id'][];
 }
 
 export type IssueListItem = Omit<Issue,
@@ -107,7 +113,7 @@ export interface IssueFilter {
   tags: string[];
   type: string;
   role: Role['id'];
-  watchers: User['id'][];
+  watchers: IssueWatcher['id'][];
   statusIsClosed: boolean;
   excludeStatus: Status['id'];
   excludeSeverity: Severity['id'];
@@ -142,7 +148,7 @@ export interface IssueCreationData {
   type?: string;
   subject: string;
   tags?: string[];
-  watchers?: User['id'][];
+  watchers?: IssueWatcher['id'][];
 }
 
 export interface IssueFiltersData {
@@ -178,6 +184,3 @@ export interface IssueFiltersData {
     order: number;
   };
 }
-
-export type IssueVoter = Pick<User, 'fullName' | 'id' | 'username'>;
-export type IssueWatcher = Pick<User, 'fullName' | 'id' | 'username'>;
