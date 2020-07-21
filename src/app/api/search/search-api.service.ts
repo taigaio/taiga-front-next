@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 import { SearchResults } from './search.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class SearchApiService {
@@ -24,10 +25,10 @@ export class SearchApiService {
 
   public search(project: string, text: string) {
     return this.http.get<SearchResults>(this.base, {
-      params: {
+      params: UtilsService.buildQueryParams({
         project,
         text,
-      },
+      }),
     });
   }
 }

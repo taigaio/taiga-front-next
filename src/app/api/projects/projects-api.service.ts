@@ -59,9 +59,9 @@ export class ProjectsApiService {
 
   public getBySlug(slug: string) {
     return this.http.get<Project>(`${this.base}/by_slug`, {
-      params: {
+      params: UtilsService.buildQueryParams({
         slug,
-      },
+      }),
     });
   }
 
@@ -111,18 +111,18 @@ export class ProjectsApiService {
 
   public deleteTag(projectId: number, tag: string) {
     return this.http.delete(`${this.base}/${projectId}/delete_tag`, {
-      params: {
+      params: UtilsService.buildQueryParams({
         tag,
-      },
+      }),
     });
   }
 
   public mixTags(projectId: number, fromTags: string[], toTag: string) {
     return this.http.get(`${this.base}/${projectId}/mix_tags`, {
-      params: {
-        from_tags: fromTags,
-        to_tag: toTag,
-      },
+      params: UtilsService.buildQueryParams({
+        fromTags,
+        toTag,
+      }),
     });
   }
 

@@ -22,9 +22,9 @@ export class UsersApiService {
 
   public list(projectId: number) {
     return this.http.get<User[]>(this.base, {
-      params: {
+      params: UtilsService.buildQueryParams({
         project: projectId.toString(),
-      },
+      }),
     });
   }
 
@@ -48,9 +48,9 @@ export class UsersApiService {
 
   public getLikedContent(userId: number, q: string) {
     return this.http.get<User>(`${this.base}/${userId}/liked`, {
-      params: {
+      params: UtilsService.buildQueryParams({
         q,
-      },
+      }),
     });
   }
 
