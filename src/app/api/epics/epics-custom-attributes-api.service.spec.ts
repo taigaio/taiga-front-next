@@ -14,6 +14,7 @@ import { EpicsCustomAttributeApiService } from './epics-custom-attributes-api.se
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { EpicCustomAttributePartialInput, EpicCustomAttributeBulkUpdate } from './epics-custom-attributes.model';
 import { parseQueryParams } from '@/utils/test.helpers';
+import faker from 'faker';
 
 describe('EpicsCustomAttributeApiService', () => {
   let spectator: SpectatorHttp<EpicsCustomAttributeApiService>;
@@ -29,9 +30,10 @@ describe('EpicsCustomAttributeApiService', () => {
 
   beforeEach(() => spectator = createHttp());
 
-  const project = 1;
-  const epic = 2;
+  // const project = 1;
+  // const epic = 2;
   it('List ALL Epics custom attributes by project', () => {
+    const project = faker.random.number();
     const query = {
       project: project.toString(),
     };
@@ -42,27 +44,23 @@ describe('EpicsCustomAttributeApiService', () => {
   it('create epic custom attribute', () => {
     const data = EpicCustomAttributeCreationMockFactory.build();
 
-    const body = {
-      ...(data.description && { description: data.description }),
-      ...(data.order && { blockedNote: data.order }),
-      project: data.project,
-      name: data.name,
-    };
-
     spectator.service.create(data).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-custom-attributes`, HttpMethod.POST);
 
-    expect(req.request.body).toEqual(body);
+    expect(req.request.body).toEqual(data);
   });
 
   it('get epic custom attributes', () => {
+    const epic = faker.random.number();
+
     spectator.service.get(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-custom-attributes/${epic}`, HttpMethod.GET);
   });
 
   it('edit epic custom attribute', () => {
+    const epic = faker.random.number();
     const data: EpicCustomAttributePartialInput = {
-      name: '#fabada',
+      name: faker.internet.color(),
     };
 
     spectator.service.patch(epic, data).subscribe();
@@ -72,6 +70,8 @@ describe('EpicsCustomAttributeApiService', () => {
   });
 
   it('delete epic custom attributes', () => {
+    const epic = faker.random.number();
+
     spectator.service.delete(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-custom-attributes/${epic}`, HttpMethod.DELETE);
   });
