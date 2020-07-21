@@ -210,8 +210,8 @@ describe('ProjectsApiService', () => {
     spectator.service.mixTags(projectId, fromTags, toTag).subscribe();
 
     const queryParams = UtilsService.buildQueryParams({
-      from_tags: fromTags.join(','),
-      to_tag: toTag,
+      fromTags: fromTags.join(','),
+      toTag,
     }).toString();
 
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/projects/${projectId}/mix_tags?${queryParams}`, HttpMethod.GET);
