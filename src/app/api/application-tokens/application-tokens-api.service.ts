@@ -20,7 +20,7 @@ export class ApplicationTokensApiService {
   }
 
   public list() {
-    return this.http.get<ApplicationToken[]>(`${this.base}`);
+    return this.http.get<ApplicationToken[]>(this.base);
   }
 
   public get(applicationTokenId: string) {
