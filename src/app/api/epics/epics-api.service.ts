@@ -38,9 +38,7 @@ export class EpicsApiService {
 
   public list(filter: EpicFilter) {
     return this.http.get<Epic[]>(this.base, {
-      params: UtilsService.buildQueryParams({
-        ...filter,
-      }),
+      params: UtilsService.buildQueryParams(filter),
     });
   }
 

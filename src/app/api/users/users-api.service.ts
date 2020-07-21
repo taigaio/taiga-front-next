@@ -23,7 +23,7 @@ export class UsersApiService {
   public list(projectId: number) {
     return this.http.get<User[]>(this.base, {
       params: UtilsService.buildQueryParams({
-        project: projectId.toString(),
+        project: projectId,
       }),
     });
   }

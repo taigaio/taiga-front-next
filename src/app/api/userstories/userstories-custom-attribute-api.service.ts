@@ -23,7 +23,7 @@ export class UserstoriesCustomAttributeApiService {
   public list(projectId: number) {
     return this.http.get<UserstoryCustomAttribute[]>(this.base, {
       params: UtilsService.buildQueryParams({
-        project: projectId.toString(),
+        project: projectId,
       }),
     });
   }

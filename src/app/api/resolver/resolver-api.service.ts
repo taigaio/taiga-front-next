@@ -44,7 +44,7 @@ export class ResolverApiService {
     return this.http.get<ProjectResolver>(this.base, {
       params: UtilsService.buildQueryParams({
         project,
-        us: us.toString(),
+        us,
       }),
     });
   }
@@ -53,7 +53,7 @@ export class ResolverApiService {
     return this.http.get<IssueResolver>(this.base, {
       params: UtilsService.buildQueryParams({
         project,
-        issue: issue.toString(),
+        issue,
       }),
     });
   }
@@ -62,7 +62,7 @@ export class ResolverApiService {
     return this.http.get<TaskResolver>(this.base, {
       params: UtilsService.buildQueryParams({
         project,
-        task: task.toString(),
+        task,
       }),
     });
   }
@@ -76,11 +76,11 @@ export class ResolverApiService {
     });
   }
 
-  public wikiPage(project: string, wikiPage: string) {
+  public wikiPage(project: string, wikipage: string) {
     return this.http.get<WikiPageResolver>(this.base, {
       params: UtilsService.buildQueryParams({
         project,
-        wikipage: wikiPage,
+        wikipage,
       }),
     });
   }
@@ -97,7 +97,7 @@ export class ResolverApiService {
     return this.http.get<RefResolver>(this.base, {
       params: UtilsService.buildQueryParams({
         project,
-        ref: ref.toString(),
+        ref,
       }),
     });
   }
