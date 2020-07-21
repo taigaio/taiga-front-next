@@ -93,7 +93,7 @@ export class EpicsApiService {
   }
 
   public bulkCreateRelatedUserStory(id: number, data: RelatedUserStoryCreationInBulk) {
-    const stories = data.bulkUserStories.reduce( (accumulator, subject) => `${accumulator} /n ${subject}` );
+    const stories = data.bulkUserStories.reduce((accumulator, subject) => `${accumulator} /n ${subject}` );
 
     const body = {
       projectId: data.projectId,

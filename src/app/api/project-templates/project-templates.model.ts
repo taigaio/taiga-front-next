@@ -6,25 +6,26 @@
  * the root directory of this source tree.
  */
 
-import { EpicStatus } from '../epic-statuses/epic-statuses.model';
-import { IssueStatus } from '../issue-statuses/issue-statuses.model';
-import { IssueType } from '../issue-types/issue-types.model';
-import { Points } from '../points/points.model';
-import { Priority } from '../priorities/priorities.model';
-import { Severity } from '../severities/severities.model';
-import { TaskStatus } from '../task-statuses/task-statuses.model';
-import { UserstoryStatus } from '../userstory-statuses/userstory-statuses.model';
+import { EpicStatus } from '@/app/api/epic-statuses/epic-statuses.model';
+import { IssueStatus } from '@/app/api/issue-statuses/issue-statuses.model';
+import { IssueType } from '@/app/api/issue-types/issue-types.model';
+import { Points } from '@/app/api/points/points.model';
+import { Priority } from '@/app/api/priorities/priorities.model';
+import { Severity } from '@/app/api/severities/severities.model';
+import { TaskStatus } from '@/app/api/task-statuses/task-statuses.model';
+import { UserstoryStatus } from '@/app/api/userstory-statuses/userstory-statuses.model';
+import { Role } from '@/app/api/roles/roles.model';
 
 type CommonOmits = 'id' | 'project';
 
 export interface ProjectTemplate {
   createdDate: string;
   defaultOptions: {
-    epicStatus: string;
-    usStatus: string;
+    epicStatus: EpicStatus['name'];
+    usStatus: UserstoryStatus['name'];
     points: string;
-    taskStatus: string;
-    issueStatus: string;
+    taskStatus: TaskStatus['name'];
+    issueStatus: IssueStatus['name'];
     issueType: string;
     priority: string;
     severity: string;
@@ -46,13 +47,12 @@ export interface ProjectTemplate {
   order: number;
   points: Omit<Points, CommonOmits>[];
   priorities: Omit<Priority, CommonOmits>[];
-  roles: {
-    computable: boolean;
-    name: string;
-    order: number;
-    permissions: Permissions[]
-    slug: string;
-  }[];  // TODO Use model from api/roles
+  roles: Pick<Role,
+    'computable' |
+    'name' |
+    'order' |
+    'permissions' |
+    'slug'>[];
   severities: Omit<Severity, CommonOmits>[];
   slug: string;
   taskStatuses: Omit<TaskStatus, CommonOmits>[];

@@ -5,10 +5,11 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
+import { Role } from '@/app/api/roles/roles.model';
 
 export interface User {
   acceptedTerms: boolean;
-  bigPhoto: string;
+  bigPhoto: string | null;
   bio: string;
   color: string;
   dateJoined: string;
@@ -25,7 +26,7 @@ export interface User {
   maxPublicProjects: number | null;
   photo: string | null;
   readNewTerms: boolean;
-  roles: string[];
+  roles: Role['name'][];
   theme: string;
   timezone: string;
   totalPrivateProjects: number;
@@ -35,7 +36,7 @@ export interface User {
 }
 
 export interface UserStats {
-  roles: string[];
+  roles: Role['name'][];
   totalNumClosedUserstories: number;
   totalNumContacts: number;
   totalNumProjects: number;
@@ -67,3 +68,12 @@ export interface VotedContentFilter {
   q?: string;
   type?: 'userstory' | 'task' | 'issue';
 }
+
+export type UserExtraInfo = Pick<User,
+  'id' |
+  'bigPhoto' |
+  'fullNameDisplay' |
+  'gravatarId' |
+  'isActive' |
+  'photo' |
+  'username'>;

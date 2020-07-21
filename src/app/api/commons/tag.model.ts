@@ -5,12 +5,9 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
-import { Project } from '@/app/api/projects/projects.model';
 
-export interface NotifyPolicyDetail {
-  id: number;
-  liveNotifyLevel: number;
-  project: Project['id'];
-  projectName: string;
-  webNotifyLevel: boolean;
+export interface TagsFilter {
+  color: null | string;
+  count: number;
+  name: string;
 }

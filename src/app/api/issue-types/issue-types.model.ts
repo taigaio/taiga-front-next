@@ -5,21 +5,21 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
-
+import { Project } from '@/app/api/projects/projects.model';
 
 export interface IssueType {
   id: number;
   name: string;
   color: string;
   order: number;
-  project: number;
+  project: Project['id'];
 }
 
 export interface IssueTypeInput {
   name: string;
   color: string;
   order: number;
-  project: number;
+  project: Project['id'];
 }
 
 export type IssueTypePartialInput = Partial<IssueTypeInput>;

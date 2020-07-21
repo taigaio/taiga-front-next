@@ -6,10 +6,19 @@
  * the root directory of this source tree.
  */
 
+import { User } from '@/app/api/users/users.model';
+import { Project } from '@/app/api/projects/projects.model';
+import { Userstory } from '../userstories/userstories.model';
+import { Attachment as EpicAttachment, AttachmentCreationData as EpicAttachmentCreationData } from '@/app/api/commons/attachment.model';
+import { UserExtraInfo } from '@/app/api/users/users.model';
+import { Watcher as EpicVoterWatcher } from '@/app/api/commons/watcher.model';
+import { EpicStatus, EpicStatusExtraInfo } from '@/app/api/epic-statuses/epic-statuses.model';
+import { TagsFilter } from '@/app/api/commons/tag.model';
+
 export interface Epic {
-  assignedTo: number;
+  assignedTo: User['id'];
   assignedToExtraInfo: UserExtraInfo;
-  attachments: any[];
+  attachments: EpicAttachment[];
   blockedNote: string;
   clientRequirement: boolean;
   color: string;
@@ -26,40 +35,23 @@ export interface Epic {
   project: number;
   projectExtraInfo: ProjectExtraInfo;
   ref: number;
-  status: number;
-  statusExtraInfo: StatusExtraInfo;
+  status: EpicStatus['id'];
+  statusExtraInfo: EpicStatusExtraInfo;
   subject: string;
   tags: string[] | null;
   teamRequirement: boolean;
   totalVoters: number;
-  totalWatchers: 3;
+  totalWatchers: number;
   userStoriesCounts: UserStoryCounts;
   version: number;
-  watchers: number[];
+  watchers: EpicVoterWatcher['id'][];
 }
 
-export interface UserExtraInfo {
-  bigPhoto: null | string;
-  fullNameDisplay: string;
-  gravatarId: string;
-  id: number;
-  isActive: boolean;
-  photo: null | string;
-  username: string;
-}
-
-export interface ProjectExtraInfo {
-  id: number;
-  logoSmallUrl: null | string;
-  name: string;
-  slug: string;
-}
-
-export interface StatusExtraInfo {
-  color: string;
-  isClosed: boolean;
-  name: string;
-}
+export type ProjectExtraInfo = Pick<Project,
+  'id' |
+  'logoSmallUrl' |
+  'name' |
+  'slug'>;
 
 export interface UserStoryCounts {
   progress: number;
@@ -67,52 +59,46 @@ export interface UserStoryCounts {
 }
 
 export interface EpicFilter {
-  project?: number;
-  slug?: string;
-  assignedTo?: number;
+  project?: Project['id'];
+  slug?: Project['slug'];
+  assignedTo?: User['id'];
   closed?: boolean;
 }
 
 export interface EpicCreationData {
-  assignedTo?: number;
+  assignedTo?: User['id'];
   blockedNote?: string;
   description?: string;
   isBlocked?: boolean;
   isClosed?: boolean;
   color?: string;
-  project: number;
+  project: Project['id'];
   subject: string;
   tags?: string[];
-  watchers?: number[];
+  watchers?: EpicVoterWatcher['id'][];
 }
 
 export type EpicPartialInput = Partial<Epic>;
 
 export interface EpicCreationInBulk {
-  projectId: number;
+  projectId: Project['id'];
   statusId?: number;
   bulkEpics: string[];
 }
 
-export interface MemberFilter {
-  count: number;
-  fullName: string;
-  id?: number;
-}
+export type MemberFilter = Pick<User,
+  'id' |
+  'fullName'> & {
+    count: number;
+  };
 
-export interface StatusFilter {
-  color: string;
+export type StatusFilter = Pick<EpicStatus,
+  'color' |
+  'id' |
+  'name' |
+  'order'> & {
   count: number;
-  id: number;
-  name: string;
-  order: number;
-}
-
-export interface TagsFilter {
-  color: string;
-  count: number;
-  name: string;
-}
+};
 
 export interface EpicFilters {
   assignedTo: MemberFilter[];
@@ -122,48 +108,18 @@ export interface EpicFilters {
 }
 
 export interface EpicUserStory {
-  epic: number;
+  epic: Epic['id'];
   order: number;
-  userStory: number;
+  userStory: Userstory['id'];
 }
 
 export type EpicUserStoryPartialInput = Partial<EpicUserStory>;
 
 export interface RelatedUserStoryCreationInBulk {
-  projectId: number;
+  projectId: Project['id'];
   bulkUserStories: string[];
 }
 
-export interface EpicVoterWatcher {
-  fullName: string;
-  id: number;
-  username: string;
-}
-
-export interface EpicAttachment {
-    attachedFile: string;
-    createdDate: string;
-    description: string;
-    fromComment: boolean;
-    id: number;
-    isDeprecated: boolean;
-    modifiedDate: string;
-    name: string;
-    objectId: number;
-    order: number;
-    owner: number;
-    previewUrl: string;
-    project: number;
-    sha1: string;
-    size: number;
-    thumbnailCardUrl: string;
-    url: string;
-}
-
-export interface EpicAttachmentCreationData {
-  objectId: number;
-  project: number;
-  attachedFile: any;
-  description?: string;
-  isDeprecated?: boolean;
-}
+export type { EpicVoterWatcher };
+export type { EpicAttachment };
+export type { EpicAttachmentCreationData };

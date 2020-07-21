@@ -7,11 +7,13 @@
  */
 import { Optional } from 'utility-types';
 import { User } from '@/app/api/users/users.model';
-import { Role, Permissions } from '../roles/roles.model';
+import { Role, Permissions } from '@/app/api/roles/roles.model';
+import { Milestone } from '@/app/api/milestones/milestones.model';
+import { Points } from '@/app/api/points/points.model';
 
 export interface ProjectsListFilter {
-  member?: number;
-  members?: number[];
+  member?: User['id'];
+  members?: User['id'][];
   isLookingForPeople?: boolean;
   isFeatured?: boolean;
   isBacklogActivated?: boolean;
@@ -63,7 +65,7 @@ export interface Status {
   isClosed: boolean;
   name: string;
   order: number;
-  projectId: number;
+  projectId: Project['id'];
   slug: string;
 }
 
@@ -74,7 +76,7 @@ export interface Duedates {
   id: number;
   name: string;
   order: number;
-  projectId: number;
+  projectId: Project['id'];
 }
 
 export interface Attribute {
@@ -82,7 +84,7 @@ export interface Attribute {
   id: number;
   name: string;
   order: number;
-  projectId: number;
+  projectId: Project['id'];
 }
 
 export type ProjectListEntry = Pick<Project,
@@ -152,7 +154,7 @@ export interface CustomAttribute {
   modifiedDate: string;
   name: string;
   order: number;
-  projectId: number;
+  projectId: Project['id'];
   type: 'text' | 'multiline' | 'richtext' | 'date' | 'url' | 'dropdown' | 'checkbox' | 'number';
 }
 
@@ -161,14 +163,14 @@ export interface Project {
   blockedCode: null | string;
   createdDate: string;
   creationTemplate: number;
-  defaultEpicStatus: number;
-  defaultIssueStatus: number;
+  defaultEpicStatus: Status['id'];
+  defaultIssueStatus: Status['id'];
   defaultIssueType: number;
   defaultPoints: number;
   defaultPriority: number;
   defaultSeverity: number;
-  defaultTaskStatus: number;
-  defaultUsStatus: number;
+  defaultTaskStatus: Status['id'];
+  defaultUsStatus: Status['id'];
   description: string;
   epicCustomAttributes: CustomAttribute[];
   epicStatuses: Status;
@@ -188,8 +190,8 @@ export interface Project {
   isOutOfOwnerLimits: boolean;
   isPrivate: boolean;
   isPrivateExtraInfo: {
-      canBeUpdated: boolean;
-      reason: null | string;
+    canBeUpdated: boolean;
+    reason: null | string;
   };
   isWatcher: boolean;
   isWikiActivated: boolean;
@@ -214,12 +216,11 @@ export interface Project {
       'isActive' |
       'photo' |
       'username'>;
-  milestones: {
-    closed: boolean;
-    id: number;
-    name: string;
-    slug: string;
-  }[];
+  milestones: Pick<Milestone,
+    'closed' |
+    'id' |
+    'name' |
+    'slug'>[];
   modifiedDate: string;
   myHomepage: number;
   myPermissions: Permissions[];
@@ -234,12 +235,12 @@ export interface Project {
     'photo' |
     'username'>;
   points: {
-    id: number;
-    name: string;
-    order: number;
     projectId: number;
-    value: null | number;
-  }[];
+  } & Pick<Points ,
+    'id' |
+    'name' |
+    'order' |
+    'value'>[];
   priorities: Attribute[];
   publicPermissions: Permissions[];
   roles: Pick<Role,
@@ -282,22 +283,22 @@ export interface Project {
 
 export interface ProjectModules {
   bitbucket: {
-      secret: string;
-      validOriginIps: string[];
-      webhooksUrl: string;
+    secret: string;
+    validOriginIps: string[];
+    webhooksUrl: string;
   };
   github: {
-      secret: string;
-      webhooksUrl: string;
+    secret: string;
+    webhooksUrl: string;
   };
   gitlab: {
-      secret: string;
-      validOriginIps: string[];
-      webhooksUrl: string;
+    secret: string;
+    validOriginIps: string[];
+    webhooksUrl: string;
   };
   gogs: {
-      secret: string;
-      webhooksUrl: string;
+    secret: string;
+    webhooksUrl: string;
   };
 }
 
@@ -321,13 +322,10 @@ export interface ProjectStats {
   totalPoints: number;
 }
 
-export interface AssignedStat {
+export type AssignedStat = {
   count: number;
-  color: string;
-  id: number;
-  name: string;
-  username: string;
-}
+  name: User['fullName']
+} & Pick<User, 'username' | 'id' | 'color'>;
 
 export interface StatsByOpenClosed {
   color: string;

@@ -29,7 +29,7 @@ export interface Attachment {
 }
 
 export type AttachmentCreationData = Optional<{
-  attachedFile: File;
+  attachedFile: File | Blob;
 } & Pick<Attachment,
   'objectId' |
   'project' |

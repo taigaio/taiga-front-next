@@ -9,7 +9,7 @@
 import { Milestone } from '@/app/api/milestones/milestones.model';
 import { Project } from '@/app/api/projects/projects.model';
 import { User } from '@/app/api/users/users.model';
-import { Userstory } from '../userstories/userstories.model';
+import { Userstory } from '@/app/api/userstories/userstories.model';
 
 export interface Attachment {
   changes: {
@@ -58,5 +58,5 @@ export interface TimelineEntry {
   id: number;
   namespace: string;
   objectId: number;
-  project: number;
+  project: Project['id'];
 }
