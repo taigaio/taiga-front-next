@@ -9,19 +9,14 @@
 export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
 import { Voter as TaskVoter } from '@/app/api/commons/voter.model';
 import { Watcher as TaskWatcher } from '@/app/api/commons/watcher.model';
+import { UserExtraInfo, User } from '@/app/api/users/users.model';
+import { Role } from '@/app/api/roles/roles.model';
+import { TagsFilter } from '@/app/api/commons/tag.model';
+import { TaskStatusExtraInfo } from '@/app/api/task-statuses/task-statuses.model';
+import { TaskStatus } from '../task-statuses/task-statuses.model';
 
 export type { TaskVoter };
 export type { TaskWatcher };
-
-export interface UserExtraInfo {
-  bigPhoto: null | string;
-  fullNameDisplay: string;
-  gravatarId: string;
-  id: number;
-  isActive: boolean;
-  photo: null | string;
-  username: string;
-}
 
 export interface ProjectExtraInfo {
   id: number;
@@ -43,12 +38,6 @@ export interface UserStoryExtraInfo {
   id: number;
   ref: number;
   subject: string;
-}
-
-export interface StatusExtraInfo {
-  color: string;
-  isClosed: boolean;
-  name: string;
 }
 
 export interface Task {
@@ -76,8 +65,8 @@ export interface Task {
   project: number;
   projectExtraInfo: ProjectExtraInfo;
   ref: number;
-  status: number;
-  statusExtraInfo: StatusExtraInfo;
+  status: TaskStatus['id'];
+  statusExtraInfo: TaskStatusExtraInfo;
   subject: string;
   tags: [string, string | null][];
   taskboardOrder: number;
@@ -107,17 +96,17 @@ export interface TaskFilter {
   assignedTo: number;
   excludeAssignedTo: number;
   excludeOwner: number;
-  excludeRole: number;
+  excludeRole: Role['id'];
   excludeStatus: number;
   excludeTags: string[];
   milestone: number;
   owner: number;
   project: number;
-  role: number;
+  role: Role['id'];
   status: number;
   tags: string[];
   userStory: number;
-  watchers: number;
+  watchers: TaskWatcher['id'];
   statusIsClosed: boolean;
 }
 
@@ -149,22 +138,22 @@ export interface TaskBulkCreationData {
 }
 
 export interface TaskFiltersData {
-  assignedTo: {
+  assignedTo: Pick<User,
+  'fullName' |
+  'id'> & {
     count: number;
-    fullName: string;
-    id: null | number;
   }[];
-  owners: {
+  owners: Pick<User,
+  'fullName' |
+  'id'> & {
     count: number;
-    fullName: string;
-    id: number;
   }[];
-  roles: {
-    color: null | string;
-    count: number;
-    id: number;
-    name: string;
-    order: number;
+  roles: Pick<Role,
+    'id' |
+    'name' |
+    'order'> & {
+      color: null | string;
+      count: number;
   }[];
   statuses: {
     color: string;
@@ -173,9 +162,5 @@ export interface TaskFiltersData {
     name: string;
     order: number;
   }[];
-  tags: {
-    color: null | string;
-    count: number;
-    name: string;
-  }[];
+  tags: TagsFilter[];
 }

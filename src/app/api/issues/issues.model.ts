@@ -6,17 +6,23 @@
  * the root directory of this source tree.
  */
 
-import { Project, Status } from '@/app/api/projects/projects.model';
+import { Project } from '@/app/api/projects/projects.model';
 import { Severity } from '@/app/api/severities/severities.model';
 import { Priority } from '@/app/api/priorities/priorities.model';
 import { User } from '@/app/api/users/users.model';
 import { Role } from '@/app/api/roles/roles.model';
 import { Milestone } from '@/app/api/milestones/milestones.model';
 import { Omit } from 'utility-types';
-export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
+import { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
 
 import { Voter as IssueVoter } from '@/app/api/commons/voter.model';
 import { Watcher as IssueWatcher } from '@/app/api/commons/watcher.model';
+import { IssueStatusExtraInfo, IssueStatus } from '@/app/api/issue-statuses/issue-statuses.model';
+import { TagsFilter } from '@/app/api/commons/tag.model';
+import { IssueType } from '@/app/api/issue-types/issue-types.model';
+
+export { Attachment };
+export { AttachmentCreationData };
 
 export type { IssueVoter };
 export type { IssueWatcher };
@@ -31,7 +37,7 @@ export interface Issue {
     'isActive' |
     'photo' |
     'username'>;
-  attachments: unknown[];
+  attachments: Attachment[];
   blockedNote: string;
   blockedNoteHtml: string;
   comment: string;
@@ -54,18 +60,10 @@ export interface Issue {
   ref: number;
   subject: string;
   neighbors: {
-    next?: {
-      id: Issue['id'],
-      ref: Issue['ref'],
-      subject: Issue['subject'],
-    },
-    previous?: {
-      id: Issue['id'],
-      ref: Issue['ref'],
-      subject: Issue['subject'],
-    },
+    next?: Pick<Issue, 'id' | 'ref' | 'subject'>,
+    previous?: Pick<Issue, 'id' | 'ref' | 'subject'>,
   };
-  owner: number;
+  owner: User['id'];
   ownerExtraInfo: Pick<User,
     'bigPhoto' |
     'fullNameDisplay' |
@@ -75,7 +73,7 @@ export interface Issue {
     'photo' |
     'username'>;
   priority: number;
-  project: number;
+  project: Project['id'];
   projectExtraInfo: Pick<Project,
     'id' |
     'logoSmallUrl' |
@@ -83,12 +81,8 @@ export interface Issue {
     'slug'
   >;
   severity: Severity['id'];
-  status: Status['id'];
-  statusExtraInfo: {
-    color: string;
-    isClosed: boolean;
-    name: string;
-  };
+  status: IssueStatus['id'];
+  statusExtraInfo: IssueStatusExtraInfo;
   tags: [string, string | null][];
   totalVoters: number;
   totalWatchers: number;
@@ -105,7 +99,7 @@ export type IssueListItem = Omit<Issue,
 
 export interface IssueFilter {
   project: Project['id'];
-  status: Status['id'];
+  status: IssueStatus['id'];
   severity: Severity['id'];
   priority: Priority['id'];
   owner: User['id'];
@@ -115,7 +109,7 @@ export interface IssueFilter {
   role: Role['id'];
   watchers: IssueWatcher['id'][];
   statusIsClosed: boolean;
-  excludeStatus: Status['id'];
+  excludeStatus: IssueStatus['id'];
   excludeSeverity: Severity['id'];
   excludePriority: Priority['id'];
   excludeOwner: User['id'];
@@ -142,7 +136,7 @@ export interface IssueCreationData {
   is_closed?: boolean;
   milestone?: Milestone['id'];
   project: Project['id'];
-  status?: Status['id'];
+  status?: IssueStatus['id'];
   severity?: Severity['id'];
   priority?: Priority['id'];
   type?: string;
@@ -170,17 +164,13 @@ export interface IssueFiltersData {
   } & Pick<Severity, 'color' | 'id' | 'name' | 'order'>;
   statuses: {
     count: number;
-  } & Pick<Status, 'color' | 'id' | 'name' | 'order'>;
-  tags: {
-    color: string | null;
-    count: number;
-    name: string;
-  };
+  } & Pick<IssueStatus, 'color' | 'id' | 'name' | 'order'>;
+  tags: TagsFilter;
   types: {
-    color: string | null;
+    color: IssueType['color'] | null;
     count: number;
-    name: string;
-    id: number;
-    order: number;
+    name: IssueType['name'];
+    id: IssueType['id'];
+    order: IssueType['order'];
   };
 }

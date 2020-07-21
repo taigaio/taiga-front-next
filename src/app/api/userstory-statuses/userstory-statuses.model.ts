@@ -5,7 +5,7 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
-
+import { Project } from '@/app/api/projects/projects.model';
 
 export interface UserstoryStatus {
   id: number;
@@ -16,7 +16,7 @@ export interface UserstoryStatus {
   isArchived: boolean;
   wipLimit: number | null;
   order: number;
-  project: number;
+  project: Project['id'];
 }
 
 export interface UserstoryStatusInput {
@@ -26,9 +26,12 @@ export interface UserstoryStatusInput {
   isArchived: boolean;
   wipLimit: number | null;
   order: number;
-  project: number;
+  project: Project['id'];
 }
 
 export type UserstoryStatusPartialInput = Partial<UserstoryStatusInput>;
 
 export type UserstoryStatusesOrderList = number[][];
+
+export type UserstoryStatusExtraInfo = Pick<UserstoryStatus, 'color' | 'isClosed' | 'name'>;
+

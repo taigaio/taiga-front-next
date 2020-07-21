@@ -5,46 +5,52 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
+import { Project } from '@/app/api/projects/projects.model';
+import { Userstory } from '@/app/api/userstories/userstories.model';
+import { Issue } from '@/app/api/issues/issues.model';
+import { Task } from '@/app/api/tasks/tasks.model';
+import { Milestone } from '@/app/api/milestones/milestones.model';
+import { WikiPage } from '@/app/api/wiki/wiki.model';
 
 export interface ProjectResolver  {
-  project: number;
+  project: Project['id'];
 }
 
 export interface UserStoryResolver {
-  project: number;
-  us: number;
+  project: Project['id'];
+  us: Userstory['id'];
 }
 
 export interface IssueResolver {
-  project: number;
-  issue: number;
+  project: Project['id'];
+  issue: Issue['id'];
 }
 
 export interface TaskResolver {
-  project: number;
-  task: number;
+  project: Project['id'];
+  task: Task['id'];
 }
 
 export interface MilestoneResolver {
-  project: number;
-  milestone: number;
+  project: Project['id'];
+  milestone: Milestone['id'];
 }
 
 export interface WikiPageResolver {
-  project: number;
-  wikipage: number;
+  project: Project['id'];
+  wikipage: WikiPage['id'];
 }
 
 export interface MultipleResolver {
-  project: number;
-  task?: number;
-  us?: number;
-  wikipage?: number;
+  project: Project['id'];
+  task?: Task['id'];
+  us?: Userstory['id'];
+  wikipage?: WikiPage['id'];
 }
 
 export interface RefResolver {
-  project: number;
-  task?: number;
-  us?: number;
-  wikipage?: number;
+  project: Project['id'];
+  task?: Task['id'];
+  us?: Userstory['id'];
+  wikipage?: WikiPage['id'];
 }

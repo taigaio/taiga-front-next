@@ -6,9 +6,9 @@
  * the root directory of this source tree.
  */
 
-import { Optional } from 'utility-types';
 import { Project } from '@/app/api/projects/projects.model';
-import { User } from '@/app/api/users/users.model';
+import { Watcher } from '@/app/api/commons/watcher.model';
+export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
 
 export interface WikiPage {
   content: string;
@@ -20,7 +20,7 @@ export interface WikiPage {
   readonly lastModifier: number;
   readonly modifiedDate: string;
   readonly owner: number;
-  project: number;
+  project: Project['id'];
   readonly projectExtraInfo: Pick<Project,
     'id' |
     'logoSmallUrl' |
@@ -36,44 +36,13 @@ export type WikiPageCreationData = Pick<WikiPage,
   'slug' |
   'content'>;
 
-export type WikiPageWatcher = Pick<User, 'fullName' | 'id' | 'username'>;
-
-export interface Attachment {
-  attachedFile: string;
-  createdDate: string;
-  description: string;
-  fromComment: boolean;
-  id: number;
-  isDeprecated: boolean;
-  modifiedDate: string;
-  name: string;
-  objectId: number;
-  order: number;
-  owner: number;
-  previewUrl: string;
-  project: number;
-  sha1: string;
-  size: number;
-  thumbnailCardUrl: null | string;
-  url: string;
-}
-
-export type AttachmentCreationData = Optional<{
-  attachedFile: File;
-} & Pick<Attachment,
-  'objectId' |
-  'project' |
-  'description' |
-  'isDeprecated'>,
-  'description' |
-  'isDeprecated'>;
-
+export type { Watcher as WikiPageWatcher };
 
 export interface WikiLink {
   href: string;
   id: number;
   order: number;
-  project: number;
+  project: Project['id'];
   title: string;
 }
 

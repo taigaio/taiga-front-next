@@ -5,6 +5,7 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
+import { Project } from '@/app/api/projects/projects.model';
 
 export interface EpicCustomAttributeDetail {
   createdDate: string;
@@ -14,13 +15,13 @@ export interface EpicCustomAttributeDetail {
   modifiedDate: string;
   name: string;
   order: number;
-  project: number;
+  project: Project['id'];
   type: string;
 }
 
 export interface EpicCustomAttributeCreationData {
   name: string;
-  project: number;
+  project: Project['id'];
   description?: string;
   order?: number;
 }
@@ -28,6 +29,6 @@ export interface EpicCustomAttributeCreationData {
 export type EpicCustomAttributePartialInput = Partial<EpicCustomAttributeDetail>;
 
 export interface EpicCustomAttributeBulkUpdate {
-  project: number;
+  project: Project['id'];
   bulkEpicCustomAttributes: [number, number][];
 }

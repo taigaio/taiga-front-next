@@ -5,12 +5,13 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
+import { Project } from '@/app/api//projects/projects.model';
 
 export interface WebhookDetail {
   id: number;
-  project: number;
+  project: Project['id'];
   key: string;
-  logs_counter: number;
+  logsCounter: number;
   name: string;
   url: string;
 }

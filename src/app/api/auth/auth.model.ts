@@ -15,25 +15,25 @@ export interface Auth extends User {
 export interface LoginInput {
   password?: string;
   type: 'normal' | 'github';
-  username?: string;
+  username?: User['username'];
   code?: string;
 }
 
 export interface PublicRegistryInput {
   type: 'public';
-  username: string;
+  username: User['username'];
   password: string;
-  email: string;
-  fullName: string;
-  acceptedTerms: boolean;
+  email: User['email'];
+  fullName: User['fullName'];
+  acceptedTerms: User['acceptedTerms'];
 }
 
 export interface PrivateRegistryInput {
   type: 'private';
   existing: boolean;
   token: string;
-  username: string;
+  username: User['username'];
   password: string;
-  email: string;
-  fullName: string;
+  email: User['email'];
+  fullName: User['fullName'];
 }

@@ -9,34 +9,40 @@
 import { User } from '@/app/api/users/users.model';
 import { Project } from '@/app/api/projects/projects.model';
 import { Epic } from '@/app/api/epics/epics.model';
+import { Milestone } from '@/app/api/milestones/milestones.model';
+import { Role } from '@/app/api/roles/roles.model';
+import { Attachment } from '@/app/api/commons/attachment.model';
+import { Issue } from '@/app/api/issues/issues.model';
+import { Task } from '@/app/api/tasks/tasks.model';
 export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
 import { Voter as UserstoryVoter } from '@/app/api/commons/voter.model';
 import { Watcher as UserstoryWatcher } from '@/app/api/commons/watcher.model';
+import { UserstoryStatus, UserstoryStatusExtraInfo } from '@/app/api/userstory-statuses/userstory-statuses.model';
 
 export type { UserstoryVoter };
 export type { UserstoryWatcher };
 
 export interface UserstoryFilter {
-  project: number;
-  milestone: number;
+  project: Project['id'];
+  milestone: Milestone['id'];
   milestoneIsnull: boolean;
-  status: number;
+  status: UserstoryStatus['id'];
   statusIsArchived: boolean;
   tags: string;
   watchers: UserstoryWatcher['id'][];
-  assignedTo: number[];
-  epic: number;
-  role: number;
+  assignedTo: User['id'][];
+  epic: Epic['id'];
+  role: Role['id'];
   statusIsClosed: boolean;
-  excludeStatus: number;
+  excludeStatus: UserstoryStatus['id'];
   excludeTags: string;
-  excludeAssignedTo: number;
-  excludeRole: number;
-  excludeEpic: number;
+  excludeAssignedTo: User['id'][];
+  excludeRole: Role['id'];
+  excludeEpic: Epic['id'];
 }
 
 export interface Userstory {
-  assignedTo: null | number;
+  assignedTo: null | User['id'];
   assignedToExtraInfo: Pick<User,
     'bigPhoto' |
     'fullNameDisplay' |
@@ -45,8 +51,8 @@ export interface Userstory {
     'isActive' |
     'photo' |
     'username'>;
-  assignedUsers: number[];
-  attachments: unknown[];
+  assignedUsers: User['id'][];
+  attachments: Attachment[];
   backlogOrder: number;
   blockedNote: string;
   blockedNoteHtml: string;
@@ -81,16 +87,16 @@ export interface Userstory {
   isWatcher: boolean;
   kanbanOrder: number;
   milestone: null | number;
-  milestoneName: null | string;
-  milestoneSlug: null | string;
-  modifiedDate: string;
+  milestoneName: null | Milestone['name'];
+  milestoneSlug: null | Milestone['slug'];
+  modifiedDate: Milestone['modifiedDate'];
   neighbors: {
     next: Pick<Userstory, 'id' | 'ref' | 'subject'>
     previous: Pick<Userstory, 'id' | 'ref' | 'subject'>
   };
-  originIssue: null | number;
-  originTask: null | number;
-  owner: number;
+  originIssue: null | Issue['id'];
+  originTask: null | Task['id'];
+  owner: User['id'];
   ownerExtraInfo: Pick<User,
     'bigPhoto' |
     'fullNameDisplay' |
@@ -100,7 +106,7 @@ export interface Userstory {
     'photo' |
     'username'>;
   points: Record<string, number>;
-  project: number;
+  project: Project['id'];
   projectExtraInfo: Pick<Project,
     'id' |
     'logoSmallUrl' |
@@ -109,15 +115,11 @@ export interface Userstory {
   >;
   ref: number;
   sprintOrder: number;
-  status: number;
-  statusExtraInfo: {
-    color: string;
-    isClosed: boolean;
-    name: string;
-  };
+  status: UserstoryStatus['id'];
+  statusExtraInfo: UserstoryStatusExtraInfo;
   subject: string;
   tags: [string, string | null][];
-  tasks: number[];
+  tasks: Task['id'][];
   teamRequirement: boolean;
   totalAttachments: number;
   totalComments: number;
@@ -157,40 +159,36 @@ export type UserstoryList  = Omit<Userstory,
 export interface UserstoryFiltersData {
   assignedTo: {
     count: number;
-    fullName: string;
-    id: null | number;
+    fullName: User['fullName'];
+    id: null | User['id'];
   }[];
   assignedUsers: {
     count: number;
-    fullName: string;
-    id: null | number;
+    fullName: User['fullName'];
+    id: null | User['id'];
   }[];
   epics: {
     count: number;
-    id: null | number,
-    order: number,
-    ref: null | number,
-    subject: null | string
+    id: null | Epic['id'];
+    order: number;
+    ref: null | Epic['ref'];
+    subject: null | Epic['subject'];
   }[];
   owners: {
     count: number;
-    fullName: string;
-    id: number;
+    fullName: User['fullName'];
+    id: User['id'];
   }[];
   roles: {
     color: null | string;
     count: number;
-    id: number;
-    name: string;
-    order: number;
+    id: Role['id'];
+    name: Role['name'];
+    order: Role['order'];
   }[];
   statuses: {
-    color: string;
     count: number;
-    id: number;
-    name: string;
-    order: number;
-  }[];
+  } & Pick<UserstoryStatus, 'color' | 'id' | 'name' | 'order'>;
   tags: {
     color: null | string;
     count: number;

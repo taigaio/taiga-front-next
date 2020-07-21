@@ -7,6 +7,7 @@
  */
 
 import { Userstory } from './userstories.model';
+import { Project } from '@/app/api/projects/projects.model';
 
 export interface UserstoryCustomAttribute {
   createdDate: string;
@@ -16,7 +17,7 @@ export interface UserstoryCustomAttribute {
   modifiedDate: string;
   name: string;
   order: number;
-  project: number;
+  project: Project['id'];
   type: string;
 }
 
@@ -24,7 +25,7 @@ export interface UserstoryCustomAttributeCreationData {
   name: string;
   description?: string;
   order?: number;
-  project: number;
+  project: Project['id'];
 }
 
 export interface UserstoryCustomAttributeValues {

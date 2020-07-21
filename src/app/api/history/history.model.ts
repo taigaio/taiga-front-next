@@ -6,22 +6,12 @@
  * the root directory of this source tree.
  */
 
-import { User } from '../users/users.model';
-
-export interface Attachment {
-  attachedFile: string;
-  description: string;
-  filename: string;
-  id: number;
-  isDeprecated: boolean;
-  order: number;
-  thumbnailFile: null | string;
-  url: string;
-}
+import { Attachment } from '@/app/api/commons/attachment.model';
+import { User } from '@/app/api/users/users.model';
 
 export interface HistoryEntry {
   comment: string;
-  comment_html: string;
+  commentHtml: string;
   createdAt: string;
   deleteCommentDate: null | string;
   deleteCommentUser: null | string;
@@ -44,7 +34,7 @@ export interface HistoryEntry {
     pk: number;
   };
   values: {
-      users: Record<string, User>;
+    users: Record<string, User>;
   };
   valuesDiff: {
     sprintOrder: number[];

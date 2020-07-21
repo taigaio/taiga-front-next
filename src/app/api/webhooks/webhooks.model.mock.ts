@@ -15,7 +15,7 @@ export const WebhookMockFactory = Factory.Sync.makeFactory<WebhookDetail>({
   id: faker.random.number(),
   project: faker.random.number(),
   key: faker.random.uuid(),
-  logs_counter: faker.random.number(),
+  logsCounter: faker.random.number(),
   name: faker.random.word(),
   url: faker.internet.url(),
 });

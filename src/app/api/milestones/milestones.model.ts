@@ -5,6 +5,9 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
+import { User } from '@/app/api/users/users.model';
+import { Project } from '@/app/api/projects/projects.model';
+import { Userstory } from '@/app/api/userstories/userstories.model';
 
 export interface Milestone {
   closed: boolean;
@@ -17,23 +20,23 @@ export interface Milestone {
   modifiedDate: string;
   name: string;
   order: number;
-  owner: number;
-  project: number;
+  owner: User['id'];
+  project: Project['id'];
   projectExtraInfo: any;
   slug: string;
   totalPoints: number;
-  userStories: any[];
+  userStories: Userstory[];
 }
 
 export type MilestonePartialInput = Partial<Milestone>;
 
 export interface MilestoneCreationData {
-  project: number;
+  project: Project['id'];
   name: string;
   estimatedStart: string;
   estimatedFinish: string;
   disponibility?: number;
   slug?: string;
   order?: number;
-  watchers?: number[];
+  watchers?: User['id'][];
 }

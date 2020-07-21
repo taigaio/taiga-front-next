@@ -7,6 +7,7 @@
  */
 
 import { Task } from './tasks.model';
+import { Project } from '@/app/api/projects/projects.model';
 
 export interface  TaskCustomAttribute {
   createdDate: string;
@@ -16,7 +17,7 @@ export interface  TaskCustomAttribute {
   modifiedDate: string;
   name: string;
   order: number;
-  project: number;
+  project: Project['id'];
   type: string;
 }
 
@@ -24,7 +25,7 @@ export interface TaskCustomAttributeCreationData {
   name: string;
   description?: string;
   order?: number;
-  project: number;
+  project: Project['id'];
 }
 
 export interface TaskCustomAttributeValues {

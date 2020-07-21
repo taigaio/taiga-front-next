@@ -5,10 +5,11 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
+import { Epic } from '@/app/api/epics/epics.model';
 
 export interface EpicCustomAttributeValueDetail {
   attributesValues: Record<string, string>;
-  epic: number;
+  epic: Epic['id'];
   version: number;
 }
 

@@ -13,8 +13,8 @@ import { NotifyPolicyDetail } from './notify-policies.model';
 
 export const NotifyPoliciesMockFactory = Factory.Sync.makeFactory<NotifyPolicyDetail>({
   id: faker.random.number(),
-  live_notify_level: faker.random.number(),
+  liveNotifyLevel: faker.random.number(),
   project: faker.random.number(),
-  project_name: faker.random.word(),
-  web_notify_level: faker.random.boolean(),
+  projectName: faker.random.word(),
+  webNotifyLevel: faker.random.boolean(),
 });

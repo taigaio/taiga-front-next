@@ -5,7 +5,7 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
-
+import { Project } from '@/app/api/projects/projects.model';
 
 export interface EpicStatus {
   id: number;
@@ -14,7 +14,7 @@ export interface EpicStatus {
   color: string;
   isClosed: boolean;
   order: number;
-  project: number;
+  project: Project['id'];
 }
 
 export interface EpicStatusInput {
@@ -22,9 +22,11 @@ export interface EpicStatusInput {
   color: string;
   isClosed: boolean;
   order: number;
-  project: number;
+  project: Project['id'];
 }
 
 export type EpicStatusPartialInput = Partial<EpicStatusInput>;
 
 export type EpicStatusesOrderList = number[][];
+
+export type EpicStatusExtraInfo = Pick<EpicStatus, 'color' | 'isClosed' | 'name'>;
