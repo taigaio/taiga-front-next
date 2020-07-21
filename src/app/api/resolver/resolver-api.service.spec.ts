@@ -96,21 +96,33 @@ describe('ResolverApiService', () => {
   });
 
   it('Resolver by multiple, only one parameter', () => {
-    const queryParams = {
-      project,
-      task: task.toString(),
+
+    const data = {
+      project: faker.random.number(),
+      task,
     };
-    spectator.service.multiple(project, task).subscribe();
+
+    const queryParams = {
+      project: data.project.toString(),
+      task: data.task.toString(),
+    };
+    spectator.service.multiple(data).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 
   it('Resolver by multiple, many parameters', () => {
-    const queryParams = {
-      project,
-      task: task.toString(),
-      us: us.toString(),
+    const data = {
+      project: faker.random.number(),
+      task,
+      us,
     };
-    spectator.service.multiple(project, task, us).subscribe();
+
+    const queryParams = {
+      project: data.project.toString(),
+      task: data.task.toString(),
+      us: data.us.toString(),
+    };
+    spectator.service.multiple(data).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
   });
 

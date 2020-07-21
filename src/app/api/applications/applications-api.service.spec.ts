@@ -9,7 +9,7 @@
 import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
-
+import faker from 'faker';
 import { ApplicationsApiService } from './applications-api.service';
 
 describe('ApplicationsApiService', () => {
@@ -25,13 +25,13 @@ describe('ApplicationsApiService', () => {
   beforeEach(() => spectator = createHttp());
 
   it('get', () => {
-    const tokenId = '123';
+    const tokenId = faker.random.alphaNumeric();
     spectator.service.get(tokenId).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/applications/${tokenId}`, HttpMethod.GET);
   });
 
   it('getToken', () => {
-    const tokenId = '123';
+    const tokenId = faker.random.alphaNumeric();
     spectator.service.getToken(tokenId).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/applications/${tokenId}/token`, HttpMethod.GET);
   });

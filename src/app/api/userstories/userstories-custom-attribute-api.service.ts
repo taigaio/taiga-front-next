@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from '@/app/config.service';
 import { HttpClient } from '@angular/common/http';
 import { UserstoryCustomAttribute, UserstoryCustomAttributeCreationData } from './userstories-custom-attribute.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class UserstoriesCustomAttributeApiService {
@@ -21,9 +22,9 @@ export class UserstoriesCustomAttributeApiService {
 
   public list(projectId: number) {
     return this.http.get<UserstoryCustomAttribute[]>(this.base, {
-      params: {
-        project: projectId.toString(),
-      },
+      params: UtilsService.buildQueryParams({
+        project: projectId,
+      }),
     });
   }
 

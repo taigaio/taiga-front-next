@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { ConfigService } from '@/app/config.service';
 import { Milestone, MilestoneCreationData, MilestonePartialInput } from './milestones.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class MilestoneApiService {
@@ -26,26 +27,15 @@ export class MilestoneApiService {
 
   public list(project?: number, closed?: boolean) {
     return this.http.get<Milestone[]>(this.base, {
-      params: {
-        ...(project && { project: project.toString() }),
-        ...(closed && { closed: closed.toString() }),
-      },
+      params: UtilsService.buildQueryParams({
+        ...(project && { project }),
+        ...(closed && { closed }),
+      }),
     });
   }
 
   public create(data: MilestoneCreationData) {
-    const query = {
-      project: data.project,
-      name: data.name,
-      estimatedStart: data.estimatedStart,
-      estimatedFinish: data.estimatedFinish,
-      ...(data.disponibility && { disponibility: data.disponibility }),
-      ...(data.slug && { slug: data.slug }),
-      ...(data.order && { order: data.order }),
-      ...(data.watchers && { watchers: data.watchers }),
-    };
-
-    return this.http.post<Milestone>(this.base, query);
+    return this.http.post<Milestone>(this.base, data);
   }
 
   public get(milestoneId: number) {

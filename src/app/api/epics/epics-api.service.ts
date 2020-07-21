@@ -23,6 +23,7 @@ import {
   EpicAttachment,
   EpicAttachmentCreationData,
 } from './epics.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class EpicsApiService {
@@ -37,29 +38,12 @@ export class EpicsApiService {
 
   public list(filter: EpicFilter) {
     return this.http.get<Epic[]>(this.base, {
-      params: {
-        ...(filter.project && { project: filter.project.toString() }),
-        ...(filter.slug && { project__slug: filter.slug }),
-        ...(filter.assignedTo && { assigned_to: filter.assignedTo.toString() }),
-        ...(filter.closed && { status__is_closed: filter.closed.toString() }),
-      },
+      params: UtilsService.buildQueryParams(filter),
     });
   }
 
   public create(data: EpicCreationData) {
-    const query = {
-      ...(data.assignedTo && { assignedTo: data.assignedTo }),
-      ...(data.blockedNote && { blockedNote: data.blockedNote }),
-      ...(data.description && { description: data.description }),
-      ...(data.isBlocked && { isBlocked: data.isBlocked }),
-      ...(data.isClosed && { isClosed: data.isClosed }),
-      ...(data.color && { color: data.color }),
-      ...(data.tags && { tags: data.tags }),
-      ...(data.watchers && { watchers: data.watchers }),
-      project: data.project,
-      subject: data.subject,
-    };
-    return this.http.post<Epic>(this.base, query);
+    return this.http.post<Epic>(this.base, data);
   }
 
   public get(id: number) {
@@ -89,9 +73,9 @@ export class EpicsApiService {
 
   public getFilters(id: number) {
     return this.http.get<EpicFilters>(`${this.base}/filters_data`, {
-      params: {
+      params: UtilsService.buildQueryParams({
         project: id.toString(),
-      },
+      }),
     });
   }
 
@@ -157,27 +141,15 @@ export class EpicsApiService {
 
   public getAttachments(project: number, epic: number) {
     return this.http.get<EpicAttachment[]>(`${this.base}/attachments`, {
-      params: {
+      params: UtilsService.buildQueryParams({
         project: project.toString(),
         object_id: epic.toString(),
-      },
+      }),
     });
   }
 
   public createAttachment(attachment: EpicAttachmentCreationData) {
-    const formData = new FormData();
-
-    formData.append('objectId', attachment.objectId.toString());
-    formData.append('project', attachment.project.toString());
-    formData.append('attachedFile', attachment.attachedFile, attachment.attachedFile.name);
-
-    if (attachment.description) {
-      formData.append('description', attachment.description);
-    }
-
-    if (attachment.isDeprecated) {
-      formData.append('isDeprecated', attachment.isDeprecated.toString());
-    }
+    const formData = UtilsService.buildFormData(attachment);
 
     return this.http.post<EpicAttachment>(`${this.base}/attachments`, formData);
   }
@@ -187,29 +159,15 @@ export class EpicsApiService {
   }
 
   public patchAttachment(id: number, attachment: Partial<EpicAttachmentCreationData>) {
-    const formData = new FormData();
-
-    if (attachment.objectId) {
-      formData.append('objectId', attachment.objectId.toString());
-    }
-
-    if (attachment.project) {
-      formData.append('project', attachment.project.toString());
-    }
-
-    if (attachment.attachedFile) {
-      formData.append('attachedFile', attachment.attachedFile, attachment.attachedFile.name);
-    }
-
-    if (attachment.description) {
-      formData.append('description', attachment.description);
-    }
-
-    if (attachment.isDeprecated) {
-      formData.append('isDeprecated', attachment.isDeprecated.toString());
-    }
+    const formData = UtilsService.buildFormData(attachment);
 
     return this.http.patch<EpicAttachment>(`${this.base}/attachments/${id}`, formData);
+  }
+
+  public putAttachment(id: number, attachment: Partial<EpicAttachmentCreationData>) {
+    const formData = UtilsService.buildFormData(attachment);
+
+    return this.http.put<EpicAttachment>(`${this.base}/attachments/${id}`, formData);
   }
 
   public deleteAttachment(attachmentId: number) {

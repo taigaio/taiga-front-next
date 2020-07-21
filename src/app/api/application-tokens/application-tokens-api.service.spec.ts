@@ -9,7 +9,7 @@
 import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
-
+import faker from 'faker';
 import { ApplicationTokensApiService } from './application-tokens-api.service';
 
 describe('ApplicationTokenApiService', () => {
@@ -30,21 +30,21 @@ describe('ApplicationTokenApiService', () => {
   });
 
   it('get', () => {
-    const tokenId = '123';
+    const tokenId = faker.random.alphaNumeric();
     spectator.service.get(tokenId).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/application-tokens/${tokenId}`, HttpMethod.GET);
   });
 
   it('delete', () => {
-    const tokenId = '123';
+    const tokenId = faker.random.alphaNumeric();
     spectator.service.delete(tokenId).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/application-tokens/${tokenId}`, HttpMethod.DELETE);
   });
 
   it('authorize', () => {
     const authorizationInput = {
-      application: '123',
-      state: 'random-state',
+      application: faker.random.alphaNumeric(),
+      state: faker.random.word(),
     };
 
     spectator.service.authorize(authorizationInput).subscribe();
@@ -56,9 +56,9 @@ describe('ApplicationTokenApiService', () => {
 
   it('getToken', () => {
     const validateInput = {
-      application: '123',
-      authCode: 'xx-yy',
-      state: 'random-state',
+      application: faker.random.alphaNumeric(),
+      authCode: faker.random.alphaNumeric(),
+      state: faker.random.word(),
     };
 
     spectator.service.validate(validateInput).subscribe();

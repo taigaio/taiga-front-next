@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 import { EpicCustomAttributeDetail, EpicCustomAttributeCreationData, EpicCustomAttributePartialInput, EpicCustomAttributeBulkUpdate } from './epics-custom-attributes.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 
 @Injectable()
@@ -25,20 +26,14 @@ export class EpicsCustomAttributeApiService {
 
   public list(project?: number) {
     return this.http.get<EpicCustomAttributeDetail[]>(this.base, {
-      params: {
-        ...(project && { project: project.toString() }),
-      },
+      params: UtilsService.buildQueryParams({
+        project,
+      }),
     });
   }
 
   public create(data: EpicCustomAttributeCreationData) {
-    const query = {
-      ...(data.description && { description: data.description }),
-      ...(data.order && { blockedNote: data.order }),
-      project: data.project,
-      name: data.name,
-    };
-    return this.http.post<EpicCustomAttributeDetail>(this.base, query);
+    return this.http.post<EpicCustomAttributeDetail>(this.base, data);
   }
 
   public get(id: number) {

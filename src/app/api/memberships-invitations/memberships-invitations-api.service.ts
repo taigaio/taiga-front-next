@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { ConfigService } from '@/app/config.service';
 import { Membership, MembershipPartialInput, MembershipCreation, MembershipCreationInBulk } from './memberships-invitations.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 
 @Injectable()
@@ -27,10 +28,10 @@ export class MembershipsInvitationsApiService {
 
   public list(project?: number, role?: number) {
     return this.http.get<Membership[]>(this.base, {
-      params: {
-        ...(project && { project: project.toString() }),
-        ...(role && { role: role.toString() }),
-      },
+      params: UtilsService.buildQueryParams({
+        ...(project && { project }),
+        ...(role && { role }),
+      }),
     });
   }
 

@@ -19,6 +19,8 @@ import {
 } from './epics.model.mock';
 import { EpicPartialInput, EpicUserStoryPartialInput } from './epics.model';
 import { parseQueryParams } from '@/utils/test.helpers';
+import faker from 'faker';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 describe('EpicsApiService', () => {
   let spectator: SpectatorHttp<EpicsApiService>;
@@ -34,18 +36,18 @@ describe('EpicsApiService', () => {
 
   beforeEach(() => spectator = createHttp());
 
-  const project = 1;
-  const epic = 2;
-  const userStory = 3;
-  const attachment = 4;
+  // const project = 1;
+  // const epic = 2;
+  // const userStory = 3;
+  // const attachment = 4;
 
   it('List ALL Epics by project', () => {
     const filter = {
-      project,
+      project: faker.random.number(),
     };
 
     const query = {
-      project: project.toString(),
+      project: filter.project.toString(),
     };
     spectator.service.list(filter).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics?${parseQueryParams(query)}`, HttpMethod.GET);
@@ -54,33 +56,23 @@ describe('EpicsApiService', () => {
   it('create epic', () => {
     const data = EpicCreationMockFactory.build();
 
-    const body = {
-      ...(data.assignedTo && { assignedTo: data.assignedTo }),
-      ...(data.blockedNote && { blockedNote: data.blockedNote }),
-      ...(data.description && { description: data.description }),
-      ...(data.isBlocked && { isBlocked: data.isBlocked }),
-      ...(data.isClosed && { isClosed: data.isClosed }),
-      ...(data.color && { color: data.color }),
-      ...(data.tags && { tags: data.tags }),
-      ...(data.watchers && { watchers: data.watchers }),
-      project: data.project,
-      subject: data.subject,
-    };
-
     spectator.service.create(data).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics`, HttpMethod.POST);
 
-    expect(req.request.body).toEqual(body);
+    expect(req.request.body).toEqual(data);
   });
 
   it('get epic', () => {
+    const epic = faker.random.number();
+
     spectator.service.get(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.GET);
   });
 
   it('edit epic', () => {
+    const epic = faker.random.number();
     const data: EpicPartialInput = {
-      color: '#fabada',
+      color: faker.internet.color(),
     };
 
     spectator.service.patch(epic, data).subscribe();
@@ -91,6 +83,8 @@ describe('EpicsApiService', () => {
 
 
   it('delete epic', () => {
+    const epic = faker.random.number();
+
     spectator.service.delete(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.DELETE);
   });
@@ -110,6 +104,7 @@ describe('EpicsApiService', () => {
   });
 
   it('Get Epic filters', () => {
+    const project = faker.random.number();
     const query = {
       project: project.toString(),
     };
@@ -118,23 +113,26 @@ describe('EpicsApiService', () => {
   });
 
   it('list related User Stories', () => {
+    const epic = faker.random.number();
+
     spectator.service.listRelatedUserStories(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories`, HttpMethod.GET);
   });
 
   it('create related user story', () => {
-    const body = {
-      epic,
-      userStory,
+    const data = {
+      epic: faker.random.number(),
+      userStory: faker.random.number(),
     };
 
-    spectator.service.createRelatedUserStory(epic, userStory).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories`, HttpMethod.POST);
+    spectator.service.createRelatedUserStory(data.epic, data.userStory).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${data.epic}/related_userstories`, HttpMethod.POST);
 
-    expect(req.request.body).toEqual(body);
+    expect(req.request.body).toEqual(data);
   });
 
   it('bulk create related user stories', () => {
+    const epic = faker.random.number();
     const data = RelatedUserStoryCreationInBulkMockFactory.build();
 
     const body = {
@@ -149,13 +147,18 @@ describe('EpicsApiService', () => {
   });
 
   it('get related User Story', () => {
+    const epic = faker.random.number();
+    const userStory = faker.random.number();
+
     spectator.service.getRelatedUserStory(epic, userStory).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories/${userStory}`, HttpMethod.GET);
   });
 
   it('edit related user story', () => {
+    const epic = faker.random.number();
+    const userStory = faker.random.number();
     const data: EpicUserStoryPartialInput = {
-      order: 100,
+      order: faker.random.number(),
     };
 
     spectator.service.patchRelatedUserStory(epic, userStory, data).subscribe();
@@ -165,41 +168,59 @@ describe('EpicsApiService', () => {
   });
 
   it('edit related user story', () => {
+    const epic = faker.random.number();
+    const userStory = faker.random.number();
+
     spectator.service.deleteRelatedUserStory(epic, userStory).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/related_userstories/${userStory}`, HttpMethod.DELETE);
   });
 
   it('vote epic', () => {
+    const epic = faker.random.number();
+
     spectator.service.vote(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/upvote`, HttpMethod.POST);
   });
 
   it('downvote epic', () => {
+    const epic = faker.random.number();
+
     spectator.service.downvote(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/downvote`, HttpMethod.POST);
   });
 
   it('get epic voters', () => {
+    const epic = faker.random.number();
+
     spectator.service.getVoters(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/voters`, HttpMethod.GET);
   });
 
   it('watch epic', () => {
+    const epic = faker.random.number();
+
     spectator.service.watch(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/watch`, HttpMethod.POST);
   });
 
   it('unwatch epic', () => {
+    const epic = faker.random.number();
+
     spectator.service.unwatch(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/unwatch`, HttpMethod.POST);
   });
 
   it('get epic watchers', () => {
+    const epic = faker.random.number();
+
     spectator.service.getWatchers(epic).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}/watchers`, HttpMethod.GET);
   });
 
   it('get epic attachments', () => {
+    const project = faker.random.number();
+    const epic = faker.random.number();
+
     const query = {
       project: project.toString(),
       object_id: epic.toString(),
@@ -208,58 +229,29 @@ describe('EpicsApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments?${parseQueryParams(query)}`, HttpMethod.GET);
   });
 
-  it('create epic attachment', () => {
+  it('create attachment', () => {
     const mockAttachment = AttachmentCreationMockFactory.build();
 
-    const formData = new FormData();
-
-    formData.append('objectId', mockAttachment.objectId.toString());
-    formData.append('project', mockAttachment.project.toString());
-    formData.append('attachedFile', mockAttachment.attachedFile, mockAttachment.attachedFile.name);
-
-    if (mockAttachment.description) {
-      formData.append('description', mockAttachment.description);
-    }
-
-    if (mockAttachment.isDeprecated) {
-      formData.append('isDeprecated', mockAttachment.isDeprecated.toString());
-    }
+    const formData = UtilsService.buildFormData(mockAttachment);
 
     spectator.service.createAttachment(mockAttachment).subscribe();
+
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(formData);
   });
 
   it('get attachment', () => {
+    const attachment = faker.random.number();
+
     spectator.service.getAttachment(attachment).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments/${attachment}`, HttpMethod.GET);
   });
 
   it('edit epic attachment', () => {
+    const attachment = faker.random.number();
     const mockAttachment = AttachmentCreationMockFactory.build();
-
-    const formData = new FormData();
-
-    if (mockAttachment.objectId) {
-      formData.append('objectId', mockAttachment.objectId.toString());
-    }
-
-    if (mockAttachment.project) {
-      formData.append('project', mockAttachment.project.toString());
-    }
-
-    if (mockAttachment.attachedFile) {
-      formData.append('attachedFile', mockAttachment.attachedFile, mockAttachment.attachedFile.name);
-    }
-
-    if (mockAttachment.description) {
-      formData.append('description', mockAttachment.description);
-    }
-
-    if (mockAttachment.isDeprecated) {
-      formData.append('isDeprecated', mockAttachment.isDeprecated.toString());
-    }
+    const formData = UtilsService.buildFormData(mockAttachment);
 
     spectator.service.patchAttachment(attachment, mockAttachment).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments/${attachment}`, HttpMethod.PATCH);
@@ -268,6 +260,8 @@ describe('EpicsApiService', () => {
   });
 
   it('delete attachment', () => {
+    const attachment = faker.random.number();
+
     spectator.service.deleteAttachment(attachment).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments/${attachment}`, HttpMethod.DELETE);
   });

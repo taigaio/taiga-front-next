@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '@/app/config.service';
 import { HistoryEntry, HistoryEntryType, HistoryEntryComment } from './history.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class HistoryApiService {
@@ -26,33 +27,33 @@ export class HistoryApiService {
 
   getCommentVersions(id: number, type: HistoryEntryType, commentId: string) {
     return this.http.get<HistoryEntryComment>(`${this.base}/${type}/${id}/comment_versions`, {
-      params: {
+      params: UtilsService.buildQueryParams({
         id: commentId,
-      },
+      }),
     });
   }
 
   public editComment(id: number, type: HistoryEntryType, commentId: string, comment: string) {
     return this.http.post(`${this.base}/${type}/${id}/edit_comment`, { comment }, {
-      params: {
+      params: UtilsService.buildQueryParams({
         id: commentId,
-      },
+      }),
     });
   }
 
   public deleteComment(id: number, type: HistoryEntryType, commentId: string) {
     return this.http.delete(`${this.base}/${type}/${id}/delete_comment`, {
-      params: {
+      params: UtilsService.buildQueryParams({
         id: commentId,
-      },
+      }),
     });
   }
 
   public undeleteComment(id: number, type: HistoryEntryType, commentId: string) {
     return this.http.post(`${this.base}/${type}/${id}/undelete_comment`, null, {
-      params: {
+      params: UtilsService.buildQueryParams({
         id: commentId,
-      },
+      }),
     });
   }
 }

@@ -29,15 +29,14 @@ describe('MilestonesApiService', () => {
 
   beforeEach(() => spectator = createHttp());
 
-  const project = 1;
-  const milestone = 2;
-
   it('List ALL milestones', () => {
     spectator.service.list().subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones`, HttpMethod.GET);
   });
 
   it('List milestones filtered by project', () => {
+    const project = faker.random.number();
+
     const queryParams = {
       project: project.toString(),
     };
@@ -47,6 +46,8 @@ describe('MilestonesApiService', () => {
   });
 
   it('List milestones filtered by project and only closed', () => {
+    const project = faker.random.number();
+
     const queryParams = {
       project: project.toString(),
       closed: 'true',
@@ -58,13 +59,13 @@ describe('MilestonesApiService', () => {
 
   it('create milestone', () => {
     const data = {
-      project,
+      project: faker.random.number(),
       name: faker.company.catchPhrase(),
-      estimatedStart: '2020/06/18',
-      estimatedFinish: '2020/07/18',
-      disponibility: 30,
-      slug: 'sprint-1',
-      order: 1,
+      estimatedStart: faker.date.recent().toISOString(),
+      estimatedFinish: faker.date.future().toISOString(),
+      disponibility: faker.random.number(),
+      slug: faker.random.word(),
+      order: faker.random.number(),
     };
 
     const body = {
@@ -84,13 +85,17 @@ describe('MilestonesApiService', () => {
   });
 
   it('get milestone', () => {
+    const milestone = faker.random.number();
+
     spectator.service.get(milestone).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.GET);
   });
 
   it('edit a milestone', () => {
+    const milestone = faker.random.number();
+
     const data: MilestonePartialInput = {
-      closed: true,
+      closed: faker.random.boolean(),
     };
 
     spectator.service.edit(milestone, data).subscribe();
@@ -100,26 +105,36 @@ describe('MilestonesApiService', () => {
   });
 
   it('delete a milestone', () => {
+    const milestone = faker.random.number();
+
     spectator.service.delete(milestone).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.DELETE);
   });
 
   it('get milestone stats', () => {
+    const milestone = faker.random.number();
+
     spectator.service.stats(milestone).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}/stats`, HttpMethod.GET);
   });
 
   it('watch milestone', () => {
+    const milestone = faker.random.number();
+
     spectator.service.watch(milestone).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}/watch`, HttpMethod.POST);
   });
 
   it('unwatch milestone', () => {
+    const milestone = faker.random.number();
+
     spectator.service.unwatch(milestone).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}/unwatch`, HttpMethod.POST);
   });
 
   it('list watchers', () => {
+    const milestone = faker.random.number();
+
     spectator.service.watchers(milestone).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}/watchers`, HttpMethod.GET);
   });

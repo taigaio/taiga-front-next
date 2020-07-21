@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from '@/app/config.service';
 import { HttpClient } from '@angular/common/http';
 import { IssueCustomAttribute, IssueCustomAttributeCreationData } from './issue-custom-attribute.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class IssueCustomAttributeApiService {
@@ -21,9 +22,9 @@ export class IssueCustomAttributeApiService {
 
   public list(projectId: number) {
     return this.http.get<IssueCustomAttribute[]>(this.base, {
-      params: {
+      params: UtilsService.buildQueryParams({
         project: projectId.toString(),
-      },
+      }),
     });
   }
 

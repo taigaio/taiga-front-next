@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from '@/app/config.service';
 import { HttpClient } from '@angular/common/http';
 import { TaskCustomAttribute, TaskCustomAttributeCreationData } from './task-custom-attribute.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class TaskCustomAttributesApiService {
@@ -21,9 +22,9 @@ export class TaskCustomAttributesApiService {
 
   public list(projectId: number) {
     return this.http.get<TaskCustomAttribute[]>(this.base, {
-      params: {
+      params: UtilsService.buildQueryParams({
         project: projectId.toString(),
-      },
+      }),
     });
   }
 

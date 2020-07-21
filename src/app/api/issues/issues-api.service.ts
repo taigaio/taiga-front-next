@@ -85,9 +85,9 @@ export class IssuesApiService {
 
   public filtersData(project: number) {
     return this.http.get<IssueFiltersData>(`${this.base}/filters_data`, {
-      params: {
+      params: UtilsService.buildQueryParams({
         project: project.toString(),
-      },
+      }),
     });
   }
 
