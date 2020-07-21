@@ -103,8 +103,8 @@ describe('ResolverApiService', () => {
     };
 
     const queryParams = {
-      project,
-      task: task.toString(),
+      project: data.project.toString(),
+      task: data.task.toString(),
     };
     spectator.service.multiple(data).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
@@ -118,9 +118,9 @@ describe('ResolverApiService', () => {
     };
 
     const queryParams = {
-      project,
-      task: task.toString(),
-      us: us.toString(),
+      project: data.project.toString(),
+      task: data.task.toString(),
+      us: data.us.toString(),
     };
     spectator.service.multiple(data).subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/resolver?${parseQueryParams(queryParams)}`, HttpMethod.GET);
