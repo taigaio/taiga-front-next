@@ -160,7 +160,8 @@ export class ProjectsApiService {
   }
 
   public changeLogo(projectId: number, logo: File) {
-    const formData = UtilsService.buildFormData(logo);
+    const formData = new FormData();
+    formData.append('logo', logo, logo.name);
     return this.http.post<Project>(`${this.base}/${projectId}/change_logo`, formData);
   }
 

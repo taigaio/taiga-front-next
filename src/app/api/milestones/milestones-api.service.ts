@@ -28,8 +28,8 @@ export class MilestoneApiService {
   public list(project?: number, closed?: boolean) {
     return this.http.get<Milestone[]>(this.base, {
       params: UtilsService.buildQueryParams({
-        project,
-        closed,
+        ...(project && { project }),
+        ...(closed && { closed }),
       }),
     });
   }

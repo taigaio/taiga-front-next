@@ -29,8 +29,8 @@ export class MembershipsInvitationsApiService {
   public list(project?: number, role?: number) {
     return this.http.get<Membership[]>(this.base, {
       params: UtilsService.buildQueryParams({
-        project,
-        role,
+        ...(project && { project }),
+        ...(role && { role }),
       }),
     });
   }

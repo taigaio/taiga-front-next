@@ -236,7 +236,7 @@ describe('EpicsApiService', () => {
 
     spectator.service.createAttachment(mockAttachment).subscribe();
 
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/issues/attachments`, HttpMethod.POST);
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments`, HttpMethod.POST);
 
     expect(req.request.body).toEqual(formData);
   });
