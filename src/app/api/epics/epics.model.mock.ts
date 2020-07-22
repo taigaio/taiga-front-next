@@ -9,8 +9,78 @@
 import * as Factory from 'factory.ts';
 import * as faker from 'faker';
 
-import { EpicCreationData, EpicCreationInBulk, RelatedUserStoryCreationInBulk, EpicAttachmentCreationData } from './epics.model';
+import { EpicCreationData, EpicCreationInBulk, RelatedUserStoryCreationInBulk, EpicAttachmentCreationData, Epic } from './epics.model';
 import { EpicCustomAttributeCreationData, EpicCustomAttributeBulkUpdate } from './epics-custom-attributes.model';
+import { UserMockFactory } from '@/app/api/users/users.model.mock';
+
+const user = UserMockFactory.build();
+
+export const EpicMockFactory = Factory.Sync.makeFactory<Epic>({
+  assignedTo: user.id,
+  assignedToExtraInfo: {
+    bigPhoto: user.bigPhoto,
+    fullNameDisplay: user.fullNameDisplay,
+    gravatarId: user.gravatarId,
+    id: user.id,
+    isActive: user.isActive,
+    photo: user.photo,
+    username: user.username,
+  },
+  attachments: [],
+  blockedNote: faker.lorem.sentence(),
+  clientRequirement: faker.random.boolean(),
+  createdDate: faker.date.past().toString(),
+  epicsOrder: faker.random.number(),
+  id: faker.random.number(),
+  isBlocked: faker.random.boolean(),
+  isClosed: faker.random.boolean(),
+  color: faker.internet.color(),
+  isVoter: faker.random.boolean(),
+  isWatcher: faker.random.boolean(),
+  modifiedDate: faker.date.recent().toString(),
+  owner: faker.random.number(),
+  ownerExtraInfo: {
+    bigPhoto: user.bigPhoto,
+    fullNameDisplay: user.fullNameDisplay,
+    gravatarId: user.gravatarId,
+    id: user.id,
+    isActive: user.isActive,
+    photo: user.photo,
+    username: user.username,
+  },
+  project: faker.random.number(),
+  projectExtraInfo: {
+    id: faker.random.number(),
+    logoSmallUrl: faker.image.imageUrl(),
+    name: faker.random.word(),
+    slug: faker.lorem.slug(),
+  },
+  ref: faker.random.number(),
+  status: faker.random.number(),
+  statusExtraInfo: {
+    color: faker.internet.color(),
+    isClosed: faker.random.boolean(),
+    name: faker.lorem.word(),
+  },
+  subject: faker.lorem.sentence(),
+  tags: [
+    faker.lorem.word(),
+    faker.lorem.word(),
+  ],
+  teamRequirement: faker.random.boolean(),
+  totalVoters: faker.random.number(),
+  totalWatchers: faker.random.number(),
+  userStoriesCounts: {
+    progress: faker.random.number(),
+    total: faker.random.number(),
+  },
+  version: faker.random.number(),
+  watchers: [
+    faker.random.number(),
+    faker.random.number(),
+  ],
+});
+
 
 export const EpicCreationMockFactory = Factory.Sync.makeFactory<EpicCreationData>({
   assignedTo: faker.random.number(),

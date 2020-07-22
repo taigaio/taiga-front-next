@@ -50,6 +50,10 @@ export class EpicsApiService {
     return this.http.get<Epic>(`${this.base}/${id}`);
   }
 
+  public put(id: number, data: Epic) {
+    return this.http.put<Epic>(`${this.base}/${id}`, data);
+  }
+
   public patch(id: number, data: EpicPartialInput) {
     return this.http.patch<Epic>(`${this.base}/${id}`, data);
   }
