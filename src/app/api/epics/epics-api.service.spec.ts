@@ -69,7 +69,7 @@ describe('EpicsApiService', () => {
     const data = EpicMockFactory.build({id: epic});
 
     spectator.service.put(epic, data).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.PATCH);
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.PUT);
 
     expect(req.request.body).toEqual(data);
   });

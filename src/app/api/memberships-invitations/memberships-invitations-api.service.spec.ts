@@ -118,7 +118,7 @@ describe('MembershipsInvitationsApiService', () => {
     const data = MembershipMockFactory.build({id: member});
 
     spectator.service.put(member, data).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/${member}`, HttpMethod.PATCH);
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/${member}`, HttpMethod.PUT);
 
     expect(req.request.body).toEqual(data);
   });
