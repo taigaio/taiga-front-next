@@ -30,10 +30,6 @@ describe('MembershipsInvitationsApiService', () => {
 
   beforeEach(() => spectator = createHttp());
 
-  // const project = 1;
-  // const role = 2;
-  // const username = faker.internet.email();
-
   it('List ALL memberships', () => {
     spectator.service.list().subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships`, HttpMethod.GET);
