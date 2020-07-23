@@ -128,6 +128,18 @@ export const AttachmentCreationMockFactory = Factory.Sync.makeFactory<EpicAttach
   isDeprecated: faker.random.boolean(),
 });
 
+export const EpicCustomAttributeDetailMockFactory = Factory.Sync.makeFactory<EpicCustomAttributeDetail>({
+  createdDate: faker.date.past().toString(),
+  description: faker.lorem.sentence(),
+  extra: null,
+  id: faker.random.number(),
+  modifiedDate: faker.date.recent().toString(),
+  name: faker.random.word(),
+  order: faker.random.number(),
+  project: faker.random.number(),
+  type: faker.random.word(),
+});
+
 export const EpicCustomAttributeCreationMockFactory = Factory.Sync.makeFactory<EpicCustomAttributeCreationData>({
   project: faker.random.number(),
   name: faker.lorem.sentence(),

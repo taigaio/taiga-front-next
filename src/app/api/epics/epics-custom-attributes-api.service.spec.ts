@@ -9,7 +9,7 @@
 import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
 
 import { ConfigService } from '@/app/config.service';
-import { EpicCustomAttributeCreationMockFactory, EpicCustomAttributeBulkOrderMockFactory } from './epics.model.mock';
+import { EpicCustomAttributeCreationMockFactory, EpicCustomAttributeBulkOrderMockFactory, EpicCustomAttributeDetailMockFactory } from './epics.model.mock';
 import { EpicsCustomAttributeApiService } from './epics-custom-attributes-api.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
 import { EpicCustomAttributePartialInput, EpicCustomAttributeBulkUpdate } from './epics-custom-attributes.model';
@@ -57,7 +57,17 @@ describe('EpicsCustomAttributeApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-custom-attributes/${epic}`, HttpMethod.GET);
   });
 
-  it('edit epic custom attribute', () => {
+  it('put epic custom attribute', () => {
+    const epic = faker.random.number();
+    const data = EpicCustomAttributeDetailMockFactory.build();
+
+    spectator.service.put(epic, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epic-custom-attributes/${epic}`, HttpMethod.PUT);
+
+    expect(req.request.body).toEqual(data);
+  });
+
+  it('patch epic custom attribute', () => {
     const epic = faker.random.number();
     const data: EpicCustomAttributePartialInput = {
       name: faker.internet.color(),
