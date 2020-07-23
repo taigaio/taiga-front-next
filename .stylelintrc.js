@@ -44,7 +44,7 @@ module.exports = {
     'order/properties-alphabetical-order': true,
     'selector-no-qualifying-type': true,
     'selector-max-type': 0,
-    
+
     'selector-type-no-unknown': [
       true,
       {
@@ -57,7 +57,7 @@ module.exports = {
     'function-url-no-scheme-relative': true,
     // Max line length
     'max-line-length': [
-      40,
+      120,
       {
         ignore: ['comments'],
       }

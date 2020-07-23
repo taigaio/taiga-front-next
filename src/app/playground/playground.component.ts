@@ -43,7 +43,7 @@ import { UserstoriesApiService } from '@/app/api/userstories/userstories-api.ser
 import { UserstoryList } from '@/app/api/userstories/userstories.model';
 
 @Component({
-  selector: 'app-playground',
+  selector: 'tg-playground',
   templateUrl: './playground.component.html',
   styleUrls: ['./playground.component.css'],
 })
