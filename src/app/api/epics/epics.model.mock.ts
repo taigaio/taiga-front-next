@@ -10,7 +10,7 @@ import * as Factory from 'factory.ts';
 import * as faker from 'faker';
 
 import { EpicCreationData, EpicCreationInBulk, RelatedUserStoryCreationInBulk, EpicAttachmentCreationData, Epic } from './epics.model';
-import { EpicCustomAttributeCreationData, EpicCustomAttributeBulkUpdate } from './epics-custom-attributes.model';
+import { EpicCustomAttributeCreationData, EpicCustomAttributeBulkUpdate, EpicCustomAttributeDetail } from './epics-custom-attributes.model';
 import { UserMockFactory } from '@/app/api/users/users.model.mock';
 
 const user = UserMockFactory.build();
