@@ -7,9 +7,9 @@ the root directory of this source tree.
 -->
 
 <button
-  [attr.disabled]="disabled ? true : null"
+  [attr.disabled]="disabled ? 'disabled' : null"
   [ngClass]="classList"
-  [attr.autofocus]="autofocus ? true : null"
+  [attr.type]="type"
   [attr.display]="display">
   <ng-content></ng-content>
 </button>

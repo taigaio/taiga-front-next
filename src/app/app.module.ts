@@ -18,12 +18,10 @@ import { extModules } from './build-specifics';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { ReactiveComponentModule } from '@ngrx/component';
-import { ButtonComponent } from './commons/components/button/button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ButtonComponent,
   ],
   imports: [
     HttpClientModule,

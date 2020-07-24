@@ -6,7 +6,7 @@
  * the root directory of this source tree.
  */
 
-import { Attribute, Component, Input } from '@angular/core';
+import { Attribute, Component, Input, OnInit } from '@angular/core';
 import { ButtonDisplay, ButtonType } from './button.model';
 
 @Component({
@@ -14,29 +14,31 @@ import { ButtonDisplay, ButtonType } from './button.model';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css'],
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnInit {
 
-  public disabled = false;
+  // public disabled = false;
   public classList = '';
-  public autofocus = false;
   public type = 'button';
 
   constructor(
-    @Attribute('disabled') disabled: boolean,
+    // @Attribute('disabled') disabled: boolean,
     @Attribute('class') hostClasses: string,
-    @Attribute('autofocus') autofocus: boolean,
-    @Attribute('type') type: ButtonType
+    @Attribute('type') type: ButtonType = 'button'
   ) {
-    const classNames: string[] = hostClasses.split(' ');
-    if (classNames.indexOf('btn') === -1) {
+    const classNames: string[] = hostClasses ? hostClasses.split(' ') : [];
+    if (classNames.includes('btn')) {
       classNames.push('btn');
     }
     this.classList = classNames.join(' ');
 
-    this.disabled = disabled;
-    this.autofocus = autofocus;
     this.type = type;
   }
 
   @Input() display: ButtonDisplay = 'primary';
+  @Input() disabled = false;
+
+  public ngOnInit() {
+    // this.classList = `${this.classList} btn-${this.display}`;
+    console.log(this.disabled, this.classList,  this.type, this.display);
+  }
 }
