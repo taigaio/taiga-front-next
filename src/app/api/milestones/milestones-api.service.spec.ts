@@ -14,6 +14,7 @@ import * as faker from 'faker';
 import { MilestoneApiService } from './milestones-api.service';
 import { MilestonePartialInput } from './milestones.model';
 import { parseQueryParams } from '@/utils/test.helpers';
+import { MilestoneMockFactory } from './milestones.model.mock';
 
 describe('MilestonesApiService', () => {
   let spectator: SpectatorHttp<MilestoneApiService>;
@@ -91,14 +92,25 @@ describe('MilestonesApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.GET);
   });
 
-  it('edit a milestone', () => {
+  it('put a milestone', () => {
+    const milestone = faker.random.number();
+
+    const data = MilestoneMockFactory.build({id: milestone});
+
+    spectator.service.put(milestone, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.PUT);
+
+    expect(req.request.body).toEqual(data);
+  });
+
+  it('patch a milestone', () => {
     const milestone = faker.random.number();
 
     const data: MilestonePartialInput = {
       closed: faker.random.boolean(),
     };
 
-    spectator.service.edit(milestone, data).subscribe();
+    spectator.service.patch(milestone, data).subscribe();
     const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.PATCH);
 
     expect(req.request.body).toEqual(data);

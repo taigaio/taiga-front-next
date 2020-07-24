@@ -40,6 +40,10 @@ export class EpicsCustomAttributeApiService {
     return this.http.get<EpicCustomAttributeDetail>(`${this.base}/${id}`);
   }
 
+  public put(id: number, data: EpicCustomAttributeDetail) {
+    return this.http.put<EpicCustomAttributeDetail>(`${this.base}/${id}`, data);
+  }
+
   public patch(id: number, data: EpicCustomAttributePartialInput) {
     return this.http.patch<EpicCustomAttributeDetail>(`${this.base}/${id}`, data);
   }

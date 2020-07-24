@@ -14,6 +14,7 @@ import { MembershipsInvitationsApiService } from './memberships-invitations-api.
 import * as faker from 'faker';
 import { MembershipPartialInput } from './memberships-invitations.model';
 import { parseQueryParams } from '@/utils/test.helpers';
+import { MembershipMockFactory } from './memberships-invitations.model.mock';
 
 describe('MembershipsInvitationsApiService', () => {
   let spectator: SpectatorHttp<MembershipsInvitationsApiService>;
@@ -29,16 +30,14 @@ describe('MembershipsInvitationsApiService', () => {
 
   beforeEach(() => spectator = createHttp());
 
-  const project = 1;
-  const role = 2;
-  const username = faker.internet.email();
-
   it('List ALL memberships', () => {
     spectator.service.list().subscribe();
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships`, HttpMethod.GET);
   });
 
   it('List filtered memberships by project', () => {
+    const project = faker.random.number();
+
     const queryParams = {
       project: project.toString(),
     };
@@ -48,6 +47,9 @@ describe('MembershipsInvitationsApiService', () => {
   });
 
   it('List filtered memberships by project and role', () => {
+    const project = faker.random.number();
+    const role = faker.random.number();
+
     const queryParams = {
       project: project.toString(),
       role: role.toString(),
@@ -59,15 +61,15 @@ describe('MembershipsInvitationsApiService', () => {
 
   it('create member', () => {
     const data = {
-      project,
-      role,
-      username,
+      project: faker.random.number(),
+      role: faker.random.number(),
+      username: faker.name.lastName(),
     };
 
     const body = {
-      project: project.toString(),
-      role: role.toString(),
-      username,
+      project: data.project.toString(),
+      role: data.role.toString(),
+      username: data.username,
     };
 
     spectator.service.create(data).subscribe();
@@ -78,11 +80,11 @@ describe('MembershipsInvitationsApiService', () => {
 
   it('bulk create', () => {
     const body = {
-      project,
+      project: faker.random.number(),
       members: [
         {
-          roleId: role,
-          username,
+          roleId: faker.random.number(),
+          username: faker.name.lastName(),
         },
       ],
       invitationText: faker.lorem.sentence(20),
@@ -90,12 +92,7 @@ describe('MembershipsInvitationsApiService', () => {
 
     const data = {
       projectId: body.project,
-      bulkMemberships: [
-        {
-          roleId: role,
-          username,
-        },
-      ],
+      bulkMemberships: body.members.map(member => member),
       invitationExtraText: body.invitationText,
     };
 
@@ -106,33 +103,52 @@ describe('MembershipsInvitationsApiService', () => {
   });
 
   it('get a memberships', () => {
-    spectator.service.get(1).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1`, HttpMethod.GET);
+    const member = faker.random.number();
+
+    spectator.service.get(member).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/${member}`, HttpMethod.GET);
   });
 
-  it('edit a membership', () => {
+  it('put a membership', () => {
+    const member = faker.random.number();
+    const data = MembershipMockFactory.build({id: member});
+
+    spectator.service.put(member, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/${member}`, HttpMethod.PUT);
+
+    expect(req.request.body).toEqual(data);
+  });
+
+  it('patch a membership', () => {
+    const member = faker.random.number();
     const data: MembershipPartialInput = {
-      color: '#fabada',
+      color: faker.internet.color(),
     };
 
-    spectator.service.edit(1, data).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1`, HttpMethod.PATCH);
+    spectator.service.patch(member, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/${member}`, HttpMethod.PATCH);
 
     expect(req.request.body).toEqual(data);
   });
 
   it('delete a memberships', () => {
-    spectator.service.delete(1).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1`, HttpMethod.DELETE);
+    const member = faker.random.number();
+
+    spectator.service.delete(member).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/${member}`, HttpMethod.DELETE);
   });
 
   it('resend an invitation', () => {
-    spectator.service.resendInvitation(1).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/1/resend_invitation`, HttpMethod.POST);
+    const member = faker.random.number();
+
+    spectator.service.resendInvitation(member).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/memberships/${member}/resend_invitation`, HttpMethod.POST);
   });
 
   it('get invitation', () => {
-    spectator.service.getInvitation(1).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/invitations/1`, HttpMethod.GET);
+    const member = faker.random.number();
+
+    spectator.service.getInvitation(member).subscribe();
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/invitations/${member}`, HttpMethod.GET);
   });
 });

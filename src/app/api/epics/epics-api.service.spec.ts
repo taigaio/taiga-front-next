@@ -15,7 +15,7 @@ import {
   EpicCreationMockFactory,
   EpicCreationInBulkMockFactory,
   RelatedUserStoryCreationInBulkMockFactory,
-  AttachmentCreationMockFactory
+  AttachmentCreationMockFactory, EpicMockFactory
 } from './epics.model.mock';
 import { EpicPartialInput, EpicUserStoryPartialInput } from './epics.model';
 import { parseQueryParams } from '@/utils/test.helpers';
@@ -35,11 +35,6 @@ describe('EpicsApiService', () => {
   });
 
   beforeEach(() => spectator = createHttp());
-
-  // const project = 1;
-  // const epic = 2;
-  // const userStory = 3;
-  // const attachment = 4;
 
   it('List ALL Epics by project', () => {
     const filter = {
@@ -69,7 +64,17 @@ describe('EpicsApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.GET);
   });
 
-  it('edit epic', () => {
+  it('put epic', () => {
+    const epic = faker.random.number();
+    const data = EpicMockFactory.build({id: epic});
+
+    spectator.service.put(epic, data).subscribe();
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/${epic}`, HttpMethod.PUT);
+
+    expect(req.request.body).toEqual(data);
+  });
+
+  it('patch epic', () => {
     const epic = faker.random.number();
     const data: EpicPartialInput = {
       color: faker.internet.color(),
@@ -248,7 +253,7 @@ describe('EpicsApiService', () => {
     spectator.expectOne(`${ConfigServiceMock.apiUrl}/epics/attachments/${attachment}`, HttpMethod.GET);
   });
 
-  it('edit epic attachment', () => {
+  it('patch epic attachment', () => {
     const attachment = faker.random.number();
     const mockAttachment = AttachmentCreationMockFactory.build();
     const formData = UtilsService.buildFormData(mockAttachment);

@@ -10,7 +10,7 @@ import { Project } from '@/app/api/projects/projects.model';
 export interface EpicCustomAttributeDetail {
   createdDate: string;
   description: string;
-  extra: string;
+  extra: string | null;
   id: number;
   modifiedDate: string;
   name: string;
