@@ -42,8 +42,8 @@ export class MilestoneApiService {
     return this.http.get<Milestone>(`${this.base}/${milestoneId}`);
   }
 
-  public put(milestoneId: number, data: MilestonePartialInput) {
-    return this.http.patch<Milestone>(`${this.base}/${milestoneId}`, data);
+  public put(milestoneId: number, data: Milestone) {
+    return this.http.put<Milestone>(`${this.base}/${milestoneId}`, data);
   }
 
   public patch(milestoneId: number, data: MilestonePartialInput) {

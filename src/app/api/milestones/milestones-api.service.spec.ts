@@ -98,7 +98,7 @@ describe('MilestonesApiService', () => {
     const data = MilestoneMockFactory.build({id: milestone});
 
     spectator.service.put(milestone, data).subscribe();
-    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.PATCH);
+    const req = spectator.expectOne(`${ConfigServiceMock.apiUrl}/milestones/${milestone}`, HttpMethod.PUT);
 
     expect(req.request.body).toEqual(data);
   });
