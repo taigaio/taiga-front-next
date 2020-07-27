@@ -6,12 +6,8 @@
  * the root directory of this source tree.
  */
 
-module.exports = {
-  testMatch: [
-    '**/src/**/?(*.)+(spec|test).ts?(x)'
-  ],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
-  transformIgnorePatterns: ['^.+\\.js$'],
-};
+export declare interface UploadFileAdapter {
+  upload(): Promise<{default: string; text: string}>;
+  abort(): void;
+  setLoader(loader: any): void;
+}

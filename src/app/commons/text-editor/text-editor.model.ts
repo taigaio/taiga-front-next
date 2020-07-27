@@ -6,12 +6,9 @@
  * the root directory of this source tree.
  */
 
-module.exports = {
-  testMatch: [
-    '**/src/**/?(*.)+(spec|test).ts?(x)'
-  ],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
-  transformIgnorePatterns: ['^.+\\.js$'],
-};
+export interface AutoCompleteItem {
+  id: string;
+  link: string;
+  listRenderText: string;
+  text?: string;
+}

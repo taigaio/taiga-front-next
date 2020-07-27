@@ -34,7 +34,7 @@ import { Priority } from '../api/priorities/priorities.model';
 import { SeveritiesApiService } from '../api/severities/severities-api.service';
 import { Severity } from '../api/severities/severities.model';
 import { ProjectsApiService } from '@/app/api/projects/projects-api.service';
-import { ProjectsListOrderBy } from '@/app/api/projects/projects.model';
+import { ProjectsListOrderBy, Project } from '@/app/api/projects/projects.model';
 import { MembershipsInvitationsApiService } from '@/app/api/memberships-invitations/memberships-invitations-api.service';
 import { Membership } from '@/app/api/memberships-invitations/memberships-invitations.model';
 import { EpicsApiService } from '@/app/api/epics/epics-api.service';
@@ -92,13 +92,15 @@ export class PlaygroundComponent implements OnInit {
   members$!: Observable<Membership[]>;
   epics$!: Observable<Epic[]>;
   stories$!: Observable<UserstoryList[]>;
+  project$!: Observable<Project>;
 
   public querySearch() {
-    this.searchApiService.search('1', 'Ability').subscribe(console.log);
+    this.searchApiService.search(1, 'Ability').subscribe(console.log);
   }
 
   initData() {
     this.projectId$.subscribe((projectResolver) => {
+      this.project$ = this.projectsApiService.get(projectResolver.project);
       this.milestones$ = this.milestoneApiService.list(projectResolver.project);
       this.epicStatuses$ = this.epicStatusesApiService.list(projectResolver.project);
       this.userstoryStatuses$ = this.userstoryStatusesApiService.list(projectResolver.project);
@@ -114,7 +116,6 @@ export class PlaygroundComponent implements OnInit {
         project: projectResolver.project,
       });
     });
-
   }
 
   public listUserStorage() {

@@ -215,7 +215,7 @@ export interface Project {
       'id' |
       'isActive' |
       'photo' |
-      'username'>;
+      'username'>[];
   milestones: Pick<Milestone,
     'closed' |
     'id' |

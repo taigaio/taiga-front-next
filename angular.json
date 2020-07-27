@@ -33,7 +33,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "showdown",
+              "turndown"
+            ]
           },
           "configurations": {
             "test": {

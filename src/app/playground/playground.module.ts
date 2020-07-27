@@ -32,6 +32,7 @@ import { UserstoriesApiModule } from '../api/userstories/userstories-api.module'
 import { CommonComponentsModule } from '../commons/components/common-components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TextEditorModule } from '@/app/commons/text-editor/text-editor.module';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonComponentsModule,
     FormsModule,
     ReactiveFormsModule,
+    TextEditorModule,
   ],
 })
 export class PlaygroundModule { }

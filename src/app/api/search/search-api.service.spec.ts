@@ -10,7 +10,7 @@ import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator'
 import { SearchApiService } from './search-api.service';
 import { ConfigService } from '@/app/config.service';
 import { ConfigServiceMock } from '@/app/config.service.mock';
-import { parseQueryParams } from '@/utils/test.helpers';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 describe('SearchApiService', () => {
   let spectator: SpectatorHttp<SearchApiService>;
@@ -26,11 +26,11 @@ describe('SearchApiService', () => {
 
   it('search', () => {
     const queryParams = {
-      project: '1',
+      project: 1,
       text: 'search-text',
     };
 
     spectator.service.search(queryParams.project, queryParams.text).subscribe();
-    spectator.expectOne(`${ConfigServiceMock.apiUrl}/search?${parseQueryParams(queryParams)}`, HttpMethod.GET);
+    spectator.expectOne(`${ConfigServiceMock.apiUrl}/search?${UtilsService.buildQueryParams(queryParams)}`, HttpMethod.GET);
   });
 });
