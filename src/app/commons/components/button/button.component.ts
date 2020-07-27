@@ -33,7 +33,7 @@ import { ButtonDisplay, ButtonType } from './button.model';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css'],
 })
-export class ButtonComponent implements OnInit {
+export class TgButtonComponent implements OnInit {
 
   constructor(
     @Attribute('type') public type: ButtonType = 'button'
