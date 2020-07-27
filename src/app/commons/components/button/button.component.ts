@@ -6,8 +6,27 @@
  * the root directory of this source tree.
  */
 
-import { Attribute, Component, Input, OnInit } from '@angular/core';
+import { Attribute, Component, HostBinding, Input, OnInit } from '@angular/core';
 import { ButtonDisplay, ButtonType } from './button.model';
+
+/**
+ * Taiga default button
+ *
+ * ### Example
+ *
+ * ```
+ *  <tg-button
+ *    [variant]="primary"
+ *    [loading]="false"
+ *    disabled="false"
+ *    aria-label="Alternative text for the button"
+ *    type="button"
+ *    [icon]="'check'" >
+ *      Text
+ *   </tg-button>
+ * ```
+ *
+ */
 
 @Component({
   selector: 'tg-button',
@@ -16,29 +35,18 @@ import { ButtonDisplay, ButtonType } from './button.model';
 })
 export class ButtonComponent implements OnInit {
 
-  // public disabled = false;
-  public classList = '';
-  public type = 'button';
-
   constructor(
-    // @Attribute('disabled') disabled: boolean,
-    @Attribute('class') hostClasses: string,
-    @Attribute('type') type: ButtonType = 'button'
-  ) {
-    const classNames: string[] = hostClasses ? hostClasses.split(' ') : [];
-    if (classNames.includes('btn')) {
-      classNames.push('btn');
-    }
-    this.classList = classNames.join(' ');
+    @Attribute('type') public type: ButtonType = 'button'
+  ) {}
 
-    this.type = type;
-  }
-
-  @Input() display: ButtonDisplay = 'primary';
-  @Input() disabled = false;
+  @Input() public variant: ButtonDisplay = 'primary';
+  @Input() public loading = false;
+  @Input() public icon: string;
+  @HostBinding('disabled') public disabled = false;
+  @HostBinding('attr.aria-label') public ariaLabel: string;
 
   public ngOnInit() {
     // this.classList = `${this.classList} btn-${this.display}`;
-    console.log(this.disabled, this.classList,  this.type, this.display);
+    console.log(this.disabled, this.type, this.variant);
   }
 }

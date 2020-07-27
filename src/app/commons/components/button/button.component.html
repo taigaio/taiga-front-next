@@ -8,8 +8,11 @@ the root directory of this source tree.
 
 <button
   [attr.disabled]="disabled ? 'disabled' : null"
-  [ngClass]="classList"
+  [attr.ariaLabel]="ariaLabel ? ariaLabel : null"
   [attr.type]="type"
-  [attr.display]="display">
+  [attr.variant]="variant">
+  <ng-container *ngIf="loading">
+    Loading...
+  </ng-container>
   <ng-content></ng-content>
 </button>

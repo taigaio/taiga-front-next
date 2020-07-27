@@ -43,7 +43,7 @@ module.exports = {
     'number-leading-zero': 'never',
     'order/properties-alphabetical-order': true,
     'selector-no-qualifying-type': true,
-    'selector-max-type': 0,
+    'selector-max-type': 1,
 
     'selector-type-no-unknown': [
       true,

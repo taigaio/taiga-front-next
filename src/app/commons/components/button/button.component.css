@@ -6,7 +6,8 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 */
 
-:host {
+button {
+  appearance: none;
   border: 1px solid var(--black, rgb(0, 0, 0));
   display: block;
 }
