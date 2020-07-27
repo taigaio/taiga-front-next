@@ -7,6 +7,7 @@
  */
 
 /* eslint-disable import/no-extraneous-dependencies */
+// import { configure } from '@storybook/angular';
 import { addDecorator, addParameters } from '@storybook/angular';
 import { centered } from '@storybook/addon-centered/angular';
 import { withA11y } from '@storybook/addon-a11y';
@@ -18,7 +19,7 @@ import { withA11y } from '@storybook/addon-a11y';
 
 // import '../styles/App.css';
 
-// const req = require.context('../stories', true, /.stories.[tj]sx?$/);
+// const req = require.context('../src/stories', true, /.stories.[tj]sx?$/);
 
 // function loadStories() {
 //   req.keys().forEach(filename => req(filename));

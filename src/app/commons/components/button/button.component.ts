@@ -42,8 +42,9 @@ export class TgButtonComponent implements OnInit {
   @Input() public variant: ButtonDisplay = 'primary';
   @Input() public loading = false;
   @Input() public icon: string;
-  @HostBinding('disabled') public disabled = false;
-  @HostBinding('attr.aria-label') public ariaLabel: string;
+
+  @HostBinding('attr.disabled') @Input() public disabled = false;
+  @HostBinding('attr.aria-label') @Input() public ariaLabel: string;
 
   public ngOnInit() {
     // this.classList = `${this.classList} btn-${this.display}`;

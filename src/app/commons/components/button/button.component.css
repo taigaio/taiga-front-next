@@ -8,6 +8,19 @@ the root directory of this source tree.
 
 button {
   appearance: none;
-  border: 1px solid var(--black, rgb(0, 0, 0));
+  border: hsl(120deg 100% 25%);
+  cursor: pointer;
   display: block;
+
+  &[variant="primary"] {
+    background: var(--green, rgb(0, 255, 0));
+  }
+
+  &[variant="secondary"] {
+    background: var(--pruple, rgb(255, 0, 255));
+  }
+
+  &[variant="flat"] {
+    border: 1px solid var(--black, rgb(0, 0, 0));
+  }
 }

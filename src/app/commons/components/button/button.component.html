@@ -14,5 +14,7 @@ the root directory of this source tree.
   <ng-container *ngIf="loading">
     Loading...
   </ng-container>
-  <ng-content></ng-content>
+  <ng-container *ngIf="!loading">
+    <ng-content></ng-content>
+  </ng-container>
 </button>
