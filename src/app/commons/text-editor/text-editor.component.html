@@ -1,0 +1,28 @@
+<!--
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+-->
+
+<tg-html-editor
+  *ngIf="mode === 'html'"
+  [content]="html"
+  [lan]="lan"
+  [feedUsers]="feedUsers.bind(this)"
+  [feedReferences]="feedReferences.bind(this)"
+  [uploadFileService]="uploadAdapterService">
+</tg-html-editor>
+<tg-markdown-editor
+  *ngIf="mode === 'markdown'"
+  [content]="markdown">
+</tg-markdown-editor>
+
+<button
+  *ngIf="mode === 'html'"
+  (click)="toMarkdown()">Markdown</button>
+
+<button
+  *ngIf="mode === 'markdown'"
+  (click)="toHtml()">Html</button>

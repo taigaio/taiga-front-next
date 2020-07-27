@@ -7,6 +7,16 @@ the root directory of this source tree.
 -->
 <h1>Taiga</h1>
 
+
+<ng-container *ngrxLet="project$ as project">
+<tg-text-editor
+  *ngIf="project"
+  [projectId]="project.id"
+  [projectSlug]="project.slug"
+  [members]="project.members"
+></tg-text-editor>
+</ng-container>
+
 <button tg-button aria-label="potatoes" disabled="disabled" type="submit" display="primary">Button</button>
 <button tg-button display="primary">Button</button>
 <button tg-button [loading]="true" display="primary">Button</button>

@@ -72,6 +72,7 @@
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
+    "no-unused-variable": [true, {"ignore-pattern": "^_"}],
     "no-var-requires": false,
     "object-literal-key-quotes": [
       true,
@@ -128,7 +129,8 @@
       "options": [
         "ban-keywords",
         "check-format",
-        "allow-pascal-case"
+        "allow-pascal-case",
+        "allow-leading-underscore"
       ]
     },
     "whitespace": {
