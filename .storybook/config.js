@@ -17,7 +17,7 @@ import { withA11y } from '@storybook/addon-a11y';
 //   svgSpriteFile: require('../resources/sprite.svg')
 // });
 
-// import '../styles/App.css';
+// import '../src/app/app.component.css';
 
 // const req = require.context('../src/stories', true, /.stories.[tj]sx?$/);
 

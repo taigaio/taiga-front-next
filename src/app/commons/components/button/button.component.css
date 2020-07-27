@@ -13,11 +13,11 @@ button {
   display: block;
 
   &[variant="primary"] {
-    background: var(--green, rgb(0, 255, 0));
+    background: var(--color-black, rgb(0, 255, 0));
   }
 
   &[variant="secondary"] {
-    background: var(--pruple, rgb(255, 0, 255));
+    background: var(--color-green, rgb(255, 0, 255));
   }
 
   &[variant="flat"] {
