@@ -20,9 +20,47 @@ module.exports = {
     config.module.rules.push({
       test   : /\.css$/,
       loader : 'postcss-loader',
+      include: path.resolve(__dirname, "../")
     });
 
     // Return the altered config
     return config;
   },
 };
+
+
+// const path = require("path");
+
+// module.exports = {
+//   module: {
+//     rules: [
+//       {
+//         test: /\.css$/,
+//         loaders: [
+//             'to-string-loader',
+//             {
+//               loader: 'css-loader',
+//               options: {
+//                 importLoaders: 1
+//               }
+//             },
+//             'postcss-loader'
+//           ],
+//         include: path.resolve(__dirname, "../")
+//       },
+//       {
+//         test: /\.stories\.ts?$/,
+//         loaders: [
+//           {
+//             loader: require.resolve('@storybook/addon-storysource/loader'),
+//             options: { parser: 'typescript' }
+//           }
+//         ],
+//         enforce: 'pre',
+//       }
+//     ]
+//   },
+//   resolve: {
+//     modules: [path.resolve(__dirname, "../src"), "node_modules"]
+//   }
+// };

@@ -1,0 +1,47 @@
+/*
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+*/
+
+:host {
+  /* Primary */
+  --solid-primary: rgb(131, 238, 222);
+  --link-primary: rgb(0, 138, 168);
+
+  /* Grayscale Light */
+  --gray100: rgb(249, 249, 251);
+  --gray200: rgb(236, 239, 244);
+  --gray300: rgb(229, 233, 240);
+  --gray400: rgb(216, 222, 233);
+
+  /* Grayscale Black */
+  --black600: rgb(76, 86, 106);
+  --black700: rgb(67, 76, 94);
+  --black800: rgb(59, 66, 82);
+  --black900: rgb(46, 52, 64);
+
+  /* State colors */
+
+  /* red */
+  --solid-red: rgba(228, 64, 87, .5);
+  --link-red: rgb(228, 64, 87);
+
+  /* orange */
+  --solid-orange: rgba(234, 123, 75, .55);
+  --link-orange: rgb(234, 123, 75);
+
+  /* yellow */
+  --solid-yellow: rgba(246, 201, 92, .55);
+  --link-yellow: rgb(246, 201, 92);
+
+  /* green */
+  --solid-green: rgba(147, 196, 93, .55);
+  --link-green: rgb(147, 196, 93);
+
+  /* purple */
+  --solid-purple: rgba(202, 129, 190, .55);
+  --link-purple: rgb(202, 129, 190);
+}
