@@ -6,14 +6,5 @@
  * the root directory of this source tree.
  */
 
-module.exports = {
-  'plugins': [
-    require('postcss-import')({
-      from: "/src/styles.css"
-    }),
-    require('postcss-mixins'),
-    require('postcss-preset-env')({
-      stage: 0
-    })
-  ]
-}
+export type ButtonType = 'button' | 'submit' | 'reset';
+export type ButtonDisplay = 'primary' | 'secondary' | 'flat';

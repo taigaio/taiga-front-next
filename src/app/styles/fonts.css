@@ -1,0 +1,49 @@
+/*
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+*/
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 200;
+  src: url("src/assets/fonts/Ubuntu-L.ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: italic;
+  font-weight: 200;
+  src: url("src/assets/fonts/Ubuntu-LI.ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 400;
+  src: url("src/assets/fonts/Ubuntu-R.ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: italic;
+  font-weight: 400;
+  src: url("src/assets/fonts/Ubuntu-RI.ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 700;
+  src: url("src/assets/fonts/Ubuntu-M.ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: italic;
+  font-weight: 700;
+  src: url("src/assets/fonts/Ubuntu-MI.ttf");
+}

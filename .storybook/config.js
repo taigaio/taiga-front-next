@@ -6,7 +6,6 @@
  * the root directory of this source tree.
  */
 
-/* eslint-disable import/no-extraneous-dependencies */
 import { addDecorator, addParameters } from '@storybook/angular';
 import { centered } from '@storybook/addon-centered/angular';
 import { withA11y } from '@storybook/addon-a11y';
@@ -15,14 +14,6 @@ import { withA11y } from '@storybook/addon-a11y';
 // Vue.use(SvgSpritePlugin, {
 //   svgSpriteFile: require('../resources/sprite.svg')
 // });
-
-// import '../styles/App.css';
-
-// const req = require.context('../stories', true, /.stories.[tj]sx?$/);
-
-// function loadStories() {
-//   req.keys().forEach(filename => req(filename));
-// }
 
 // Centerd items
 addDecorator(centered);
@@ -38,5 +29,3 @@ addParameters({
     default: true
   }, ],
 });
-
-// configure(loadStories, module);

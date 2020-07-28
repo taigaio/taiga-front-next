@@ -6,6 +6,10 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 */
 
-/* You can add global styles to this file, and also import other style files */
-
-@import "app/styles/styles.css";
+:root {
+  --none: 0;
+  --common: 1;
+  --slider: 5;
+  --modal: 10;
+  --overlay: 90;
+}

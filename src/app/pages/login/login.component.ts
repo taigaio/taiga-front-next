@@ -13,7 +13,7 @@ import { LoginState } from './reducers/login.reducer';
 import { login } from './actions/login.actions';
 
 @Component({
-  selector: 'app-login',
+  selector: 'tg-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })

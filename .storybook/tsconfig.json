@@ -3,10 +3,11 @@
   "compilerOptions": {
     "types": [
       "node"
-    ]
+    ],
   },
   "exclude": [
     "../src/test.ts",
+    "../**/*.mock.ts",
     "../src/**/*.spec.ts",
     "../projects/**/*.spec.ts"
   ],

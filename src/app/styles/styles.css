@@ -1,0 +1,37 @@
+/*
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+*/
+
+/*
+This layer holds any **global** settings for your project. This layer should only house settings that need to be accessed from anywhere. Settings like custom propiertes. This ensures this layer should stay nice and slim, and means that most settings can be found alongside the code that uses them, making finding things far simpler. Examples of global settings might be things like the base font size, colour palettes, config and so on.
+*/
+
+@import "swatches.css";
+@import "fonts.css";
+@import "typography.css";
+@import "spacing.css";
+@import "z-index.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  @mixin font-body;
+}
+
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
+  hyphens: auto;
+  word-break: break-word;
+}

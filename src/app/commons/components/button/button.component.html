@@ -1,0 +1,20 @@
+<!--
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+-->
+
+<button
+  [attr.disabled]="disabled ? 'disabled' : null"
+  [attr.ariaLabel]="ariaLabel ? ariaLabel : null"
+  [attr.type]="type"
+  [attr.variant]="variant">
+  <ng-container *ngIf="loading">
+    Loading...
+  </ng-container>
+  <ng-container *ngIf="!loading">
+    <ng-content></ng-content>
+  </ng-container>
+</button>
