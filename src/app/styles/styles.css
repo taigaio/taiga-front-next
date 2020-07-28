@@ -25,3 +25,16 @@ This layer holds any **global** settings for your project. This layer should onl
 body {
   @mixin font-body;
 }
+
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
+  // Help prevent overflow of long words/names/URLs
+  word-break: break-word;
+
+  // Optional, not supported for all languages
+  hyphens: auto;
+}
