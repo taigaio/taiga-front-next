@@ -13,14 +13,17 @@ button {
   display: block;
 
   &[variant="primary"] {
-    background: var(--color-black, rgb(0, 255, 0));
+    background: var(--color-solid-primary, rgb(0, 255, 0));
+    color: var(--color-white);
   }
 
   &[variant="secondary"] {
-    background: var(--color-green, rgb(255, 0, 255));
+    background: var(--color-black800, rgb(255, 0, 255));
+    color: var(--color-white);
   }
 
   &[variant="flat"] {
-    border: 1px solid var(--black, rgb(0, 0, 0));
+    border: 1px solid var(--color-black800, rgb(0, 0, 0));
+    color: var(--color-black);
   }
 }

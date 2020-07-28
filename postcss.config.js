@@ -7,10 +7,13 @@
  */
 
 module.exports = {
-  'plugins': {
-    'postcss-preset-env': {
-      'stage': 0
-    },
-    'postcss-mixins'
-  }
+  'plugins': [
+    require('postcss-import')({
+      from: "/src/styles.css"
+    }),
+    require('postcss-mixins'),
+    require('postcss-preset-env')({
+      stage: 0
+    })
+  ]
 }
