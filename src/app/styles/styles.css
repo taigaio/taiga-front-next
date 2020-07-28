@@ -32,9 +32,6 @@ h1,
 h2,
 h3,
 h4 {
-  // Help prevent overflow of long words/names/URLs
-  word-break: break-word;
-
-  // Optional, not supported for all languages
   hyphens: auto;
+  word-break: break-word;
 }
