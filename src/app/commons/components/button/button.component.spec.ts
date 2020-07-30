@@ -6,28 +6,34 @@
  * the root directory of this source tree.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createComponentFactory } from '@ngneat/spectator';
 
 import { TgButtonComponent } from './button.component';
+import { TgLoadingComponent } from '../loading/loading.component';
 
 describe('ButtonComponent', () => {
-  let component: TgButtonComponent;
-  let fixture: ComponentFixture<TgButtonComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TgButtonComponent ],
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TgButtonComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  let spectator: Spectator<TgButtonComponent>;
+  const createComponent = createComponentFactory({
+    component: TgButtonComponent,
+    declarations: [
+      TgLoadingComponent,
+    ],
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  beforeEach(() => spectator = createComponent({
+    // The component inputs
+    props: {
+      variant: 'primary',
+    },
+    detectChanges: false,
+  }));
+
+  it('should have a success class by default', () => {
+    expect(spectator.query('div')).toHaveClass('btn-inner');
+  });
+
+  it('should set the class name according to the [className] input', () => {
+    spectator.setInput('loading', true);
+    expect(spectator.query('div')).not.toHaveAttribute('icon');
   });
 });

@@ -1,10 +1,19 @@
-<!--
+/*
 Copyright (c) 2014-2020 Taiga Agile LLC
 
 This source code is licensed under the terms of the
 GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
--->
+*/
 
-<router-outlet></router-outlet>
-<tg-svg-sprite></tg-svg-sprite>
+:host {
+  display: inline-block;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+svg {
+  animation: spin 2s linear infinite;
+  height: 1.25rem;
+  width: 1.25rem;
+}

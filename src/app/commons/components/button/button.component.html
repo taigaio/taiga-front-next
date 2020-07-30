@@ -6,15 +6,13 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 -->
 
-<button
-  [attr.disabled]="disabled ? 'disabled' : null"
-  [attr.ariaLabel]="ariaLabel ? ariaLabel : null"
-  [attr.type]="type"
+<div
+  class="btn-inner"
   [attr.variant]="variant">
-  <ng-container *ngIf="loading">
-    Loading...
-  </ng-container>
+  <div class="loading" *ngIf="loading">
+    <tg-loading></tg-loading>
+  </div>
   <ng-container *ngIf="!loading">
     <ng-content></ng-content>
   </ng-container>
-</button>
+</div>

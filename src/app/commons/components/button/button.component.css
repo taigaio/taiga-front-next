@@ -6,11 +6,20 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 */
 
-button {
+:host {
   appearance: none;
   border: hsl(120deg 100% 25%);
-  cursor: pointer;
   display: block;
+  margin: 0;
+  padding: 0;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.btn-inner {
+  padding: .5rem 2rem;
 
   &[variant="primary"] {
     background: var(--color-solid-primary, rgb(0, 255, 0));
@@ -26,4 +35,16 @@ button {
     border: 1px solid var(--color-black800, rgb(0, 0, 0));
     color: var(--color-black);
   }
+}
+
+:host:disabled {
+  & .btn-inner[variant="primary"] {
+    background: var(--color-black, rgb(0, 255, 0));
+    color: var(--color-white);
+  }
+}
+
+.loading svg {
+  height: 1rem;
+  width: 1rem;
 }

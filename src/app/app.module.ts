@@ -18,10 +18,12 @@ import { extModules } from './build-specifics';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { ReactiveComponentModule } from '@ngrx/component';
+import { TgSvgSpriteComponent } from '@/app/commons/components/svg-sprite/svg-sprite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    TgSvgSpriteComponent,
   ],
   imports: [
     HttpClientModule,

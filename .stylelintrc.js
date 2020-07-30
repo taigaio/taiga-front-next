@@ -31,7 +31,7 @@ module.exports = {
     // Specificity
     'max-nesting-depth': 3,
     'selector-max-compound-selectors': 3,
-    'selector-max-specificity': "0,2,1",
+    'selector-max-specificity': "1,2,1",
     // Miscellanea
     'color-named': 'never',
     'color-no-hex': true,

@@ -7,7 +7,6 @@
  */
 
 import { moduleMetadata, storiesOf } from '@storybook/angular';
-// import { TgButtonComponent } from '@/app/commons/components/button/button.component';
 import { text, boolean, withKnobs, select } from '@storybook/addon-knobs';
 import { CommonComponentsModule } from '@/app/commons/components/common-components.module';
 import faker from 'faker';
@@ -37,12 +36,12 @@ storiesOf('tgButton', module)
 
     return {
       template: `
-        <tg-button
+        <button tg-button
           [loading]="loading"
           [variant]="variant"
-          [disabled]="buttonDisabled">
+          disabled="buttonDisabled ? 'disabled' : null">
           {{buttonText}}
-        </tg-button>
+        </button>
       `,
       props: {
         buttonText,

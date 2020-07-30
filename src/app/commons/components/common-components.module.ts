@@ -10,13 +10,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TgButtonComponent } from './button/button.component';
+import { TgLoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
     TgButtonComponent,
+    TgLoadingComponent,
   ],
   exports: [
     TgButtonComponent,
+    TgLoadingComponent,
   ],
   imports: [
     CommonModule,
