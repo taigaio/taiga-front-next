@@ -1,0 +1,38 @@
+<!--
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+-->
+
+<!-- Refers to the table data source in the @Input() -->
+<cdk-table [dataSource]="dataSource">
+  <!-- Position Column, key of dataSource -->
+  <ng-container cdkColumnDef="position">
+    <cdk-header-cell *cdkHeaderCellDef> No. </cdk-header-cell>
+    <cdk-cell *cdkCellDef="let source"> {{source.position}} </cdk-cell>
+  </ng-container>
+
+  <!-- Name Column, key of dataSource -->
+  <ng-container cdkColumnDef="name">
+    <cdk-header-cell *cdkHeaderCellDef> Name </cdk-header-cell>
+    <cdk-cell *cdkCellDef="let source"> {{source.name}} </cdk-cell>
+  </ng-container>
+
+  <!-- Weight Column, key of dataSource -->
+  <ng-container cdkColumnDef="weight">
+    <cdk-header-cell *cdkHeaderCellDef> Weight </cdk-header-cell>
+    <cdk-cell *cdkCellDef="let source"> {{source.weight}} </cdk-cell>
+  </ng-container>
+
+  <!-- Symbol Column, key of dataSource -->
+  <ng-container cdkColumnDef="symbol">
+    <cdk-header-cell *cdkHeaderCellDef> Symbol </cdk-header-cell>
+    <cdk-cell *cdkCellDef="let source"> {{source.symbol}} </cdk-cell>
+  </ng-container>
+
+  <!-- Name of the columns, and rows -->
+  <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+  <cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
+</cdk-table>

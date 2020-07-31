@@ -1,0 +1,24 @@
+/*
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+*/
+
+/**
+ * Add basic flex styling so that the cells evenly space themselves in the row.
+ */
+
+cdk-row,
+cdk-header-row,
+cdk-footer-row {
+  border-bottom: 1px solid var(--color-gray200);
+  display: flex;
+}
+
+cdk-cell,
+cdk-header-cell,
+cdk-footer-cell {
+  flex: 1;
+}
