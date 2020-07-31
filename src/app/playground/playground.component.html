@@ -13,8 +13,6 @@ the root directory of this source tree.
 
 <tg-loading></tg-loading>
 
-<tg-table [dataSource]="periodicElement" [displayedColumns]="displayedColumns"></tg-table>
-
 <ng-container *ngrxLet="stats$ as stats">
   <p>total projects: {{ stats?.projects?.total }}</p>
 </ng-container>
