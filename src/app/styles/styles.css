@@ -13,6 +13,7 @@ This layer holds any **global** settings for your project. This layer should onl
 @import "swatches.css";
 @import "fonts.css";
 @import "typography.css";
+@import "responsive.css";
 @import "spacing.css";
 @import "z-index.css";
 
