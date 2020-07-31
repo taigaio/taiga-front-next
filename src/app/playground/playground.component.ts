@@ -41,6 +41,7 @@ import { EpicsApiService } from '@/app/api/epics/epics-api.service';
 import { Epic } from '@/app/api/epics/epics.model';
 import { UserstoriesApiService } from '@/app/api/userstories/userstories-api.service';
 import { UserstoryList } from '@/app/api/userstories/userstories.model';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'tg-playground',
@@ -80,7 +81,8 @@ export class PlaygroundComponent implements OnInit {
     private readonly projectsApiService: ProjectsApiService,
     private readonly membershipsInvitationsApiService: MembershipsInvitationsApiService,
     private readonly epicApiService: EpicsApiService,
-    private readonly userstoriesApiService: UserstoriesApiService
+    private readonly userstoriesApiService: UserstoriesApiService,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiganext');
@@ -114,6 +116,11 @@ export class PlaygroundComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.breakpointObserver
+      .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
+      .subscribe((state: BreakpointState) => {
+        console.log(state);
+      });
     this.initData();
   }
 

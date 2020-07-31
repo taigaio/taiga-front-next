@@ -6,26 +6,13 @@
  * the root directory of this source tree.
  */
 
-import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'tg-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'taiga-front-next';
-  constructor(
-    public breakpointObserver: BreakpointObserver
-    ) {}
-
-  ngOnInit() {
-    this.breakpointObserver
-      .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
-      .subscribe((state: BreakpointState) => {
-        console.log(state);
-      });
-  }
-
 }
