@@ -30,6 +30,7 @@ import { MembershipsInvitationsApiModule } from '../api/memberships-invitations/
 import { EpicsApiModule } from '../api/epics/epics-api.module';
 import { UserstoriesApiModule } from '../api/userstories/userstories-api.module';
 import { CommonComponentsModule } from '../commons/components/common-components.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -58,6 +59,8 @@ import { CommonComponentsModule } from '../commons/components/common-components.
     ProjectsApiModule,
     UserstoriesApiModule,
     CommonComponentsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class PlaygroundModule { }

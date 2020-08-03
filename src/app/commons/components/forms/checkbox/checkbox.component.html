@@ -8,9 +8,10 @@ the root directory of this source tree.
 
 <div class="checkbox-container" >
   <input
-    #myCheck
+    #checkbox
     class="checkbox-input"
     type="checkbox"
+    (click)="check($event)"
     id="checkbox-input" />
   <label for="checkbox-input">
       <ng-content></ng-content>

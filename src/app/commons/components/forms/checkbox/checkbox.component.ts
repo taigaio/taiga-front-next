@@ -6,7 +6,7 @@
  * the root directory of this source tree.
  */
 
-import { Component, OnInit, ChangeDetectionStrategy, forwardRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -17,16 +17,41 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TgCheckboxComponent),
+      useExisting: TgCheckboxComponent,
       multi: true,
     },
   ],
 })
-export class TgCheckboxComponent implements OnInit {
+export class TgCheckboxComponent implements ControlValueAccessor {
 
-  constructor() { }
+  constructor(
+    private renderer: Renderer2
+  ) {}
 
-  ngOnInit(): void {
+  @ViewChild('checkbox') public checkbox: ElementRef;
+
+    // tslint:disable-next-line: variable-name
+    onChange = (_isChecked: boolean) => {};
+    onTouched = () => {};
+
+  public writeValue(isChecked: boolean): void {
+    this.onChange(isChecked);
   }
 
+  public registerOnChange(fn: (isDisabled: boolean) => void): void {
+    this.onChange = fn;
+  }
+
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  public setDisabledState(isDisabled: boolean): void {
+    this.renderer.setProperty(this.checkbox.nativeElement, 'disabled', isDisabled);
+  }
+
+  public check = (event: any): void => {
+    const isChecked: boolean = event.target.checked;
+    this.writeValue(isChecked);
+  }
 }
