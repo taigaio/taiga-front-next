@@ -19,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { TgSvgSpriteComponent } from '@/app/commons/components/svg-sprite/svg-sprite.component';
-import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -43,7 +42,6 @@ import { CdkTableModule } from '@angular/cdk/table';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     ReactiveComponentModule,
-    CdkTableModule,
   ],
   bootstrap: [AppComponent],
   providers: [
