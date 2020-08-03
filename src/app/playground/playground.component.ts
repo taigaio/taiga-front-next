@@ -49,20 +49,6 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
   styleUrls: ['./playground.component.css'],
 })
 export class PlaygroundComponent implements OnInit {
-  stats$!: Observable<Stats>;
-  projectId$!: Observable<ProjectResolver>;
-  milestones$!: Observable<Milestone[]>;
-  epicStatuses$!: Observable<EpicStatus[]>;
-  userstoryStatuses$!: Observable<UserstoryStatus[]>;
-  points$: Observable<Points[]>;
-  taskStatuses$!: Observable<TaskStatus[]>;
-  issueStatuses$!: Observable<IssueStatus[]>;
-  issueTypes$!: Observable<IssueType[]>;
-  priorities$!: Observable<Priority[]>;
-  severities$!: Observable<Severity[]>;
-  members$!: Observable<Membership[]>;
-  epics$!: Observable<Epic[]>;
-  stories$!: Observable<UserstoryList[]>;
 
   constructor(
     private readonly statsApiService: StatsApiService,
@@ -88,11 +74,26 @@ export class PlaygroundComponent implements OnInit {
     this.projectId$ = this.resolverApiService.project('taiganext');
   }
 
-  querySearch() {
+  stats$!: Observable<Stats>;
+  projectId$!: Observable<ProjectResolver>;
+  milestones$!: Observable<Milestone[]>;
+  epicStatuses$!: Observable<EpicStatus[]>;
+  userstoryStatuses$!: Observable<UserstoryStatus[]>;
+  points$: Observable<Points[]>;
+  taskStatuses$!: Observable<TaskStatus[]>;
+  issueStatuses$!: Observable<IssueStatus[]>;
+  issueTypes$!: Observable<IssueType[]>;
+  priorities$!: Observable<Priority[]>;
+  severities$!: Observable<Severity[]>;
+  members$!: Observable<Membership[]>;
+  epics$!: Observable<Epic[]>;
+  stories$!: Observable<UserstoryList[]>;
+
+  public querySearch() {
     this.searchApiService.search('1', 'Ability').subscribe(console.log);
   }
 
-  public initData() {
+  initData() {
     this.projectId$.subscribe((projectResolver) => {
       this.milestones$ = this.milestoneApiService.list(projectResolver.project);
       this.epicStatuses$ = this.epicStatusesApiService.list(projectResolver.project);

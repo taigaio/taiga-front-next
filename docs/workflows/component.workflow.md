@@ -31,6 +31,10 @@ Implement the `:host` selector in the CSS to set the styles of the host containe
 
 Use the `ChangeDetectionStrategy.OnPush` by default meaning that automatic change detection is deactivated. Change detection can still be explicitly invoked.
 
+### Table component
+
+Table components we will use the CDK table component: https://material.angular.io/cdk/table
+As an example, you will find a basic implementation of a table, for reference under '@app/commons/components/table'
 
 ## Testing
 
