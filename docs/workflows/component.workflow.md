@@ -3,8 +3,11 @@
 Create an `Example` component in the commons/components folder.
 
 ```bash
-ng generate component commons/components/Example
+ng generate component commons/components/Example --export --changeDetection OnPush
 ```
+
+This will generate the component files (html, css, ts, spec) and will add the component to the parent module declarations and exports.
+
 Set the component name and selector using the `tg` prefix and remove the unused OnInit function
 
 ```ts
