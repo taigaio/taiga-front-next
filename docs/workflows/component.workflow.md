@@ -62,6 +62,65 @@ describe('ButtonComponent', () => {
 });
 ```
 
+## Responsive
+
+For styling purposes you will find media queries under the styles folder, `responsive.css` file.
+When responsive affects Behaviour, we will use the [Layout CDK helper](https://material.angular.io/cdk/layout/overview) 
+
+```ts
+/**
+ * Copyright (c) 2014-2020 Taiga Agile LLC
+ *
+ * This source code is licensed under the terms of the
+ * GNU Affero General Public License found in the LICENSE file in
+ * the root directory of this source tree.
+ */
+
+import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+
+@Component({
+  selector: 'tg-example',
+  templateUrl: './example.component.html',
+  styleUrls: ['./example.component.css'],
+})
+export class ExampleComponent implements OnInit {
+  constructor(
+    public breakpointObserver: BreakpointObserver,
+    ) {}
+
+  ngOnInit() {
+    this.breakpointObserver
+      .observe([Breakpoints.HandsetPortrait])
+      .subscribe((state: BreakpointState) => {
+        if (result.matches) {
+          this.doThingsForHadsetPortrait();
+        }
+      });
+  }
+}
+```
+
+For specific media queries (avoid if not specifically required by design) you can use [`MediaMatcher`](https://material.angular.io/cdk/layout/overview#mediamatcher)
+
+## Accesibility
+
+As a general rule, for all components we will follow the [basic accesibility principles](https://www.w3.org/WAI/fundamentals/accessibility-principles/):
+
+  * **Text alternatives for non-text content**. All images, icons, charts, labels, forms will have an alternative text if not available
+  * We will use **landmarks, headings, and semantic HTML** everywhere to allow users find the content the look for.
+  * We will try to detect color problems, such as contrast. 
+  * Color should not be the only way to convey information
+  * Users should be able to resize up to 200% and see the information _(layout not required)_
+  * All functionality that is available by mouse is also available by keyboard
+  * Keyboard focus does not get trapped in any part of the content that can only be exited using a mouse or pointing device.
+  * The keyboard focus is visible, and the focus order follows a meaningful sequence
+
+Then, in complex component, we can find some examples and tutorials to follow:
+
+  * [Web Accessibility Tutorials](https://www.w3.org/WAI/tutorials/): Very common components tutorial on accesibility.
+  * [WAI ARIA Design Patterns and Widgets](https://w3c.github.io/aria-practices/): Displays examples of accesible common components
+
 ## Storybook
 
 Create a new `n-componentName.stories.ts` file under the `stories` folder. For example `3-tgExample.stories.ts`

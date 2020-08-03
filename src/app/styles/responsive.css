@@ -1,0 +1,33 @@
+/*
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+*/
+
+/* handset */
+@custom-media --handset
+  (max-width: 599.99px) and (orientation: portrait),
+  (max-width: 959.99px) and (orientation: landscape);
+@custom-media --handset-landscape (max-width: 959.99px) and (orientation: landscape);
+@custom-media --handset-portrait (max-width: 599.99px) and (orientation: portrait);
+
+/* Generic */
+@custom-media --xlarge (min-width: 1920px);
+@custom-media --large (min-width: 1280px) and (max-width: 1919.99px);
+@custom-media --medium (min-width: 960px) and (max-width: 1279.99px);
+@custom-media --small (min-width: 600px) and (max-width: 959.99px);
+@custom-media --xsmall (max-width: 599.99px);
+
+/* Tablet */
+@custom-media --tablet
+  (min-width: 600px) and (max-width: 839.99px) and (orientation: portrait),
+  (min-width: 960px) and (max-width: 1279.99px) and (orientation: landscape);
+@custom-media --tablet-landscape (min-width: 960px) and (max-width: 1279.99px) and (orientation: landscape);
+@custom-media --tablet-portrait (min-width: 600px) and (max-width: 839.99px) and (orientation: portrait);
+
+/* Screen */
+@custom-media --web (min-width: 840px) and (orientation: portrait), (min-width: 1280px) and (orientation: landscape);
+@custom-media --web-landscape (min-width: 1280px) and (orientation: landscape);
+@custom-media --web-portrait (min-width: 840px) and (orientation: portrait);
