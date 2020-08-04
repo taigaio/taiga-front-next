@@ -16,10 +16,17 @@ describe('ButtonComponent', () => {
     component: TgCheckboxComponent,
   });
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => spectator = createComponent({
+    detectChanges: false,
+  }));
 
-  it('should have a success class by default', () => {
-    expect(spectator).toBeTrue();
+  it('should set a default label class', () => {
+    expect(spectator.query('label')).toHaveClass('label-after');
+  });
+
+  it('should set different label class if label set before checkbox', () => {
+    spectator.setInput('labelPosition', 'before');
+    expect(spectator.query('label')).toHaveClass('label-before');
   });
 
 });
