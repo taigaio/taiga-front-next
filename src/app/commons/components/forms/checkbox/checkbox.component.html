@@ -10,7 +10,7 @@ the root directory of this source tree.
   <ng-container *ngIf="labelPosition === 'before'">
     <label
       class="label-before"
-      for="checkbox-input"
+      [attr.for]="id"
       [attr.aria-label]="ariaLabel">
       <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
     </label>
@@ -20,7 +20,7 @@ the root directory of this source tree.
     class="checkbox-input"
     type="checkbox"
     (click)="check($event)"
-    id="checkbox-input" />
+    [attr.id]="id" />
     <ng-container *ngIf="labelPosition === 'after'">
       <label
         class="label-after"

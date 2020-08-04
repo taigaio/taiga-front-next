@@ -11,6 +11,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type LabelPosition = 'before' | 'after';
 
+let nextId = 0;
+
 @Component({
   selector: 'tg-checkbox',
   templateUrl: './checkbox.component.html',
@@ -33,6 +35,7 @@ export class TgCheckboxComponent implements ControlValueAccessor {
   @ViewChild('checkbox') public checkbox: ElementRef;
   @Input() labelPosition: LabelPosition = 'after';
   @Input() ariaLabel?: string | null = null;
+  @Input() id = `tg-checkbox-${nextId++}`;
 
   // tslint:disable-next-line: variable-name
   onChange = (_isChecked: boolean) => {};
