@@ -31,7 +31,7 @@ export class TgCheckboxComponent implements ControlValueAccessor {
   ) {}
 
   @ViewChild('checkbox') public checkbox: ElementRef;
-  @Input() labelPosition: LabelPosition = 'before';
+  @Input() labelPosition: LabelPosition = 'after';
   @Input() ariaLabel?: string | null = null;
 
   // tslint:disable-next-line: variable-name
