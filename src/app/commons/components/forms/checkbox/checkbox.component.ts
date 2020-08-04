@@ -6,8 +6,10 @@
  * the root directory of this source tree.
  */
 
-import { Component, ChangeDetectionStrategy, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Renderer2, ElementRef, ViewChild, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+export type LabelPosition = 'before' | 'after';
 
 @Component({
   selector: 'tg-checkbox',
@@ -29,10 +31,12 @@ export class TgCheckboxComponent implements ControlValueAccessor {
   ) {}
 
   @ViewChild('checkbox') public checkbox: ElementRef;
+  @Input() labelPosition: LabelPosition = 'before';
+  @Input() ariaLabel?: string | null = null;
 
-    // tslint:disable-next-line: variable-name
-    onChange = (_isChecked: boolean) => {};
-    onTouched = () => {};
+  // tslint:disable-next-line: variable-name
+  onChange = (_isChecked: boolean) => {};
+  onTouched = () => {};
 
   public writeValue(isChecked: boolean): void {
     this.onChange(isChecked);
