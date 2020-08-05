@@ -1,0 +1,20 @@
+/*
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+*/
+
+.checkbox-container {
+  align-items: center;
+  display: flex;
+}
+
+.label-before {
+  margin-right: .25rem;
+}
+
+.label-after {
+  margin-left: .25rem;
+}

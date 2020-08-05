@@ -1,0 +1,34 @@
+<!--
+Copyright (c) 2014-2020 Taiga Agile LLC
+
+This source code is licensed under the terms of the
+GNU Affero General Public License found in the LICENSE file in
+the root directory of this source tree.
+-->
+
+<div class="checkbox-container" >
+  <ng-container *ngIf="labelPosition === 'before'">
+    <label
+      class="label-before"
+      [attr.for]="id"
+      [attr.aria-label]="ariaLabel">
+      <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+    </label>
+  </ng-container>
+  <input
+    #checkbox
+    class="checkbox-input"
+    type="checkbox"
+    (click)="check($event)"
+    [attr.id]="id" />
+    <ng-container *ngIf="labelPosition === 'after'">
+      <label
+        class="label-after"
+        for="checkbox-input"
+        [attr.aria-label]="ariaLabel">
+        <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+      </label>
+    </ng-container>
+</div>
+
+<ng-template #contentTpl><ng-content></ng-content></ng-template>

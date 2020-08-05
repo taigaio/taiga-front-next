@@ -13,6 +13,14 @@ the root directory of this source tree.
 
 <tg-loading></tg-loading>
 
+<form [formGroup]="exampleForm">
+  <tg-checkbox formControlName="isChecked">I accept giving all my personal data</tg-checkbox>
+  <tg-checkbox formControlName="isChecked">I accept giving all my personal data</tg-checkbox>
+  <tg-checkbox formControlName="isChecked">I accept giving all my personal data</tg-checkbox>
+  <tg-checkbox formControlName="isChecked">I accept giving all my personal data</tg-checkbox>
+</form>
+
+
 <ng-container *ngrxLet="stats$ as stats">
   <p>total projects: {{ stats?.projects?.total }}</p>
 </ng-container>

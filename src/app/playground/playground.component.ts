@@ -42,6 +42,7 @@ import { Epic } from '@/app/api/epics/epics.model';
 import { UserstoriesApiService } from '@/app/api/userstories/userstories-api.service';
 import { UserstoryList } from '@/app/api/userstories/userstories.model';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'tg-playground',
@@ -49,6 +50,8 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
   styleUrls: ['./playground.component.css'],
 })
 export class PlaygroundComponent implements OnInit {
+
+  public exampleForm: FormGroup;
 
   constructor(
     private readonly statsApiService: StatsApiService,
@@ -68,7 +71,8 @@ export class PlaygroundComponent implements OnInit {
     private readonly membershipsInvitationsApiService: MembershipsInvitationsApiService,
     private readonly epicApiService: EpicsApiService,
     private readonly userstoriesApiService: UserstoriesApiService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private fb: FormBuilder
   ) {
     this.stats$ = this.statsApiService.getDiscover();
     this.projectId$ = this.resolverApiService.project('taiganext');
@@ -110,6 +114,7 @@ export class PlaygroundComponent implements OnInit {
         project: projectResolver.project,
       });
     });
+
   }
 
   public listUserStorage() {
@@ -118,10 +123,15 @@ export class PlaygroundComponent implements OnInit {
 
   ngOnInit(): void {
     this.breakpointObserver
-      .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
-      .subscribe((state: BreakpointState) => {
-        console.log(state);
-      });
+    .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
+    .subscribe((state: BreakpointState) => {
+      console.log(state);
+    });
+
+    this.exampleForm = this.fb.group({
+      isChecked: new FormControl(false, Validators.required),
+    });
+
     this.initData();
   }
 
