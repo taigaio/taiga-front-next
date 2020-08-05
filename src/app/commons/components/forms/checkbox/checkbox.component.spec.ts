@@ -10,7 +10,7 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator';
 
 import { TgCheckboxComponent } from './checkbox.component';
 
-describe('ButtonComponent', () => {
+describe('TgCheckboxComponent', () => {
   let spectator: Spectator<TgCheckboxComponent>;
   const createComponent = createComponentFactory({
     component: TgCheckboxComponent,
