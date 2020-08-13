@@ -14,7 +14,9 @@
     "lint:html": "npx htmlhint '**/*.html'",
     "e2e": "ng e2e",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "build:elements": "ng build --prod --tsConfig tsconfig.webcomponent.json --main src/main-webcomponent.ts --outputPath dist/elements --output-hashing none",
+    "pack:elements": "cat ./dist/elements/{runtime,polyfills,main}-es5.js > dist/elements/elements.js && ls -lah dist/elements/elements.js"
   },
   "private": true,
   "husky": {
@@ -28,6 +30,7 @@
     "@angular/common": "~10.0.5",
     "@angular/compiler": "~10.0.5",
     "@angular/core": "~10.0.5",
+    "@angular/elements": "^10.0.5",
     "@angular/forms": "~10.0.5",
     "@angular/platform-browser": "~10.0.5",
     "@angular/platform-browser-dynamic": "~10.0.5",
@@ -43,6 +46,7 @@
     "@types/showdown": "^1.9.3",
     "@types/turndown": "^5.0.0",
     "change-case": "^4.1.1",
+    "document-register-element": "^1.7.2",
     "rxjs": "~6.6.0",
     "showdown": "^1.9.1",
     "taiga-html-editor": "https://github.com/taigaio/taiga-html-editor#stable",
