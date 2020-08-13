@@ -2,8 +2,15 @@
 
 Create an `Example` component in the commons/components folder.
 
+If you want to create a common component
 ```bash
-ng generate component commons/components/Example --export --changeDetection OnPush
+ng g component commons/components/Example --export --changeDetection OnPush
+```
+
+For a regular component 
+```bash
+ng g m commons/exampleModule
+ng g component commons/example -m commons/example --export --changeDetection OnPush
 ```
 
 This will generate the component files (html, css, ts, spec) and will add the component to the parent module declarations and exports.
