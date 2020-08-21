@@ -18,8 +18,6 @@ import { ReactiveComponentModule } from '@ngrx/component';
 import { createCustomElement } from '@angular/elements';
 
 import { TgSvgSpriteComponent } from '@/app/commons/components/svg-sprite/svg-sprite.component';
-import { ProjectNavigationModule } from './commons/project-navigation/project-navigation.module';
-import { ProjectNavigationComponent } from './commons/project-navigation/project-navigation.component';
 import { TextEditorModule } from '@/app/commons/text-editor/text-editor.module';
 import { TextEditorComponent } from './commons/text-editor/text-editor.component';
 
@@ -42,7 +40,6 @@ import { TextEditorComponent } from './commons/text-editor/text-editor.component
     extModules,
     EffectsModule.forRoot([]),
     ReactiveComponentModule,
-    ProjectNavigationModule,
     TextEditorModule,
   ],
   providers: [
