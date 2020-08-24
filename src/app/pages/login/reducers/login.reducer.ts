@@ -6,7 +6,7 @@
  * the root directory of this source tree.
  */
 
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import * as LoginActions from '../actions/login.actions';
 
 export const loginFeatureKey = 'login';
@@ -21,7 +21,7 @@ export const initialState: LoginState = {
   loading: false,
 };
 
-export const reducer = createReducer(
+const loginReducer = createReducer(
   initialState,
 
   on(LoginActions.login, state => {
@@ -46,3 +46,6 @@ export const reducer = createReducer(
   })
 );
 
+export function reducer(state: LoginState | undefined, action: Action) {
+  return loginReducer(state, action);
+}
