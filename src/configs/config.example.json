@@ -1,3 +1,4 @@
 {
-  "api": "https://api.taiga.io/api/v1/"
+  "api": "https://api.taiga.io/api/v1/",
+  "defaultLanguage": "en"
 }

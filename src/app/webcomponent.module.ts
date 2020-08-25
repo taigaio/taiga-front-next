@@ -20,12 +20,25 @@ import { createCustomElement } from '@angular/elements';
 import { TgSvgSpriteComponent } from '@/app/commons/components/svg-sprite/svg-sprite.component';
 import { TextEditorModule } from '@/app/commons/text-editor/text-editor.module';
 import { TextEditorComponent } from './commons/text-editor/text-editor.component';
+import { ProjectNavigationModule } from './commons/project-navigation/project-navigation.module';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LegacyModule } from './commons/legacy/legacy.module';
+import { LegacyComponent } from './commons/legacy/legacy.component';
+import { LegacyLoaderComponent } from './commons/legacy/legacy-loader.component';
+
+const componentes: [string, any][] = [
+  ['tg-text-editor', TextEditorComponent],
+  // ['tg-project-navigation', ProjectNavigationComponent],
+  ['tg-legacy', LegacyComponent],
+  ['tg-legacy-loader', LegacyLoaderComponent],
+];
 
 @NgModule({
   declarations: [
     TgSvgSpriteComponent,
   ],
   imports: [
+    LegacyModule,
     HttpClientModule,
     BrowserModule,
     StoreModule.forRoot({}, {
@@ -41,15 +54,22 @@ import { TextEditorComponent } from './commons/text-editor/text-editor.component
     EffectsModule.forRoot([]),
     ReactiveComponentModule,
     TextEditorModule,
+    ProjectNavigationModule,
+    TranslateModule.forRoot(),
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ConfigService],
-      useFactory: (appConfigService: ConfigService) => {
+      deps: [ConfigService, TranslateService],
+      useFactory: (appConfigService: ConfigService, translate: TranslateService) => {
         return () => {
-          return appConfigService.fetch();
+          return appConfigService.fetch().then((config) => {
+            translate.setDefaultLang(config.defaultLanguage);
+            translate.use(config.defaultLanguage);
+
+            return config;
+          });
         };
       },
     },
@@ -59,7 +79,9 @@ export class WebcomponentModule {
   constructor(private injector: Injector) {}
 
   ngDoBootstrap() {
-    const el = createCustomElement(TextEditorComponent, {injector : this.injector});
-    customElements.define('tg-text-editor', el);
+    for (const component of componentes) {
+      const el = createCustomElement(component[1], {injector : this.injector});
+      customElements.define(component[0], el);
+    }
   }
 }
