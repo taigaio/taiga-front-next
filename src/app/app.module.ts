@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { TgSvgSpriteComponent } from '@/app/commons/components/svg-sprite/svg-sprite.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -42,16 +43,22 @@ import { TgSvgSpriteComponent } from '@/app/commons/components/svg-sprite/svg-sp
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     ReactiveComponentModule,
+    TranslateModule.forRoot(),
   ],
   bootstrap: [AppComponent],
   providers: [
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ConfigService],
-      useFactory: (appConfigService: ConfigService) => {
+      deps: [ConfigService, TranslateService],
+      useFactory: (appConfigService: ConfigService, translate: TranslateService) => {
         return () => {
-          return appConfigService.fetch();
+          return appConfigService.fetch().then((config) => {
+            translate.setDefaultLang(config.defaultLanguage);
+            translate.use(config.defaultLanguage);
+
+            return config;
+          });
         };
       },
     },

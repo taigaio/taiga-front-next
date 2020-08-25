@@ -19,7 +19,7 @@ export class ConfigService {
 
   constructor(private readonly http: HttpClient, private readonly environmentService: EnvironmentService) {}
 
-  public fetch() {
+  public fetch(): Promise<Config> {
     const environment = this.environmentService.getEnvironment();
 
     return new Promise((resolve, reject) => {
