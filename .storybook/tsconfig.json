@@ -6,11 +6,8 @@
     ],
   },
   "exclude": [
-    "../src/test.ts",
-    "../**/*.mock.ts",
     "../src/**/*.spec.ts",
-    "../projects/**/*.spec.ts",
-    "../src/app/webcomponent.module.ts"
+    "../src/**/*.mock.ts"
   ],
   "include": [
     "../src/**/*",
