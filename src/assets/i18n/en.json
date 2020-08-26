@@ -887,7 +887,8 @@
             "WIKI": "Wiki",
             "TEAM": "Team",
             "MEETUP": "Meet Up",
-            "ADMIN": "Admin"
+            "ADMIN": "Admin",
+            "SCRUM": "Scrum"
         },
         "NAVIGATION": {
             "PROJECTS": "Projects",

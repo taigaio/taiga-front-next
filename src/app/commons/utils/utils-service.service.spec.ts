@@ -54,4 +54,44 @@ describe('UtilsService', () => {
     expect(formData.get('param7')).toBeInstanceOf(File);
     expect((formData.get('param7') as File).name).toEqual('test.png');
   });
+
+  it('transform object to FormData with param3 key transformation', () => {
+    const params = {
+      url: 'test',
+      body: {
+        theUser: {
+          user_id: 3,
+          permissions: [
+            'test1',
+            'test2',
+            'test3',
+          ],
+          contacts: [
+            { user_name: 'Contact1'},
+            { user_name: 'Contact2'},
+          ],
+        },
+      },
+    };
+
+    const transformedObj = UtilsService.objKeysTransformer(params, (x: string) => x.toUpperCase());
+
+    expect(transformedObj).toEqual({
+      URL: 'test',
+      BODY: {
+        THEUSER: {
+          USER_ID: 3,
+          PERMISSIONS: [
+            'test1',
+            'test2',
+            'test3',
+          ],
+          CONTACTS: [
+            { USER_NAME: 'Contact1'},
+            { USER_NAME: 'Contact2'},
+          ],
+        },
+      },
+    });
+  });
 });
