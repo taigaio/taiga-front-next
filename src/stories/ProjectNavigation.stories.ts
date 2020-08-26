@@ -7,27 +7,24 @@
  */
 
 import { moduleMetadata } from '@storybook/angular';
-import { TranslateModule } from '@ngx-translate/core';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 
 import { ProjectNavigationModule } from '@/app/commons/project-navigation/project-navigation.module';
 import { ProjectNavigationComponent } from '@/app/commons/project-navigation/project-navigation.component';
+import { StoryBookTranslationModule } from './utils/translate-local-loader';
 
 export default {
   title: 'Commons/ProjectNavigation',
   component: ProjectNavigationComponent,
   decorators: [
-  moduleMetadata({
-    declarations: [],
-    imports: [
-      TranslateModule.forRoot(),
-      ProjectNavigationModule,
-    ],
-  }),
+    moduleMetadata({
+      declarations: [],
+      imports: [
+        StoryBookTranslationModule(),
+        ProjectNavigationModule,
+      ],
+    }),
   ],
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 } as Meta;
 
 const Template: Story<ProjectNavigationComponent> = (args: ProjectNavigationComponent) => ({
