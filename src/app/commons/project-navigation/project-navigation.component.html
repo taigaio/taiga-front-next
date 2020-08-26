@@ -6,4 +6,31 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 -->
 
-<h1>{{ 'COMMON.YES'| translate }}</h1>
+<h1>{{ project.name }}</h1>
+
+<ul>
+  <li *ngIf="isMenuEpicsEnabled">
+    <a
+      [routerLink]="['/project', project.slug, 'epics']"
+      title="{{'EPICS.TITLE' | translate}}"
+      tabindex="1">{{'EPICS.TITLE' | translate}}</a>
+  </li>
+  <li *ngIf="isMenuScrumEnabled">
+    <a
+      [routerLink]="['/project', project.slug, 'backlog']"
+      title="{{'PROJECT.SECTION.SCRUM' | translate}}"
+      tabindex="2">{{'PROJECT.SECTION.SCRUM' | translate}}</a>
+  </li>
+  <li *ngIf="isMenuKanbanEnabled">
+    <a
+      [routerLink]="['/project', project.slug, 'kanban']"
+      title="{{'PROJECT.SECTION.KANBAN' | translate}}"
+      tabindex="3">{{'PROJECT.SECTION.KANBAN' | translate}}</a>
+  </li>
+  <li *ngIf="isMenuIssuesEnabled">
+    <a
+      [routerLink]="['/project', project.slug, 'issues']"
+      title="{{'PROJECT.SECTION.ISSUES' | translate}}"
+      tabindex="4">{{'PROJECT.SECTION.ISSUES' | translate}}</a>
+  </li>
+</ul>

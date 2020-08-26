@@ -7,6 +7,28 @@
  */
 
 const path = require('path');
+const ModuleDependencyWarning = require('webpack/lib/ModuleDependencyWarning');
+
+// https://github.com/webpack/webpack/issues/7378
+// https://github.com/TypeStrong/ts-loader/issues/653
+class IgnoreNotFoundExportPlugin {
+  apply(compiler) {
+      const messageRegExp = /export '.*'( \(reexported as '.*'\))? was not found in/
+      function doneHook(stats) {
+          stats.compilation.warnings = stats.compilation.warnings.filter(function(warn) {
+              if (warn instanceof ModuleDependencyWarning && messageRegExp.test(warn.message)) {
+                  return false
+              }
+              return true;
+          })
+      }
+      if (compiler.hooks) {
+          compiler.hooks.done.tap("IgnoreNotFoundExportPlugin", doneHook)
+      } else {
+          compiler.plugin("done", doneHook)
+      }
+  }
+}
 
 // Export a function. Accept the base config as the only param.
 module.exports = {
@@ -22,6 +44,8 @@ module.exports = {
       loader : 'postcss-loader',
       include: path.resolve(__dirname, "../")
     });
+
+    config.plugins.push(new IgnoreNotFoundExportPlugin());
 
     // Return the altered config
     return config;

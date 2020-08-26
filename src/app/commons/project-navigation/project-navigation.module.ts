@@ -10,13 +10,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectNavigationComponent } from './project-navigation.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [ProjectNavigationComponent],
   imports: [
     CommonModule,
     TranslateModule,
+    RouterModule.forChild([]),
   ],
-  exports: [ProjectNavigationComponent],
+  exports: [
+    ProjectNavigationComponent,
+],
 })
 export class ProjectNavigationModule { }

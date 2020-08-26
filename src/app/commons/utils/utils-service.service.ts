@@ -62,4 +62,26 @@ export class UtilsService {
 
     return formData;
   }
+
+  static objKeysTransformer(
+    input: object | ArrayLike<unknown>,
+    transformerFn: (input: object | ArrayLike<unknown>) => string): object | ArrayLike<unknown> {
+    if (input === null || typeof input !== 'object') {
+      return input;
+    } else if (Array.isArray(input)) {
+      return input.map((it) => {
+        return this.objKeysTransformer(it, transformerFn);
+      });
+    } else {
+      return Object.fromEntries(
+        Object.entries(input).map(([key, value]) => {
+          if (typeof value === 'object' && value !== null) {
+            return [transformerFn(key), this.objKeysTransformer(value, transformerFn)];
+          }
+
+          return [transformerFn(key), value];
+        })
+      );
+    }
+  }
 }

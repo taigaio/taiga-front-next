@@ -15,8 +15,7 @@ import { Router } from '@angular/router';
 import { camelCase, snakeCase } from 'change-case';
 
 import { ConfigService } from '@/app/config.service';
-
-type TranformerInput = object | ArrayLike<unknown>;
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
 
 @Injectable()
 export class ApiRestInterceptorService implements HttpInterceptor {
@@ -68,7 +67,7 @@ export class ApiRestInterceptorService implements HttpInterceptor {
     let newRequest = request;
 
     if (newRequest.body) {
-      const body = this.objKeysTransformer(newRequest.body, snakeCase);
+      const body = UtilsService.objKeysTransformer(newRequest.body, snakeCase);
       newRequest = newRequest.clone({ body });
     }
 
@@ -90,7 +89,7 @@ export class ApiRestInterceptorService implements HttpInterceptor {
   }
 
   private camelCaseResponseInterceptor(event: HttpResponse<any>): HttpResponse<any> {
-    const body = this.objKeysTransformer(event.body, camelCase);
+    const body = UtilsService.objKeysTransformer(event.body, camelCase);
     return event.clone({ body });
   }
 
@@ -106,23 +105,5 @@ export class ApiRestInterceptorService implements HttpInterceptor {
     }
 
     return request;
-  }
-
-  private objKeysTransformer(input: TranformerInput, transformerFn: (input: TranformerInput) => string): TranformerInput {
-    if (Array.isArray(input)) {
-      return input.map((it) => {
-        return this.objKeysTransformer(it, transformerFn);
-      });
-    } else {
-      return Object.fromEntries(
-        Object.entries(input).map(([key, value]) => {
-          if (typeof value === 'object' && value !== null) {
-            return [transformerFn(key), this.objKeysTransformer(value, transformerFn)];
-          }
-
-          return [transformerFn(key), value];
-        })
-      );
-    }
   }
 }

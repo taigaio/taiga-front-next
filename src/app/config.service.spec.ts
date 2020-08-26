@@ -9,9 +9,13 @@
 import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
 import { ConfigService } from '@/app/config.service';
 import { EnvironmentService } from './environment.service';
+import { Config } from './models/config.model';
 
 describe('ConfigService', () => {
-  const fakeConfig = { api: 'http://fake' };
+  const fakeConfig: Config = {
+    api: 'http://fake',
+    defaultLanguage: 'en',
+  };
 
   let spectator: SpectatorHttp<ConfigService>;
   const createHttp = createHttpFactory({

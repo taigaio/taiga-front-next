@@ -204,7 +204,7 @@ export interface Project {
   logoSmallUrl: string;
   lookingForPeopleNote: string;
   maxMemberships: null | number;
-  members: {
+  members: Array<{
     role: number;
     roleName: string;
   } & Pick<User,
@@ -215,7 +215,7 @@ export interface Project {
       'id' |
       'isActive' |
       'photo' |
-      'username'>[];
+      'username'>>;
   milestones: Pick<Milestone,
     'closed' |
     'id' |
@@ -234,22 +234,22 @@ export interface Project {
     'isActive' |
     'photo' |
     'username'>;
-  points: {
+  points: Array<{
     projectId: number;
   } & Pick<Points ,
     'id' |
     'name' |
     'order' |
-    'value'>[];
+    'value'>>;
   priorities: Attribute[];
   publicPermissions: Permissions[];
-  roles: Pick<Role,
+  roles: Array<Pick<Role,
     'computable' |
     'id' |
     'name' |
     'order' |
     'permissions' |
-    'slug'> & {projectId: number}[];
+    'slug'> & {projectId: number}>;
   severities: Attribute[];
   slug: string;
   tags: string[];

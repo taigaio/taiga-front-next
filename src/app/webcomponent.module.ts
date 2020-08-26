@@ -25,6 +25,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LegacyModule } from './commons/legacy/legacy.module';
 import { LegacyComponent } from './commons/legacy/legacy.component';
 import { LegacyLoaderComponent } from './commons/legacy/legacy-loader.component';
+import { RouterModule } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 
 const componentes: [string, any][] = [
   ['tg-text-editor', TextEditorComponent],
@@ -56,8 +58,10 @@ const componentes: [string, any][] = [
     TextEditorModule,
     ProjectNavigationModule,
     TranslateModule.forRoot(),
+    RouterModule.forRoot([]),
   ],
   providers: [
+    {provide: APP_BASE_HREF, useValue: '/'},
     {
       provide: APP_INITIALIZER,
       multi: true,

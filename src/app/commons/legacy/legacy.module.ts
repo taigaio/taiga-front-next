@@ -12,11 +12,13 @@ import { LegacyComponent } from './legacy.component';
 import { LegacyLoaderComponent } from './legacy-loader.component';
 import { ProjectNavigationModule } from '../project-navigation/project-navigation.module';
 import { CommonModule } from '@angular/common';
+import { CamelCaseTranformerPipe } from './camelcase-tranformer.pipe';
 
 @NgModule({
   declarations: [
     LegacyComponent,
     LegacyLoaderComponent,
+    CamelCaseTranformerPipe,
   ],
   imports: [
     CommonModule,

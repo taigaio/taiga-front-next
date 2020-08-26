@@ -6,14 +6,13 @@
  * the root directory of this source tree.
  */
 
-import { Component, ChangeDetectionStrategy, Input, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'tg-legacy-loader',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './legacy-loader.component.html',
 })
 export class LegacyLoaderComponent implements OnInit, OnDestroy {
@@ -23,6 +22,9 @@ export class LegacyLoaderComponent implements OnInit, OnDestroy {
 
   @Input()
   public component: string;
+
+  @Input()
+  public params: any;
 
   public ngOnInit(): void {
     this.translate.onLangChange
