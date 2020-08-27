@@ -11,10 +11,11 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LegacyService {
   private injector: any;
+  private ready = false;
 
   public getInjector() {
     if (!this.injector) {
-      this.injector = (window as any).angular.element('body').injector();
+      this.injector = this.angularBody().injector();
     }
 
     return this.injector;
@@ -26,4 +27,30 @@ export class LegacyService {
     return translate.getTranslationTable(lan);
   }
 
+  public angularBody() {
+    return (window as any).angular.element('body');
+  }
+
+  public whenAngularReady() {
+    const body = this.angularBody();
+
+    if (this.ready) {
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      const check = () => {
+        requestAnimationFrame(() => {
+          if (body.injector()) {
+            this.ready = true;
+            resolve();
+          } else {
+            check();
+          }
+        });
+      };
+
+      check();
+    });
+  }
 }

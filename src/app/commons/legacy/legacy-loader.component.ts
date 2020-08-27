@@ -18,7 +18,10 @@ import { takeUntil } from 'rxjs/operators';
 export class LegacyLoaderComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private translate: TranslateService, private cd: ChangeDetectorRef) {}
+  constructor(
+    private translate: TranslateService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   @Input()
   public component: string;
