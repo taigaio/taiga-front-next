@@ -7,7 +7,7 @@
  */
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector, Component } from '@angular/core';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -25,12 +25,17 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LegacyModule } from './commons/legacy/legacy.module';
 import { LegacyComponent } from './commons/legacy/legacy.component';
 import { LegacyLoaderComponent } from './commons/legacy/legacy-loader.component';
-import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
+
+@Component({
+  selector: 'tg-empty',
+  template: '',
+})
+export class EmptyComponent {}
 
 const componentes: [string, any][] = [
   ['tg-text-editor', TextEditorComponent],
-  // ['tg-project-navigation', ProjectNavigationComponent],
   ['tg-legacy', LegacyComponent],
   ['tg-legacy-loader', LegacyLoaderComponent],
 ];
@@ -58,7 +63,12 @@ const componentes: [string, any][] = [
     TextEditorModule,
     ProjectNavigationModule,
     TranslateModule.forRoot(),
-    RouterModule.forRoot([]),
+    RouterTestingModule.withRoutes([
+      {
+        path: '**',
+        component: EmptyComponent,
+      },
+    ]),
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},
