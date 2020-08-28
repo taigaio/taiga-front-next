@@ -6,33 +6,134 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 -->
 
-<h1>{{ project.name }}</h1>
+<h1>
+  <img [tgProjectLogo]="project" logo="small" [alt]="project.name" />
+  {{ project.name }}
+</h1>
 
-<ul>
-  <li *ngIf="isMenuEpicsEnabled">
+<ul class="main-menu">
+  <li *ngIf="isMenuEpicsEnabled" class="menu-option">
     <a
       [routerLink]="['/project', project.slug, 'epics']"
-      title="{{'EPICS.TITLE' | translate}}"
-      tabindex="1">{{'EPICS.TITLE' | translate}}</a>
+      title="{{'PROJECT.SECTION.EPICS' | translate}}">
+      <svg>
+        <use href="#epic" />
+      </svg>
+      {{'PROJECT.SECTION.EPICS' | translate}}</a>
   </li>
-  <li *ngIf="isMenuScrumEnabled">
-    <a
-      [routerLink]="['/project', project.slug, 'backlog']"
-      title="{{'PROJECT.SECTION.SCRUM' | translate}}"
-      tabindex="2">{{'PROJECT.SECTION.SCRUM' | translate}}</a>
+  <li
+    *ngIf="isMenuScrumEnabled"
+    class="menu-option scrum"
+    [class.active]="scrumVisible">
+    <button
+      (click)="toggleScrum()"
+      type="button"
+      title="{{'PROJECT.SECTION.SCRUM' | translate}}">
+      <svg>
+        <use href="#agile" />
+      </svg>
+      {{'PROJECT.SECTION.SCRUM' | translate}}
+      <svg class="agile-chevron">
+        <use href="#chevron-left" />
+      </svg>
+    </button>
+    <ul *ngIf="scrumVisible" class="child-menu">
+      <li>
+        <a
+          [routerLink]="['/project', project.slug, 'backlog']"
+          title="{{'PROJECT.SECTION.BACKLOG' | translate}}">
+          {{'PROJECT.SECTION.BACKLOG' | translate}}
+        </a>
+      </li>
+      <li *ngFor="let milestone of project.milestones.slice(0, 7)">
+        <a
+          [routerLink]="['/project', project.slug, 'taskboard', milestone.slug]"
+          title="{{ milestone.name }}">
+          {{ milestone.name }}
+        </a>
+      </li>
+    </ul>
   </li>
-  <li *ngIf="isMenuKanbanEnabled">
+  <li *ngIf="isMenuKanbanEnabled" class="menu-option">
     <a
       [routerLink]="['/project', project.slug, 'kanban']"
-      title="{{'PROJECT.SECTION.KANBAN' | translate}}"
-      tabindex="3">{{'PROJECT.SECTION.KANBAN' | translate}}</a>
+      title="{{'PROJECT.SECTION.KANBAN' | translate}}">
+      <svg>
+        <use href="#kanban5" />
+      </svg>
+      {{'PROJECT.SECTION.KANBAN' | translate}}
+    </a>
   </li>
-  <li *ngIf="isMenuIssuesEnabled">
+  <li *ngIf="isMenuIssuesEnabled" class="menu-option">
     <a
       [routerLink]="['/project', project.slug, 'issues']"
-      title="{{'PROJECT.SECTION.ISSUES' | translate}}"
-      tabindex="4">{{'PROJECT.SECTION.ISSUES' | translate}}</a>
+      title="{{'PROJECT.SECTION.ISSUES' | translate}}">
+      <svg>
+        <use href="#issue" />
+      </svg>
+      {{'PROJECT.SECTION.ISSUES' | translate}}
+    </a>
   </li>
 </ul>
 
-<!-- [routerLink]="['/project', project.slug, 'epics']" -->
+<ul class="menu-secondary main-menu">
+  <li class="menu-option">
+    <button
+      title="{{'PROJECT.SECTION.SEARCH' | translate}}"
+      type="button">
+      <svg>
+        <use href="#search" />
+      </svg>
+      {{'PROJECT.SECTION.SEARCH' | translate}}</button>
+  </li>
+  <li *ngIf="videoUrl" class="menu-option">
+    <a
+      [href]="videoUrl"
+      title="{{'PROJECT.SECTION.MEETUP' | translate}}"
+      target="_blank">
+      <svg>
+        <use href="#video" />
+      </svg>
+      {{'PROJECT.SECTION.MEETUP' | translate}}
+    </a>
+  </li>
+  <li *ngIf="isMenuWikiEnabled" class="menu-option">
+    <a
+      [routerLink]="['/project', project.slug, 'wiki']"
+      title="{{'PROJECT.SECTION.WIKI' | translate}}">
+      <svg>
+        <use href="#book" />
+      </svg>
+      {{'PROJECT.SECTION.WIKI' | translate}}
+    </a>
+  </li>
+  <li class="menu-option">
+    <a
+      [routerLink]="['/project', project.slug, 'team']"
+      title="{{'PROJECT.SECTION.TEAM' | translate}}">
+      <svg>
+        <use href="#users" />
+      </svg>
+      {{'PROJECT.SECTION.TEAM' | translate}}
+    </a>
+  </li>
+  <li *ngIf="project.iAmAdmin" class="menu-option">
+    <a
+      [routerLink]="['/project', project.slug, 'project-profile/details']"
+      title="{{'PROJECT.SECTION.SETTINGS' | translate}}">
+      <svg>
+        <use href="#settings" />
+      </svg>
+      {{'PROJECT.SECTION.SETTINGS' | translate}}
+    </a>
+  </li>
+</ul>
+
+<div class="collapse">
+  {{'PROJECT.SECTION.COLLAPSE_MENU' | translate}}
+  <button type="button">
+    <svg>
+      <use href="#chevrons-left" />
+    </svg>
+  </button>
+</div>

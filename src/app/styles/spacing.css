@@ -7,7 +7,8 @@ the root directory of this source tree.
 */
 
 /* Spacing - Paddings and margins */
-:root {
+:root,
+:host {
   --spacing-1: .5rem;
   --spacing-2: calc(var(--spacing-1) * 2);
   --spacing-3: calc(var(--spacing-1) * 3);

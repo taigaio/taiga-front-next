@@ -4,6 +4,7 @@ Package.json
 
 - @angular/elements
 - document-register-element
+- elements-zone-strategy
 
 New files
 
@@ -24,7 +25,7 @@ Add the component to webcomponent.module.ts or legacy-loader if your component h
 
 Build npm run build:elements && npm run pack:elements
 
-Copy the result file to taiga-front node_modules `cp ./dist/elements/elements.js ../taiga-front-next/node_modules`
+Copy the result file to taiga-front node_modules `cp ./dist/elements/elements.js ../taiga-front/node_modules`
 
 Use the component in taiga-front, with the tag or the legacy-loader 
 
@@ -40,4 +41,12 @@ tg-legacy-loader(
 )
 ```
 
-Remember keep the locales sync in `src/assets/i18n/` (taigra-front-next) and `app/locales/taiga` (taiga-front)
+Remember keep the locales sync in `src/assets/i18n/` (taiga-front-next) and `app/locales/taiga` (taiga-front)
+
+
+For the webcomponent we had to add :host in every :root, because :root doesn't refer to the webcomponent root and we still need :root for storybook and playground. 
+
+```css
+:root,
+:host {}
+```

@@ -22,3 +22,8 @@ declare module 'turndown-plugin-gfm' {
   export var strikethrough: any;
   export var taskListItems: any;
 }
+
+declare module 'imurmurhash' {
+  const content: any;
+	export default content;
+}
