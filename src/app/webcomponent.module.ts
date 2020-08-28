@@ -17,7 +17,6 @@ import { ConfigService } from './config.service';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { createCustomElement } from '@angular/elements';
 
-import { TgSvgSpriteComponent } from '@/app/commons/components/svg-sprite/svg-sprite.component';
 import { TextEditorModule } from '@/app/commons/text-editor/text-editor.module';
 import { TextEditorComponent } from './commons/text-editor/text-editor.component';
 import { ProjectNavigationModule } from './commons/project-navigation/project-navigation.module';
@@ -41,9 +40,7 @@ const componentes: [string, any][] = [
 ];
 
 @NgModule({
-  declarations: [
-    TgSvgSpriteComponent,
-  ],
+  declarations: [],
   imports: [
     LegacyModule,
     HttpClientModule,

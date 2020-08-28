@@ -15,7 +15,9 @@ import { LegacyService } from './legacy.service';
 @Component({
   selector: 'tg-legacy',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '',
+  template: `
+    <tg-svg-sprite></tg-svg-sprite>
+  `,
 })
 export class LegacyComponent implements OnInit {
   constructor(
