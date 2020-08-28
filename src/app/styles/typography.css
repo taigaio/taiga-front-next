@@ -6,7 +6,8 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 */
 
-:root {
+:root,
+:host {
   /* Font size */
   --font-size-heading-1: 2.136rem; /* 34.176px */
   --font-size-heading-2: 1.709rem; /* 27.344px */

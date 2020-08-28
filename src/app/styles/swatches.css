@@ -6,10 +6,12 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 */
 
-:root {
+:root,
+:host {
   /* Primary */
   --color-solid-primary: rgb(131, 238, 222);
   --color-link-primary: rgb(0, 138, 168);
+  --color-link-tertiary: rgb(112, 114, 143);
 
   /* Grayscale Light */
   --color-gray100: rgb(249, 249, 251);

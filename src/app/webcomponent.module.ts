@@ -26,6 +26,7 @@ import { LegacyComponent } from './commons/legacy/legacy.component';
 import { LegacyLoaderComponent } from './commons/legacy/legacy-loader.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ElementZoneStrategyFactory } from 'elements-zone-strategy';
 
 @Component({
   selector: 'tg-empty',
@@ -91,7 +92,9 @@ export class WebcomponentModule {
 
   ngDoBootstrap() {
     for (const component of componentes) {
-      const el = createCustomElement(component[1], {injector : this.injector});
+      const strategyFactory = new ElementZoneStrategyFactory(component[1], this.injector);
+      const el = createCustomElement(component[1], {injector : this.injector, strategyFactory});
+
       customElements.define(component[0], el);
     }
   }

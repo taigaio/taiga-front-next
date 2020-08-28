@@ -84,4 +84,12 @@ export class UtilsService {
       );
     }
   }
+
+  static slugify(data: string) {
+    return data.toLowerCase().trim()
+        .replace(/\s+/g, '-')
+        .replace(/&/g, '-and-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-');
+  }
 }

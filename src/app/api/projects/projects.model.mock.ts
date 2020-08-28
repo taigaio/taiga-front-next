@@ -12,6 +12,7 @@ import { Project, Status } from './projects.model';
 import { UserMockFactory } from '@/app/api/users/users.model.mock';
 import { PointsMockFactory } from '@/app/api/points/points.model.mock';
 import { Permissions } from '@/app/api/roles/roles.model';
+import { MilestoneMockFactory } from '../milestones/milestones.model.mock';
 
 export const ProjectStatusMockFactory = Factory.Sync.makeFactory<Status>({
   id: faker.random.number(),
@@ -76,7 +77,9 @@ export const ProjectMockFactory = Factory.Sync.makeFactory<Project>({
       ...UserMockFactory.build(),
     },
   ],
-  milestones: [],
+  milestones: [
+    MilestoneMockFactory.build(),
+  ],
   modifiedDate: faker.date.past.toString(),
   myHomepage: faker.random.number(),
   myPermissions: [

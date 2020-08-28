@@ -11,16 +11,18 @@ import { CommonModule } from '@angular/common';
 import { ProjectNavigationComponent } from './project-navigation.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { ProjectLogoModule } from '../project-logo/project-logo.module';
 
 @NgModule({
   declarations: [ProjectNavigationComponent],
   imports: [
+    ProjectLogoModule,
     CommonModule,
     TranslateModule,
     RouterModule.forChild([]),
   ],
   exports: [
     ProjectNavigationComponent,
-],
+  ],
 })
 export class ProjectNavigationModule { }

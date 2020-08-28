@@ -8,6 +8,142 @@ the root directory of this source tree.
 
 :host {
   background-color: var(--color-black800);
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 800px;
   width: 200px;
+}
+
+h1 {
+  align-items: center;
+  color: var(--color-white);
+  background-color: var(--color-black900);
+  display: flex;
+  font-size: var(--font-size-medium);
+  margin: 0;
+  padding: var(--spacing-2);
+
+  & img {
+    border-radius: 2px;
+    height: 24px;
+    margin-right: var(--spacing-1);
+    width: 24px;
+  }
+}
+
+.main-menu {
+  padding: 0;
+  margin: 0;
+
+  & svg {
+    fill: var(--color-gray400);
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.menu-option {
+  list-style: none;
+
+  &.active a,
+  &.active button,
+  & a:hover,
+  & button:hover {
+    background-color: var(--color-black900);
+  }
+
+  & a,
+  & button {
+    align-items: center;
+    color: var(--color-white);
+    display: flex;
+    padding: var(--spacing-1) var(--spacing-2);
+    text-decoration: none;
+  }
+
+  & button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  & svg {
+    margin-right: var(--spacing-1);
+  }
+
+  & .agile-chevron {
+    fill: var(--color-solid-primary);
+    margin: 0 0 0 auto;
+    width: 16px;
+  }
+}
+
+.child-menu {
+  background-color: var(--color-black900);
+  list-style: none;
+  padding-left: var(--spacing-5);
+
+  & a {
+    display: block;
+    padding-left: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--color-solid-primary);
+    }
+  }
+
+  & li:first-child a {
+    color: var(--color-solid-primary);
+    font-weight: bold;
+  }
+}
+
+.scrum {
+  &.active {
+    & > button {
+      color: var(--color-link-tertiary);
+    }
+
+    & .agile-chevron {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.menu-secondary {
+  border: 1px solid var(--color-black900);
+  margin-top: auto;
+}
+
+.collapse {
+  align-items: center;
+  border-top: 1px solid var(--color-black900);
+  color: var(--color-white);
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--spacing-1);
+
+  & button {
+    align-items: center;
+    background: var(--color-black900);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    margin-left: var(--spacing-1);
+    padding: 0;
+    height: 24px;
+    width: 24px;
+  }
+
+  & svg {
+    fill: var(--color-link-primary);
+    height: 20px;
+    width: 20px;
+  }
 }

@@ -10,6 +10,7 @@ the root directory of this source tree.
 This layer holds any **global** settings for your project. This layer should only house settings that need to be accessed from anywhere. Settings like custom propiertes. This ensures this layer should stay nice and slim, and means that most settings can be found alongside the code that uses them, making finding things far simpler. Examples of global settings might be things like the base font size, colour palettes, config and so on.
 */
 
+@import "normalize.css";
 @import "swatches.css";
 @import "fonts.css";
 @import "typography.css";

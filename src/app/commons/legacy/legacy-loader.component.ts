@@ -6,7 +6,7 @@
  * the root directory of this source tree.
  */
 
-import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,6 +14,8 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'tg-legacy-loader',
   templateUrl: './legacy-loader.component.html',
+  styleUrls: ['../../styles/styles.css'],
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class LegacyLoaderComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<boolean> = new Subject<boolean>();

@@ -6,9 +6,15 @@
  * the root directory of this source tree.
  */
 
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Project } from '../../api/projects/projects.model';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Project } from '@/app/api/projects/projects.model';
 import { Permissions } from '@/app/api/roles/roles.model';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
+
+// TODO:
+// ACTIVE
+// COLLAPSE
+// TESTING
 
 @Component({
   selector: 'tg-project-navigation',
@@ -16,9 +22,16 @@ import { Permissions } from '@/app/api/roles/roles.model';
   styleUrls: ['./project-navigation.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectNavigationComponent {
+export class ProjectNavigationComponent implements OnInit {
   @Input()
   public project: Project;
+  public videoUrl: string;
+  public scrumVisible = false;
+
+  public ngOnInit() {
+    console.log(this.project);
+    this.videoUrl = this.videoConferenceUrl();
+  }
 
   get isMenuEpicsEnabled() {
     return this.project.isEpicsActivated && this.project.myPermissions.includes(Permissions.viewEpics);
@@ -36,5 +49,40 @@ export class ProjectNavigationComponent {
 
   get isMenuWikiEnabled() {
     return this.project.isWikiActivated && this.project.myPermissions.includes(Permissions.viewWikiPages);
+  }
+
+  public toggleScrum() {
+    this.scrumVisible = !this.scrumVisible;
+  }
+
+  // TODO: TEST
+  private videoConferenceUrl(): string {
+    let baseUrl = '';
+
+    if (this.project.videoconferences === 'whereby-com') {
+      baseUrl = 'https://whereby.com/';
+    } else if (this.project.videoconferences === 'talky') {
+      baseUrl = 'https://talky.io/';
+    } else if (this.project.videoconferences === 'jitsi') {
+      baseUrl = 'https://meet.jit.si/';
+    } else if (this.project.videoconferences === 'custom' && this.project.videoconferencesExtraData) {
+      return this.project.videoconferencesExtraData;
+    }
+
+    let url = '';
+
+    // Add prefix to the chat room name if exist
+    if (this.project.videoconferencesExtraData) {
+      url = `${this.project.slug}-${UtilsService.slugify(this.project.videoconferencesExtraData)}`;
+    } else {
+      url = this.project.slug;
+    }
+
+    // Some special cases
+    if (this.project.videoconferences === 'jitsi') {
+      url = url.replace(/-/g, '');
+    }
+
+    return baseUrl + url;
   }
 }
