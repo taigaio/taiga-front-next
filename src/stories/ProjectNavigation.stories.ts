@@ -6,36 +6,23 @@
  * the root directory of this source tree.
  */
 
-import { moduleMetadata } from '@storybook/angular';
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { Story } from '@storybook/angular/types-6-0';
 
 import { ProjectNavigationModule } from '@/app/commons/project-navigation/project-navigation.module';
 import { ProjectNavigationComponent } from '@/app/commons/project-navigation/project-navigation.component';
-import { StoryBookTranslationModule } from './utils/translate-local-loader';
 import { ProjectMockFactory } from '@/app/api/projects/projects.model.mock';
-import { RouterModule } from '@angular/router';
-import { APP_BASE_HREF } from '@angular/common';
+import { ConfigureStory } from './utils/stories-helper';
 
-export default {
+export default ConfigureStory({
   title: 'Commons/ProjectNavigation',
   component: ProjectNavigationComponent,
-  decorators: [
-    moduleMetadata({
-      declarations: [],
-      providers: [{provide: APP_BASE_HREF, useValue: '/'}],
-      imports: [
-        StoryBookTranslationModule(),
-        // Presvent storybook error "Error: Uncaught (in promise): Error: Cannot match any routes. URL Segment: 'iframe.html'"
-        RouterModule.forRoot([], { useHash: true }),
-        ProjectNavigationModule,
-      ],
-    }),
-  ],
-} as Meta;
+  extraModules: [ProjectNavigationModule],
+});
 
 const Template: Story<ProjectNavigationComponent> = (args: ProjectNavigationComponent) => ({
   template: `
     <tg-project-navigation [project]="project"></tg-project-navigation>
+    <tg-svg-sprite></tg-svg-sprite>
   `,
   props: args,
 });
