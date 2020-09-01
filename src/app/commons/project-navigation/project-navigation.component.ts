@@ -6,7 +6,7 @@
  * the root directory of this source tree.
  */
 
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 import { Project } from '@/app/api/projects/projects.model';
 import { Permissions } from '@/app/api/roles/roles.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
@@ -27,6 +27,8 @@ export class ProjectNavigationComponent implements OnInit {
   public project: Project;
   public videoUrl: string;
   public scrumVisible = false;
+  @HostBinding('class.collapsed')
+  public collapsed = false;
 
   public ngOnInit() {
     console.log(this.project);
@@ -53,6 +55,11 @@ export class ProjectNavigationComponent implements OnInit {
 
   public toggleScrum() {
     this.scrumVisible = !this.scrumVisible;
+  }
+
+  public toggleCollapse() {
+    console.warn('collapse!');
+    this.collapsed = !this.collapsed;
   }
 
   // TODO: TEST
