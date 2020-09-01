@@ -15,6 +15,11 @@ the root directory of this source tree.
   --font-size-heading-4: 1.094rem; /* 17.6px */
   --font-size-medium: .875rem; /* 14px */
   --font-size-small: .7rem; /* 11.2px */
+
+  /* Font weight */
+  --font-weight-light: 200; /* 34.176px */
+  --font-weight-medium: 400; /* 14px */
+  --font-weight-bold: 700; /* 11.2px */
 }
 
 @define-mixin font-small {
