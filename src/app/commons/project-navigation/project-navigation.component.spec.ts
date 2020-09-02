@@ -6,28 +6,74 @@
  * the root directory of this source tree.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ProjectNavigationComponent } from './project-navigation.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
-xdescribe('ProjectNavigationComponent', () => {
-  let component: ProjectNavigationComponent;
-  let fixture: ComponentFixture<ProjectNavigationComponent>;
+import { Spectator, createHostFactory } from '@ngneat/spectator';
+import { MockPipe } from 'ng-mocks';
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProjectNavigationComponent ],
-    })
-    .compileComponents();
-  }));
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ProjectMockFactory } from '@/app/api/projects/projects.model.mock';
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectNavigationComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+describe('ProjectNavigationComponent', () => {
+  let spectator: Spectator<ProjectNavigationComponent>;
+  const createHost = createHostFactory({
+    component: ProjectNavigationComponent,
+    schemas: [ NO_ERRORS_SCHEMA ],
+    declarations: [
+      MockPipe(TranslatePipe),
+    ],
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('videconference url', () => {
+    const project = {
+      ...ProjectMockFactory.build(),
+      videoconferences: 'talky',
+      videoconferencesExtraData: 'testExtraData',
+    };
+
+    spectator = createHost(`<tg-project-navigation [project]="project"></tg-project-navigation>`, {
+      hostProps: {
+        project,
+      },
+    });
+
+    expect(spectator.component.videoUrl).toEqual(`https://talky.io/${project.slug}-testextradata`);
+  });
+
+  it('jitsi videconference url replace dashes', () => {
+    const project = {
+      ...ProjectMockFactory.build(),
+      videoconferences: 'jitsi',
+      videoconferencesExtraData: 'test-extra-data',
+      slug: 'project-slug-url',
+    };
+
+    spectator = createHost(`<tg-project-navigation [project]="project"></tg-project-navigation>`, {
+      hostProps: {
+        project,
+      },
+    });
+
+    expect(spectator.component.videoUrl).toEqual(`https://meet.jit.si/projectslugurltestextradata`);
+  });
+
+
+  it('custom url', () => {
+    const custom = 'https://mycustom-url';
+
+    const project = {
+      ...ProjectMockFactory.build(),
+      videoconferences: 'custom',
+      videoconferencesExtraData: custom,
+    };
+
+    spectator = createHost(`<tg-project-navigation [project]="project"></tg-project-navigation>`, {
+      hostProps: {
+        project,
+      },
+    });
+
+    expect(spectator.component.videoUrl).toEqual(custom);
   });
 });
