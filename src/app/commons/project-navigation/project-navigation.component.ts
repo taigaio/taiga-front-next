@@ -6,16 +6,11 @@
  * the root directory of this source tree.
  */
 
-import { Component, Input, OnInit, ChangeDetectionStrategy, HostBinding, HostListener } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostBinding, OnChanges, SimpleChanges } from '@angular/core';
 import { Project } from '@/app/api/projects/projects.model';
 import { Permissions } from '@/app/api/roles/roles.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 import { animate, query, style, transition, trigger } from '@angular/animations';
-
-// TODO:
-// ACTIVE
-// COLLAPSE
-// TESTING
 
 @Component({
   selector: 'tg-project-navigation',
@@ -39,7 +34,7 @@ import { animate, query, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class ProjectNavigationComponent implements OnInit {
+export class ProjectNavigationComponent implements OnChanges {
   @Input()
   public project: Project;
   public videoUrl: string;
@@ -50,18 +45,10 @@ export class ProjectNavigationComponent implements OnInit {
   @HostBinding('class.collapsed')
   public collapsed = false;
 
-  @HostBinding('@openCollapse') get openCollapseAnimation() {
-    return this.collapsed ? 'collapsed' : 'open';
-  }
-
-  @HostListener('@openCollapse.done', ['$event']) animationDone(event: AnimationEvent) {
-    console.log(this.collapsed, event);
-    this.collapseText = this.collapsed ? true : false;
-  }
-
-  public ngOnInit() {
-    console.log(this.project);
-    this.videoUrl = this.videoConferenceUrl();
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes.project) {
+      this.videoUrl = this.videoConferenceUrl();
+    }
   }
 
   get isMenuEpicsEnabled() {
@@ -90,7 +77,6 @@ export class ProjectNavigationComponent implements OnInit {
     this.collapsed = !this.collapsed;
   }
 
-  // TODO: TEST
   private videoConferenceUrl(): string {
     let baseUrl = '';
 
