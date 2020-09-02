@@ -39,17 +39,20 @@ export class ProjectLogoDirective {
       const idx = murmurhash(key, 42).result() % this.logos.length;
       const logo = this.logos[idx];
 
-      this.src = logo[0];
+      // LEGACY
+      const prefix = (window as any)._version ? (window as any)._version : '';
+
+      this.src = `/${prefix}${logo[0]}`;
       this.bg = logo[1];
     }
   }
 
   private imgs = [
-    '/assets/project-logos/project-logo-01.png',
-    '/assets/project-logos/project-logo-02.png',
-    '/assets/project-logos/project-logo-03.png',
-    '/assets/project-logos/project-logo-04.png',
-    '/assets/project-logos/project-logo-05.png',
+    '/images/project-logos/project-logo-01.png',
+    '/images/project-logos/project-logo-02.png',
+    '/images/project-logos/project-logo-03.png',
+    '/images/project-logos/project-logo-04.png',
+    '/images/project-logos/project-logo-05.png',
   ];
 
   private colors = [
@@ -66,7 +69,7 @@ export class ProjectLogoDirective {
     this.logos = this.cartesianProduct(this.imgs, this.colors);
   }
 
-  public cartesianProduct(...allEntries: string[][]): string[][] {
+  private cartesianProduct(...allEntries: string[][]): string[][] {
     return allEntries.reduce((results: string[][], entries) => {
       return results
         .map(result => entries.map(entry => result.concat([entry])))
