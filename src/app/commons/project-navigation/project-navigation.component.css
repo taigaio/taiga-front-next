@@ -29,6 +29,11 @@ the root directory of this source tree.
 
 :host(.collapsed) {
   width: 48px;
+
+  & .menu-option > a,
+  & .menu-option > button {
+    padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) 0;
+  }
 }
 
 h1 {
@@ -75,8 +80,9 @@ h1 {
     align-items: center;
     color: var(--color-white);
     display: flex;
-    padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) 0;
+    padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) var(--spacing-1);
     text-decoration: none;
+    transition: all .2s linear;
   }
 
   & button {
