@@ -120,7 +120,7 @@ the root directory of this source tree.
     </li>
     <li *ngIf="project.iAmAdmin" class="menu-option">
       <a
-        [routerLink]="['/project', project.slug, 'project-profile/details']"
+        [routerLink]="['/project', project.slug, 'project-profile', 'details']"
         title="{{'PROJECT.SECTION.SETTINGS' | translate}}">
         <svg>
           <use href="#settings" />
