@@ -11,9 +11,10 @@ the root directory of this source tree.
   --menu-margin-text: 12px;
 
   background-color: var(--color-black800);
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   left: 0;
-  min-height: 100vh;
   overflow: hidden;
   top: 0;
   width: 200px;
@@ -21,6 +22,7 @@ the root directory of this source tree.
 
 .nav-inner {
   display: flex;
+  flex: 1;
   flex-direction: column;
   width: 200px;
 }
