@@ -98,6 +98,7 @@ h1 {
 
 .child-menu {
   background-color: var(--color-black900);
+  display: none;
   list-style: none;
   padding-left: var(--spacing-5);
 
@@ -108,7 +109,8 @@ h1 {
     text-overflow: ellipsis;
     white-space: nowrap;
 
-    &:hover {
+    &:hover,
+    &.active {
       color: var(--color-solid-primary);
     }
   }
@@ -127,6 +129,10 @@ h1 {
 
     & .agile-chevron {
       transform: rotate(90deg);
+    }
+
+    & .child-menu {
+      display: block;
     }
   }
 }

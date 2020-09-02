@@ -15,7 +15,10 @@ the root directory of this source tree.
   </h1>
 
   <ul class="main-menu">
-    <li *ngIf="isMenuEpicsEnabled" class="menu-option">
+    <li
+      *ngIf="isMenuEpicsEnabled"
+      class="menu-option"
+      routerLinkActive="active">
       <a
         [routerLink]="['/project', project.slug, 'epics']"
         title="{{'PROJECT.SECTION.EPICS' | translate}}">
@@ -30,6 +33,7 @@ the root directory of this source tree.
     <li
       *ngIf="isMenuScrumEnabled"
       class="menu-option scrum"
+      routerLinkActive="active"
       [class.active]="scrumVisible">
       <button
         (click)="toggleScrum()"
@@ -45,10 +49,11 @@ the root directory of this source tree.
           <use href="#chevron-left" />
         </svg>
       </button>
-      <ul *ngIf="scrumVisible" class="child-menu">
+      <ul class="child-menu">
         <li>
           <a
             [routerLink]="['/project', project.slug, 'backlog']"
+            routerLinkActive="active"
             title="{{'PROJECT.SECTION.BACKLOG' | translate}}">
             <span data-animation="text">
               {{'PROJECT.SECTION.BACKLOG' | translate}}
@@ -58,13 +63,17 @@ the root directory of this source tree.
         <li *ngFor="let milestone of project.milestones.slice(0, 7)">
           <a
             [routerLink]="['/project', project.slug, 'taskboard', milestone.slug]"
+            routerLinkActive="active"
             title="{{ milestone.name }}">
             {{ milestone.name }}
           </a>
         </li>
       </ul>
     </li>
-    <li *ngIf="isMenuKanbanEnabled" class="menu-option">
+    <li
+      *ngIf="isMenuKanbanEnabled"
+      class="menu-option"
+      routerLinkActive="active">
       <a
         [routerLink]="['/project', project.slug, 'kanban']"
         title="{{'PROJECT.SECTION.KANBAN' | translate}}">
@@ -76,7 +85,10 @@ the root directory of this source tree.
         </span>
       </a>
     </li>
-    <li *ngIf="isMenuIssuesEnabled" class="menu-option">
+    <li
+      *ngIf="isMenuIssuesEnabled"
+      class="menu-option"
+      routerLinkActive="active">
       <a
         [routerLink]="['/project', project.slug, 'issues']"
         title="{{'PROJECT.SECTION.ISSUES' | translate}}">
@@ -116,7 +128,10 @@ the root directory of this source tree.
         </span>
       </a>
     </li>
-    <li *ngIf="isMenuWikiEnabled" class="menu-option">
+    <li
+      *ngIf="isMenuWikiEnabled"
+      class="menu-option"
+      routerLinkActive="active">
       <a
         [routerLink]="['/project', project.slug, 'wiki']"
         title="{{'PROJECT.SECTION.WIKI' | translate}}">
@@ -128,7 +143,9 @@ the root directory of this source tree.
         </span>
       </a>
     </li>
-    <li class="menu-option">
+    <li
+      class="menu-option"
+      routerLinkActive="active">
       <a
         [routerLink]="['/project', project.slug, 'team']"
         title="{{'PROJECT.SECTION.TEAM' | translate}}">
@@ -140,9 +157,12 @@ the root directory of this source tree.
         </span>
       </a>
     </li>
-    <li *ngIf="project.iAmAdmin" class="menu-option">
+    <li
+      *ngIf="project.iAmAdmin"
+      class="menu-option"
+      routerLinkActive="active">
       <a
-        [routerLink]="['/project', project.slug, 'project-profile', 'details']"
+        [routerLink]="['/project', project.slug, 'admin', 'project-profile', 'details']"
         title="{{'PROJECT.SECTION.SETTINGS' | translate}}">
         <svg>
           <use href="#settings" />
