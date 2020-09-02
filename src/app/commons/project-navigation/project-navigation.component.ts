@@ -6,11 +6,11 @@
  * the root directory of this source tree.
  */
 
-import { Component, Input, OnInit, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, HostBinding, HostListener } from '@angular/core';
 import { Project } from '@/app/api/projects/projects.model';
 import { Permissions } from '@/app/api/roles/roles.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, query, style, transition, trigger } from '@angular/animations';
 
 // TODO:
 // ACTIVE
@@ -23,19 +23,18 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   styleUrls: ['./project-navigation.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger('openClose', [
-      // ...
-      state('open', style({
-        width: '200px',
-      })),
-      state('closed', style({
-        width: '48px',
-      })),
-      transition('open => closed', [
-        animate('1s'),
+    trigger('openCollapse', [
+      transition('open => collapsed', [
+        query('[data-animation="text"]', style({ opacity: 1 })),
+        query(':self', style({ width: '200px' })),
+
+        query('[data-animation="text"]', animate(100, style({ opacity: 0 }))),
+        query(':self', animate(300, style({ width: '48px' }))),
       ]),
-      transition('closed => open', [
-        animate('0.5s'),
+      transition('collapsed => open', [
+        query(':self', style({ width: '48px' })),
+
+        query(':self', animate(300, style({ width: '200px' }))),
       ]),
     ]),
   ],
@@ -45,8 +44,20 @@ export class ProjectNavigationComponent implements OnInit {
   public project: Project;
   public videoUrl: string;
   public scrumVisible = false;
+
+  public collapseText = true;
+
   @HostBinding('class.collapsed')
   public collapsed = false;
+
+  @HostBinding('@openCollapse') get openCollapseAnimation() {
+    return this.collapsed ? 'collapsed' : 'open';
+  }
+
+  @HostListener('@openCollapse.done', ['$event']) animationDone(event: AnimationEvent) {
+    console.log(this.collapsed, event);
+    this.collapseText = this.collapsed ? true : false;
+  }
 
   public ngOnInit() {
     console.log(this.project);
@@ -76,7 +87,6 @@ export class ProjectNavigationComponent implements OnInit {
   }
 
   public toggleCollapse() {
-    console.warn('collapse!');
     this.collapsed = !this.collapsed;
   }
 
