@@ -10,6 +10,7 @@ import { Component, Input, OnInit, ChangeDetectionStrategy, HostBinding } from '
 import { Project } from '@/app/api/projects/projects.model';
 import { Permissions } from '@/app/api/roles/roles.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 // TODO:
 // ACTIVE
@@ -21,6 +22,23 @@ import { UtilsService } from '@/app/commons/utils/utils-service.service';
   templateUrl: './project-navigation.component.html',
   styleUrls: ['./project-navigation.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        width: '200px',
+      })),
+      state('closed', style({
+        width: '48px',
+      })),
+      transition('open => closed', [
+        animate('1s'),
+      ]),
+      transition('closed => open', [
+        animate('0.5s'),
+      ]),
+    ]),
+  ],
 })
 export class ProjectNavigationComponent implements OnInit {
   @Input()
