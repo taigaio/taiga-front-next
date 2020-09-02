@@ -12,6 +12,8 @@ import { ProjectNavigationComponent } from './project-navigation.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { ProjectLogoModule } from '../project-logo/project-logo.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [ProjectNavigationComponent],
@@ -20,6 +22,8 @@ import { ProjectLogoModule } from '../project-logo/project-logo.module';
     CommonModule,
     TranslateModule,
     RouterModule.forChild([]),
+    BrowserModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     ProjectNavigationComponent,

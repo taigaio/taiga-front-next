@@ -6,7 +6,7 @@ GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 -->
 
-<div class="nav-inner">
+<div class="nav-inner" [@openClose]="collapsed ? 'closed' : 'open'">
   <h1>
     <img [tgProjectLogo]="project" logo="small" [alt]="project.name" />
     {{ project.name }}
