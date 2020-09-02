@@ -50,9 +50,7 @@ tg-legacy-loader(
   }
 ```
 
-
 Remember keep the locales sync in `src/assets/i18n/` (taiga-front-next) and `app/locales/taiga` (taiga-front)
-
 
 For the webcomponent we had to add :host in every :root, because :root doesn't refer to the webcomponent root and we still need :root for storybook and playground. 
 
@@ -63,4 +61,4 @@ For the webcomponent we had to add :host in every :root, because :root doesn't r
 
 `project-logo.directive`, using the version prefix for the assets
 
-If you have to add legacy in modern code add  the comment // LEGACY
+If you have to add legacy in modern code add the comment // LEGACY
