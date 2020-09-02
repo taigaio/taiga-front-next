@@ -45,6 +45,14 @@ export class ProjectNavigationComponent implements OnChanges {
   @HostBinding('class.collapsed')
   public collapsed = false;
 
+  @HostBinding('@openCollapse') get openCollapseAnimation() {
+    return this.collapsed ? 'collapsed' : 'open';
+  }
+
+  @HostListener('@openCollapse.done') animationDone() {
+    this.collapseText = this.collapsed ? true : false;
+  }
+
   public ngOnChanges(changes: SimpleChanges) {
     if (changes.project) {
       this.videoUrl = this.videoConferenceUrl();
