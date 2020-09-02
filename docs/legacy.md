@@ -37,9 +37,19 @@ If your component has dynamic data you must use AngularJS directive `tg-load-ele
 
 ```
 tg-legacy-loader(
-    tg-load-element="vm.nextProjectMenu"
+  tg-load-element="vm.nextProjectMenu"
 )
 ```
+
+```
+  @.nextProjectMenu = {
+      component: 'tg-project-navigation',
+      params: {
+          project: @projectService.project.toJS()
+      }
+  }
+```
+
 
 Remember keep the locales sync in `src/assets/i18n/` (taiga-front-next) and `app/locales/taiga` (taiga-front)
 
@@ -50,3 +60,7 @@ For the webcomponent we had to add :host in every :root, because :root doesn't r
 :root,
 :host {}
 ```
+
+`project-logo.directive`, using the version prefix for the assets
+
+If you have to add legacy in modern code add  the comment // LEGACY
