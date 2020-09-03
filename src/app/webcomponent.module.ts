@@ -27,6 +27,19 @@ import { LegacyLoaderComponent } from './commons/legacy/legacy-loader.component'
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ElementZoneStrategyFactory } from 'elements-zone-strategy';
+import { ɵWebAnimationsDriver } from '@angular/animations/browser';
+
+// https://github.com/angular/angular/issues/25672
+ɵWebAnimationsDriver.prototype.containsElement = (el1: any, el2: any) => {
+  let elem = el2;
+  while (elem && elem !== document.documentElement) {
+    if (elem === el1) {
+      return true;
+    }
+    elem = elem.parentNode || elem.host;
+  }
+  return false;
+};
 
 @Component({
   selector: 'tg-empty',
