@@ -31,6 +31,9 @@ export class LegacyLoaderComponent implements OnInit, OnDestroy {
   @Input()
   public params: any;
 
+  @Input()
+  public events: any;
+
   public ngOnInit(): void {
     this.translate.onLangChange
     .pipe(takeUntil(this.destroy$))

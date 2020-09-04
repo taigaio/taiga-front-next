@@ -46,7 +46,11 @@ tg-legacy-loader(
       component: 'tg-project-navigation',
       params: {
           project: @projectService.project.toJS()
-      }
+      },
+      events: {
+          search: () =>
+              @.search()
+      }      
   }
 ```
 

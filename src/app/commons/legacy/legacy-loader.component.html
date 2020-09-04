@@ -10,7 +10,8 @@ the root directory of this source tree.
   <ng-container *ngSwitchCase="'tg-project-navigation'">
     <tg-project-navigation
       *ngIf="params?.project"
-      [project]="params.project | camelCaseTransformer">
+      [project]="params.project | camelCaseTransformer"
+      (search)="events.search()">
     </tg-project-navigation>
   </ng-container>
   <p *ngSwitchDefault>Invalid component</p>
