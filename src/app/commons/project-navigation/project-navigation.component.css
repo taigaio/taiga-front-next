@@ -37,14 +37,22 @@ the root directory of this source tree.
 }
 
 h1 {
-  align-items: center;
   background-color: var(--color-black900);
-  color: var(--color-white);
-  display: flex;
-  font-size: var(--font-size-medium);
   margin: 0;
   padding: var(--spacing-2);
   padding-left: var(--menu-margin);
+
+  & a {
+    align-items: center;
+    color: var(--color-white);
+    display: flex;
+    font-size: var(--font-size-medium);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-solid-primary);
+    }
+  }
 
   & img {
     border-radius: 2px;
@@ -78,8 +86,9 @@ h1 {
   & a,
   & button {
     align-items: center;
-    color: var(--color-white);
+    color: var(--color-gray400);
     display: flex;
+    font-size: var(--font-size-medium);
     padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) var(--spacing-1);
     text-decoration: none;
     transition: all .2s linear;
@@ -121,11 +130,10 @@ h1 {
     &.active {
       color: var(--color-solid-primary);
     }
-  }
 
-  & li:first-child a {
-    color: var(--color-solid-primary);
-    font-weight: var(--font-weight-bold);
+    &.active {
+      font-weight: var(--font-weight-bold);
+    }
   }
 }
 
@@ -146,22 +154,20 @@ h1 {
 }
 
 .menu-secondary {
-  border: 1px solid var(--color-black900);
+  border-bottom: 1px solid var(--color-black900);
+  border-top: 1px solid var(--color-black900);
   margin-top: auto;
 }
 
 .collapse {
-  /* align-items: center;
-  display: flex;
-  padding: var(--spacing-1); */
-
+  align-items: center;
   appearance: none;
   background: none;
   border: 0;
-  border-top: 1px solid var(--color-black900);
-  color: var(--color-white);
+  color: var(--color-gray400);
   cursor: pointer;
   display: flex;
+  font-size: var(--font-size-medium);
   justify-content: flex-end;
   padding: var(--spacing-1);
   width: 100%;
@@ -170,10 +176,10 @@ h1 {
     background: var(--color-black900);
     border-radius: 50%;
     fill: var(--color-link-primary);
-    height: 20px;
+    height: 24px;
     margin-left: var(--spacing-1);
     padding: 4px;
-    width: 20px;
+    width: 24px;
   }
 
   &.collapsed {
@@ -184,5 +190,30 @@ h1 {
     & svg {
       margin: 0;
     }
+  }
+}
+
+.dialog {
+  background-color: var(--color-black900);
+
+  align-items: center;
+  display: none;
+  height: 32px;
+  padding: 0 1rem;
+  position: absolute;
+  width: 170px;
+
+  &.open {
+    display: flex;
+  }
+
+  & .main-link {
+    color: var(--color-white);
+    overflow: hidden;
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    white-space: nowrap;
   }
 }

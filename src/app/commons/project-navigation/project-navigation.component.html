@@ -7,25 +7,30 @@ the root directory of this source tree.
 -->
 
 <div class="nav-inner">
-  <h1>
+  <h1 (mouseenter)="popup($event)">
+    <a
+      [routerLink]="['/project', project.slug, 'timeline']"
+      [attr.title]="project.name">
     <img [tgProjectLogo]="project" logo="small" [alt]="project.name" />
-    <span class="project-name" data-animation="text">
+    <span class="menu-option-text project-name" data-animation="text">
       {{ project.name }}
     </span>
+    </a>
   </h1>
 
   <ul class="main-menu">
     <li
       *ngIf="isMenuEpicsEnabled"
       class="menu-option"
-      routerLinkActive="active">
+      routerLinkActive="active"
+      (mouseenter)="popup($event)">
       <a
         [routerLink]="['/project', project.slug, 'epics']"
         title="{{'PROJECT.SECTION.EPICS' | translate}}">
         <svg>
           <use href="#epic" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.EPICS' | translate}}
         </span>
       </a>
@@ -34,7 +39,8 @@ the root directory of this source tree.
       *ngIf="isMenuScrumEnabled"
       class="menu-option scrum"
       routerLinkActive="active"
-      [class.active]="scrumVisible">
+      [class.active]="scrumVisible"
+      (mouseenter)="popup($event)">
       <button
         (click)="toggleScrum()"
         type="button"
@@ -42,7 +48,7 @@ the root directory of this source tree.
         <svg>
           <use href="#agile" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.SCRUM' | translate}}
         </span>
         <svg class="agile-chevron" data-animation="text">
@@ -55,7 +61,7 @@ the root directory of this source tree.
             [routerLink]="['/project', project.slug, 'backlog']"
             routerLinkActive="active"
             title="{{'PROJECT.SECTION.BACKLOG' | translate}}">
-            <span data-animation="text">
+            <span class="menu-option-text" data-animation="text">
               {{'PROJECT.SECTION.BACKLOG' | translate}}
             </span>
           </a>
@@ -73,14 +79,15 @@ the root directory of this source tree.
     <li
       *ngIf="isMenuKanbanEnabled"
       class="menu-option"
-      routerLinkActive="active">
+      routerLinkActive="active"
+      (mouseenter)="popup($event)">
       <a
         [routerLink]="['/project', project.slug, 'kanban']"
         title="{{'PROJECT.SECTION.KANBAN' | translate}}">
         <svg>
           <use href="#kanban5" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.KANBAN' | translate}}
         </span>
       </a>
@@ -88,14 +95,15 @@ the root directory of this source tree.
     <li
       *ngIf="isMenuIssuesEnabled"
       class="menu-option"
-      routerLinkActive="active">
+      routerLinkActive="active"
+      (mouseenter)="popup($event)">
       <a
         [routerLink]="['/project', project.slug, 'issues']"
         title="{{'PROJECT.SECTION.ISSUES' | translate}}">
         <svg>
           <use href="#issue" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.ISSUES' | translate}}
         </span>
       </a>
@@ -103,19 +111,25 @@ the root directory of this source tree.
   </ul>
 
   <ul class="menu-secondary main-menu">
-    <li class="menu-option">
+    <li
+      class="menu-option"
+      (mouseenter)="popup($event)">
       <button
+        (click)="search.emit()"
         title="{{'PROJECT.SECTION.SEARCH' | translate}}"
         type="button">
         <svg>
           <use href="#search" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.SEARCH' | translate}}
         </span>
       </button>
     </li>
-    <li *ngIf="videoUrl" class="menu-option">
+    <li
+      *ngIf="videoUrl"
+      class="menu-option"
+      (mouseenter)="popup($event)">
       <a
         [href]="videoUrl"
         title="{{'PROJECT.SECTION.MEETUP' | translate}}"
@@ -123,7 +137,7 @@ the root directory of this source tree.
         <svg>
           <use href="#video" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.MEETUP' | translate}}
         </span>
       </a>
@@ -131,28 +145,30 @@ the root directory of this source tree.
     <li
       *ngIf="isMenuWikiEnabled"
       class="menu-option"
-      routerLinkActive="active">
+      routerLinkActive="active"
+      (mouseenter)="popup($event)">
       <a
         [routerLink]="['/project', project.slug, 'wiki']"
         title="{{'PROJECT.SECTION.WIKI' | translate}}">
         <svg>
           <use href="#book" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.WIKI' | translate}}
         </span>
       </a>
     </li>
     <li
       class="menu-option"
-      routerLinkActive="active">
+      routerLinkActive="active"
+      (mouseenter)="popup($event)">
       <a
         [routerLink]="['/project', project.slug, 'team']"
         title="{{'PROJECT.SECTION.TEAM' | translate}}">
         <svg>
           <use href="#users" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.TEAM' | translate}}
         </span>
       </a>
@@ -160,14 +176,15 @@ the root directory of this source tree.
     <li
       *ngIf="project.iAmAdmin"
       class="menu-option"
-      routerLinkActive="active">
+      routerLinkActive="active"
+      (mouseenter)="popup($event)">
       <a
         [routerLink]="['/project', project.slug, 'admin', 'project-profile', 'details']"
         title="{{'PROJECT.SECTION.SETTINGS' | translate}}">
         <svg>
           <use href="#settings" />
         </svg>
-        <span data-animation="text">
+        <span class="menu-option-text" data-animation="text">
           {{'PROJECT.SECTION.SETTINGS' | translate}}
         </span>
       </a>
@@ -186,5 +203,32 @@ the root directory of this source tree.
       <use href="#chevrons-left" />
     </svg>
   </button>
+
+  <div
+    class="dialog"
+    [class.open]="dialog.open"
+    [style.top.px]="dialog.top"
+    [style.left.px]="dialog.left"
+    [style.height.px]="dialog.height">
+      <a
+        [routerLink]="dialog.slug"
+        class="main-link">{{ dialog.text }}</a>
+  </div>
 </div>
- -->
+
+
+<!-- <ng-container
+[ngTemplateOutlet]="collapseTemplate"
+[ngTemplateOutletContext]="{
+  $implicit: {
+    text: ('PROJECT.SECTION.EPICS' | translate),
+    slug: ['/project', project.slug, 'epics']
+}}">
+</ng-container> -->
+<ng-template #collapseTemplate let-dialog>
+  <div class="dialog">
+    <a
+    [routerLink]="dialog.slug"
+    class="main-link">{{ dialog.text }}</a>
+  </div>
+</ng-template>
