@@ -75,6 +75,7 @@ h1 {
 
 .menu-option {
   list-style: none;
+  margin-bottom: var(--spacing-1);
 
   &.active a,
   &.active button,
@@ -109,6 +110,7 @@ h1 {
   & .agile-chevron {
     fill: var(--color-solid-primary);
     margin: 0 0 0 auto;
+    transition: all .2s linear;
     width: 16px;
   }
 }
@@ -145,6 +147,7 @@ h1 {
 
     & .agile-chevron {
       transform: rotate(90deg);
+      transition: all .2s linear;
     }
 
     & .child-menu {
