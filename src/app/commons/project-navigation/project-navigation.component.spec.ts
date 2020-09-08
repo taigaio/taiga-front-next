@@ -7,10 +7,10 @@
  */
 
 import { ProjectNavigationComponent } from './project-navigation.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { Spectator, createHostFactory } from '@ngneat/spectator';
-import { MockPipe } from 'ng-mocks';
+import { MockPipe, MockProvider } from 'ng-mocks';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProjectMockFactory } from '@/app/api/projects/projects.model.mock';
@@ -22,6 +22,9 @@ describe('ProjectNavigationComponent', () => {
     schemas: [ NO_ERRORS_SCHEMA ],
     declarations: [
       MockPipe(TranslatePipe),
+    ],
+    providers: [
+      MockProvider(TranslateService),
     ],
   });
 

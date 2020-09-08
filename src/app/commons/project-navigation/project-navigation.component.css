@@ -15,24 +15,28 @@ the root directory of this source tree.
   flex-direction: column;
   height: 100%;
   left: 0;
-  overflow: hidden;
+  position: relative;
   top: 0;
-  width: 200px;
+}
+
+.nav-wrapper {
+  height: 100%;
+  overflow: hidden;
 }
 
 .nav-inner {
   display: flex;
   flex: 1;
   flex-direction: column;
+  height: 100%;
   width: 200px;
 }
 
 :host(.collapsed) {
   width: 48px;
 
-  & .menu-option > a,
-  & .menu-option > button {
-    padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) 0;
+  & .scrum .child-menu {
+    display: none;
   }
 }
 
@@ -79,6 +83,8 @@ h1 {
 
   &.active a,
   &.active button,
+  &.active-dialog a,
+  &.active-dialog button,
   & a:hover,
   & button:hover {
     background-color: var(--color-black900);
@@ -90,15 +96,17 @@ h1 {
     color: var(--color-gray400);
     display: flex;
     font-size: var(--font-size-medium);
-    padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) var(--spacing-1);
+    height: 40px;
+    padding: 0;
     text-decoration: none;
-    transition: all .2s linear;
+    transition: background-color .2s linear;
   }
 
   & button {
     background: transparent;
     border: none;
     cursor: pointer;
+    padding-right: var(--spacing-1);
     width: 100%;
   }
 
@@ -121,12 +129,15 @@ h1 {
   list-style: none;
   padding-left: var(--spacing-5);
 
-  & a {
-    display: block;
+  & .menu-option-text {
     overflow: hidden;
-    padding-left: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  & a {
+    min-width: 0;
+    padding-left: 0;
 
     &:hover,
     &.active {
@@ -140,14 +151,16 @@ h1 {
 }
 
 .scrum {
-  &.active {
+  &.active,
+  &.active-dialog {
     & > button {
       color: var(--color-link-tertiary);
     }
-
+  }
+  &.active {
     & .agile-chevron {
       transform: rotate(90deg);
-      transition: all .2s linear;
+      transition: transform .2s linear;
     }
 
     & .child-menu {
@@ -198,23 +211,34 @@ h1 {
 
 .dialog {
   background-color: var(--color-black900);
-
-  align-items: center;
   display: none;
-  height: 32px;
-  padding: 0 1rem;
   position: absolute;
   width: 170px;
 
+  & .menu-option {
+    margin-bottom: 0;
+  }
+
+  & .child-menu {
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.29);
+    display: block;
+    margin: 0;
+    padding: 0 0 0 var(--spacing-3);
+  }
+
   &.open {
-    display: flex;
+    display: block;
   }
 
   & .main-link {
+    align-items: center;
+    background-color: var(--color-black900);
     color: var(--color-white);
+    display: flex;
     overflow: hidden;
     font-size: var(--font-size-medium);
     font-weight: bold;
+    padding: 0 var(--spacing-2);
     text-overflow: ellipsis;
     text-decoration: none;
     white-space: nowrap;

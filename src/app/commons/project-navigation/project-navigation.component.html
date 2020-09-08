@@ -5,230 +5,262 @@ This source code is licensed under the terms of the
 GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 -->
+<div class="nav-wrapper">
+  <div class="nav-inner">
+    <h1
+      (mouseenter)="popup($event, 'project')"
+      (mouseleave)="out()">
+      <a
+        [routerLink]="['/project', project.slug, 'timeline']"
+        [attr.title]="project.name">
+      <img [tgProjectLogo]="project" logo="small" [alt]="project.name" />
+      <span class="menu-option-text project-name" data-animation="text">
+        {{ project.name }}
+      </span>
+      </a>
+    </h1>
 
-<div class="nav-inner">
-  <h1 (mouseenter)="popup($event)">
-    <a
-      [routerLink]="['/project', project.slug, 'timeline']"
-      [attr.title]="project.name">
-    <img [tgProjectLogo]="project" logo="small" [alt]="project.name" />
-    <span class="menu-option-text project-name" data-animation="text">
-      {{ project.name }}
-    </span>
-    </a>
-  </h1>
+    <ul class="main-menu">
+      <li
+        *ngIf="isMenuEpicsEnabled"
+        class="menu-option"
+        routerLinkActive="active"
+        [class.active-dialog]="dialog.type === 'epics'"
+        (mouseenter)="popup($event, 'epics')"
+        (mouseleave)="out()">
+        <a
+          [routerLink]="['/project', project.slug, 'epics']"
+          title="{{'PROJECT.SECTION.EPICS' | translate}}">
+          <svg>
+            <use href="#epic" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.EPICS' | translate}}
+          </span>
+        </a>
+      </li>
+      <li
+        *ngIf="isMenuScrumEnabled"
+        class="menu-option scrum"
+        routerLinkActive="active"
+        [class.active]="scrumVisible"
+        [class.active-dialog]="dialog.type === 'scrum'"
+        (mouseenter)="popupScrum($event)"
+        (mouseleave)="out()">
+        <button
+          (click)="toggleScrum()"
+          type="button"
+          title="{{'PROJECT.SECTION.SCRUM' | translate}}">
+          <svg>
+            <use href="#agile" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.SCRUM' | translate}}
+          </span>
+          <svg class="agile-chevron" data-animation="text">
+            <use href="#chevron-left" />
+          </svg>
+        </button>
+        <ul class="child-menu">
+          <li>
+            <a
+              [routerLink]="['/project', project.slug, 'backlog']"
+              routerLinkActive="active"
+              title="{{'PROJECT.SECTION.BACKLOG' | translate}}">
+              <span class="menu-option-text" data-animation="text">
+                {{'PROJECT.SECTION.BACKLOG' | translate}}
+              </span>
+            </a>
+          </li>
+          <li *ngFor="let milestone of milestones" class="menu-option">
+            <a
+              [routerLink]="['/project', project.slug, 'taskboard', milestone.slug]"
+              routerLinkActive="active"
+              [attr.title]="milestone.name">
+              <span class="menu-option-text" data-animation="text">
+                {{ milestone.name }}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        *ngIf="isMenuKanbanEnabled"
+        class="menu-option"
+        routerLinkActive="active"
+        [class.active-dialog]="dialog.type === 'kanban'"
+        (mouseenter)="popup($event, 'kanban')"
+        (mouseleave)="out()">
+        <a
+          [routerLink]="['/project', project.slug, 'kanban']"
+          title="{{'PROJECT.SECTION.KANBAN' | translate}}">
+          <svg>
+            <use href="#kanban5" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.KANBAN' | translate}}
+          </span>
+        </a>
+      </li>
+      <li
+        *ngIf="isMenuIssuesEnabled"
+        class="menu-option"
+        routerLinkActive="active"
+        [class.active-dialog]="dialog.type === 'issues'"
+        (mouseenter)="popup($event, 'issues')"
+        (mouseleave)="out()">
+        <a
+          [routerLink]="['/project', project.slug, 'issues']"
+          title="{{'PROJECT.SECTION.ISSUES' | translate}}">
+          <svg>
+            <use href="#issue" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.ISSUES' | translate}}
+          </span>
+        </a>
+      </li>
+    </ul>
 
-  <ul class="main-menu">
-    <li
-      *ngIf="isMenuEpicsEnabled"
-      class="menu-option"
-      routerLinkActive="active"
-      (mouseenter)="popup($event)">
-      <a
-        [routerLink]="['/project', project.slug, 'epics']"
-        title="{{'PROJECT.SECTION.EPICS' | translate}}">
-        <svg>
-          <use href="#epic" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.EPICS' | translate}}
-        </span>
-      </a>
-    </li>
-    <li
-      *ngIf="isMenuScrumEnabled"
-      class="menu-option scrum"
-      routerLinkActive="active"
-      [class.active]="scrumVisible"
-      (mouseenter)="popup($event)">
-      <button
-        (click)="toggleScrum()"
-        type="button"
-        title="{{'PROJECT.SECTION.SCRUM' | translate}}">
-        <svg>
-          <use href="#agile" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.SCRUM' | translate}}
-        </span>
-        <svg class="agile-chevron" data-animation="text">
-          <use href="#chevron-left" />
-        </svg>
-      </button>
-      <ul class="child-menu">
-        <li>
-          <a
-            [routerLink]="['/project', project.slug, 'backlog']"
-            routerLinkActive="active"
-            title="{{'PROJECT.SECTION.BACKLOG' | translate}}">
-            <span class="menu-option-text" data-animation="text">
-              {{'PROJECT.SECTION.BACKLOG' | translate}}
-            </span>
-          </a>
-        </li>
-        <li *ngFor="let milestone of project.milestones.slice(0, 7)">
-          <a
-            [routerLink]="['/project', project.slug, 'taskboard', milestone.slug]"
-            routerLinkActive="active"
-            title="{{ milestone.name }}">
-            {{ milestone.name }}
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li
-      *ngIf="isMenuKanbanEnabled"
-      class="menu-option"
-      routerLinkActive="active"
-      (mouseenter)="popup($event)">
-      <a
-        [routerLink]="['/project', project.slug, 'kanban']"
-        title="{{'PROJECT.SECTION.KANBAN' | translate}}">
-        <svg>
-          <use href="#kanban5" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.KANBAN' | translate}}
-        </span>
-      </a>
-    </li>
-    <li
-      *ngIf="isMenuIssuesEnabled"
-      class="menu-option"
-      routerLinkActive="active"
-      (mouseenter)="popup($event)">
-      <a
-        [routerLink]="['/project', project.slug, 'issues']"
-        title="{{'PROJECT.SECTION.ISSUES' | translate}}">
-        <svg>
-          <use href="#issue" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.ISSUES' | translate}}
-        </span>
-      </a>
-    </li>
-  </ul>
+    <ul class="menu-secondary main-menu">
+      <li
+        class="menu-option"
+        [class.active-dialog]="dialog.type === 'search'"
+        (mouseenter)="popup($event, 'search')"
+        (mouseleave)="out()">
+        <button
+          (click)="search.emit()"
+          title="{{'PROJECT.SECTION.SEARCH' | translate}}"
+          type="button">
+          <svg>
+            <use href="#search" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.SEARCH' | translate}}
+          </span>
+        </button>
+      </li>
+      <li
+        *ngIf="videoUrl"
+        class="menu-option"
+        [class.active-dialog]="dialog.type === 'video'"
+        (mouseenter)="popup($event, 'video')"
+        (mouseleave)="out()">
+        <a
+          [href]="videoUrl"
+          title="{{'PROJECT.SECTION.MEETUP' | translate}}"
+          target="_blank">
+          <svg>
+            <use href="#video" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.MEETUP' | translate}}
+          </span>
+        </a>
+      </li>
+      <li
+        *ngIf="isMenuWikiEnabled"
+        class="menu-option"
+        routerLinkActive="active"
+        [class.active-dialog]="dialog.type === 'wiki'"
+        (mouseenter)="popup($event, 'wiki')"
+        (mouseleave)="out()">
+        <a
+          [routerLink]="['/project', project.slug, 'wiki']"
+          title="{{'PROJECT.SECTION.WIKI' | translate}}">
+          <svg>
+            <use href="#book" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.WIKI' | translate}}
+          </span>
+        </a>
+      </li>
+      <li
+        class="menu-option"
+        routerLinkActive="active"
+        [class.active-dialog]="dialog.type === 'team'"
+        (mouseenter)="popup($event, 'team')"
+        (mouseleave)="out()">
+        <a
+          [routerLink]="['/project', project.slug, 'team']"
+          title="{{'PROJECT.SECTION.TEAM' | translate}}">
+          <svg>
+            <use href="#users" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.TEAM' | translate}}
+          </span>
+        </a>
+      </li>
+      <li
+        *ngIf="project.iAmAdmin"
+        class="menu-option"
+        routerLinkActive="active"
+        [class.active-dialog]="dialog.type === 'settings'"
+        (mouseenter)="popup($event, 'settings')"
+        (mouseleave)="out()">
+        <a
+          [routerLink]="['/project', project.slug, 'admin', 'project-profile', 'details']"
+          title="{{'PROJECT.SECTION.SETTINGS' | translate}}">
+          <svg>
+            <use href="#settings" />
+          </svg>
+          <span class="menu-option-text" data-animation="text">
+            {{'PROJECT.SECTION.SETTINGS' | translate}}
+          </span>
+        </a>
+      </li>
+    </ul>
 
-  <ul class="menu-secondary main-menu">
-    <li
-      class="menu-option"
-      (mouseenter)="popup($event)">
-      <button
-        (click)="search.emit()"
-        title="{{'PROJECT.SECTION.SEARCH' | translate}}"
-        type="button">
-        <svg>
-          <use href="#search" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.SEARCH' | translate}}
-        </span>
-      </button>
-    </li>
-    <li
-      *ngIf="videoUrl"
-      class="menu-option"
-      (mouseenter)="popup($event)">
-      <a
-        [href]="videoUrl"
-        title="{{'PROJECT.SECTION.MEETUP' | translate}}"
-        target="_blank">
-        <svg>
-          <use href="#video" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.MEETUP' | translate}}
-        </span>
-      </a>
-    </li>
-    <li
-      *ngIf="isMenuWikiEnabled"
-      class="menu-option"
-      routerLinkActive="active"
-      (mouseenter)="popup($event)">
-      <a
-        [routerLink]="['/project', project.slug, 'wiki']"
-        title="{{'PROJECT.SECTION.WIKI' | translate}}">
-        <svg>
-          <use href="#book" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.WIKI' | translate}}
-        </span>
-      </a>
-    </li>
-    <li
-      class="menu-option"
-      routerLinkActive="active"
-      (mouseenter)="popup($event)">
-      <a
-        [routerLink]="['/project', project.slug, 'team']"
-        title="{{'PROJECT.SECTION.TEAM' | translate}}">
-        <svg>
-          <use href="#users" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.TEAM' | translate}}
-        </span>
-      </a>
-    </li>
-    <li
-      *ngIf="project.iAmAdmin"
-      class="menu-option"
-      routerLinkActive="active"
-      (mouseenter)="popup($event)">
-      <a
-        [routerLink]="['/project', project.slug, 'admin', 'project-profile', 'details']"
-        title="{{'PROJECT.SECTION.SETTINGS' | translate}}">
-        <svg>
-          <use href="#settings" />
-        </svg>
-        <span class="menu-option-text" data-animation="text">
-          {{'PROJECT.SECTION.SETTINGS' | translate}}
-        </span>
-      </a>
-    </li>
-  </ul>
-
-  <button
-    type="button"
-    class="collapse"
-    [class.collapsed]="collapseText"
-    (click)="toggleCollapse()">
-    <span *ngIf="!collapseText" data-animation="text">
-      {{'PROJECT.SECTION.COLLAPSE_MENU' | translate}}
-    </span>
-    <svg>
-      <use href="#chevrons-left" />
-    </svg>
-  </button>
-
-  <div
-    class="dialog"
-    [class.open]="dialog.open"
-    [style.top.px]="dialog.top"
-    [style.left.px]="dialog.left"
-    [style.height.px]="dialog.height">
-      <a
-        [routerLink]="dialog.slug"
-        class="main-link">{{ dialog.text }}</a>
+    <button
+      type="button"
+      class="collapse"
+      [class.collapsed]="collapseText"
+      (click)="toggleCollapse()">
+      <span *ngIf="!collapseText" data-animation="text">
+        {{'PROJECT.SECTION.COLLAPSE_MENU' | translate}}
+      </span>
+      <svg>
+        <use href="#chevrons-left" />
+      </svg>
+    </button>
   </div>
 </div>
 
-
-<!-- <ng-container
-[ngTemplateOutlet]="collapseTemplate"
-[ngTemplateOutletContext]="{
-  $implicit: {
-    text: ('PROJECT.SECTION.EPICS' | translate),
-    slug: ['/project', project.slug, 'epics']
-}}">
-</ng-container> -->
-<ng-template #collapseTemplate let-dialog>
-  <div class="dialog">
+<div
+  (mouseenter)="enterDialog()"
+  (mouseleave)="outDialog()"
+  class="dialog"
+  [class.open]="dialog.open"
+  [style.top.px]="dialog.top"
+  [style.left.px]="dialog.left">
+  <div class="dialog-main menu-option">
     <a
-    [routerLink]="dialog.slug"
-    class="main-link">{{ dialog.text }}</a>
+      *ngIf="dialog.slug"
+      [routerLink]="dialog.slug"
+      [style.height.px]="dialog.mainLinkHeight"
+      class="main-link">{{ dialog.text }}</a>
+
+    <button
+      *ngIf="dialog.type === 'search'"
+      class="main-link"
+      (click)="search.emit()"
+      title="{{'PROJECT.SECTION.SEARCH' | translate}}"
+      type="button">
+        {{'PROJECT.SECTION.SEARCH' | translate}}
+    </button>
   </div>
-</ng-template>
+  <ul *ngIf="dialog.children.length" class="child-menu">
+    <li *ngFor="let child of dialog.children" class="menu-option">
+      <a
+        [routerLink]="child.link"
+        routerLinkActive="active"
+        [attr.title]="child.text">
+        <span class="menu-option-text">
+          {{ child.text }}
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
