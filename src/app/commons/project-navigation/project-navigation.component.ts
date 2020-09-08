@@ -5,34 +5,40 @@
  * GNU Affero General Public License found in the LICENSE file in
  * the root directory of this source tree.
  */
-
-<<<<<<< HEAD
-import { Component, Input, ChangeDetectionStrategy, HostBinding, OnChanges, SimpleChanges } from '@angular/core';
-=======
-import { Component, Input, ChangeDetectionStrategy, HostBinding, OnChanges, SimpleChanges, HostListener, Output, EventEmitter, OnInit } from '@angular/core';
->>>>>>> 528fb81... feat(project-nav): improvements
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  HostBinding,
+  OnChanges,
+  SimpleChanges,
+  HostListener,
+  Output,
+  EventEmitter,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { Project } from '@/app/api/projects/projects.model';
 import { Permissions } from '@/app/api/roles/roles.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 import { animate, query, style, transition, trigger } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
 
-interface MenuOption {
-  name: string;
-  type: 'link' | 'button';
-  svg: string;
-  link?: string[];
-  targetBlank?: boolean;
-  action?: () => void;
-  children?: {
-    link: string[];
-    text: string;
+interface ProjectMenuDialog {
+  hover: boolean;
+  open: boolean;
+  slug: string;
+  type: string;
+  top: number;
+  left: number;
+  text: string;
+  height: number;
+  mainLinkHeight: number;
+  isSearch: boolean;
+  children: {
+   text: string;
+   link: string[];
   }[];
-}
-
-interface Menu {
-  top: MenuOption[];
-  bottom: MenuOption[];
 }
 
 @Component({
@@ -63,34 +69,27 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   @Output()
   public search = new EventEmitter();
 
-
   public videoUrl: string;
   public scrumVisible = false;
-  public menu: Menu;
   public collapseText = true;
-  public dialog: {
-    open: boolean;
-    slug: string;
-    top: number;
-    left: number;
-    text: string;
-    height: number;
-    extraLinks: {
-     text: string;
-     link: string;
-    }[]
-  } = {
+  public dialog: ProjectMenuDialog = {
     open: false,
+    hover: false,
+    mainLinkHeight: 0,
+    isSearch: false,
+    type: '',
     slug: '',
     top: 0,
     left: 0,
     text: '',
     height: 0,
-    extraLinks: [],
+    children: [],
   };
 
   @HostBinding('class.collapsed')
   public collapsed = false;
+
+  private dialogCloseTimeout?: number;
 
   @HostBinding('@openCollapse') get openCollapseAnimation() {
     return this.collapsed ? 'collapsed' : 'open';
@@ -100,43 +99,87 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     this.collapseText = this.collapsed ? true : false;
   }
 
-  constructor(private translateService: TranslateService) {}
+  constructor(private translateService: TranslateService, private cd: ChangeDetectorRef) {}
 
-  public popup(event: MouseEvent) {
-    console.log(event);
-    return;
+  public popup(event: MouseEvent, type: string) {
+    if (!this.collapsed) {
+      return;
+    }
 
-    // if (!this.collapsed) {
-    //   return;
-    // }
-
-    // const el = event.target as HTMLElement;
-    // const text = el.querySelector('.menu-option-text')?.innerHTML;
-    // const link = el.querySelector('a')?.getAttribute('href');
-
-    // if (text && link) {
-    //   const elBounding = el.getBoundingClientRect();
-
-    //   const navigationBarWidth = 48;
-    //   this.dialog.slug = link;
-    //   this.dialog.left = elBounding.left + navigationBarWidth;
-    //   this.dialog.top = elBounding.top;
-    //   this.dialog.height = elBounding.height;
-    //   this.dialog.open = true;
-    //   this.dialog.text = text;
-    // }
+    this.initDialog(event.target as HTMLElement, type);
+    this.dialog.type = type;
   }
 
-  popupScrum() {
+  public popupScrum(event: MouseEvent) {
+    if (!this.collapsed) {
+      return;
+    }
 
+    const children: ProjectMenuDialog['children'] = this.milestones.map((milestone) => {
+      return {
+        text: milestone.name,
+        link: ['/project', this.project.slug, 'taskboard', milestone.slug],
+      };
+    });
+
+    children.unshift({
+      text: this.translateService.instant('PROJECT.SECTION.BACKLOG'),
+      link: ['/project', this.project.slug, 'backlog'],
+    });
+
+    this.initDialog(event.target as HTMLElement, 'scrum', children);
   }
 
-  popupAction() {
+  public get milestones() {
+    return this.project.milestones.slice(0, 7);
+  }
 
+  public initDialog(el: HTMLElement, type: string, children: ProjectMenuDialog['children'] = []) {
+    if (this.dialogCloseTimeout) {
+      clearTimeout(this.dialogCloseTimeout);
+    }
+    const text = el.querySelector('.menu-option-text')?.innerHTML;
+
+    if (text) {
+      const link = el.querySelector('a')?.getAttribute('href');
+      console.log(el.querySelector('a'));
+      if (link) {
+        this.dialog.slug = link;
+      } else {
+        this.dialog.slug = '';
+      }
+
+      const navigationBarWidth = 48;
+
+      this.dialog.hover = false;
+      this.dialog.mainLinkHeight = el.offsetHeight;
+      this.dialog.left = navigationBarWidth;
+      this.dialog.top = el.offsetTop;
+      this.dialog.open = true;
+      this.dialog.text = text;
+      this.dialog.children = children;
+      this.dialog.type = type;
+    }
   }
 
   public out() {
-    this.dialog.open = false;
+    this.dialogCloseTimeout = setTimeout(() => {
+      if (!this.dialog.hover) {
+        this.dialog.open = false;
+        this.dialog.type = '';
+        this.cd.markForCheck();
+      }
+    }, 100);
+  }
+
+  public enterDialog() {
+    this.dialog.open = true;
+    this.dialog.hover = true;
+  }
+
+  public outDialog() {
+    this.dialog.hover = false;
+    this.out();
   }
 
   public ngOnInit() {
@@ -146,54 +189,7 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   public ngOnChanges(changes: SimpleChanges) {
     if (changes.project) {
       this.videoUrl = this.videoConferenceUrl();
-      this.getProjectMenu();
     }
-  }
-
-  public getProjectMenu(): Menu {
-    const menu: Menu = {
-      top: [],
-      bottom: [],
-    };
-
-    if (this.isMenuEpicsEnabled) {
-      menu.top.push({
-        name: this.translateService.instant('PROJECT.SECTION.EPICS'),
-        type: 'link',
-        svg: 'epic',
-        link: ['/project', this.project.slug, 'epics'],
-      });
-    }
-
-    if (this.isMenuScrumEnabled) {
-      menu.top.push({
-        name: this.translateService.instant('PROJECT.SECTION.SCRUM'),
-        type: 'link',
-        svg: 'epic',
-        link: ['/project', this.project.slug, 'epics'],
-      });
-    }
-
-    if (this.isMenuEpicsEnabled) {
-      menu.top.push({
-        name: this.translateService.instant('PROJECT.SECTION.EPICS'),
-        type: 'link',
-        svg: 'epic',
-        link: ['/project', this.project.slug, 'epics'],
-      });
-    }
-
-    if (this.isMenuEpicsEnabled) {
-      menu.top.push({
-        name: this.translateService.instant('PROJECT.SECTION.EPICS'),
-        type: 'link',
-        svg: 'epic',
-        link: ['/project', this.project.slug, 'epics'],
-      });
-    }
-
-
-    return menu;
   }
 
   get isMenuEpicsEnabled() {
