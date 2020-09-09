@@ -25,7 +25,7 @@ Add the component to webcomponent.module.ts or legacy-loader if your component h
 
 Build npm run build:elements && npm run pack:elements
 
-Copy the result file to taiga-front node_modules `cp ./dist/elements/elements.js ../taiga-front/node_modules`
+Copy the result file to taiga-front `cp ./dist/elements/elements.js ../taiga-front/`
 
 Use the component in taiga-front, with the tag or the legacy-loader 
 
@@ -66,3 +66,19 @@ For the webcomponent we had to add :host in every :root, because :root doesn't r
 `project-logo.directive`, using the version prefix for the assets
 
 If you have to add legacy in modern code add the comment // LEGACY
+
+#### Working with elements.js in taiga-front repo
+
+Ignore changes in the file
+
+```
+git update-index --skip-worktree elements.js
+```
+
+If you want to commit elements.js you have to undo the skip-worktree
+
+```
+git update-index --no-skip-worktree elements.js
+```
+
+Then commit, push and skip-worktree again.
