@@ -21,7 +21,8 @@ the root directory of this source tree.
 
 .nav-wrapper {
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .nav-inner {
@@ -68,7 +69,7 @@ h1 {
 
 .main-menu {
   margin: 0;
-  padding: 0;
+  padding: 0 0 var(--spacing-1) 0;
 
   & svg {
     fill: var(--color-gray400);
@@ -81,13 +82,19 @@ h1 {
   list-style: none;
   margin-bottom: var(--spacing-1);
 
-  &.active a,
-  &.active button,
-  &.active-dialog a,
-  &.active-dialog button,
-  & a:hover,
-  & button:hover {
+  &.active > a,
+  &.active > button,
+  &.active-dialog > a,
+  &.active-dialog > button,
+  & > a:hover,
+  & > button:hover {
     background-color: var(--color-black900);
+    color: var(--color-white);
+    font-weight: var(--font-weight-bold);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 
   & a,
@@ -127,7 +134,11 @@ h1 {
   background-color: var(--color-black900);
   display: none;
   list-style: none;
-  padding-left: var(--spacing-5);
+  padding: 0 0 var(--spacing-1) var(--spacing-5);
+
+  & .menu-option {
+    margin-bottom: 0;
+  }
 
   & .menu-option-text {
     overflow: hidden;
@@ -138,13 +149,13 @@ h1 {
   & a {
     min-width: 0;
     padding-left: 0;
+  }
 
+  & a,
+  & button {
     &:hover,
     &.active {
       color: var(--color-solid-primary);
-    }
-
-    &.active {
       font-weight: var(--font-weight-bold);
     }
   }
@@ -242,5 +253,12 @@ h1 {
     text-overflow: ellipsis;
     text-decoration: none;
     white-space: nowrap;
+  }
+
+  & a.main-link,
+  & button.main-link {
+    &:hover {
+      color: var(--color-solid-primary);
+    }
   }
 }

@@ -131,7 +131,10 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   }
 
   public get milestones() {
-    return this.project.milestones.slice(0, 7);
+    return this.project.milestones
+      .slice(0, 7)
+      .filter((milestone) => !milestone.closed)
+      .reverse();
   }
 
   public initDialog(el: HTMLElement, type: string, children: ProjectMenuDialog['children'] = []) {
@@ -142,7 +145,7 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
 
     if (text) {
       const link = el.querySelector('a')?.getAttribute('href');
-      console.log(el.querySelector('a'));
+
       if (link) {
         this.dialog.slug = link;
       } else {

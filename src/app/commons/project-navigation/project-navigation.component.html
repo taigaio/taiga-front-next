@@ -62,7 +62,7 @@ the root directory of this source tree.
           </svg>
         </button>
         <ul class="child-menu">
-          <li>
+          <li class="menu-option">
             <a
               [routerLink]="['/project', project.slug, 'backlog']"
               routerLinkActive="active"
@@ -237,10 +237,15 @@ the root directory of this source tree.
   [style.left.px]="dialog.left">
   <div class="dialog-main menu-option">
     <a
-      *ngIf="dialog.slug"
+      *ngIf="dialog.slug && dialog.type !== 'scrum'"
       [routerLink]="dialog.slug"
       [style.height.px]="dialog.mainLinkHeight"
       class="main-link">{{ dialog.text }}</a>
+
+    <div
+      *ngIf="dialog.type === 'scrum'"
+      [style.height.px]="dialog.mainLinkHeight"
+      class="main-link">{{ dialog.text }}</div>
 
     <button
       *ngIf="dialog.type === 'search'"

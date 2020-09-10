@@ -78,7 +78,10 @@ export const ProjectMockFactory = Factory.Sync.makeFactory<Project>({
     },
   ],
   milestones: [
-    MilestoneMockFactory.build(),
+    MilestoneMockFactory.build( { closed: false }),
+    MilestoneMockFactory.build({ name: faker.random.word(), closed: false }),
+    MilestoneMockFactory.build({ name: faker.random.word(), closed: false }),
+    MilestoneMockFactory.build({ name: faker.random.word(), closed: true }),
   ],
   modifiedDate: faker.date.past.toString(),
   myHomepage: faker.random.number(),
