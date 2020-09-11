@@ -24,7 +24,7 @@ the root directory of this source tree.
       <li
         *ngIf="isMenuEpicsEnabled"
         class="menu-option"
-        routerLinkActive="active"
+        [class.active]="section === 'epics'"
         [class.active-dialog]="dialog.type === 'epics'"
         (mouseenter)="popup($event, 'epics')"
         (mouseleave)="out()">
@@ -44,7 +44,7 @@ the root directory of this source tree.
         class="menu-option scrum"
         routerLinkActive="active"
         [class.active]="scrumVisible"
-        [class.active-dialog]="dialog.type === 'scrum'"
+        [class.active-dialog]="dialog.type === 'scrum' || (section === 'backlog' && scrumVisible)"
         (mouseenter)="popupScrum($event)"
         (mouseleave)="out()">
         <button
@@ -61,9 +61,10 @@ the root directory of this source tree.
             <use href="#chevron-left" />
           </svg>
         </button>
-        <ul class="child-menu">
+        <ul class="child-menu" *ngrxLet="milestoneId$ as milestoneId">
           <li class="menu-option">
             <a
+              [class.active]="milestoneId === null"
               [routerLink]="['/project', project.slug, 'backlog']"
               routerLinkActive="active"
               title="{{'PROJECT.SECTION.BACKLOG' | translate}}">
@@ -74,6 +75,7 @@ the root directory of this source tree.
           </li>
           <li *ngFor="let milestone of milestones" class="menu-option">
             <a
+              [class.active]="milestone.id === milestoneId"
               [routerLink]="['/project', project.slug, 'taskboard', milestone.slug]"
               routerLinkActive="active"
               [attr.title]="milestone.name">
@@ -87,7 +89,7 @@ the root directory of this source tree.
       <li
         *ngIf="isMenuKanbanEnabled"
         class="menu-option"
-        routerLinkActive="active"
+        [class.active]="section === 'kanban'"
         [class.active-dialog]="dialog.type === 'kanban'"
         (mouseenter)="popup($event, 'kanban')"
         (mouseleave)="out()">
@@ -105,7 +107,7 @@ the root directory of this source tree.
       <li
         *ngIf="isMenuIssuesEnabled"
         class="menu-option"
-        routerLinkActive="active"
+        [class.active]="section === 'issues'"
         [class.active-dialog]="dialog.type === 'issues'"
         (mouseenter)="popup($event, 'issues')"
         (mouseleave)="out()">
@@ -161,7 +163,7 @@ the root directory of this source tree.
       <li
         *ngIf="isMenuWikiEnabled"
         class="menu-option"
-        routerLinkActive="active"
+        [class.active]="section === 'wiki'"
         [class.active-dialog]="dialog.type === 'wiki'"
         (mouseenter)="popup($event, 'wiki')"
         (mouseleave)="out()">
@@ -178,7 +180,7 @@ the root directory of this source tree.
       </li>
       <li
         class="menu-option"
-        routerLinkActive="active"
+        [class.active]="section === 'team'"
         [class.active-dialog]="dialog.type === 'team'"
         (mouseenter)="popup($event, 'team')"
         (mouseleave)="out()">
@@ -196,7 +198,7 @@ the root directory of this source tree.
       <li
         *ngIf="project.iAmAdmin"
         class="menu-option"
-        routerLinkActive="active"
+        [class.active]="section === 'admin'"
         [class.active-dialog]="dialog.type === 'settings'"
         (mouseenter)="popup($event, 'settings')"
         (mouseleave)="out()">

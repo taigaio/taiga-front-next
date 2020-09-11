@@ -23,6 +23,10 @@ import { Permissions } from '@/app/api/roles/roles.model';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 import { animate, query, style, transition, trigger } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
+import { LegacyService } from '@/app/commons/legacy/legacy.service';
+import { pluck, map } from 'rxjs/operators';
+import { Milestone } from '@/app/api/milestones/milestones.model';
+import { Observable } from 'rxjs';
 
 interface ProjectMenuDialog {
   hover: boolean;
@@ -72,6 +76,7 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   public videoUrl: string;
   public scrumVisible = false;
   public collapseText = true;
+  public section!: string;
   public dialog: ProjectMenuDialog = {
     open: false,
     hover: false,
@@ -85,6 +90,7 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     height: 0,
     children: [],
   };
+  public milestoneId$: Observable<Milestone['id'] | undefined | null>;
 
   @HostBinding('class.collapsed')
   public collapsed = false;
@@ -99,7 +105,57 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     this.collapseText = this.collapsed ? true : false;
   }
 
-  constructor(private translateService: TranslateService, private cd: ChangeDetectorRef) {}
+  constructor(
+    private readonly translateService: TranslateService,
+    private readonly cd: ChangeDetectorRef,
+    private readonly legacyService: LegacyService) {}
+
+  public ngOnInit() {
+    this.collapsed = (localStorage.getItem('projectnav-collapsed') === 'true');
+    this.section = this.getActiveSection();
+
+    // LEGACY
+    this.milestoneId$ = this.legacyService.legacyState
+    .pipe(
+      pluck('detailObj'),
+      map((obj) => {
+        return obj?.milestone;
+      })
+    );
+
+    if (this.section === 'backlog') {
+      this.scrumVisible = (localStorage.getItem('projectnav-scrum') === 'true');
+    }
+  }
+
+  public getActiveSection() {
+    const { breadcrumb, sectionName } = this.getSection();
+    const indexBacklog = breadcrumb.lastIndexOf('backlog');
+    const indexKanban = breadcrumb.lastIndexOf('kanban');
+
+    let oldSectionName = '';
+
+    if (indexBacklog !== -1 || indexKanban !== -1) {
+        if (indexKanban === -1 || indexBacklog > indexKanban) {
+            oldSectionName = 'backlog';
+        } else {
+            oldSectionName = 'kanban';
+        }
+    }
+
+    // task & us the sectionName is backlog-kanban
+    if  (sectionName  === 'backlog-kanban') {
+        if (['backlog', 'kanban'].includes(oldSectionName)) {
+          return oldSectionName;
+        } else if (this.project.isBacklogActivated && !this.project.isKanbanActivated) {
+          return 'backlog';
+        } else if (!this.project.isBacklogActivated && this.project.isKanbanActivated) {
+          return 'kanban';
+        }
+    }
+
+    return sectionName;
+  }
 
   public popup(event: MouseEvent, type: string) {
     if (!this.collapsed) {
@@ -132,9 +188,9 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
 
   public get milestones() {
     return this.project.milestones
-      .slice(0, 7)
-      .filter((milestone) => !milestone.closed)
-      .reverse();
+    .filter((milestone) => !milestone.closed)
+    .reverse()
+    .slice(0, 7);
   }
 
   public initDialog(el: HTMLElement, type: string, children: ProjectMenuDialog['children'] = []) {
@@ -185,10 +241,6 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     this.out();
   }
 
-  public ngOnInit() {
-    this.collapsed = (localStorage.getItem('projectnav-collapsed') === 'true');
-  }
-
   public ngOnChanges(changes: SimpleChanges) {
     if (changes.project) {
       this.videoUrl = this.videoConferenceUrl();
@@ -216,6 +268,7 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   public toggleScrum() {
     if (!this.collapsed) {
       this.scrumVisible = !this.scrumVisible;
+      localStorage.setItem('projectnav-scrum', String(this.scrumVisible));
     }
   }
 
@@ -256,5 +309,16 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     }
 
     return baseUrl + url;
+  }
+
+  // LEGACY
+  private getSection() {
+    const injector = this.legacyService.getInjector();
+    const projectService = injector.get('tgProjectService');
+
+    return {
+      breadcrumb: projectService.sectionsBreadcrumb.toJS(),
+      sectionName: projectService.section,
+    };
   }
 }

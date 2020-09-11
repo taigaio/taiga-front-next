@@ -12,6 +12,8 @@ import { StoryBookTranslationModule } from './translate-local-loader';
 import { RouterModule } from '@angular/router';
 
 import { TgSvgSpriteComponent } from '@/app/commons/components/svg-sprite/svg-sprite.component';
+import { LegacyService } from '@/app/commons/legacy/legacy.service';
+import { LegacyServiceMock } from '@/app/commons/legacy/legacy-service.mock';
 
 export const ConfigureStory = (config: {
   component: any,
@@ -34,7 +36,11 @@ export const ConfigureStory = (config: {
       TgSvgSpriteComponent,
       ...config.declarations,
     ],
-    providers: [],
+    providers: [
+      {
+        provide: LegacyService, useClass: LegacyServiceMock,
+      },
+    ],
     imports: [
       ...config.extraModules,
     ],

@@ -65,6 +65,8 @@ For the webcomponent we had to add :host in every :root, because :root doesn't r
 
 `project-logo.directive`, using the version prefix for the assets
 
+`project-navigation.component`, is using a service from taiga-front to know previous sections.
+
 If you have to add legacy in modern code add the comment // LEGACY
 
 #### Working with elements.js in taiga-front repo
@@ -82,3 +84,41 @@ git update-index --no-skip-worktree elements.js
 ```
 
 Then commit, push and skip-worktree again.
+
+
+#### Events from taiga-front to taiga-front-next
+
+In taiga-front, you have to send an event through the RX subject `legacyChannel`
+
+```js
+  window.legacyChannel.next({
+      type: 'SET_DETAIL_OBJ',
+      value: task._attrs
+  })
+```
+
+Then you have to control the event in `legacy.component.ts`.
+
+```ts
+channel.subscribe((event) => {
+  if (event.type === 'SET_DETAIL_OBJ') {
+    this.legacyService.setState({
+      detailObj: UtilsService.objKeysTransformer(event.value, camelCase) as any,
+    });
+  }
+});
+```
+
+In this example we are changing the state defined in `legacy.service.ts`.
+
+You can read the legacy state like this.
+
+```ts
+  this.milestoneId$ = this.legacyService.legacyState
+  .pipe(
+    pluck('detailObj'),
+    map((obj) => {
+      return obj?.milestone;
+    })
+  );
+```

@@ -51,7 +51,7 @@ As an example, you will find a basic implementation of a table, for reference un
 For testing we're using [spectator](https://github.com/ngneat/spectator). This is the test of the previous service example.
 
 ```ts
-import { Spectator, createComponentFactory } from '@ngneat/spectator';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { TgExampleComponent } from './example.component';
 
 describe('ButtonComponent', () => {

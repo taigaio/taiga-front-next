@@ -8,15 +8,20 @@
 
 import { ProjectNavigationComponent } from './project-navigation.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ReactiveComponentModule } from '@ngrx/component';
 
-import { Spectator, createHostFactory } from '@ngneat/spectator';
-import { MockPipe, MockProvider } from 'ng-mocks';
+import { Spectator, createHostFactory } from '@ngneat/spectator/jest';
+import { MockPipe } from 'ng-mocks';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProjectMockFactory } from '@/app/api/projects/projects.model.mock';
+import { LegacyService } from '@/app/commons/legacy/legacy.service';
+import { of } from 'rxjs';
+import { LegacyServiceMock } from '../legacy/legacy-service.mock';
 
 describe('ProjectNavigationComponent', () => {
   let spectator: Spectator<ProjectNavigationComponent>;
+
   const createHost = createHostFactory({
     component: ProjectNavigationComponent,
     schemas: [ NO_ERRORS_SCHEMA ],
@@ -24,7 +29,13 @@ describe('ProjectNavigationComponent', () => {
       MockPipe(TranslatePipe),
     ],
     providers: [
-      MockProvider(TranslateService),
+      { provide: LegacyService, useClass: LegacyServiceMock },
+    ],
+    imports: [
+      ReactiveComponentModule,
+    ],
+    mocks: [
+      TranslateService,
     ],
   });
 
@@ -78,5 +89,133 @@ describe('ProjectNavigationComponent', () => {
     });
 
     expect(spectator.component.videoUrl).toEqual(custom);
+  });
+
+  describe('menu active', () => {
+    const legacyServiceMockFactory = (section = '', breadcrumb: string[] = []) => {
+      return {
+        legacyState: of({}),
+        getInjector() {
+          return {
+            get:  () => {
+              return {
+                sectionsBreadcrumb: {
+                  toJS: () => breadcrumb,
+                },
+                section,
+              };
+            },
+          };
+        },
+      };
+    };
+
+    it('backlog', () => {
+        const project = {
+          ...ProjectMockFactory.build(),
+        };
+
+        spectator = createHost(`<tg-project-navigation [project]="project"></tg-project-navigation>`, {
+          hostProps: {
+            project,
+          },
+          providers: [
+            {
+              provide: LegacyService,
+              useValue: legacyServiceMockFactory('backlog'),
+            },
+          ],
+        });
+
+        expect(spectator.component.section).toEqual('backlog');
+    });
+
+    it('backlog-kanban when only kanban is enabled', () => {
+      const project = {
+        ...ProjectMockFactory.build(),
+        isKanbanActivated: true,
+        isBacklogActivated: false,
+      };
+
+      spectator = createHost(`<tg-project-navigation [project]="project"></tg-project-navigation>`, {
+        hostProps: {
+          project,
+        },
+        providers: [
+          {
+            provide: LegacyService,
+            useValue: legacyServiceMockFactory('backlog-kanban'),
+          },
+        ],
+      });
+
+      expect(spectator.component.section).toEqual('kanban');
+    });
+
+    it('backlog-kanban when only backlog is enabled', () => {
+      const project = {
+        ...ProjectMockFactory.build(),
+        isKanbanActivated: false,
+        isBacklogActivated: true,
+      };
+
+      spectator = createHost(`<tg-project-navigation [project]="project"></tg-project-navigation>`, {
+        hostProps: {
+          project,
+        },
+        providers: [
+          {
+            provide: LegacyService,
+            useValue: legacyServiceMockFactory('backlog-kanban'),
+          },
+        ],
+      });
+
+      expect(spectator.component.section).toEqual('backlog');
+    });
+
+    it('backlog-kanban when is kanban child', () => {
+      const project = {
+        ...ProjectMockFactory.build(),
+        isKanbanActivated: true,
+        isBacklogActivated: true,
+      };
+
+      spectator = createHost(`<tg-project-navigation [project]="project"></tg-project-navigation>`, {
+        hostProps: {
+          project,
+        },
+        providers: [
+          {
+            provide: LegacyService,
+            useValue: legacyServiceMockFactory('backlog-kanban', ['backlog', 'kanban']),
+          },
+        ],
+      });
+
+      expect(spectator.component.section).toEqual('kanban');
+    });
+
+    it('backlog-kanban when is backlog child', () => {
+      const project = {
+        ...ProjectMockFactory.build(),
+        isKanbanActivated: true,
+        isBacklogActivated: true,
+      };
+
+      spectator = createHost(`<tg-project-navigation [project]="project"></tg-project-navigation>`, {
+        hostProps: {
+          project,
+        },
+        providers: [
+          {
+            provide: LegacyService,
+            useValue: legacyServiceMockFactory('backlog-kanban', ['kanban', 'backlog']),
+          },
+        ],
+      });
+
+      expect(spectator.component.section).toEqual('backlog');
+    });
   });
 });
