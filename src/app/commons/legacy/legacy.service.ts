@@ -7,11 +7,29 @@
  */
 
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Task } from '@/app/api/tasks/tasks.model';
+import { Issue } from '@/app/api/issues/issues.model';
+import { Userstory } from '@/app/api/userstories/userstories.model';
+
+export interface LegacyState {
+  detailObj?: Task | Issue | Userstory;
+}
 
 @Injectable()
 export class LegacyService {
   private injector: any;
   private ready = false;
+  private state = new BehaviorSubject<LegacyState>({});
+
+  legacyState = this.state.asObservable();
+
+  public setState(state: Partial<LegacyState>) {
+    this.state.next({
+      ...this.state.value,
+      ...state,
+    });
+  }
 
   public getInjector() {
     if (!this.injector) {

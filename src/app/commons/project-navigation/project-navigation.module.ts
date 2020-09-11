@@ -11,9 +11,10 @@ import { CommonModule } from '@angular/common';
 import { ProjectNavigationComponent } from './project-navigation.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
-import { ProjectLogoModule } from '../project-logo/project-logo.module';
+import { ProjectLogoModule } from '@/app/commons/project-logo/project-logo.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [ProjectNavigationComponent],
@@ -24,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule.forChild([]),
     BrowserModule,
     BrowserAnimationsModule,
+    ReactiveComponentModule,
   ],
   exports: [
     ProjectNavigationComponent,

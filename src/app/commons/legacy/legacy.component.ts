@@ -11,6 +11,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LegacyService } from './legacy.service';
+import { BehaviorSubject } from 'rxjs';
+import { UtilsService } from '@/app/commons/utils/utils-service.service';
+import { camelCase } from 'change-case';
 
 @Component({
   selector: 'tg-legacy',
@@ -23,8 +26,22 @@ export class LegacyComponent implements OnInit {
     private router: Router,
     private legacyService: LegacyService) {}
 
-
   public ngOnInit() {
+    const channel = new BehaviorSubject<{
+      type: string;
+      value: any;
+    }>({type: 'INIT', value: null});
+
+    channel.subscribe((event) => {
+      if (event.type === 'SET_DETAIL_OBJ') {
+        this.legacyService.setState({
+          detailObj: UtilsService.objKeysTransformer(event.value, camelCase) as any,
+        });
+      }
+    });
+
+    (window as any).legacyChannel = channel;
+
     this.router.events.pipe(
       filter((e: Event) => {
         return e instanceof NavigationEnd;
@@ -48,6 +65,10 @@ export class LegacyComponent implements OnInit {
 
       $rootScrope.$on('$routeChangeSuccess', () => {
         this.router.navigateByUrl($location.path());
+
+        this.legacyService.setState({
+          detailObj: undefined,
+        });
       });
     });
   }
