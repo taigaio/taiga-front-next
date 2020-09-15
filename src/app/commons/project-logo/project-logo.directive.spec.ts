@@ -53,6 +53,6 @@ describe('ProjectLogoDirective', () => {
     });
 
     expect(spectator.element.getAttribute('src')).toContain('images/project-logos/project-logo-0');
-    expect(spectator.element.getAttribute('style')).toEqual('background: rgb(152, 224, 168);');
+    expect(spectator.element.getAttribute('style')).toEqual('background: rgb(164, 162, 219);');
   });
 });

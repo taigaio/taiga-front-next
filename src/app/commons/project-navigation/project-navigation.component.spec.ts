@@ -17,7 +17,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProjectMockFactory } from '@/app/api/projects/projects.model.mock';
 import { LegacyService } from '@/app/commons/legacy/legacy.service';
 import { of } from 'rxjs';
-import { LegacyServiceMock } from '../legacy/legacy-service.mock';
+import { LegacyServiceMock } from '@/app/commons/legacy/legacy-service.mock';
+import { Router } from '@angular/router';
 
 describe('ProjectNavigationComponent', () => {
   let spectator: Spectator<ProjectNavigationComponent>;
@@ -36,6 +37,7 @@ describe('ProjectNavigationComponent', () => {
     ],
     mocks: [
       TranslateService,
+      Router,
     ],
   });
 

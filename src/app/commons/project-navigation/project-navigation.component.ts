@@ -27,6 +27,7 @@ import { LegacyService } from '@/app/commons/legacy/legacy.service';
 import { pluck, map } from 'rxjs/operators';
 import { Milestone } from '@/app/api/milestones/milestones.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface ProjectMenuDialog {
   hover: boolean;
@@ -108,7 +109,8 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   constructor(
     private readonly translateService: TranslateService,
     private readonly cd: ChangeDetectorRef,
-    private readonly legacyService: LegacyService) {}
+    private readonly legacyService: LegacyService,
+    private readonly router: Router) {}
 
   public ngOnInit() {
     this.collapsed = (localStorage.getItem('projectnav-collapsed') === 'true');
@@ -266,7 +268,9 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   }
 
   public toggleScrum() {
-    if (!this.collapsed) {
+    if (this.collapsed) {
+      this.router.navigate(['/project', this.project.slug, 'backlog']);
+    } else {
       this.scrumVisible = !this.scrumVisible;
       localStorage.setItem('projectnav-scrum', String(this.scrumVisible));
     }
