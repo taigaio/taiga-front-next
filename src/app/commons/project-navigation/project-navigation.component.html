@@ -11,9 +11,14 @@ the root directory of this source tree.
       (mouseenter)="popup($event, 'project')"
       (mouseleave)="out()">
       <a
+        class="project-link"
         [routerLink]="['/project', project.slug, 'timeline']"
         [attr.title]="project.name">
-      <img [tgProjectLogo]="project" logo="small" [alt]="project.name" />
+      <img
+        width="24"
+        logo="small"
+        [tgProjectLogo]="project"
+        [alt]="project.name" />
       <span class="menu-option-text project-name" data-animation="text">
         {{ project.name }}
       </span>

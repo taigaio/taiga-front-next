@@ -69,11 +69,15 @@ export class ProjectLogoDirective {
     this.logos = this.cartesianProduct(this.imgs, this.colors);
   }
 
-  private cartesianProduct(...allEntries: string[][]): string[][] {
-    return allEntries.reduce((results: string[][], entries) => {
-      return results
-        .map(result => entries.map(entry => result.concat([entry])))
-        .reduce((subResults, result) => subResults.concat(result), []);
-    }, [[]]);
+  private cartesianProduct(imgs: string[], colors: string[]): string[][] {
+    const logos: string[][] = [];
+
+    colors.forEach((color) => {
+      imgs.forEach((img) => {
+        logos.push([img, color]);
+      });
+    });
+
+    return logos;
   }
 }
