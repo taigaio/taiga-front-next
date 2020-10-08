@@ -50,7 +50,10 @@ export class LegacyComponent implements OnInit {
       const $location = this.legacyService.getInjector().get('$location');
       const $rootScrope = this.legacyService.getInjector().get('$rootScope');
 
-      $location.url(e.url);
+      if ($location.path() !== e.url) {
+        $location.url(e.url);
+      }
+
       $rootScrope.$applyAsync();
     });
 
