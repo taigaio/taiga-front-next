@@ -6,9 +6,8 @@
  * the root directory of this source tree.
  */
 
-import { Component, ViewChild, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ViewChild, Input, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 
-import { UploadAdapterService } from './upload-adapter.service';
 import { DataConversionService } from './data-conversion.service';
 import { HtmlEditorComponent } from '@/app/commons/html-editor/html-editor.component';
 import { MarkdownEditorComponent } from '@/app/commons/markdown-editor/markdown-editor.component';
@@ -22,12 +21,11 @@ import { AutoCompleteItem } from './text-editor.model';
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.css'],
   providers: [
-    UploadAdapterService,
     DataConversionService,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextEditorComponent implements OnInit {
+export class TextEditorComponent {
   @ViewChild(HtmlEditorComponent) htmlEditor: HtmlEditorComponent;
   @ViewChild(MarkdownEditorComponent) markdownEditor: MarkdownEditorComponent;
 
@@ -37,8 +35,30 @@ export class TextEditorComponent implements OnInit {
   @Input()
   public projectId: Project['id'];
 
-  // TODO: real ui lan
+  @Input()
+  public placeholder: string;
+
+  @Input()
   public lan = 'en';
+
+  // Legacy, use modern service instead of anguar.js
+  @Input()
+  public uploadFunction: (value?: unknown) => void;
+
+  @Input()
+  public set markdown(content: string) {
+    // LEGACY, can be done in contructro
+    if (!this.dataConversionService.isReady()) {
+      this.dataConversionService.setUp(this.projectSlug);
+    }
+
+    if (content !== this.contentMarkdown) {
+      this.contentMarkdown = content;
+      this.contentHtml = this.dataConversionService.toHtml(content);
+      // LEGACY, needed in webcomponent
+      this.cd.detectChanges();
+    }
+  }
 
   @Input()
   public set members(members: Project['members']) {
@@ -51,33 +71,55 @@ export class TextEditorComponent implements OnInit {
     });
   }
 
-  private userMentions: AutoCompleteItem[];
-
-  public mode: 'html' | 'markdown' = 'html';
-  public markdown = '';
-  public html = '';
-
-  constructor(
-    public uploadAdapterService: UploadAdapterService,
-    private readonly dataConversionService: DataConversionService,
-    private readonly searchApiService: SearchApiService) {}
-
-  public ngOnInit() {
-    this.dataConversionService.setUp(this.projectSlug);
+  @Input()
+  public set mode(mode: 'html' | 'markdown') {
+    if (this._mode !== mode) {
+      this._mode = mode;
+      // LEGACY, needed in webcomponent
+      this.cd.detectChanges();
+    }
   }
 
+  public get mode() {
+    return this._mode;
+  }
+
+  @Output()
+  public focusChanged: EventEmitter<boolean> = new EventEmitter();
+
+  @Output()
+  public changed: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  public modeChanged: EventEmitter<'html' | 'markdown'> = new EventEmitter();
+
+  private userMentions: AutoCompleteItem[];
+  private _mode: 'html' | 'markdown' = 'html';
+
+  public contentHtml = '';
+  public contentMarkdown = '';
+
+  constructor(
+    private readonly dataConversionService: DataConversionService,
+    private readonly searchApiService: SearchApiService,
+    private readonly cd: ChangeDetectorRef) {}
+
   public toMarkdown() {
-    this.mode = 'markdown';
+    this._mode = 'markdown';
 
     const html = this.htmlEditor.getHtml();
-    this.markdown = this.dataConversionService.toMarkdown(html);
+    this.contentMarkdown = this.dataConversionService.toMarkdown(html);
+
+    this.modeChanged.emit(this._mode);
   }
 
   public toHtml() {
-    this.mode = 'html';
+    this._mode = 'html';
 
     const markdown = this.markdownEditor.getMarkdown();
-    this.html = this.dataConversionService.toHtml(markdown);
+    this.contentHtml = this.dataConversionService.toHtml(markdown);
+
+    this.modeChanged.emit(this._mode);
   }
 
   public feedUsers(search: string) {
@@ -101,7 +143,7 @@ export class TextEditorComponent implements OnInit {
               return {
                 id: `#${it.ref}`,
                 link: `/project/${this.projectSlug}/t/${it.ref}`,
-                text: `#${it.ref} - ${it.subject}`,
+                // text: `#${it.ref} - ${it.subject}`,
                 listRenderText: `#${it.ref} - ${it.subject}`,
               };
             });

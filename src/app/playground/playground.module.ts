@@ -34,7 +34,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TextEditorModule } from '@/app/commons/text-editor/text-editor.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProjectNavigationModule } from '../commons/project-navigation/project-navigation.module';
 
 @NgModule({
   declarations: [
@@ -66,7 +65,6 @@ import { ProjectNavigationModule } from '../commons/project-navigation/project-n
     ReactiveFormsModule,
     TextEditorModule,
     TranslateModule,
-    ProjectNavigationModule,
   ],
 })
 export class PlaygroundModule { }

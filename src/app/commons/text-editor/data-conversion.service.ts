@@ -57,4 +57,8 @@ export class DataConversionService {
   public toMarkdown(html: string) {
     return this.turndownService.turndown(html);
   }
+
+  public isReady() {
+    return this.turndownService && this.showdownConverter;
+  }
 }

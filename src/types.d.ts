@@ -6,7 +6,7 @@
  * the root directory of this source tree.
  */
 
-declare module 'taiga-html-editor/packages/ckeditor5-build-balloon/build/ckeditor' {
+declare module 'taiga-html-editor/packages/ckeditor5-build-classic/build/ckeditor' {
   const content: any;
 	export default content;
 }

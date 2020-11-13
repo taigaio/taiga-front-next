@@ -15,7 +15,21 @@ import { EnvironmentService } from './environment.service';
   providedIn: 'root',
 })
 export class ConfigService {
-  public config!: Config;
+  public get config() {
+     // LEGACY
+    if ((window as any).taigaConfig) {
+      const config = (window as any).taigaConfig;
+      if (config.api.endsWith('/')) {
+        config.api = config.api.slice(0, config.api.length - 1);
+      }
+
+      return config;
+    }
+
+    return this._config;
+  }
+
+  public _config!: Config;
 
   constructor(private readonly http: HttpClient, private readonly environmentService: EnvironmentService) {}
 
@@ -23,12 +37,15 @@ export class ConfigService {
     const environment = this.environmentService.getEnvironment();
 
     return new Promise((resolve, reject) => {
-      if (environment.configLocal) {
-        this.config = environment.configLocal;
+      // LEGACY
+      if ((window as any).taigaConfig) {
+        this._config = (window as any).taigaConfig;
+      } else if (environment.configLocal) {
+        this._config = environment.configLocal;
         resolve(this.config);
       } else if (environment.configRemote) {
         this.http.get<Config>(environment.configRemote).subscribe((config) => {
-          this.config = config;
+          this._config = config;
           resolve(this.config);
         });
       } else {

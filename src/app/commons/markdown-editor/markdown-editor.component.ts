@@ -6,16 +6,19 @@
  * the root directory of this source tree.
  */
 
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, ChangeDetectionStrategy, HostBinding, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'tg-markdown-editor',
   templateUrl: './markdown-editor.component.html',
-  styleUrls: [],
+  styleUrls: ['./markdown-editor.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MarkdownEditorComponent implements AfterViewInit {
   @ViewChild('textarea', {read: ElementRef}) private textarea: ElementRef;
+  @HostBinding('class.empty') get empty() {
+    return !!this.markdown.length;
+  }
 
   private markdown = '';
 
@@ -24,19 +27,29 @@ export class MarkdownEditorComponent implements AfterViewInit {
     this.setMarkdownContent(markdown);
   }
 
+  @Output()
+  public changed: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  public focusChanged: EventEmitter<boolean> = new EventEmitter();
+
   public getMarkdown() {
-    return this.textarea.nativeElement.value;
+    return this.textarea.nativeElement.innerText;
   }
 
   public ngAfterViewInit() {
     this.setMarkdownContent(this.markdown);
   }
 
+  public inputChange() {
+    this.changed.emit(this.getMarkdown());
+  }
+
   private setMarkdownContent(markdown: string) {
     this.markdown = markdown;
 
     if (this.textarea) {
-      this.textarea.nativeElement.value = markdown;
+      this.textarea.nativeElement.innerText = markdown;
     }
   }
 }

@@ -7,10 +7,10 @@ the root directory of this source tree.
 -->
 <h1>Taiga</h1>
 
-<!-- <tg-project-navigation [project]="(projectId$ | async)?.project"></tg-project-navigation> -->
 <ng-container *ngrxLet="project$ as project">
 <tg-text-editor
   *ngIf="project"
+  [markdown]="'**test** test2'"
   [projectId]="project.id"
   [projectSlug]="project.slug"
   [members]="project.members"
