@@ -6,10 +6,10 @@
  * the root directory of this source tree.
  */
 
-import { Component, ElementRef, ViewChild, Input, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
-import InlineEditor from 'taiga-html-editor/packages/ckeditor5-build-balloon/build/ckeditor';
+import { Component, ElementRef, ViewChild, Input, AfterViewInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import ClassicEditor from 'taiga-html-editor/packages/ckeditor5-build-classic/build/ckeditor';
 import emojis from './emoji.json';
-import { UploadFileAdapter } from '@/app/commons/text-editor/upload-file-adapter.model';
+import { UploadAdapterService } from '@/app/commons/text-editor/upload-adapter.service';
 
 // When changing this, remember to also change in the ckeditor repo
 const DEFAULT_CKEDITOR_LAN = 'en';
@@ -23,13 +23,22 @@ const DEFAULT_CKEDITOR_LAN = 'en';
 export class HtmlEditorComponent implements AfterViewInit {
   @Input() feedUsers: (text: string) => Promise<{id: string; link: string}[]>;
   @Input() feedReferences: (text: string) => Promise<{id: string; link: string}[]>;
-  @Input() uploadFileService: UploadFileAdapter;
   @Input() lan = DEFAULT_CKEDITOR_LAN;
+  @Input() placeholder = '';
+
+  // Legacy, use modern service instead of anguar.js
+  @Input()
+  public uploadFunction: (value?: unknown) => void;
 
   @Input()
   public set content(markdown: string) {
     this.setHtmlContent(markdown);
   }
+  @Output()
+  public focusChanged: EventEmitter<boolean> = new EventEmitter();
+
+  @Output()
+  public changed: EventEmitter<string> = new EventEmitter();
 
   @ViewChild('el', {read: ElementRef}) private el: ElementRef;
 
@@ -37,9 +46,18 @@ export class HtmlEditorComponent implements AfterViewInit {
 
   private editor: any;
 
+  // LEGACY
+  public getLegacyLoadTranslation() {
+    return new Promise((resolve) => {
+      (window as any).ljs.load(`/${(window as any).TAIGA_VERSION}/ckeditor-translations/${this.lan}.js`, resolve);
+    });
+  }
+
   public ngAfterViewInit() {
     if (this.lan !== DEFAULT_CKEDITOR_LAN) {
-      import(`taiga-html-editor/packages/ckeditor5-build-balloon/build/translations/${this.lan}.js`)
+      // import(`taiga-html-editor/packages/ckeditor5-build-classic/build/translations/${this.lan}.js`)
+      // LEGACY
+      this.getLegacyLoadTranslation()
       .then(() => {
         this.initEditor();
       })
@@ -54,22 +72,32 @@ export class HtmlEditorComponent implements AfterViewInit {
   }
 
   private initEditor() {
-    const uploadFileService = this.uploadFileService;
+    const uploadFunction = this.uploadFunction;
 
     function uploadAdapterPlugin(editor: any) {
       editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
-        uploadFileService.setLoader(loader);
-
-        return uploadFileService;
+        return new UploadAdapterService(loader, uploadFunction);
       };
     }
 
-    InlineEditor
+    ClassicEditor
     .create(this.el.nativeElement, {
+      placeholder: this.placeholder,
       language: this.lan,
       extraPlugins: [
         uploadAdapterPlugin.bind(this),
       ],
+      link: {
+        decorators: {
+            newPage: {
+                mode: 'automatic',
+                callback: () => true,
+                attributes: {
+                    target: '_blank',
+                },
+            },
+        },
+      },
       mention: {
         feeds: [
           {
@@ -94,6 +122,13 @@ export class HtmlEditorComponent implements AfterViewInit {
     .then((editor: any) => {
       this.editor = editor;
       this.editor.setData(this.html);
+      editor.ui.focusTracker.on('change:isFocused', (_event: any, _name: any, value: boolean) => {
+        this.focusChanged.emit(value);
+      });
+
+      editor.model.document.on( 'change:data', () => {
+        this.changed.emit(this.getHtml());
+      });
 
       // Hide switch tranform to table header row because it doesn't have markdown equivalent
       this.hideTableHederRowSwitch();

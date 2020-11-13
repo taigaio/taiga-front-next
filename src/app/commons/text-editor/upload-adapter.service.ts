@@ -6,26 +6,20 @@
  * the root directory of this source tree.
  */
 
-import { Injectable } from '@angular/core';
-import { UploadFileAdapter } from './upload-file-adapter.model';
+export class UploadAdapterService {
 
-@Injectable()
-export class UploadAdapterService implements UploadFileAdapter {
-  public loader: any;
+  constructor(private loader: any, private uploadFunction: (file: unknown, value?: unknown) => void) {}
 
-  public setLoader(loader: any) {
-    this.loader = loader;
+  public setUploadFunction(uploadFunction: (value?: unknown) => void) {
+    this.uploadFunction = uploadFunction;
   }
 
   upload() {
-    // TODO: real taiga upload
     return this.loader.file
       .then((file: any) => {
-        console.log('taiga file', file);
-        return {
-          default: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Test.png',
-          text: 'file name',
-        };
+        return new Promise((resolve) => {
+          this.uploadFunction(file, resolve);
+        });
       });
   }
 

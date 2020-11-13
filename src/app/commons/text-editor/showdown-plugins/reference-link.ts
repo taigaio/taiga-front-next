@@ -9,13 +9,10 @@
 export default (projectSlug: string) => {
   const referenceToProject = {
     type:    'lang',
-    regex:   '\\B(\\\\)?#([\\S]+)\\b',
-    replace: (match: string, leadingSlash: string, tag: string) => {
-      if (leadingSlash === '\\') {
-        return match;
-      } else {
+    regex: /(?<!^)#([\S]+)/gm,
+    replace: (_match: string, tag: string) => {
+        tag = tag.replace('&nbsp;', '');
         return `[#${tag}](/project/${projectSlug}/t/${tag})`;
-      }
     },
   };
 

@@ -5,18 +5,22 @@ This source code is licensed under the terms of the
 GNU Affero General Public License found in the LICENSE file in
 the root directory of this source tree.
 -->
-
 <tg-html-editor
   *ngIf="mode === 'html'"
-  [content]="html"
+  [content]="contentHtml"
   [lan]="lan"
+  [placeholder]="placeholder"
   [feedUsers]="feedUsers.bind(this)"
   [feedReferences]="feedReferences.bind(this)"
-  [uploadFileService]="uploadAdapterService">
+  [uploadFunction]="uploadFunction"
+  (changed)="changed.emit($event)"
+  (focusChanged)="focusChanged.emit($event)">
 </tg-html-editor>
 <tg-markdown-editor
   *ngIf="mode === 'markdown'"
-  [content]="markdown">
+  [content]="contentMarkdown"
+  (changed)="changed.emit($event)"
+  (focusChanged)="focusChanged.emit($event)">
 </tg-markdown-editor>
 
 <button

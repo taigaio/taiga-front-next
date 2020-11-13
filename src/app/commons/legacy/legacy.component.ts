@@ -6,7 +6,7 @@
  * the root directory of this source tree.
  */
 
-import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnInit, Injector } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { LegacyService } from './legacy.service';
 import { BehaviorSubject } from 'rxjs';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 import { camelCase } from 'change-case';
+import { DataConversionService } from '@/app/commons/text-editor/data-conversion.service';
 
 @Component({
   selector: 'tg-legacy',
@@ -22,9 +23,9 @@ import { camelCase } from 'change-case';
 })
 export class LegacyComponent implements OnInit {
   constructor(
-    private translate: TranslateService,
-    private router: Router,
-    private legacyService: LegacyService) {}
+    private readonly translate: TranslateService,
+    private readonly router: Router,
+    private readonly legacyService: LegacyService) {}
 
   public ngOnInit() {
     const channel = new BehaviorSubject<{
@@ -40,7 +41,17 @@ export class LegacyComponent implements OnInit {
       }
     });
 
+    // share service with taiga-old
+    const injector = Injector.create({
+      providers: [
+        {provide: DataConversionService, deps: []},
+      ],
+    });
+
     (window as any).legacyChannel = channel;
+    (window as any).angularDataConversion = () => {
+      return injector.get(DataConversionService);
+    };
 
     this.router.events.pipe(
       filter((e: Event) => {
