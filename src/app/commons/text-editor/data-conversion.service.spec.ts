@@ -175,7 +175,7 @@ var x = 'hi';
 </table>
 <p><a href="/profile/nm0000439">@nm0000439</a></p>
 <p>The next reference has two white spaces an the end</p>
-<p>reference <a href="/project/${projectSlug}/t/66">#66</a></p>
+<p>reference <a href="/project/${projectSlug}/t/66">#66</a>&nbsp;</p>
 <p>Mutiples references <a href="/project/${projectSlug}/t/66">#66</a> more text <a href="/project/${projectSlug}/t/66">#66</a> more text</p>
 <p>An<a href="/project/${projectSlug}/wiki/example-one">example-one</a>or<a href="/project/${projectSlug}/wiki/example-two">Example2</a>of wiki links.</p>
 <pre><code class="javascript language-javascript">var x = 'hi';
@@ -231,7 +231,7 @@ var x = 'hi';
 </table>
 <p><a href="/profile/nm0000439">@nm0000439</a></p>
 <p>The next reference has two white spaces an the end</p>
-<p>reference <a href="/project/${projectSlug}/t/66">#66</a></p>
+<p>reference <a href="/project/${projectSlug}/t/66">#66</a>&nbsp;</p>
 <p>Mutiples references <a href="/project/${projectSlug}/t/66">#66</a> more text <a href="/project/${projectSlug}/t/66">#66</a> more text</p>
 <p>An<a href="/project/${projectSlug}/wiki/example-one">example-one</a>or<a href="/project/${projectSlug}/wiki/example-two">Example2</a>of wiki links.</p>
 <pre><code class="javascript language-javascript">var x = 'hi';
