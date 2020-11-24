@@ -23,5 +23,16 @@ export default (projectSlug: string) => {
     },
   };
 
-  return [referenceToProject];
+  const linkReferences = {
+      type: 'output',
+      filter: (text: string) => {
+        // this is for MentionCustomization upcast
+        text = text.replace(new RegExp('href="/project/', 'gi'), 'class="mention" data-mention="true" href="/project/');
+        text = text.replace(new RegExp('href="/profile/', 'gi'), 'class="mention" data-mention="true" href="/profile/');
+
+        return text;
+      },
+  };
+
+  return [referenceToProject, linkReferences];
 };
