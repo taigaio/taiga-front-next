@@ -84,13 +84,19 @@ describe('TextEditorComponent', () => {
     spectator.component.feedReferences('test').then((result) => {
       expect(result).toEqual([
         {
-          text: `#${userstory.ref} - ${userstory.subject}`,
+          id: `#${userstory.ref}`,
+          link: `/project/${projectSlug}/t/${userstory.ref}`,
+          listRenderText: `#${userstory.ref} - ${userstory.subject}`,
         },
         {
-          text: `#${issue.ref} - ${issue.subject}`,
+          id: `#${issue.ref}`,
+          link: `/project/${projectSlug}/t/${issue.ref}`,
+          listRenderText: `#${issue.ref} - ${issue.subject}`,
         },
         {
-          text: `#${task.ref} - ${task.subject}`,
+          id: `#${task.ref}`,
+          link: `/project/${projectSlug}/t/${task.ref}`,
+          listRenderText: `#${task.ref} - ${task.subject}`,
         },
       ]);
     });
