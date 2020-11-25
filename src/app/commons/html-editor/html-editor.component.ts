@@ -31,8 +31,8 @@ export class HtmlEditorComponent implements AfterViewInit {
   public uploadFunction: (value?: unknown) => void;
 
   @Input()
-  public set content(markdown: string) {
-    this.setHtmlContent(markdown);
+  public set content(html: string) {
+    this.setHtmlContent(html);
   }
   @Output()
   public focusChanged: EventEmitter<boolean> = new EventEmitter();
@@ -127,7 +127,8 @@ export class HtmlEditorComponent implements AfterViewInit {
       });
 
       editor.model.document.on( 'change:data', () => {
-        this.changed.emit(this.getHtml());
+        this.html = this.getHtml();
+        this.changed.emit(this.html);
       });
 
       // Hide switch tranform to table header row because it doesn't have markdown equivalent

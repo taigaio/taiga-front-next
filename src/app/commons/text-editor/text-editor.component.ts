@@ -47,17 +47,22 @@ export class TextEditorComponent {
 
   @Input()
   public set markdown(content: string) {
-    // LEGACY, can be done in contructro
+    // LEGACY, can be done in contructor
     if (!this.dataConversionService.isReady()) {
       this.dataConversionService.setUp(this.projectSlug);
     }
 
-    if (content !== this.contentMarkdown) {
-      this.contentMarkdown = content;
-      this.contentHtml = this.dataConversionService.toHtml(content);
-      // LEGACY, needed in webcomponent
-      this.cd.detectChanges();
+    this.contentMarkdown = content;
+    this.contentHtml = this.dataConversionService.toHtml(content);
+
+    if (this.htmlEditor) {
+      // force run content set in HtmlEditorComponent when the new input is the same as the old one
+      // refactor needed
+      this.htmlEditor.content = this.contentHtml;
     }
+
+    // LEGACY, needed in webcomponent
+    this.cd.detectChanges();
   }
 
   @Input()
