@@ -74,7 +74,7 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   @Output()
   public search = new EventEmitter();
 
-  public videoUrl: string;
+  public videoUrl: string | null;
   public scrumVisible = false;
   public collapseText = true;
   public section!: string;
@@ -285,8 +285,12 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     }
   }
 
-  private videoConferenceUrl(): string {
+  private videoConferenceUrl(): string | null {
     let baseUrl = '';
+
+    if (!this.project.videoconferences) {
+      return null;
+    }
 
     if (this.project.videoconferences === 'whereby-com') {
       baseUrl = 'https://whereby.com/';

@@ -37,5 +37,6 @@ Default.args = {
     isKanbanActivated: true,
     isIssuesActivated: true,
     isWikiActivated: true,
+    videoconferences: 'talky',
   },
 };
