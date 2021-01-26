@@ -33,6 +33,7 @@ export class DataConversionService {
       ghMentions: true,
       ghMentionsLink: '/profile/{u}',
       emoji: true,
+      openLinksInNewWindow: true,
       extensions: [referenceLink(projectSlug), wikiLink(projectSlug)],
     });
 
