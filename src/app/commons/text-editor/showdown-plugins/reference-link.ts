@@ -7,9 +7,11 @@
  */
 
 export default (projectSlug: string) => {
+  const rgx = /(^|\s)(\\)?(#([a-z\d]+(?:[a-z\d._-]+?[a-z\d]+)*))/gi;
+
   const referenceToProject = {
     type:    'lang',
-    regex: '\\B(\\\\)?#([\\w]+)\\b',
+    regex: rgx,
     replace: (match: string, leadingSlash: string, _tag: string) => {
         if (leadingSlash === '\\') {
           return match;
@@ -17,7 +19,8 @@ export default (projectSlug: string) => {
 
         match = match
           .replace('&nbsp;', '')
-          .replace('#', '');
+          .replace('#', '')
+          .trim();
 
         return `[#${match}](/project/${projectSlug}/t/${match})`;
     },

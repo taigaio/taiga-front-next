@@ -52,6 +52,8 @@ The next reference has two white spaces an the end
 
 reference #66  
 
+https://urlwithpossiblereference/#NOTE
+
 Mutiples references #66 more text #66 more text
 
 An [[example-one]] or [[example-two|Example 2]] of wiki links.
@@ -108,6 +110,8 @@ The next reference has two white spaces an the end
 
 reference #66
 
+https://urlwithpossiblereference/#NOTE
+
 Mutiples references #66 more text #66 more text
 
 An [[example-one]] or [[example-two|Example 2]] of wiki links.
@@ -132,7 +136,7 @@ var x = 'hi';
 <p><strong>text bold</strong></p>
 <p><em>italic</em></p>
 <p><del>strikethrough</del></p>
-<p><a href="http://localhost:4200/playground">link</a></p>
+<p><a href="http://localhost:4200/playground" rel="noopenernoreferrer" target="_blank">link</a></p>
 <ul>
 <li>bullet 1</li>
 <li>bullet 2</li>
@@ -173,11 +177,12 @@ var x = 'hi';
 </tr>
 </tbody>
 </table>
-<p><a class="mention" data-mention="true" href="/profile/nm0000439">@nm0000439</a></p>
+<p><a class="mention" data-mention="true" href="/profile/nm0000439" rel="noopenernoreferrer" target="_blank">@nm0000439</a></p>
 <p>The next reference has two white spaces an the end</p>
-<p>reference <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a>&nbsp;</p>
-<p>Mutiples references <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> more text <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> more text</p>
-<p>An<a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-one">example-one</a>or<a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-two">Example2</a>of wiki links.</p>
+<p>reference <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopenernoreferrer" target="_blank">#66</a>&nbsp;</p>
+<p>https://urlwithpossiblereference/#NOTE</p>
+<p>Mutiples references <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopenernoreferrer" target="_blank">#66</a> more text <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopenernoreferrer" target="_blank">#66</a> more text</p>
+<p>An<a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-one" rel="noopenernoreferrer" target="_blank">example-one</a>or<a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-two" rel="noopenernoreferrer" target="_blank">Example2</a>of wiki links.</p>
 <pre><code class="javascript language-javascript">var x = 'hi';
 </code></pre>
 <hr/>
@@ -191,7 +196,7 @@ var x = 'hi';
 <p><strong>text bold</strong></p>
 <p><em>italic</em></p>
 <p><del>strikethrough</del></p>
-<p><a href="http://localhost:4200/playground">link</a></p>
+<p><a href="http://localhost:4200/playground" rel="noopenernoreferrer" target="_blank">link</a></p>
 <ul>
 <li>bullet 1</li>
 <li>bullet 2</li>
@@ -229,11 +234,12 @@ var x = 'hi';
 </tr>
 </tbody>
 </table>
-<p><a class="mention" data-mention="true" href="/profile/nm0000439">@nm0000439</a></p>
+<p><a class="mention" data-mention="true" href="/profile/nm0000439" rel="noopenernoreferrer" target="_blank">@nm0000439</a></p>
 <p>The next reference has two white spaces an the end</p>
 <p>reference <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a>&nbsp;</p>
+<p>https://urlwithpossiblereference/#NOTE</p>
 <p>Mutiples references <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> more text <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> more text</p>
-<p>An<a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-one">example-one</a>or<a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-two">Example2</a>of wiki links.</p>
+<p>An<a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-one" rel="noopenernoreferrer" target="_blank">example-one</a>or<a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-two" rel="noopenernoreferrer" target="_blank">Example2</a>of wiki links.</p>
 <pre><code class="javascript language-javascript">var x = 'hi';
 </code></pre>
 <hr/>
