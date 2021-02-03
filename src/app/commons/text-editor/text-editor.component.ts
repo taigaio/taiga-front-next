@@ -129,7 +129,7 @@ export class TextEditorComponent {
 
   public feedUsers(search: string) {
     return Promise.resolve(this.userMentions.filter((member) => {
-      return member.listRenderText.includes(search);
+      return member.listRenderText.toLowerCase().includes(search.toLowerCase());
     }));
   }
 
