@@ -17,12 +17,14 @@ export default (projectSlug: string) => {
           return match;
         }
 
-        match = match
+        const mentionPosition = match.indexOf('#');
+        const start = match.slice(0, mentionPosition);
+        const result = match.slice(mentionPosition)
           .replace('&nbsp;', '')
           .replace('#', '')
-          .trim();
+          .replace(/ /g, '');
 
-        return `[#${match}](/project/${projectSlug}/t/${match})`;
+        return `${start}[#${result}](/project/${projectSlug}/t/${result})`;
     },
   };
 
