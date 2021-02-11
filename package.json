@@ -16,7 +16,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build:elements": "ng build --prod --tsConfig tsconfig.webcomponent.json --main src/main-webcomponent.ts --outputPath dist/elements --output-hashing none",
-    "pack:elements": "cat ./dist/elements/{runtime,polyfills,main}-es5.js > dist/elements/elements.js && ls -lah dist/elements/elements.js"
+    "pack:elements": "sh scripts/concat-dist-files.sh"
   },
   "private": true,
   "husky": {
