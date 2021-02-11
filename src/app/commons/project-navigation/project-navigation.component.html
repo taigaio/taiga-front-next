@@ -247,12 +247,19 @@ the root directory of this source tree.
       *ngIf="dialog.slug && dialog.type !== 'scrum'"
       [routerLink]="dialog.slug"
       [style.height.px]="dialog.mainLinkHeight"
-      class="main-link">{{ dialog.text }}</a>
-
+      class="main-link">
+        <span class="dialog-text">
+          {{ dialog.text }}
+        </span>
+    </a>
     <div
       *ngIf="dialog.type === 'scrum'"
       [style.height.px]="dialog.mainLinkHeight"
-      class="main-link">{{ dialog.text }}</div>
+      class="main-link">
+      <span class="dialog-text">
+        {{ dialog.text }}
+      </span>
+    </div>
 
     <button
       *ngIf="dialog.type === 'search'"
