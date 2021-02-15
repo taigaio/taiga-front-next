@@ -18,6 +18,7 @@ import strikethrough from './turndown-plugins/strikethrough';
 import wiki from './turndown-plugins/wiki';
 import referenceLink from './showdown-plugins/reference-link';
 import wikiLink from './showdown-plugins/wiki-link';
+import imageLinks from './showdown-plugins/image-links';
 import { Project } from '@/app/api/projects/projects.model';
 
 @Injectable()
@@ -34,7 +35,7 @@ export class DataConversionService {
       ghMentionsLink: '/profile/{u}',
       emoji: true,
       openLinksInNewWindow: true,
-      extensions: [referenceLink(projectSlug), wikiLink(projectSlug)],
+      extensions: [referenceLink(projectSlug), wikiLink(projectSlug), imageLinks()],
     });
 
     this.turndownService = new TurndownService({

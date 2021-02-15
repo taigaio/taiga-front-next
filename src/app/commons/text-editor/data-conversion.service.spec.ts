@@ -14,8 +14,7 @@ describe('DataConversionService', () => {
   let spectator: SpectatorService<DataConversionService>;
   const createService = createServiceFactory(DataConversionService);
   const projectSlug = 'taiga-next';
-  const markdown = `
-header 1
+  const markdown = `header 1
 --------
 
 ### header 2
@@ -57,6 +56,10 @@ https://urlwithpossiblereference/#NOTE
 Mutiples references #66 more text #66 more text
 
 An [[example-one]] or [[example-two|Example 2]] of wiki links.
+
+Link image
+
+[![](https://test/image.jpg)](http://localhost:9002/)
 
 \`\`\`javascript
 var x = 'hi';
@@ -71,8 +74,7 @@ var x = 'hi';
 😃`;
 
 // the hr alaways converted to ***
-  const markdownExpected = `
-header 1
+  const markdownExpected = `header 1
 --------
 
 ### header 2
@@ -114,6 +116,10 @@ https://urlwithpossiblereference/#NOTE
 Mutiples references #66 more text #66 more text
 
 An [[example-one]] or [[example-two|Example 2]] of wiki links.
+
+Link image
+
+[![](https://test/image.jpg)](http://localhost:9002/)
 
 \`\`\`javascript
 var x = 'hi';
@@ -180,6 +186,8 @@ var x = 'hi';
 <p>https://urlwithpossiblereference/#NOTE</p>
 <p>Mutiples references <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> more text <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> more text</p>
 <p>An <a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-one" rel="noopener noreferrer" target="_blank">example-one</a> or <a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-two" rel="noopener noreferrer" target="_blank">Example 2</a> of wiki links.</p>
+<p>Link image</p>
+<a href="http://localhost:9002/" rel="noopener noreferrer" target="_blank"><img src="https://test/image.jpg" alt="" /></a>
 <pre><code class="javascript language-javascript">var x = 'hi';
 </code></pre>
 <hr />
@@ -236,6 +244,8 @@ var x = 'hi';
 <p>https://urlwithpossiblereference/#NOTE</p>
 <p>Mutiples references <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> more text <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> more text</p>
 <p>An <a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-one" rel="noopener noreferrer" target="_blank">example-one</a> or <a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-two" rel="noopener noreferrer" target="_blank">Example 2</a> of wiki links.</p>
+<p>Link image</p>
+<a href="http://localhost:9002/" rel="noopener noreferrer" target="_blank"><img src="https://test/image.jpg" alt="" /></a>
 <pre><code class="javascript language-javascript">var x = 'hi';
 </code></pre>
 <hr />
@@ -248,7 +258,7 @@ var x = 'hi';
     spectator.service.setUp(projectSlug);
   });
 
-  fit('markdow to html', () => {
+  it('markdow to html', () => {
     expect(
       spectator.service.toHtml(markdown)
     ).toEqual(
