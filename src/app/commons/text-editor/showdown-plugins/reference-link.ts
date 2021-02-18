@@ -7,11 +7,12 @@
  */
 
 export default (projectSlug: string) => {
-  const rgx = /(^|\s)(\\)?(#([a-z\d]+(?:[a-z\d._-]+?[a-z\d]+)*))/gi;
+  const rgxTicket = /(^|\s)(\\)?(#([a-z\d]+(?:[a-z\d._-]+?[a-z\d]+)*))/gi;
+  const rgxMention = /(^|\s)(\\)?(@([a-z\d]+(?:[a-z\d._-]+?[a-z\d]+)*))/gi;
 
   const referenceToProject = {
     type:    'lang',
-    regex: rgx,
+    regex: rgxTicket,
     replace: (match: string, leadingSlash: string, _tag: string) => {
         if (leadingSlash === '\\') {
           return match;
@@ -28,6 +29,25 @@ export default (projectSlug: string) => {
     },
   };
 
+  const referenceToUser = {
+    type:    'lang',
+    regex: rgxMention,
+    replace: (match: string, leadingSlash: string, _tag: string) => {
+        if (leadingSlash === '\\') {
+          return match;
+        }
+
+        const mentionPosition = match.indexOf('@');
+        const start = match.slice(0, mentionPosition);
+        const result = match.slice(mentionPosition)
+          .replace('&nbsp;', '')
+          .replace('@', '')
+          .replace(/ /g, '');
+
+        return `${start}[@${result}](/profile/${result})`;
+    },
+  };
+
   const linkReferences = {
       type: 'output',
       filter: (text: string) => {
@@ -39,5 +59,5 @@ export default (projectSlug: string) => {
       },
   };
 
-  return [referenceToProject, linkReferences];
+  return [referenceToProject, referenceToUser, linkReferences];
 };

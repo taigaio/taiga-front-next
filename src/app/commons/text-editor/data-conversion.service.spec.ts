@@ -45,7 +45,7 @@ _italic_
 | r11 | r12 | r13 | r14 |
 | r21 | r22 | r23 | r24 |
 
-@nm0000439
+@nm0000439 and @nm0000439_with_underscore
 
 text
 
@@ -105,7 +105,7 @@ _italic_
 | r11 | r12 | r13 | r14 |
 | r21 | r22 | r23 | r24 |
 
-@nm0000439
+@nm0000439 and @nm0000439_with_underscore
 
 text
 
@@ -180,7 +180,7 @@ var x = 'hi';
 </tr>
 </tbody>
 </table>
-<p><a class="mention" data-mention="true" href="/profile/nm0000439" rel="noopener noreferrer" target="_blank">@nm0000439</a></p>
+<p><a class="mention" data-mention="true" href="/profile/nm0000439" rel="noopener noreferrer" target="_blank">@nm0000439</a> and <a class="mention" data-mention="true" href="/profile/nm0000439_with_underscore" rel="noopener noreferrer" target="_blank">@nm0000439_with_underscore</a></p>
 <p>text</p>
 <p><a class="mention" data-mention="true" href="/project/${projectSlug}/t/123" rel="noopener noreferrer" target="_blank">#123</a> reference <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> text</p>
 <p>https://urlwithpossiblereference/#NOTE</p>
@@ -238,7 +238,7 @@ var x = 'hi';
 </tr>
 </tbody>
 </table>
-<p><a class="mention" data-mention="true" href="/profile/nm0000439" rel="noopener noreferrer" target="_blank">@nm0000439</a></p>
+<p><a class="mention" data-mention="true" href="/profile/nm0000439" rel="noopener noreferrer" target="_blank">@nm0000439</a> and <a class="mention" data-mention="true" href="/profile/nm0000439_with_underscore" rel="noopener noreferrer" target="_blank">@nm0000439_with_underscore</a></p>
 <p>text</p>
 <p><a class="mention" data-mention="true" href="/project/${projectSlug}/t/123" rel="noopener noreferrer" target="_blank">#123</a> reference <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> text</p>
 <p>https://urlwithpossiblereference/#NOTE</p>
