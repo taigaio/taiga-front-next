@@ -9,6 +9,7 @@
 import { Component, ElementRef, ViewChild, Input, AfterViewInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import ClassicEditor from 'taiga-html-editor/packages/ckeditor5-build-classic/build/ckeditor';
 import emojis from './emoji.json';
+import languages from './languages.json';
 import { UploadAdapterService } from '@/app/commons/text-editor/upload-adapter.service';
 
 // When changing this, remember to also change in the ckeditor repo
@@ -85,40 +86,7 @@ export class HtmlEditorComponent implements AfterViewInit {
       placeholder: this.placeholder,
       language: this.lan,
       codeBlock: {
-        languages: [
-          { language: 'plaintext', label: 'Plain text' }, // The default language.
-          { language: 'apache', label: 'Apache config' },
-          { language: 'bash', label: 'Bash' },
-          { language: 'c', label: 'C' },
-          { language: 'coffeescript', label: 'CoffeeScript' },
-          { language: 'cs', label: 'C#' },
-          { language: 'cpp', label: 'C++' },
-          { language: 'css', label: 'CSS' },
-          { language: 'diff', label: 'Diff' },
-          { language: 'go', label: 'Go' },
-          { language: 'html', label: 'HTML' },
-          { language: 'java', label: 'Java' },
-          { language: 'javascript', label: 'JavaScript' },
-          { language: 'json', label: 'JSON' },
-          { language: 'kotlin', label: 'Kotlin' },
-          { language: 'less', label: 'Less' },
-          { language: 'lua', label: 'Lua' },
-          { language: 'markdown', label: 'Markdown' },
-          { language: 'nginx', label: 'Nginx config' },
-          { language: 'objectivec', label: 'Objective-C' },
-          { language: 'perl', label: 'Perl' },
-          { language: 'php', label: 'PHP' },
-          { language: 'python', label: 'Python' },
-          { language: 'r', label: 'R' },
-          { language: 'ruby', label: 'Ruby' },
-          { language: 'rust', label: 'Rust' },
-          { language: 'scss', label: 'Scss' },
-          { language: 'sql', label: 'SQL' },
-          { language: 'swift', label: 'Swift' },
-          { language: 'typescript', label: 'TypeScript' },
-          { language: 'yaml', label: 'YAML' },
-          { language: 'xml', label: 'XML' },
-        ],
+        languages: [...languages],
       },
       extraPlugins: [
         uploadAdapterPlugin.bind(this),

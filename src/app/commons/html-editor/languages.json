@@ -1,0 +1,670 @@
+[
+  {
+    "language": "plaintext",
+    "label": "Plaintext"
+  },
+  {
+    "language": "1c",
+    "label": "1C"
+  },
+  {
+    "language": "abnf",
+    "label": "ABNF"
+  },
+  {
+    "language": "armasm",
+    "label": "ARM assembler"
+  },
+  {
+    "language": "avrasm",
+    "label": "AVR assembler"
+  },
+  {
+    "language": "accesslog",
+    "label": "Access logs"
+  },
+  {
+    "language": "actionscript",
+    "label": "ActionScript"
+  },
+  {
+    "language": "ada",
+    "label": "Ada"
+  },
+  {
+    "language": "angelscript",
+    "label": "AngelScript"
+  },
+  {
+    "language": "apache",
+    "label": "Apache"
+  },
+  {
+    "language": "applescript",
+    "label": "AppleScript"
+  },
+  {
+    "language": "arcade",
+    "label": "Arcade"
+  },
+  {
+    "language": "arduino",
+    "label": "Arduino (C++ w/Arduino libs)"
+  },
+  {
+    "language": "asciidoc",
+    "label": "AsciiDoc"
+  },
+  {
+    "language": "aspectj",
+    "label": "AspectJ"
+  },
+  {
+    "language": "autohotkey",
+    "label": "AutoHotkey"
+  },
+  {
+    "language": "autoit",
+    "label": "AutoIt"
+  },
+  {
+    "language": "awk",
+    "label": "Awk"
+  },
+  {
+    "language": "bnf",
+    "label": "BNF"
+  },
+  {
+    "language": "bash",
+    "label": "Bash"
+  },
+  {
+    "language": "basic",
+    "label": "Basic"
+  },
+  {
+    "language": "brainfuck",
+    "label": "Brainfuck"
+  },
+  {
+    "language": "c",
+    "label": "C"
+  },
+  {
+    "language": "csharp",
+    "label": "C#"
+  },
+  {
+    "language": "cpp",
+    "label": "C++"
+  },
+  {
+    "language": "cal",
+    "label": "C/AL"
+  },
+  {
+    "language": "cmake",
+    "label": "CMake"
+  },
+  {
+    "language": "csp",
+    "label": "CSP"
+  },
+  {
+    "language": "css",
+    "label": "CSS"
+  },
+  {
+    "language": "cos",
+    "label": "Cache Object Script"
+  },
+  {
+    "language": "capnproto",
+    "label": "Cap’n Proto"
+  },
+  {
+    "language": "clojure",
+    "label": "Clojure"
+  },
+  {
+    "language": "coffeescript",
+    "label": "CoffeeScript"
+  },
+  {
+    "language": "coq",
+    "label": "Coq"
+  },
+  {
+    "language": "crmsh",
+    "label": "Crmsh"
+  },
+  {
+    "language": "crystal",
+    "label": "Crystal"
+  },
+  {
+    "language": "d",
+    "label": "D"
+  },
+  {
+    "language": "dns",
+    "label": "DNS Zone file"
+  },
+  {
+    "language": "dos",
+    "label": "DOS"
+  },
+  {
+    "language": "dts",
+    "label": "DTS (Device Tree)"
+  },
+  {
+    "language": "dart",
+    "label": "Dart"
+  },
+  {
+    "language": "delphi",
+    "label": "Delphi"
+  },
+  {
+    "language": "diff",
+    "label": "Diff"
+  },
+  {
+    "language": "django",
+    "label": "Django"
+  },
+  {
+    "language": "dockerfile",
+    "label": "Dockerfile"
+  },
+  {
+    "language": "dust",
+    "label": "Dust"
+  },
+  {
+    "language": "ebnf",
+    "label": "EBNF"
+  },
+  {
+    "language": "elixir",
+    "label": "Elixir"
+  },
+  {
+    "language": "elm",
+    "label": "Elm"
+  },
+  {
+    "language": "erlang",
+    "label": "Erlang"
+  },
+  {
+    "language": "excel",
+    "label": "Excel"
+  },
+  {
+    "language": "fsharp",
+    "label": "F#"
+  },
+  {
+    "language": "fix",
+    "label": "FIX"
+  },
+  {
+    "language": "fortran",
+    "label": "Fortran"
+  },
+  {
+    "language": "gcode",
+    "label": "G-Code"
+  },
+  {
+    "language": "gauss",
+    "label": "GAUSS"
+  },
+  {
+    "language": "gams",
+    "label": "Gams"
+  },
+  {
+    "language": "gherkin",
+    "label": "Gherkin"
+  },
+  {
+    "language": "go",
+    "label": "Go"
+  },
+  {
+    "language": "golo",
+    "label": "Golo"
+  },
+  {
+    "language": "gradle",
+    "label": "Gradle"
+  },
+  {
+    "language": "groovy",
+    "label": "Groovy"
+  },
+  {
+    "language": "xml",
+    "label": "HTML, XML"
+  },
+  {
+    "language": "http",
+    "label": "HTTP"
+  },
+  {
+    "language": "haml",
+    "label": "Haml"
+  },
+  {
+    "language": "handlebars",
+    "label": "Handlebars"
+  },
+  {
+    "language": "haskell",
+    "label": "Haskell"
+  },
+  {
+    "language": "haxe",
+    "label": "Haxe"
+  },
+  {
+    "language": "hy",
+    "label": "Hy"
+  },
+  {
+    "language": "irpf90",
+    "label": "IRPF90"
+  },
+  {
+    "language": "inform7",
+    "label": "Inform7"
+  },
+  {
+    "language": "ini",
+    "label": "Ini, TOML"
+  },
+  {
+    "language": "json",
+    "label": "JSON"
+  },
+  {
+    "language": "java",
+    "label": "Java"
+  },
+  {
+    "language": "javascript",
+    "label": "JavaScript"
+  },
+  {
+    "language": "julia",
+    "label": "Julia"
+  },
+  {
+    "language": "kotlin",
+    "label": "Kotlin"
+  },
+  {
+    "language": "ldif",
+    "label": "LDIF"
+  },
+  {
+    "language": "tex",
+    "label": "LaTeX"
+  },
+  {
+    "language": "lasso",
+    "label": "Lasso"
+  },
+  {
+    "language": "leaf",
+    "label": "Leaf"
+  },
+  {
+    "language": "less",
+    "label": "Less"
+  },
+  {
+    "language": "lisp",
+    "label": "Lisp"
+  },
+  {
+    "language": "livecodeserver",
+    "label": "LiveCode Server"
+  },
+  {
+    "language": "livescript",
+    "label": "LiveScript"
+  },
+  {
+    "language": "lua",
+    "label": "Lua"
+  },
+  {
+    "language": "makefile",
+    "label": "Makefile"
+  },
+  {
+    "language": "markdown",
+    "label": "Markdown"
+  },
+  {
+    "language": "mathematica",
+    "label": "Mathematica"
+  },
+  {
+    "language": "matlab",
+    "label": "Matlab"
+  },
+  {
+    "language": "maxima",
+    "label": "Maxima"
+  },
+  {
+    "language": "mel",
+    "label": "Maya Embedded Language"
+  },
+  {
+    "language": "mercury",
+    "label": "Mercury"
+  },
+  {
+    "language": "mizar",
+    "label": "Mizar"
+  },
+  {
+    "language": "mojolicious",
+    "label": "Mojolicious"
+  },
+  {
+    "language": "monkey",
+    "label": "Monkey"
+  },
+  {
+    "language": "moonscript",
+    "label": "Moonscript"
+  },
+  {
+    "language": "n1ql",
+    "label": "N1QL"
+  },
+  {
+    "language": "nsis",
+    "label": "NSIS"
+  },
+  {
+    "language": "nginx",
+    "label": "Nginx"
+  },
+  {
+    "language": "nim",
+    "label": "Nim"
+  },
+  {
+    "language": "nix",
+    "label": "Nix"
+  },
+  {
+    "language": "ocaml",
+    "label": "OCaml"
+  },
+  {
+    "language": "objectivec",
+    "label": "Objective C"
+  },
+  {
+    "language": "glsl",
+    "label": "OpenGL Shading Language"
+  },
+  {
+    "language": "openscad",
+    "label": "OpenSCAD"
+  },
+  {
+    "language": "ruleslanguage",
+    "label": "Oracle Rules Language"
+  },
+  {
+    "language": "oxygene",
+    "label": "Oxygene"
+  },
+  {
+    "language": "pf",
+    "label": "PF"
+  },
+  {
+    "language": "php",
+    "label": "PHP"
+  },
+  {
+    "language": "parser3",
+    "label": "Parser3"
+  },
+  {
+    "language": "perl",
+    "label": "Perl"
+  },
+  {
+    "language": "pony",
+    "label": "Pony"
+  },
+  {
+    "language": "pgsql",
+    "label": "PostgreSQL & PL/pgSQL"
+  },
+  {
+    "language": "powershell",
+    "label": "PowerShell"
+  },
+  {
+    "language": "processing",
+    "label": "Processing"
+  },
+  {
+    "language": "prolog",
+    "label": "Prolog"
+  },
+  {
+    "language": "properties",
+    "label": "Properties"
+  },
+  {
+    "language": "protobuf",
+    "label": "Protocol Buffers"
+  },
+  {
+    "language": "puppet",
+    "label": "Puppet"
+  },
+  {
+    "language": "python",
+    "label": "Python"
+  },
+  {
+    "language": "python-repl",
+    "label": "Python REPL"
+  },
+  {
+    "language": "profile",
+    "label": "Python profiler results"
+  },
+  {
+    "language": "k",
+    "label": "Q"
+  },
+  {
+    "language": "qml",
+    "label": "QML"
+  },
+  {
+    "language": "r",
+    "label": "R"
+  },
+  {
+    "language": "reasonml",
+    "label": "ReasonML"
+  },
+  {
+    "language": "rib",
+    "label": "RenderMan RIB"
+  },
+  {
+    "language": "rsl",
+    "label": "RenderMan RSL"
+  },
+  {
+    "language": "graph",
+    "label": "Roboconf"
+  },
+  {
+    "language": "ruby",
+    "label": "Ruby"
+  },
+  {
+    "language": "rust",
+    "label": "Rust"
+  },
+  {
+    "language": "SAS",
+    "label": "SAS"
+  },
+  {
+    "language": "scss",
+    "label": "SCSS"
+  },
+  {
+    "language": "sml",
+    "label": "SML"
+  },
+  {
+    "language": "sql",
+    "label": "SQL"
+  },
+  {
+    "language": "p21",
+    "label": "STEP Part 21"
+  },
+  {
+    "language": "scala",
+    "label": "Scala"
+  },
+  {
+    "language": "scheme",
+    "label": "Scheme"
+  },
+  {
+    "language": "scilab",
+    "label": "Scilab"
+  },
+  {
+    "language": "shell",
+    "label": "Shell"
+  },
+  {
+    "language": "smali",
+    "label": "Smali"
+  },
+  {
+    "language": "smalltalk",
+    "label": "Smalltalk"
+  },
+  {
+    "language": "stan",
+    "label": "Stan"
+  },
+  {
+    "language": "stata",
+    "label": "Stata"
+  },
+  {
+    "language": "stylus",
+    "label": "Stylus"
+  },
+  {
+    "language": "subunit",
+    "label": "SubUnit"
+  },
+  {
+    "language": "swift",
+    "label": "Swift"
+  },
+  {
+    "language": "tp",
+    "label": "TP"
+  },
+  {
+    "language": "tcl",
+    "label": "Tcl"
+  },
+  {
+    "language": "tap",
+    "label": "Test Anything Protocol"
+  },
+  {
+    "language": "thrift",
+    "label": "Thrift"
+  },
+  {
+    "language": "twig",
+    "label": "Twig"
+  },
+  {
+    "language": "typescript",
+    "label": "TypeScript"
+  },
+  {
+    "language": "vbnet",
+    "label": "VB.Net"
+  },
+  {
+    "language": "vbscript",
+    "label": "VBScript"
+  },
+  {
+    "language": "vhdl",
+    "label": "VHDL"
+  },
+  {
+    "language": "vala",
+    "label": "Vala"
+  },
+  {
+    "language": "verilog",
+    "label": "Verilog"
+  },
+  {
+    "language": "vim",
+    "label": "Vim Script"
+  },
+  {
+    "language": "axapta",
+    "label": "X++"
+  },
+  {
+    "language": "xl",
+    "label": "XL"
+  },
+  {
+    "language": "xquery",
+    "label": "XQuery"
+  },
+  {
+    "language": "yml",
+    "label": "YAML"
+  },
+  {
+    "language": "zephir",
+    "label": "Zephir"
+  },
+  {
+    "language": "dsconfig",
+    "label": "dsconfig"
+  },
+  {
+    "language": "x86asm",
+    "label": "x86 Assembly"
+  }
+]
