@@ -32,6 +32,7 @@ export class DataConversionService {
       tables: true,
       tasklists: true,
       literalMidWordUnderscores: true,
+      simpleLineBreaks: true,
       emoji: true,
       openLinksInNewWindow: true,
       extensions: [referenceLink(projectSlug), wikiLink(projectSlug), imageLinks()],
