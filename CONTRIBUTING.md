@@ -22,7 +22,7 @@ Help us keep the Taiga Community open and inclusive. Please read and follow our 
 
 ## Our License
 
-Every code patch accepted in Taiga codebase is licensed under [AGPL v3.0][AGPL v3.0]. You must be careful to not include any code that can not be licensed under this license.
+Every code patch accepted in Taiga codebase is licensed under [MIT-0][MIT-0]. You must be careful to not include any code that can not be licensed under this license.
 
 Please read carefully [our license][Taiga license] and ask us if you have any questions.
 
@@ -102,7 +102,7 @@ Currently, we have authored three main documentation hubs:
 [Taiga.io]: https://taiga.io
 
 [CoC]: https://github.com/taigaio/code-of-conduct/blob/master/CODE_OF_CONDUCT.md
-[AGPL v3.0]: http://www.gnu.org/licenses/agpl-3.0.html
+[MIT-0]: LICENSE
 [Taiga license]: https://github.com/taigaio/taiga-back/blob/master/LICENSE
 
 [Taiga Mailing List]: http://groups.google.co.uk/d/forum/taigaio

@@ -1,11 +1,3 @@
-/**
- * Copyright (c) 2014-2020 Taiga Agile LLC
- *
- * This source code is licensed under the terms of the
- * GNU Affero General Public License found in the LICENSE file in
- * the root directory of this source tree.
- */
-
 export { Attachment, AttachmentCreationData } from '@/app/api/commons/attachment.model';
 import { Voter as TaskVoter } from '@/app/api/commons/voter.model';
 import { Watcher as TaskWatcher } from '@/app/api/commons/watcher.model';
