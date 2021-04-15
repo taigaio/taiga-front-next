@@ -1,3 +1,11 @@
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) 2021-present Kaleidos Ventures SL
+ */
+
 import { EpicStatus } from '@/app/api/epic-statuses/epic-statuses.model';
 import { IssueStatus } from '@/app/api/issue-statuses/issue-statuses.model';
 import { IssueType } from '@/app/api/issue-types/issue-types.model';
