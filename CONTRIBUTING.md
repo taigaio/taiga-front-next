@@ -22,7 +22,7 @@ Help us keep the Taiga Community open and inclusive. Please read and follow our 
 
 ## Our License
 
-Every code patch accepted in Taiga codebase is licensed under [MIT-0][MIT-0]. You must be careful to not include any code that can not be licensed under this license.
+Every code patch accepted in Taiga codebase is licensed under [MPL-2][LICENSE]. You must be careful to not include any code that can not be licensed under this license.
 
 Please read carefully [our license][Taiga license] and ask us if you have any questions.
 
@@ -102,21 +102,21 @@ Currently, we have authored three main documentation hubs:
 [Taiga.io]: https://taiga.io
 
 [CoC]: https://github.com/taigaio/code-of-conduct/blob/master/CODE_OF_CONDUCT.md
-[MIT-0]: LICENSE
-[Taiga license]: https://github.com/taigaio/taiga-back/blob/master/LICENSE
+[MPL-2]: LICENSE
+[Taiga license]: https://github.com/kaleidos-ventures/taiga-back/blob/main/LICENSE
 
 [Taiga Mailing List]: http://groups.google.co.uk/d/forum/taigaio
 [Support email]: mailto:support@taiga.io
 [Security email]: mailto:security@taiga.io
 
 [Taiga in Transifex]: https://www.transifex.com/organization/taiga-agile-llc/
-[Taiga in GitHub]: https://github.com/taigaio
+[Taiga in GitHub]: https://github.com/kaleidos-ventures
 
 [Taiga kanban]: https://tree.taiga.io/project/taiga/kanban
 [Taiga Bug list]: https://tree.taiga.io/project/taiga/issues?statuses=1,2&orderBy=-created_date&page=1&types=1
 [Taiga Enhancement list]: https://tree.taiga.io/project/taiga/issues?statuses=1,2&orderBy=-total_voters&page=1&status=1,2&types=6
 
 [Taiga Dev/Setup documentation]: http://taigaio.github.io/taiga-doc/dist/
-[Taiga Dev/Setup documentation repo]: https://github.com/taigaio/taiga-doc
-[Taiga User documentation]: https://tree.taiga.io/support/
-[Taiga User documentation repo]: https://github.com/taigaio/taiga-support
+[Taiga Dev/Setup documentation repo]: https://github.com/kaleidos-ventures/taiga-doc
+[Taiga User documentation]: https://resources.taiga.io/
+[Taiga User documentation repo]: https://github.com/kaleidos-ventures/taiga-resources
