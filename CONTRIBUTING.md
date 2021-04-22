@@ -101,7 +101,7 @@ Currently, we have authored three main documentation hubs:
 
 [Taiga.io]: https://taiga.io
 
-[CoC]: https://github.com/taigaio/code-of-conduct/blob/master/CODE_OF_CONDUCT.md
+[CoC]: https://github.com/kaleidos-ventures/code-of-conduct/blob/main/CODE_OF_CONDUCT.md
 [MPL-2]: LICENSE
 [Taiga license]: https://github.com/kaleidos-ventures/taiga-back/blob/main/LICENSE
 
@@ -116,7 +116,7 @@ Currently, we have authored three main documentation hubs:
 [Taiga Bug list]: https://tree.taiga.io/project/taiga/issues?statuses=1,2&orderBy=-created_date&page=1&types=1
 [Taiga Enhancement list]: https://tree.taiga.io/project/taiga/issues?statuses=1,2&orderBy=-total_voters&page=1&status=1,2&types=6
 
-[Taiga Dev/Setup documentation]: http://taigaio.github.io/taiga-doc/dist/
+[Taiga Dev/Setup documentation]: http://docs.taiga.io/
 [Taiga Dev/Setup documentation repo]: https://github.com/kaleidos-ventures/taiga-doc
 [Taiga User documentation]: https://resources.taiga.io/
 [Taiga User documentation repo]: https://github.com/kaleidos-ventures/taiga-resources
