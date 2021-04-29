@@ -42,7 +42,7 @@ export class ProjectLogoDirective {
       // LEGACY
       const prefix = (window as any)._version ? (window as any)._version : '';
 
-      this.src = `/${prefix}${logo[0]}`;
+      this.src = `${prefix}${logo[0]}`;
       this.bg = logo[1];
     }
   }

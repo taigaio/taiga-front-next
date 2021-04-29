@@ -25,7 +25,7 @@ export default (projectSlug: string) => {
           .replace('#', '')
           .replace(/ /g, '');
 
-        return `${start}[#${result}](/project/${projectSlug}/t/${result})`;
+        return `${start}[#${result}](project/${projectSlug}/t/${result})`;
     },
   };
 
@@ -44,7 +44,7 @@ export default (projectSlug: string) => {
           .replace('@', '')
           .replace(/ /g, '');
 
-        return `${start}[@${result}](/profile/${result})`;
+        return `${start}[@${result}](profile/${result})`;
     },
   };
 
@@ -52,8 +52,8 @@ export default (projectSlug: string) => {
       type: 'output',
       filter: (text: string) => {
         // this is for MentionCustomization upcast
-        text = text.replace(new RegExp('href="/project/', 'gi'), 'class="mention" data-mention="true" href="/project/');
-        text = text.replace(new RegExp('href="/profile/', 'gi'), 'class="mention" data-mention="true" href="/profile/');
+        text = text.replace(new RegExp('href="project/', 'gi'), 'class="mention" data-mention="true" href="project/');
+        text = text.replace(new RegExp('href="profile/', 'gi'), 'class="mention" data-mention="true" href="profile/');
 
         return text;
       },
