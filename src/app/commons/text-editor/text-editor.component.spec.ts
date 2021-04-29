@@ -85,17 +85,17 @@ describe('TextEditorComponent', () => {
       expect(result).toEqual([
         {
           id: `#${userstory.ref}`,
-          link: `/project/${projectSlug}/t/${userstory.ref}`,
+          link: `project/${projectSlug}/t/${userstory.ref}`,
           listRenderText: `#${userstory.ref} - ${userstory.subject}`,
         },
         {
           id: `#${issue.ref}`,
-          link: `/project/${projectSlug}/t/${issue.ref}`,
+          link: `project/${projectSlug}/t/${issue.ref}`,
           listRenderText: `#${issue.ref} - ${issue.subject}`,
         },
         {
           id: `#${task.ref}`,
-          link: `/project/${projectSlug}/t/${task.ref}`,
+          link: `project/${projectSlug}/t/${task.ref}`,
           listRenderText: `#${task.ref} - ${task.subject}`,
         },
       ]);

@@ -189,12 +189,12 @@ var x = 'hi';
 </table>
 <p>New paragraph<br />
 New paragraph</p>
-<p><a class="mention" data-mention="true" href="/profile/nm0000439" rel="noopener noreferrer" target="_blank">@nm0000439</a> and <a class="mention" data-mention="true" href="/profile/nm0000439_with_underscore" rel="noopener noreferrer" target="_blank">@nm0000439_with_underscore</a></p>
+<p><a class="mention" data-mention="true" href="profile/nm0000439" rel="noopener noreferrer" target="_blank">@nm0000439</a> and <a class="mention" data-mention="true" href="profile/nm0000439_with_underscore" rel="noopener noreferrer" target="_blank">@nm0000439_with_underscore</a></p>
 <p>text</p>
-<p><a class="mention" data-mention="true" href="/project/${projectSlug}/t/123" rel="noopener noreferrer" target="_blank">#123</a> reference <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> text</p>
+<p><a class="mention" data-mention="true" href="project/${projectSlug}/t/123" rel="noopener noreferrer" target="_blank">#123</a> reference <a class="mention" data-mention="true" href="project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> text</p>
 <p>https://urlwithpossiblereference/#NOTE</p>
-<p>Mutiples references <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> more text <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> more text</p>
-<p>An <a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-one" rel="noopener noreferrer" target="_blank">example-one</a> or <a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-two" rel="noopener noreferrer" target="_blank">Example 2</a> of wiki links.</p>
+<p>Mutiples references <a class="mention" data-mention="true" href="project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> more text <a class="mention" data-mention="true" href="project/${projectSlug}/t/66" rel="noopener noreferrer" target="_blank">#66</a> more text</p>
+<p>An <a class="mention" data-mention="true" href="project/${projectSlug}/wiki/example-one" rel="noopener noreferrer" target="_blank">example-one</a> or <a class="mention" data-mention="true" href="project/${projectSlug}/wiki/example-two" rel="noopener noreferrer" target="_blank">Example 2</a> of wiki links.</p>
 <p>Link image</p>
 <a href="http://localhost:9002/" rel="noopener noreferrer" target="_blank"><img src="https://test/image.jpg" alt="" /></a>
 <pre><code class="javascript language-javascript">var x = 'hi';
@@ -248,12 +248,12 @@ New paragraph</p>
 </tbody>
 </table>
 <p>New paragraph<br/>New paragraph</p>
-<p><a class="mention" data-mention="true" href="/profile/nm0000439" rel="noopener noreferrer" target="_blank">@nm0000439</a> and <a class="mention" data-mention="true" href="/profile/nm0000439_with_underscore" rel="noopener noreferrer" target="_blank">@nm0000439_with_underscore</a></p>
+<p><a class="mention" data-mention="true" href="profile/nm0000439" rel="noopener noreferrer" target="_blank">@nm0000439</a> and <a class="mention" data-mention="true" href="profile/nm0000439_with_underscore" rel="noopener noreferrer" target="_blank">@nm0000439_with_underscore</a></p>
 <p>text</p>
-<p><a class="mention" data-mention="true" href="/project/${projectSlug}/t/123" rel="noopener noreferrer" target="_blank">#123</a> reference <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> text</p>
+<p><a class="mention" data-mention="true" href="project/${projectSlug}/t/123" rel="noopener noreferrer" target="_blank">#123</a> reference <a class="mention" data-mention="true" href="project/${projectSlug}/t/66">#66</a> text</p>
 <p>https://urlwithpossiblereference/#NOTE</p>
-<p>Mutiples references <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> more text <a class="mention" data-mention="true" href="/project/${projectSlug}/t/66">#66</a> more text</p>
-<p>An <a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-one" rel="noopener noreferrer" target="_blank">example-one</a> or <a class="mention" data-mention="true" href="/project/${projectSlug}/wiki/example-two" rel="noopener noreferrer" target="_blank">Example 2</a> of wiki links.</p>
+<p>Mutiples references <a class="mention" data-mention="true" href="project/${projectSlug}/t/66">#66</a> more text <a class="mention" data-mention="true" href="project/${projectSlug}/t/66">#66</a> more text</p>
+<p>An <a class="mention" data-mention="true" href="project/${projectSlug}/wiki/example-one" rel="noopener noreferrer" target="_blank">example-one</a> or <a class="mention" data-mention="true" href="project/${projectSlug}/wiki/example-two" rel="noopener noreferrer" target="_blank">Example 2</a> of wiki links.</p>
 <p>Link image</p>
 <a href="http://localhost:9002/" rel="noopener noreferrer" target="_blank"><img src="https://test/image.jpg" alt="" /></a>
 <pre><code class="javascript language-javascript">var x = 'hi';

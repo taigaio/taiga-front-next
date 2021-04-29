@@ -70,7 +70,7 @@ export class TextEditorComponent {
     this.userMentions = members.map((member) => {
       return {
         id: `@${member.username}`,
-        link: `/profile/${member.username}`,
+        link: `profile/${member.username}`,
         listRenderText: `@${member.username} - ${member.fullNameDisplay}`,
       };
     });
@@ -147,7 +147,7 @@ export class TextEditorComponent {
             return result.map((it) => {
               return {
                 id: `#${it.ref}`,
-                link: `/project/${this.projectSlug}/t/${it.ref}`,
+                link: `project/${this.projectSlug}/t/${it.ref}`,
                 // text: `#${it.ref} - ${it.subject}`,
                 listRenderText: `#${it.ref} - ${it.subject}`,
               };

@@ -40,6 +40,7 @@ export class ConfigService {
       // LEGACY
       if ((window as any).taigaConfig) {
         this._config = (window as any).taigaConfig;
+        resolve(this.config);
       } else if (environment.configLocal) {
         this._config = environment.configLocal;
         resolve(this.config);

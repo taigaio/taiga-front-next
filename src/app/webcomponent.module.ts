@@ -25,9 +25,9 @@ import { LegacyModule } from './commons/legacy/legacy.module';
 import { LegacyComponent } from './commons/legacy/legacy.component';
 import { LegacyLoaderComponent } from './commons/legacy/legacy-loader.component';
 import { APP_BASE_HREF } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ElementZoneStrategyFactory } from 'elements-zone-strategy';
 import { ɵWebAnimationsDriver } from '@angular/animations/browser';
+import { RouterModule } from '@angular/router';
 
 // https://github.com/angular/angular/issues/25672
 ɵWebAnimationsDriver.prototype.containsElement = (el1: any, el2: any) => {
@@ -74,7 +74,7 @@ const componentes: [string, any][] = [
     TextEditorModule,
     ProjectNavigationModule,
     TranslateModule.forRoot(),
-    RouterTestingModule.withRoutes([
+    RouterModule.forRoot([
       {
         path: '**',
         component: EmptyComponent,
@@ -82,7 +82,13 @@ const componentes: [string, any][] = [
     ]),
   ],
   providers: [
-    {provide: APP_BASE_HREF, useValue: '/'},
+    {
+      provide: APP_BASE_HREF,
+      useFactory: () => {
+        const base = (window as any).taigaConfig.baseHref;
+        return base || '/';
+      },
+    },
     {
       provide: APP_INITIALIZER,
       multi: true,

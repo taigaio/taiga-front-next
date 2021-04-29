@@ -246,7 +246,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
   <div class="dialog-main menu-option">
     <a
       *ngIf="dialog.slug && dialog.type !== 'scrum'"
-      [routerLink]="dialog.slug"
+      [href]="dialog.slug"
       [style.height.px]="dialog.mainLinkHeight"
       class="main-link">
         <span class="dialog-text">
