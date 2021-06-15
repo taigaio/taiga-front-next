@@ -9,9 +9,9 @@
 import { Injectable } from '@angular/core';
 import showdown from 'showdown';
 import TurndownService from 'turndown';
-import * as turndownPluginGfm from 'turndown-plugin-gfm';
 
 import taskListItems from './turndown-plugins/task-list-items';
+import tables from './turndown-plugins/tables';
 import mention from './turndown-plugins/mention';
 import references from './turndown-plugins/references';
 import strikethrough from './turndown-plugins/strikethrough';
@@ -43,7 +43,7 @@ export class DataConversionService {
     });
 
     this.turndownService.use([
-      turndownPluginGfm.tables,
+      tables,
       taskListItems,
       mention,
       references(projectSlug),
