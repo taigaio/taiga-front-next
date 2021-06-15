@@ -16,13 +16,6 @@ declare module '@ckeditor/ckeditor5-inspector' {
 	export default content;
 }
 
-declare module 'turndown-plugin-gfm' {
-  export var gfm: any;
-  export var tables: any;
-  export var strikethrough: any;
-  export var taskListItems: any;
-}
-
 declare module 'imurmurhash' {
   const content: any;
 	export default content;

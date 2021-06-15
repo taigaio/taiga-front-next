@@ -57,7 +57,6 @@
     "taiga-html-editor": "https://github.com/kaleidos-ventures/taiga-html-editor#06d56bc",
     "tslib": "^2.0.1",
     "turndown": "^6.0.0",
-    "turndown-plugin-gfm": "^1.0.2",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {

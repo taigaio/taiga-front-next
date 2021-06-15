@@ -289,4 +289,15 @@ New paragraph</p>
       markdownExpected
     );
   });
+
+  it('image as table header', () => {
+    const htmlImageHeader = `<figure class="table"><table><thead><tr><th><figure class="image"><img src="https://test/images/icon.png" alt="alt text"></figure></th><th>header text</th></tr></thead></table></figure>`;
+
+    const markdownResult = spectator.service.toMarkdown(htmlImageHeader);
+
+    const expectedMarkdown = `| ![alt text](https://test/images/icon.png) | header text |
+| --- | --- |`;
+
+    expect(markdownResult).toEqual(expectedMarkdown);
+  });
 });
