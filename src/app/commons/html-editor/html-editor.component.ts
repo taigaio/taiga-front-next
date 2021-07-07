@@ -47,6 +47,24 @@ export class HtmlEditorComponent implements AfterViewInit {
 
   private editor: any;
 
+  private getTextPartLanguages(): { title: string; languageCode: string }[] {
+    const langList: { title: string; languageCode: string }[] = [
+      { title: 'العربية', languageCode: 'ar' },
+      { title: 'Deutsch', languageCode: 'de' },
+      { title: 'English', languageCode: 'en' },
+      { title: 'Español', languageCode: 'es' },
+      { title: 'Français', languageCode: 'fr' },
+      { title: '日本語', languageCode: 'ja' },
+      { title: '한국어', languageCode: 'ko' },
+      { title: 'Português', languageCode: 'pt' },
+      { title: 'русский', languageCode: 'ru' },
+      { title: '中文', languageCode: 'zh' },
+    ];
+    return langList.filter((lang) => {
+      return lang.languageCode !== this.lan;
+    });
+  }
+
   // LEGACY
   public getLegacyLoadTranslation() {
     return new Promise((resolve) => {
@@ -84,7 +102,10 @@ export class HtmlEditorComponent implements AfterViewInit {
     ClassicEditor
     .create(this.el.nativeElement, {
       placeholder: this.placeholder,
-      language: this.lan,
+      language: {
+        content: this.lan,
+        textPartLanguage: this.getTextPartLanguages(),
+      },
       codeBlock: {
         languages: [...languages],
       },
