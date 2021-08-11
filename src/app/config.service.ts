@@ -18,7 +18,7 @@ export class ConfigService {
   public get config() {
      // LEGACY
     if ((window as any).taigaConfig) {
-      const config = (window as any).taigaConfig;
+      const config = {...(window as any).taigaConfig};
       if (config.api.endsWith('/')) {
         config.api = config.api.slice(0, config.api.length - 1);
       }
