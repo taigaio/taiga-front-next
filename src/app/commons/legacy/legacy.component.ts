@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 import { UtilsService } from '@/app/commons/utils/utils-service.service';
 import { camelCase } from 'change-case';
 import { DataConversionService } from '@/app/commons/text-editor/data-conversion.service';
+import { ConfigService } from '@/app/config.service';
 
 @Component({
   selector: 'tg-legacy',
@@ -25,7 +26,8 @@ export class LegacyComponent implements OnInit {
   constructor(
     private readonly translate: TranslateService,
     private readonly router: Router,
-    private readonly legacyService: LegacyService) {}
+    private readonly legacyService: LegacyService,
+    private readonly config: ConfigService) {}
 
   public ngOnInit() {
     const channel = new BehaviorSubject<{
@@ -62,7 +64,13 @@ export class LegacyComponent implements OnInit {
       const $rootScrope = this.legacyService.getInjector().get('$rootScope');
 
       if ($location.path() !== e.url) {
-        $location.url(e.url);
+        let url = e.url;
+
+        if (url.startsWith(this.baseHref)) {
+          url = url.replace(this.baseHref, '/');
+        }
+
+        $location.url(url);
       }
 
       $rootScrope.$applyAsync();
@@ -85,6 +93,10 @@ export class LegacyComponent implements OnInit {
         });
       });
     });
+  }
+
+  get baseHref() {
+    return (this.config._config as any).baseHref ?? '/';
   }
 
   @Input()

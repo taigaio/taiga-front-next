@@ -29,6 +29,7 @@ import { pluck, map } from 'rxjs/operators';
 import { Milestone } from '@/app/api/milestones/milestones.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { ConfigService } from '@/app/config.service';
 
 interface ProjectMenuDialog {
   hover: boolean;
@@ -111,7 +112,8 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     private readonly translateService: TranslateService,
     private readonly cd: ChangeDetectorRef,
     private readonly legacyService: LegacyService,
-    private readonly router: Router) {}
+    private readonly router: Router,
+    private readonly config: ConfigService) {}
 
   public ngOnInit() {
     this.collapsed = (localStorage.getItem('projectnav-collapsed') === 'true');
@@ -129,6 +131,10 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     if (this.section === 'backlog') {
       this.scrumVisible = (localStorage.getItem('projectnav-scrum') === 'true');
     }
+  }
+
+  get baseHref() {
+    return (this.config._config as any).baseHref ?? '/';
   }
 
   public getActiveSection() {
@@ -177,13 +183,13 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
     const children: ProjectMenuDialog['children'] = this.milestones.map((milestone) => {
       return {
         text: milestone.name,
-        link: ['/project', this.project.slug, 'taskboard', milestone.slug],
+        link: [this.baseHref, 'project', this.project.slug, 'taskboard', milestone.slug],
       };
     });
 
     children.unshift({
       text: this.translateService.instant('PROJECT.SECTION.BACKLOG'),
-      link: ['/project', this.project.slug, 'backlog'],
+      link: [this.baseHref, 'project', this.project.slug, 'backlog'],
     });
 
     this.initDialog(event.target as HTMLElement, 'scrum', children);

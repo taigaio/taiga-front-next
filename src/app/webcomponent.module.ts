@@ -27,7 +27,7 @@ import { LegacyLoaderComponent } from './commons/legacy/legacy-loader.component'
 import { APP_BASE_HREF } from '@angular/common';
 import { ElementZoneStrategyFactory } from 'elements-zone-strategy';
 import { ɵWebAnimationsDriver } from '@angular/animations/browser';
-import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // https://github.com/angular/angular/issues/25672
 ɵWebAnimationsDriver.prototype.containsElement = (el1: any, el2: any) => {
@@ -74,7 +74,7 @@ const componentes: [string, any][] = [
     TextEditorModule,
     ProjectNavigationModule,
     TranslateModule.forRoot(),
-    RouterModule.forRoot([
+    RouterTestingModule.withRoutes([
       {
         path: '**',
         component: EmptyComponent,

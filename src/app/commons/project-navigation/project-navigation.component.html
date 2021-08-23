@@ -13,7 +13,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
       (mouseleave)="out()">
       <a
         class="project-link"
-        [routerLink]="['/project', project.slug, 'timeline']"
+        [routerLink]="[baseHref, 'project', project.slug, 'timeline']"
         [attr.title]="project.name">
       <img
         width="24"
@@ -35,7 +35,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
         (mouseenter)="popup($event, 'epics')"
         (mouseleave)="out()">
         <a
-          [routerLink]="['/project', project.slug, 'epics']"
+          [routerLink]="[baseHref, 'project', project.slug, 'epics']"
           title="{{'PROJECT.SECTION.EPICS' | translate}}">
           <svg>
             <use href="#epic" />
@@ -71,7 +71,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
           <li class="menu-option">
             <a
               [class.active]="milestoneId === null"
-              [routerLink]="['/project', project.slug, 'backlog']"
+              [routerLink]="[baseHref, 'project', project.slug, 'backlog']"
               routerLinkActive="active"
               title="{{'PROJECT.SECTION.BACKLOG' | translate}}">
               <span class="menu-option-text" data-animation="text">
@@ -82,7 +82,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
           <li *ngFor="let milestone of milestones" class="menu-option">
             <a
               [class.active]="milestone.id === milestoneId"
-              [routerLink]="['/project', project.slug, 'taskboard', milestone.slug]"
+              [routerLink]="[baseHref, 'project', project.slug, 'taskboard', milestone.slug]"
               routerLinkActive="active"
               [attr.title]="milestone.name">
               <span class="menu-option-text" data-animation="text">
@@ -100,7 +100,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
         (mouseenter)="popup($event, 'kanban')"
         (mouseleave)="out()">
         <a
-          [routerLink]="['/project', project.slug, 'kanban']"
+          [routerLink]="[baseHref, 'project', project.slug, 'kanban']"
           title="{{'PROJECT.SECTION.KANBAN' | translate}}">
           <svg>
             <use href="#kanban5" />
@@ -118,7 +118,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
         (mouseenter)="popup($event, 'issues')"
         (mouseleave)="out()">
         <a
-          [routerLink]="['/project', project.slug, 'issues']"
+          [routerLink]="[baseHref, 'project', project.slug, 'issues']"
           title="{{'PROJECT.SECTION.ISSUES' | translate}}">
           <svg>
             <use href="#issue" />
@@ -174,7 +174,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
         (mouseenter)="popup($event, 'wiki')"
         (mouseleave)="out()">
         <a
-          [routerLink]="['/project', project.slug, 'wiki']"
+          [routerLink]="[baseHref, 'project', project.slug, 'wiki']"
           title="{{'PROJECT.SECTION.WIKI' | translate}}">
           <svg>
             <use href="#book" />
@@ -191,7 +191,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
         (mouseenter)="popup($event, 'team')"
         (mouseleave)="out()">
         <a
-          [routerLink]="['/project', project.slug, 'team']"
+          [routerLink]="[baseHref, 'project', project.slug, 'team']"
           title="{{'PROJECT.SECTION.TEAM' | translate}}">
           <svg>
             <use href="#users" />
@@ -209,7 +209,7 @@ Copyright (c) 2021-present Kaleidos Ventures SL
         (mouseenter)="popup($event, 'settings')"
         (mouseleave)="out()">
         <a
-          [routerLink]="['/project', project.slug, 'admin', 'project-profile', 'details']"
+          [routerLink]="[baseHref, 'project', project.slug, 'admin', 'project-profile', 'details']"
           title="{{'PROJECT.SECTION.SETTINGS' | translate}}">
           <svg>
             <use href="#settings" />
