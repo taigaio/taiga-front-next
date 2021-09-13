@@ -300,4 +300,61 @@ New paragraph</p>
 
     expect(markdownResult).toEqual(expectedMarkdown);
   });
+
+  it('escape html', () => {
+    const markdownResult = spectator.service.toMarkdown(`
+<p>t1 t2 &gt; t3 &lt; t4 &lt;button&gt;t5&lt;/button&gt;</p>
+<p>&nbsp;</p>
+<p>11 <test> 22</p>
+<pre><code class="language-plaintext">{% if xx &gt; 1 %}</code></pre>
+  ` .trim());
+
+    // button must be escaped by right now turndown doesn't do it
+    // https://github.com/mixmark-io/turndown/issues/395
+    // https://github.com/JohannesKaufmann/html-to-markdown/issues/30
+    // if an user wantes to write <button> he must write `<button>`
+    const expectedMarkdownResult = `
+t1 t2 > t3 < t4 <button>t5</button>
+
+11 22
+
+\`\`\`plaintext
+{% if xx > 1 %}
+\`\`\`
+    `.trim();
+
+    const expectedHtmlResult = `
+<p>t1 t2 &gt; t3 &lt; t4 <button>t5</button></p>
+<p>11 22</p>
+<pre><code class="plaintext language-plaintext">{% if xx &gt; 1 %}
+</code></pre>
+    `.trim();
+
+    const htmlResult = spectator.service.toHtml(markdownResult);
+
+    expect(markdownResult).toEqual(expectedMarkdownResult);
+
+    expect(htmlResult).toEqual(expectedHtmlResult);
+  });
 });
+
+
+/*
+<p>hl a &gt; esto es bien &lt; fff &lt;button&gt;eeee&lt;/button&gt;</p>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">{% if r.nagewogen_aantal &gt; 1 %}</code></pre>
+
+========================
+
+h1 a > esto es bien < fff <button>eeee</button>
+
+```
+{% if r.nagewogen_aantal > 1 %}
+```
+
+========================
+
+<p>hl a &gt; esto es bien &lt; fff &lt;button&gt;eeee&lt;/button&gt;</p>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">{% if r.nagewogen_aantal &gt; 1 %}</code></pre>
+*/

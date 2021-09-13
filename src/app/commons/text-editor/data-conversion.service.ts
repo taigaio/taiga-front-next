@@ -9,7 +9,6 @@
 import { Injectable } from '@angular/core';
 import showdown from 'showdown';
 import TurndownService from 'turndown';
-import sanitizeHtml from 'sanitize-html';
 
 import taskListItems from './turndown-plugins/task-list-items';
 import tables from './turndown-plugins/tables';
@@ -36,6 +35,7 @@ export class DataConversionService {
       simpleLineBreaks: true,
       emoji: true,
       openLinksInNewWindow: true,
+      backslashEscapesHTMLTags: true,
       extensions: [referenceLink(projectSlug), wikiLink(projectSlug), imageLinks()],
     });
 
@@ -54,10 +54,6 @@ export class DataConversionService {
   }
 
   public toHtml(markdown: string) {
-    markdown = sanitizeHtml(markdown, {
-      disallowedTagsMode: 'escape',
-    });
-
     return this.showdownConverter.makeHtml(markdown);
   }
 

@@ -19,6 +19,8 @@ import { LegacyService } from '@/app/commons/legacy/legacy.service';
 import { of } from 'rxjs';
 import { LegacyServiceMock } from '@/app/commons/legacy/legacy-service.mock';
 import { Router } from '@angular/router';
+import { ConfigService } from '@/app/config.service';
+import { ConfigServiceMock } from '@/app/config.service.mock';
 
 describe('ProjectNavigationComponent', () => {
   let spectator: Spectator<ProjectNavigationComponent>;
@@ -31,6 +33,7 @@ describe('ProjectNavigationComponent', () => {
     ],
     providers: [
       { provide: LegacyService, useClass: LegacyServiceMock },
+      { provide: ConfigService, useValue: ConfigServiceMock },
     ],
     imports: [
       ReactiveComponentModule,
