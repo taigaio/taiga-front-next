@@ -11,52 +11,60 @@ export default (projectSlug: string) => {
   const rgxMention = /(^|\s)(\\)?(@([a-z\d]+(?:[a-z\d._-]+?[a-z\d]+)*))/gi;
 
   const referenceToProject = {
-    type:    'lang',
+    type: 'lang',
     regex: rgxTicket,
     replace: (match: string, leadingSlash: string, _tag: string) => {
-        if (leadingSlash === '\\') {
-          return match;
-        }
+      if (leadingSlash === '\\') {
+        return match;
+      }
 
-        const mentionPosition = match.indexOf('#');
-        const start = match.slice(0, mentionPosition);
-        const result = match.slice(mentionPosition)
-          .replace('&nbsp;', '')
-          .replace('#', '')
-          .replace(/ /g, '');
+      const mentionPosition = match.indexOf('#');
+      const start = match.slice(0, mentionPosition);
+      const result = match
+        .slice(mentionPosition)
+        .replace('&nbsp;', '')
+        .replace('#', '')
+        .replace(/ /g, '');
 
-        return `${start}[#${result}](project/${projectSlug}/t/${result})`;
+      return `${start}[#${result}](project/${projectSlug}/t/${result})`;
     },
   };
 
   const referenceToUser = {
-    type:    'lang',
+    type: 'lang',
     regex: rgxMention,
     replace: (match: string, leadingSlash: string, _tag: string) => {
-        if (leadingSlash === '\\') {
-          return match;
-        }
+      if (leadingSlash === '\\') {
+        return match;
+      }
 
-        const mentionPosition = match.indexOf('@');
-        const start = match.slice(0, mentionPosition);
-        const result = match.slice(mentionPosition)
-          .replace('&nbsp;', '')
-          .replace('@', '')
-          .replace(/ /g, '');
+      const mentionPosition = match.indexOf('@');
+      const start = match.slice(0, mentionPosition);
+      const result = match
+        .slice(mentionPosition)
+        .replace('&nbsp;', '')
+        .replace('@', '')
+        .replace(/ /g, '');
 
-        return `${start}[@${result}](profile/${result})`;
+      return `${start}[@${result}](profile/${result})`;
     },
   };
 
   const linkReferences = {
-      type: 'output',
-      filter: (text: string) => {
-        // this is for MentionCustomization upcast
-        text = text.replace(new RegExp('href="project/', 'gi'), 'class="mention" data-mention="true" href="project/');
-        text = text.replace(new RegExp('href="profile/', 'gi'), 'class="mention" data-mention="true" href="profile/');
+    type: 'output',
+    filter: (text: string) => {
+      // this is for MentionCustomization upcast
+      text = text.replace(
+        new RegExp('href="project/', 'gi'),
+        'class="mention" data-mention="true" href="project/'
+      );
+      text = text.replace(
+        new RegExp('href="profile/', 'gi'),
+        'class="mention" data-mention="true" href="profile/'
+      );
 
-        return text;
-      },
+      return text;
+    },
   };
 
   return [referenceToProject, referenceToUser, linkReferences];

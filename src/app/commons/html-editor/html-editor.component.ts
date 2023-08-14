@@ -6,7 +6,16 @@
  * Copyright (c) 2021-present Kaleidos Ventures SL
  */
 
-import { Component, ElementRef, ViewChild, Input, AfterViewInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  Input,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import ClassicEditor from 'taiga-html-editor/packages/ckeditor5-build-classic/build/ckeditor';
 import emojis from './emoji.json';
 import languages from './languages.json';
@@ -22,8 +31,10 @@ const DEFAULT_CKEDITOR_LAN = 'en';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HtmlEditorComponent implements AfterViewInit {
-  @Input() feedUsers: (text: string) => Promise<{id: string; link: string}[]>;
-  @Input() feedReferences: (text: string) => Promise<{id: string; link: string}[]>;
+  @Input() feedUsers: (text: string) => Promise<{ id: string; link: string }[]>;
+  @Input() feedReferences: (
+    text: string
+  ) => Promise<{ id: string; link: string }[]>;
   @Input() lan = DEFAULT_CKEDITOR_LAN;
   @Input() placeholder = '';
 
@@ -41,7 +52,7 @@ export class HtmlEditorComponent implements AfterViewInit {
   @Output()
   public changed: EventEmitter<string> = new EventEmitter();
 
-  @ViewChild('el', {read: ElementRef}) private el: ElementRef;
+  @ViewChild('el', { read: ElementRef }) private el: ElementRef;
 
   private html = '';
 
@@ -68,7 +79,12 @@ export class HtmlEditorComponent implements AfterViewInit {
   // LEGACY
   public getLegacyLoadTranslation() {
     return new Promise((resolve) => {
-      (window as any).ljs.load(`/${(window as any).TAIGA_VERSION}/ckeditor-translations/${this.lan}.js`, resolve);
+      (window as any).ljs.load(
+        `/${(window as any).TAIGA_VERSION}/ckeditor-translations/${
+          this.lan
+        }.js`,
+        resolve
+      );
     });
   }
 
@@ -77,14 +93,14 @@ export class HtmlEditorComponent implements AfterViewInit {
       // import(`taiga-html-editor/packages/ckeditor5-build-classic/build/translations/${this.lan}.js`)
       // LEGACY
       this.getLegacyLoadTranslation()
-      .then(() => {
-        this.initEditor();
-      })
-      .catch(() => {
-        console.error(`Error trying to load ${this.lan}`);
-        this.lan = DEFAULT_CKEDITOR_LAN;
-        this.initEditor();
-      });
+        .then(() => {
+          this.initEditor();
+        })
+        .catch(() => {
+          console.error(`Error trying to load ${this.lan}`);
+          this.lan = DEFAULT_CKEDITOR_LAN;
+          this.initEditor();
+        });
     } else {
       this.initEditor();
     }
@@ -94,13 +110,14 @@ export class HtmlEditorComponent implements AfterViewInit {
     const uploadFunction = this.uploadFunction;
 
     function uploadAdapterPlugin(editor: any) {
-      editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
+      editor.plugins.get('FileRepository').createUploadAdapter = (
+        loader: any
+      ) => {
         return new UploadAdapterService(loader, uploadFunction);
       };
     }
 
-    ClassicEditor
-    .create(this.el.nativeElement, {
+    ClassicEditor.create(this.el.nativeElement, {
       placeholder: this.placeholder,
       language: {
         content: this.lan,
@@ -109,18 +126,16 @@ export class HtmlEditorComponent implements AfterViewInit {
       codeBlock: {
         languages: [...languages],
       },
-      extraPlugins: [
-        uploadAdapterPlugin.bind(this),
-      ],
+      extraPlugins: [uploadAdapterPlugin.bind(this)],
       link: {
         decorators: {
-            newPage: {
-                mode: 'automatic',
-                callback: () => true,
-                attributes: {
-                    target: '_blank',
-                },
+          newPage: {
+            mode: 'automatic',
+            callback: () => true,
+            attributes: {
+              target: '_blank',
             },
+          },
         },
       },
       mention: {
@@ -143,69 +158,91 @@ export class HtmlEditorComponent implements AfterViewInit {
           },
         ],
       },
+      typing: {
+        transformations: {
+          include: ['symbols', 'mathematical', 'quotes'],
+        },
+      },
     })
-    .then((editor: any) => {
-      this.editor = editor;
-      this.editor.setData(this.html);
-      editor.ui.focusTracker.on('change:isFocused', (_event: any, _name: any, value: boolean) => {
-        this.focusChanged.emit(value);
-      });
+      .then((editor: any) => {
+        this.editor = editor;
+        this.editor.setData(this.html);
+        editor.ui.focusTracker.on(
+          'change:isFocused',
+          (_event: any, _name: any, value: boolean) => {
+            this.focusChanged.emit(value);
+          }
+        );
 
-      editor.model.document.on( 'change:data', () => {
-        this.html = this.getHtml();
-        this.changed.emit(this.html);
-      });
+        editor.model.document.on('change:data', () => {
+          this.html = this.getHtml();
+          this.changed.emit(this.html);
+        });
 
-      // Hide switch tranform to table header row because it doesn't have markdown equivalent
-      this.hideTableHederRowSwitch();
-    })
-    .catch((error: any) => {
-      console.error(error);
-    });
+        // Hide switch tranform to table header row because it doesn't have markdown equivalent
+        this.hideTableHederRowSwitch();
+      })
+      .catch((error: any) => {
+        console.error(error);
+      });
   }
 
   private customItemRenderer(item: any) {
-    const itemElement = document.createElement( 'span' );
+    const itemElement = document.createElement('span');
 
     itemElement.classList.add('custom-item');
     itemElement.id = `mention-list-item-id-${item.id}`;
-    itemElement.textContent = `${item.listRenderText ? item.listRenderText : item.id}`;
+    itemElement.textContent = `${
+      item.listRenderText ? item.listRenderText : item.id
+    }`;
 
     return itemElement;
   }
 
   private hideTableHederRowSwitch() {
-    const widgetToolbarRepository = this.editor.plugins.get('WidgetToolbarRepository');
+    const widgetToolbarRepository = this.editor.plugins.get(
+      'WidgetToolbarRepository'
+    );
 
-    this.editor.plugins.get('ContextualBalloon')
-    .on('change:visibleView', (_eventInfo: any, _name: string, value: any) => {
-      const isTableToolbarVisible = widgetToolbarRepository
-        ._isToolbarVisible(widgetToolbarRepository._toolbarDefinitions.get('tableContent'));
+    this.editor.plugins
+      .get('ContextualBalloon')
+      .on(
+        'change:visibleView',
+        (_eventInfo: any, _name: string, value: any) => {
+          const isTableToolbarVisible =
+            widgetToolbarRepository._isToolbarVisible(
+              widgetToolbarRepository._toolbarDefinitions.get('tableContent')
+            );
 
-      if (isTableToolbarVisible && value) {
-        const model = this.editor.model;
-        const table = model.document.selection.focus.getAncestors().find((it: any) => it.name === 'table');
+          if (isTableToolbarVisible && value) {
+            const model = this.editor.model;
+            const table = model.document.selection.focus
+              .getAncestors()
+              .find((it: any) => it.name === 'table');
 
-        // set the first row as a header beacuse markdown only support tables with header
-        if (!table.getAttribute('headingRows')) {
-          this.editor.execute('setTableRowHeader');
-        }
+            // set the first row as a header beacuse markdown only support tables with header
+            if (!table.getAttribute('headingRows')) {
+              this.editor.execute('setTableRowHeader');
+            }
 
-        const dropdowns = Array.from(document.querySelectorAll('.ck-dropdown .ck-list')) as HTMLElement[];
+            const dropdowns = Array.from(
+              document.querySelectorAll('.ck-dropdown .ck-list')
+            ) as HTMLElement[];
 
-        dropdowns.forEach((dropdown) => {
-          const dropdownItems = dropdown.querySelectorAll('li');
+            dropdowns.forEach((dropdown) => {
+              const dropdownItems = dropdown.querySelectorAll('li');
 
-          if (dropdownItems.length) {
-            dropdownItems[0].style.display = 'none';
-            dropdownItems[1].style.display = 'none';
+              if (dropdownItems.length) {
+                dropdownItems[0].style.display = 'none';
+                dropdownItems[1].style.display = 'none';
+              }
+            });
           }
-        });
-      }
-    });
+        }
+      );
   }
 
-  private emojisRenderer(emoji: {id: string; text: string}) {
+  private emojisRenderer(emoji: { id: string; text: string }) {
     const itemElement = document.createElement('span');
 
     itemElement.textContent = `${emoji.text} ${emoji.id}`;
@@ -218,7 +255,7 @@ export class HtmlEditorComponent implements AfterViewInit {
       const emojisFiltred = Object.entries(emojis)
         .filter(([keyword]) => keyword.includes(search))
         .map(([keyword, character]) => {
-          return {id: `:${keyword}:`, text: character};
+          return { id: `:${keyword}:`, text: character };
         })
         .slice(0, 10);
 

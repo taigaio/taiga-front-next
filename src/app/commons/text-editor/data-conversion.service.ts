@@ -36,7 +36,13 @@ export class DataConversionService {
       emoji: true,
       openLinksInNewWindow: true,
       backslashEscapesHTMLTags: true,
-      extensions: [referenceLink(projectSlug), wikiLink(projectSlug), imageLinks()],
+      ellipsis: false,
+      simplifiedAutoLink: true,
+      extensions: [
+        referenceLink(projectSlug),
+        wikiLink(projectSlug),
+        imageLinks(),
+      ],
     });
 
     this.turndownService = new TurndownService({
@@ -54,7 +60,8 @@ export class DataConversionService {
   }
 
   public toHtml(markdown: string) {
-    return this.showdownConverter.makeHtml(markdown);
+    const html = this.showdownConverter.makeHtml(markdown);
+    return html;
   }
 
   public toMarkdown(html: string) {

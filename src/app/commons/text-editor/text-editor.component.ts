@@ -6,7 +6,15 @@
  * Copyright (c) 2021-present Kaleidos Ventures SL
  */
 
-import { Component, ViewChild, Input, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  Input,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef,
+} from '@angular/core';
 
 import { DataConversionService } from './data-conversion.service';
 import { HtmlEditorComponent } from '@/app/commons/html-editor/html-editor.component';
@@ -20,9 +28,7 @@ import { AutoCompleteItem } from './text-editor.model';
   selector: 'tg-text-editor',
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.css'],
-  providers: [
-    DataConversionService,
-  ],
+  providers: [DataConversionService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextEditorComponent {
@@ -107,7 +113,8 @@ export class TextEditorComponent {
   constructor(
     private readonly dataConversionService: DataConversionService,
     private readonly searchApiService: SearchApiService,
-    private readonly cd: ChangeDetectorRef) {}
+    private readonly cd: ChangeDetectorRef
+  ) {}
 
   public toMarkdown() {
     this._mode = 'markdown';
@@ -128,42 +135,48 @@ export class TextEditorComponent {
   }
 
   public feedUsers(search: string) {
-    return Promise.resolve(this.userMentions.filter((member) => {
-      return member.listRenderText.toLowerCase().includes(search.toLowerCase());
-    }));
+    return Promise.resolve(
+      this.userMentions.filter((member) => {
+        return member.listRenderText
+          .toLowerCase()
+          .includes(search.toLowerCase());
+      })
+    );
   }
 
   public feedReferences(search: string) {
     return new Promise((resolve) => {
       this.searchApiService
-      .search(this.projectId, search)
-      .pipe(
-        map((results) => {
-          if (!results.count || results.count === results.wikipages.length) {
-            return [];
-          }
+        .search(this.projectId, search)
+        .pipe(
+          map((results) => {
+            if (!results.count || results.count === results.wikipages.length) {
+              return [];
+            }
 
-          const formatResult = (result: {ref: number, subject: string}[]) => {
-            return result.map((it) => {
-              return {
-                id: `#${it.ref}`,
-                link: `project/${this.projectSlug}/t/${it.ref}`,
-                // text: `#${it.ref} - ${it.subject}`,
-                listRenderText: `#${it.ref} - ${it.subject}`,
-              };
-            });
-          };
+            const formatResult = (
+              result: { ref: number; subject: string }[]
+            ) => {
+              return result.map((it) => {
+                return {
+                  id: `#${it.ref}`,
+                  link: `project/${this.projectSlug}/t/${it.ref}`,
+                  // text: `#${it.ref} - ${it.subject}`,
+                  listRenderText: `#${it.ref} - ${it.subject}`,
+                };
+              });
+            };
 
-          return [
-            ...formatResult(results.userstories),
-            ...formatResult(results.issues),
-            ...formatResult(results.tasks),
-          ].slice(0, 10);
-        })
-      )
-      .subscribe((result) => {
-        resolve(result);
-      });
+            return [
+              ...formatResult(results.userstories),
+              ...formatResult(results.issues),
+              ...formatResult(results.tasks),
+            ].slice(0, 10);
+          })
+        )
+        .subscribe((result) => {
+          resolve(result);
+        });
     });
   }
 }
