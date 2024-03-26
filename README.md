@@ -47,9 +47,9 @@ Help us keep the Taiga Community open and inclusive. Please read and follow our 
 
 #### License ####
 
-Every code patch accepted in taiga codebase is licensed under [MPL 2.0](LICENSE). You must be careful to not include any code that can not be licensed under this license.
+Every code patch accepted in this repository is licensed under [AGPL 3.0](LICENSE). You must be careful to not include any code that can not be licensed under this license.
 
-Please read carefully [our license](LICENSE) and ask us if you have any questions as well as the [Contribution policy](https://github.com/taigaio/taiga-front/blob/main/CONTRIBUTING.md).
+Please read carefully [our license](LICENSE) and ask us if you have any questions as well as the [Contribution policy](https://github.com/taigaio/taiga-front-next/blob/main/CONTRIBUTING.md).
 
 Emoji provided free by [Twemoji](https://github.com/twitter/twemoji)
 
@@ -107,7 +107,7 @@ There are two possible ways to contribute to our UI:
 
 [Taiga has a mailing list](http://groups.google.com/d/forum/taigaio). Feel free to join it and ask any questions you may have.
 
-If you want to be up to date about announcements of releases, important changes and so on, you can subscribe to our newsletter (you will find it by scrolling down at [https://taiga.io](https://www.taiga.io/)) and follow [@taigaio](https://twitter.com/taigaio) on Twitter.
+If you want to be up to date about announcements of releases, important changes and so on, you can subscribe to our newsletter (you will find it by scrolling down at [https://taiga.io](https://taiga.io/)) and follow [@taigaio](https://twitter.com/taigaio) on Twitter.
 
 
 ## Donations ##
