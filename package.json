@@ -55,7 +55,7 @@
     "rxjs": "~6.6.2",
     "sanitize-html": "^2.4.0",
     "showdown": "^2.1.0",
-    "taiga-html-editor": "https://github.com/kaleidos-ventures/taiga-html-editor#4f51e47",
+    "taiga-html-editor": "https://github.com/taigaio/taiga-html-editor#4f51e47",
     "tslib": "^2.0.1",
     "turndown": "^6.0.0",
     "zone.js": "~0.10.3"
