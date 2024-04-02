@@ -1,6 +1,8 @@
 {
   "name": "taiga-front-next",
   "version": "0.0.0",
+  "license": "AGPL-3.0-or-later",
+  "private": true,
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -18,7 +20,6 @@
     "build:elements": "ng build --prod --tsConfig tsconfig.webcomponent.json --main src/main-webcomponent.ts --outputPath dist/elements --output-hashing none",
     "pack:elements": "sh scripts/concat-dist-files.sh"
   },
-  "private": true,
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS && npm run lint && node ./scripts/append-license.js"
